@@ -86,7 +86,7 @@ implementation{
       Package->dest = dest;
       Package->TTL = TTL;
       Package->seq = seq;
-      Package->protocol = protocol;
+      Package->protocol = protocol; 
       memcpy(Package->payload, payload, length);
    }
 }
