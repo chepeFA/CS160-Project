@@ -50,7 +50,7 @@ class TestSim:
         topoFile = 'topo/'+topoFile
         f = open(topoFile, "r")
         self.numMote = int(f.readline());
-        print 'Number of Motes', self.numMote
+        print 'Number of Nodes', self.numMote
         for line in f:
             s = line.split()
             if s:
@@ -137,12 +137,16 @@ def main():
     s.bootAll();
     s.addChannel(s.COMMAND_CHANNEL);
     s.addChannel(s.GENERAL_CHANNEL);
+    s.addChannel(s.NEIGHBOR_CHANNEL);
+    s.addChannel(s.FLOODING_CHANNEL);
 
     s.runTime(20);
-    s.ping(1, 2, "Hello, World");
+    s.ping(2, 3, "Hello, World");
     s.runTime(10);
-    s.ping(1, 3, "Hi!");
-    s.runTime(20);
+    #s.ping(1, 3, "Hi!");
+
+    #s.runTime(20);
 
 if __name__ == '__main__':
     main()
+
