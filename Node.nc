@@ -22,6 +22,13 @@ module Node{
    uses interface SimpleSend as Sender;
 
    uses interface CommandHandler;
+
+   uses interface HashMap<Neighbor> as Neighbor;
+   uses interface HashMap<Pack> as packetList;
+   uses interface Timer <Tmilli> as tTimer;
+
+
+   
 }
 
 implementation{
