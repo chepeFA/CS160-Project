@@ -40,8 +40,10 @@ implementation{
 
 
    event void Boot.booted(){
+     uint16_t start;
       call AMControl.start();
-      uint16_t start;
+    
+
       dbg(GENERAL_CHANNEL, "Booted\n");
        start = call RandomTimer.rand16();
 
