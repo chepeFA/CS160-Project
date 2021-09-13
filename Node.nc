@@ -41,9 +41,9 @@ implementation{
 
    event void Boot.booted(){
       call AMControl.start();
-
+      uint16_t start;
       dbg(GENERAL_CHANNEL, "Booted\n");
-      uint16_t start = call RandomTimer.rand();
+       start = call RandomTimer.rand();
 
       call NeighboorTimer.startPeriodic(start);
 
