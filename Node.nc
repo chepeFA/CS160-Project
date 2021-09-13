@@ -24,7 +24,7 @@ module Node{
    uses interface CommandHandler;
 
    uses interface Timer<TMilli> as NeighboorTimer;
-   uses interface List<Neighboor> NeighboorList;
+   uses interface List<Neighboor> as NeighboorList;
 
 
    
@@ -33,7 +33,7 @@ module Node{
 implementation{
    pack sendPackage;
    uint16_t sequenceNumber;
-   
+
 
    // Prototypes
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
