@@ -13,6 +13,29 @@
 #include "includes/sendInfo.h"
 #include "includes/channels.h"
 
+
+typedef nx_struct floodingLayer{
+   nx_uint16_t floodSource;
+   nx_uint16_t sequenceNumber;
+   nx_uint16_t TTL;
+
+}floodingLayer;
+
+typedef nx_struct linkLayer{
+   nx_uint16_t sourceAddress;
+   nx_uint16_t destinationAdress;
+  
+
+}linkLayer;
+//application payload: payload is in the packgare
+
+typedef nx_struct Nod{
+   *floodingLayer;
+   *linkLayer;
+
+}
+
+
 module Node{
    uses interface Boot;
    uses interface Random as RandomTimer; 
@@ -32,7 +55,7 @@ module Node{
 
 implementation{
    pack sendPackage;
-   uint16_t sequenceNumber;
+   uint16_t seqNumber;
 
 
    // Prototypes
