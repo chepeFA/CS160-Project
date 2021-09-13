@@ -119,5 +119,10 @@ implementation{
       memcpy(Package->payload, payload, length);
    }
 
+   void neighboorDiscovery()
+   {
+   dbg(GENERAL_CHANNEL, "in neighboor discovery\n");
+   }
+
    
 }
