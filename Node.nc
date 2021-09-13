@@ -15,7 +15,7 @@
 
 module Node{
    uses interface Boot;
-
+   uses interface Random as RandomTimer; 
    uses interface SplitControl as AMControl;
    uses interface Receive;
 
@@ -23,7 +23,7 @@ module Node{
 
    uses interface CommandHandler;
 
-
+   uses interface Timer<TMilli> as NeighboorTimer;
 
 
    
@@ -35,12 +35,21 @@ implementation{
    // Prototypes
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
 
+   void printNeighboorList();
+
 
 
    event void Boot.booted(){
       call AMControl.start();
 
       dbg(GENERAL_CHANNEL, "Booted\n");
+      uint16_t start = call RandomTimer.rand();
+
+      call NeighboorTimer.startPeriodic(start);
+
+      //Fire timers
+      dbg(GENERAL_CHANNEL, "Timer started at: %d \t", start);
+
    }
 
    event void AMControl.startDone(error_t err){
@@ -101,12 +110,5 @@ implementation{
       memcpy(Package->payload, payload, length);
    }
 
-   event void packetTimer.fired()
-   {
-      if( returned == 0 ) {
-       dbg(GENERAL_CHANNEL, "Destination not found \n");
-       lastDestination = lastDestination + 1;
-       call Sender.send(sendPackage, lastDestination);
-     }
-   }
+   
 }

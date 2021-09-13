@@ -6,6 +6,8 @@
 #include "includes/sendInfo.h"
 #include "includes/channels.h"
 
+//here I should add all the layers
+
 
 module Node
 {
@@ -19,7 +21,7 @@ module Node
    uses interface CommandHandler;
 
    //declaring timer
-   uses interface Timer<TMilli> as Timer0;
+   uses interface Timer<TMilli> as NeighboorTimer;
 
    //declaring interfaces. Interfaces are in DataStructures/interfaces/List
    uses interface List<Neighbor> as NeighborList;
@@ -60,7 +62,7 @@ implementation{
       if(err == SUCCESS){
          dbg(GENERAL_CHANNEL, "Radio On\n");
 
-         call Timer0.startPeriodic(1000);                     
+         call NeighboorTimer.startPeriodic(1000);                     
       }else{
          call AMControl.start();                                            
       }
