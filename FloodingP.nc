@@ -72,20 +72,48 @@ implementation{
 
       dbg(GENERAL_CHANNEL, "Packet Received\n");
 
+      	//if the packet was received
        if(len==sizeof(pack)){
-         pack* myMsg=(pack*) payload;
-         dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
+
+
+       //  pack* myMsg=(pack*) payload;
+         //dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
 
          call Sender.send(sendPackage, AM_BROADCAST_ADDR);
-
+         sendWithTimerPing(&sendPackage);
 
 
          return msg;
       }
+
+
+
+
+
+      //end
       dbg(GENERAL_CHANNEL, "Unknown Packet Type %d\n", len);
       return msg;
 
 
 
 
+}
+
+
+   event void packetTimer.fired()
+   {
+      if( returned == 0 ) {
+       dbg(GENERAL_CHANNEL, "Destination not found \n");
+       lastDestination = lastDestination + 1;
+       call Sender.send(sendPackage, lastDestination);
+     }
+   }
+
+    void sendWithTimerDiscovery(pack Package, uint16_t destination) {
+
+     returned = 0;
+     lastDestination = destination;
+     call packageTimer.startOneShot(1000);
+     call Sender.send(Package, destination, src);
+   }
 }
