@@ -50,7 +50,7 @@ implementation{
       call NeighboorTimer.startPeriodicAt(0,start);
 
       //Fire timers
-      dbg(GENERAL_CHANNEL, "Timer started at beggining: %d \t", 0, "being fired every %d \t" , start);
+      dbg("Timer started at beggining: %d \t", 0, "being fired every %d \t" , start);
 
    }
 
