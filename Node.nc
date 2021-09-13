@@ -24,7 +24,7 @@ module Node{
    uses interface CommandHandler;
 
    uses interface Timer<TMilli> as NeighboorTimer;
-   uses interface List<Neighboor> as NeighboorList;
+   uses interface List<pack> as NeighboorList;
 
 
    
