@@ -23,9 +23,7 @@ module Node{
 
    uses interface CommandHandler;
 
-   uses interface HashMap<Neighbor> as Neighbor;
-   uses interface HashMap<Pack> as packetList;
-   uses interface Timer <Tmilli> as tTimer;
+
 
 
    
@@ -56,6 +54,8 @@ implementation{
 
    event message_t* Receive.receive(message_t* msg, void* payload, uint8_t len){
       dbg(GENERAL_CHANNEL, "Packet Received\n");
+
+      
       if(len==sizeof(pack)){
          pack* myMsg=(pack*) payload;
          dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
