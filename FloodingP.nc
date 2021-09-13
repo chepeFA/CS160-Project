@@ -38,6 +38,13 @@ implementation{
 	// Prototypes
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
 
+   //as per the slides
+   void payload(pack *payloadP);
+
+   void floodingHeader(uint16_t floodSource, uint16_t sequence, uint16_t timeToLive );
+
+   void linkLayerHeader(uint16_t sourceAdress, uint16_t destinationAdress );
+
    event void Boot.booted(){
       call AMControl.start();
 
@@ -56,7 +63,19 @@ implementation{
    }
 
     event message_t* Receive.receive(message_t* msg, void* payload, uint8_t len){
+
       dbg(GENERAL_CHANNEL, "Packet Received\n");
+
+       if(len==sizeof(pack)){
+         pack* myMsg=(pack*) payload;
+         dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
+
+
+
+         return msg;
+      }
+      dbg(GENERAL_CHANNEL, "Unknown Packet Type %d\n", len);
+      return msg;
 
 
 
