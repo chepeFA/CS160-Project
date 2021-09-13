@@ -43,7 +43,7 @@ implementation{
       call AMControl.start();
       uint16_t start;
       dbg(GENERAL_CHANNEL, "Booted\n");
-       start = call RandomTimer.rand();
+       start = call RandomTimer.rand16();
 
       call NeighboorTimer.startPeriodic(start);
 
