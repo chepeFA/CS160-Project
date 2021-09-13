@@ -43,7 +43,11 @@ implementation{
 
    void floodingHeader(uint16_t floodSource, uint16_t sequence, uint16_t timeToLive );
 
-   void linkLayerHeader(uint16_t sourceAdress, uint16_t destinationAdress );
+   void linkLayerHeader(uint16_t sourceAdress, uint16_t destinationAdress);
+
+
+   void sendWithTimerPing(pack *package);
+   void sendWithTimerDiscovery(pack package, uint16_t destination);
 
    event void Boot.booted(){
       call AMControl.start();
@@ -56,11 +60,13 @@ implementation{
       if(err == SUCCESS){
          dbg(GENERAL_CHANNEL, "Radio On\n");
 
-         call perTimer.startPeriodic(1000);                     
+         call Timer0.startPeriodic(1000);                     
       }else{
          call AMControl.start();                                            
       }
    }
+
+   event void AMControl.stopDone(error_t err){}
 
     event message_t* Receive.receive(message_t* msg, void* payload, uint8_t len){
 
@@ -69,6 +75,8 @@ implementation{
        if(len==sizeof(pack)){
          pack* myMsg=(pack*) payload;
          dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
+
+         call Sender.send(sendPackage, AM_BROADCAST_ADDR);
 
 
 

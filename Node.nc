@@ -35,6 +35,8 @@ implementation{
    // Prototypes
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
 
+
+
    event void Boot.booted(){
       call AMControl.start();
 
@@ -55,10 +57,12 @@ implementation{
    event message_t* Receive.receive(message_t* msg, void* payload, uint8_t len){
       dbg(GENERAL_CHANNEL, "Packet Received\n");
 
-      
+
       if(len==sizeof(pack)){
          pack* myMsg=(pack*) payload;
          dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
+
+
          return msg;
       }
       dbg(GENERAL_CHANNEL, "Unknown Packet Type %d\n", len);
@@ -95,5 +99,14 @@ implementation{
       Package->seq = seq;
       Package->protocol = protocol; 
       memcpy(Package->payload, payload, length);
+   }
+
+   event void packetTimer.fired()
+   {
+      if( returned == 0 ) {
+       dbg(GENERAL_CHANNEL, "Destination not found \n");
+       lastDestination = lastDestination + 1;
+       call Sender.send(sendPackage, lastDestination);
+     }
    }
 }
