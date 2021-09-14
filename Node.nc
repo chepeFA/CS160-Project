@@ -14,6 +14,7 @@
 #include "includes/channels.h"
 
 
+//only TTL is decreased hop by hop
 typedef nx_struct floodingLayer{
    nx_uint16_t floodSource;
    nx_uint16_t sequenceNumber;
@@ -21,6 +22,8 @@ typedef nx_struct floodingLayer{
 
 }floodingLayer;
 
+
+//changes hop by hop
 typedef nx_struct linkLayer{
    nx_uint16_t sourceAddress;
    nx_uint16_t destinationAdress;
@@ -53,13 +56,15 @@ module Node{
    uses interface List<pack> as NeighboorList;
 
 
+
+
    
 }
 
 implementation{
    pack sendPackage;
-   uint16_t seqNumber;
-
+   uint16_t seqNumber; //store largest sequence number fromm any nodes flood
+   uint16_t totalNodes=0;
 
    // Prototypes
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
@@ -75,6 +80,7 @@ implementation{
     
 
       dbg(GENERAL_CHANNEL, "Booted\n");
+      totalNodes++; //to keep track of the numbers of nodes in the topology
        start = call RandomTimer.rand16();
 
       call NeighboorTimer.startPeriodicAt(0,start);
@@ -96,7 +102,7 @@ implementation{
    event void AMControl.stopDone(error_t err){}
 
    event message_t* Receive.receive(message_t* msg, void* payload, uint8_t len){
-   
+
       dbg(GENERAL_CHANNEL, "Packet Received\n");
 
 
@@ -109,6 +115,9 @@ implementation{
       }
       dbg(GENERAL_CHANNEL, "Unknown Packet Type %d\n", len);
       return msg;
+
+
+      dbg(GENERAL_CHANNEL, "Total number of nodes in this topology %d\n",totalNodes);
    }
 
 
