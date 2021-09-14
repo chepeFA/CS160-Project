@@ -80,7 +80,7 @@ implementation{
     
 
       dbg(GENERAL_CHANNEL, "Booted\n");
-      totalNodes++; //to keep track of the numbers of nodes in the topology
+      //totalNodes++; //to keep track of the numbers of nodes in the topology
        start = call RandomTimer.rand16();
 
       call NeighboorTimer.startPeriodicAt(0,start);
@@ -103,7 +103,7 @@ implementation{
 
    event message_t* Receive.receive(message_t* msg, void* payload, uint8_t len){
 
-      totalNodes++;
+     // totalNodes++;
 
       dbg(GENERAL_CHANNEL, "Packet Received\n");
       dbg(GENERAL_CHANNEL, "Total number of nodes in this topology %d\n",totalNodes);
@@ -125,6 +125,7 @@ implementation{
 
 
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
+   totalNodes++; //to keep track of the numbers of nodes in the topology
       dbg(GENERAL_CHANNEL, "PING EVENT \n");
       makePack(&sendPackage, TOS_NODE_ID, destination, 0, 0, 0, payload, PACKET_MAX_PAYLOAD_SIZE);
       call Sender.send(sendPackage, destination);
