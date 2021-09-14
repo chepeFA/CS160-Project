@@ -114,10 +114,11 @@ implementation{
          return msg;
       }
       dbg(GENERAL_CHANNEL, "Unknown Packet Type %d\n", len);
+      dbg(GENERAL_CHANNEL, "Total number of nodes in this topology %d\n",totalNodes);
       return msg;
 
 
-      dbg(GENERAL_CHANNEL, "Total number of nodes in this topology %d\n",totalNodes);
+
    }
 
 
