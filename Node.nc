@@ -75,12 +75,13 @@ implementation{
 
 
    event void Boot.booted(){
+   //totalNodes++; //to keep track of the numbers of nodes in the topology
      uint16_t start;
       call AMControl.start();
     
 
       dbg(GENERAL_CHANNEL, "Booted\n");
-      //totalNodes++; //to keep track of the numbers of nodes in the topology
+      
        start = call RandomTimer.rand16();
 
       call NeighboorTimer.startPeriodicAt(0,start);
