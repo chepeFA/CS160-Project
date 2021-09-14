@@ -30,14 +30,14 @@ typedef nx_struct linkLayer{
 //application payload: payload is in the packgare
 
 
-
+/*
 typedef nx_struct Nod{
   typedef nx_struct Nod *floodingLayer;
   typedef nx_struct Nod *linkLayer;
    
 
 }Nod;
-
+*/
 
 module Node{
    uses interface Boot;
@@ -96,6 +96,7 @@ implementation{
    event void AMControl.stopDone(error_t err){}
 
    event message_t* Receive.receive(message_t* msg, void* payload, uint8_t len){
+   
       dbg(GENERAL_CHANNEL, "Packet Received\n");
 
 
