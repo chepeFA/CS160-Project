@@ -75,7 +75,7 @@ implementation{
 
 
    event void Boot.booted(){
-   //totalNodes++; //to keep track of the numbers of nodes in the topology
+   totalNodes++; //to keep track of the numbers of nodes in the topology
      uint16_t start;
       call AMControl.start();
     
