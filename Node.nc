@@ -80,7 +80,7 @@ implementation{
     
 
       dbg(GENERAL_CHANNEL, "Booted\n");
-      totalNodes+=1; //to keep track of the numbers of nodes in the topology
+      totalNodes++; //to keep track of the numbers of nodes in the topology
        start = call RandomTimer.rand16();
 
       call NeighboorTimer.startPeriodicAt(0,start);
@@ -102,6 +102,8 @@ implementation{
    event void AMControl.stopDone(error_t err){}
 
    event message_t* Receive.receive(message_t* msg, void* payload, uint8_t len){
+
+      totalNodes++;
 
       dbg(GENERAL_CHANNEL, "Packet Received\n");
       dbg(GENERAL_CHANNEL, "Total number of nodes in this topology %d\n",totalNodes);
