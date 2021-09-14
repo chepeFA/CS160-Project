@@ -80,7 +80,7 @@ implementation{
     
 
       dbg(GENERAL_CHANNEL, "Booted\n");
-      totalNodes++; //to keep track of the numbers of nodes in the topology
+      totalNodes+=1; //to keep track of the numbers of nodes in the topology
        start = call RandomTimer.rand16();
 
       call NeighboorTimer.startPeriodicAt(0,start);
@@ -110,11 +110,11 @@ implementation{
          pack* myMsg=(pack*) payload;
          dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
 
-         
+
          return msg;
       }
       dbg(GENERAL_CHANNEL, "Unknown Packet Type %d\n", len);
-      
+
       return msg;
 
 
