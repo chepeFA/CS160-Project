@@ -32,8 +32,9 @@ typedef nx_struct linkLayer{
 
 
 typedef nx_struct Nod{
-   floodingLayer* fl;
-   linkLayer* ll;
+  struct Nod *floodingLayer;
+  struct Nod *linkLayer;
+   
 
 }Nod;
 
