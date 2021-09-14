@@ -30,8 +30,8 @@ typedef nx_struct linkLayer{
 //application payload: payload is in the packgare
 
 typedef nx_struct Nod{
-   floodingLayer *fl;
-   linkLayer *ll;
+   floodingLayer **fl;
+   linkLayer **ll;
 
 }Nod;
 
