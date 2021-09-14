@@ -65,7 +65,8 @@ implementation{
    pack sendPackage;
    uint16_t seqNumber; //store largest sequence number fromm any nodes flood
    uint16_t totalNodes=0;
-
+    uint16_t start;
+    
    // Prototypes
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
 
@@ -75,8 +76,10 @@ implementation{
 
 
    event void Boot.booted(){
+
        totalNodes++; //to keep track of the numbers of nodes in the topology
-      uint16_t start;
+
+     
       call AMControl.start();
     
 
