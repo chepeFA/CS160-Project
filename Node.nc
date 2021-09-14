@@ -75,8 +75,8 @@ implementation{
 
 
    event void Boot.booted(){
-   totalNodes++; //to keep track of the numbers of nodes in the topology
-     uint16_t start;
+       totalNodes++; //to keep track of the numbers of nodes in the topology
+      uint16_t start;
       call AMControl.start();
     
 
@@ -104,7 +104,7 @@ implementation{
 
    event message_t* Receive.receive(message_t* msg, void* payload, uint8_t len){
 
-     // totalNodes++;
+      totalNodes++;
 
       dbg(GENERAL_CHANNEL, "Packet Received\n");
       dbg(GENERAL_CHANNEL, "Total number of nodes in this topology %d\n",totalNodes);

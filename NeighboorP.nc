@@ -19,3 +19,8 @@ module Node{
    uses interface List<pack> as packetList;
    uses interface Timer<Tmilli> as tTimerl 
 }
+
+implementation{
+	pack sendPackage;
+	uint16_t sequenceNumber;
+}
