@@ -42,6 +42,10 @@ typedef nx_struct Nod{
 }Nod;
 */
 
+typedef nx_struct neighboor{
+   uint16_t node;
+}neighboor
+
 module Node{
    uses interface Boot;
    uses interface Random as RandomTimer; 
@@ -53,7 +57,8 @@ module Node{
    uses interface CommandHandler;
 
    uses interface Timer<TMilli> as NeighboorTimer;
-   uses interface List<pack> as NeighboorList;
+   uses interface List<pack> as PacketList;
+   uses interface List<neightboor> as NeighboorList;
 
 
 
@@ -107,14 +112,17 @@ implementation{
 
    event message_t* Receive.receive(message_t* msg, void* payload, uint8_t len){
 
-      totalNodes++;
+      //totalNodes++;
 
-      dbg(GENERAL_CHANNEL, "Packet Received\n");
-      dbg(GENERAL_CHANNEL, "Total number of nodes in this topology %d\n",totalNodes);
+     // dbg(GENERAL_CHANNEL, "Packet Received\n");
+      //dbg(GENERAL_CHANNEL, "Total number of nodes in this topology %d\n",totalNodes);
 
       if(len==sizeof(pack)){
          pack* myMsg=(pack*) payload;
          dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
+
+
+         //check if we've seen the packagees
 
 
          return msg;
@@ -164,6 +172,26 @@ implementation{
       Package->seq = seq;
       Package->protocol = protocol; 
       memcpy(Package->payload, payload, length);
+   }
+
+
+   int seenPackage(pack* package)
+   {
+      pack temp;
+      uint_t i=0;
+
+      while(i < call PacketList.size()) //transerve all packages to see if we have seen one 
+      {
+         temp = call PacketList.get(i);
+         if(temp.src == package->src && temp.seq == package->seq && temp.dest == package->dest)
+         {
+            return 1; //we have seen the package before
+         }
+
+      i++;
+      }
+
+      return 2;// we have not seen the package
    }
 
    void neighboorDiscovery()
