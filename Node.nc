@@ -123,13 +123,21 @@ implementation{
 
 
          //check if we've seen this package before
-         if(myMsg->TTL==0) //we've seen it before
+         if(myMsg->TTL==0 || seenPackage()==2) //we've seen it before
          {
 
          }
-         else //receiving node needs to reply back
+         else if(myMsg-> dest==AM_BROADCAST_ADDR) //receiving node needs to reply back
          {
-            call ping(myMsg->dest,myMsg->payload);
+
+
+
+            if(myMsg->protocol == 0) //protocol ping reply
+            {
+                dbg(GENERAL_CHANNEL, "Protocol ping reply was activated");
+            }
+
+
          }
 
 
@@ -145,7 +153,8 @@ implementation{
 
 
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
-   totalNodes++; //to keep track of the numbers of nodes in the topology
+   //totalNodes++; //to keep track of the numbers of nodes in the topology
+     
       dbg(GENERAL_CHANNEL, "PING EVENT \n");
       makePack(&sendPackage, TOS_NODE_ID, destination, 0, 0, 0, payload, PACKET_MAX_PAYLOAD_SIZE);
       call Sender.send(sendPackage, destination);
