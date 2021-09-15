@@ -117,9 +117,10 @@ implementation{
 
      // dbg(GENERAL_CHANNEL, "Packet Received\n");
       //dbg(GENERAL_CHANNEL, "Total number of nodes in this topology %d\n",totalNodes);
-      seen = seenPackgage();
+     
       if(len==sizeof(pack)){
          pack* myMsg=(pack*) payload;
+          seen = seenPackgage(myMsg);
          dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
 
 
