@@ -74,7 +74,7 @@ implementation{
     
    // Prototypes
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
-
+   int seenPackage(pack *package);
    void printNeighboorList();
    void neighboorDiscovery();
 
@@ -120,6 +120,7 @@ implementation{
      
       if(len==sizeof(pack)){
          pack* myMsg=(pack*) payload;
+
           seen = seenPackage(myMsg);
          dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
 
