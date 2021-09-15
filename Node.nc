@@ -120,7 +120,7 @@ implementation{
      
       if(len==sizeof(pack)){
          pack* myMsg=(pack*) payload;
-          seen = seenPackgage(myMsg);
+          seen = seenPackage(myMsg);
          dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
 
 
