@@ -112,18 +112,19 @@ implementation{
 
    event message_t* Receive.receive(message_t* msg, void* payload, uint8_t len){
 
+      uint16_t seen;
       //totalNodes++;
 
      // dbg(GENERAL_CHANNEL, "Packet Received\n");
       //dbg(GENERAL_CHANNEL, "Total number of nodes in this topology %d\n",totalNodes);
-
+      seen = seenPackgage();
       if(len==sizeof(pack)){
          pack* myMsg=(pack*) payload;
          dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
 
 
          //check if we've seen this package before
-         if(myMsg->TTL==0 || seenPackage()==2) //we've seen it before
+         if(myMsg->TTL==0 || seen==2) //we've seen it before
          {
 
          }
