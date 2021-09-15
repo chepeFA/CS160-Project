@@ -178,7 +178,7 @@ implementation{
    int seenPackage(pack* package)
    {
       pack temp;
-      uint_t i;
+      uint16_t i;
 
       i=0;
 
