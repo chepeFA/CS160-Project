@@ -123,9 +123,13 @@ implementation{
 
 
          //check if we've seen this package before
-         if(myMsg->TTL==0)
+         if(myMsg->TTL==0) //we've seen it before
          {
 
+         }
+         else //receiving node needs to reply back
+         {
+            call ping(myMsg->dest,myMsg->payload);
          }
 
 
