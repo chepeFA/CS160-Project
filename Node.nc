@@ -178,7 +178,9 @@ implementation{
    int seenPackage(pack* package)
    {
       pack temp;
-      uint_t i=0;
+      uint_t i;
+
+      i=0;
 
       while(i < call PacketList.size()) //transerve all packages to see if we have seen one 
       {
