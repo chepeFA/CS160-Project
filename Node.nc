@@ -123,7 +123,7 @@ implementation{
 
 
          //check if we've seen this package before
-         if(&sendPackage->TTL==0)
+         if(myMsg->TTL==0)
          {
 
          }
