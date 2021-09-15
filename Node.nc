@@ -43,8 +43,8 @@ typedef nx_struct Nod{
 */
 
 typedef nx_struct neighboor{
-   uint16_t node;
-}neighboor
+   nx_uint16_t node;
+}neighboor;
 
 module Node{
    uses interface Boot;
@@ -58,7 +58,7 @@ module Node{
 
    uses interface Timer<TMilli> as NeighboorTimer;
    uses interface List<pack> as PacketList;
-   uses interface List<neightboor> as NeighboorList;
+   uses interface List<neighboor> as NeighboorList;
 
 
 
