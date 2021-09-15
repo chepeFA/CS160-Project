@@ -122,7 +122,11 @@ implementation{
          dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
 
 
-         //check if we've seen the packagees
+         //check if we've seen this package before
+         if(msg->TTL==0)
+         {
+
+         }
 
 
          return msg;
