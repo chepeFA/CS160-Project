@@ -123,7 +123,7 @@ implementation{
 
 
          //check if we've seen this package before
-         if(msg->TTL==0)
+         if(PacketList->TTL==0)
          {
 
          }
