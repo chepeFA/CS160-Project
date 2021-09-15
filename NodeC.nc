@@ -34,4 +34,7 @@ implementation {
 
     components CommandHandlerC;
     Node.CommandHandler -> CommandHandlerC;
+
+    components new ListC(pack,64) as PacketListC;
+    Node.PacketList -> PacketListC;
 }
