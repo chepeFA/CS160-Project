@@ -165,13 +165,14 @@ implementation{
          {
             if(myMsg->protocol==0)//protocol ping
             {
-                  makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,MAX_TTL,PROTOCOL_PINGREPLY,myMsg->seq,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
+                  makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,myMsg->TTL-1,PROTOCOL_PINGREPLY,myMsg->seq,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
                   pushPack(sendPackage);
                   call Sender.send(sendPackage,myMsg->src);
                   goto a;
             }
             if(myMsg->protocol==1)//protocol ping reply
             {
+
                if(isNeighboor(myMsg->src)==1)
                {
                   ne.node=myMsg->src;
@@ -189,8 +190,10 @@ implementation{
          }
          else
          {
-         makePack(&sendPackage,myMsg->src,myMsg->dest,myMsg->TTL,myMsg->protocol,myMsg->seq,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
+         makePack(&sendPackage,myMsg->src,myMsg->dest,myMsg->TTL-1,myMsg->protocol,myMsg->seq,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
+         dbg(GENERAL_CHANNEL,"Message from %d. Message is for %d",myMsg->src,myMsg->dest);
          pushPack(sendPackage);
+         call Sender.send(sendPackage, AM_BROADCAST_ADDR);
          }
 
 
