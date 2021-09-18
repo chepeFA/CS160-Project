@@ -107,7 +107,7 @@ implementation{
    event void AMControl.startDone(error_t err){
       if(err == SUCCESS){
          dbg(GENERAL_CHANNEL, "Radio On\n");
-         call NeighboorTimer.startPeriodic(100);
+         call NeighboorTimer.startPeriodic(1000);
       }else{
          //Retry until successful
          call AMControl.start();
@@ -132,11 +132,11 @@ implementation{
 
 
          //check if we've seen this package before
-         if(myMsg->TTL==0 || seen==2) //we've seen it before
+         if(myMsg->TTL==0 || seen==1) //we've seen it before
          {
             //do not do anything yet
          }
-         else if(myMsg-> dest==TOS_NODE_ID) //receiving node needs to reply back
+         else if(myMsg->dest==TOS_NODE_ID) //receiving node needs to reply back
          {
 
 
@@ -153,7 +153,10 @@ implementation{
             {
                dbg(FLOODING_CHANNEL, "Received the ping reply from %d\n", myMsg->src);
                     //break; 
+                    goto b;
             }
+
+            b:
 
 
          }
@@ -173,9 +176,11 @@ implementation{
                   ne.node=myMsg->src;
                   ne.age=0;
                   call NeighboorList.pushback(ne);
-                  goto a;
+                  
                   
                }
+               goto a;
+
             }
             a:
 
