@@ -44,6 +44,7 @@ typedef nx_struct Nod{
 
 typedef nx_struct neighboor{
    nx_uint16_t node;
+   nx_uint16_t age;
 }neighboor;
 
 module Node{
@@ -218,7 +219,18 @@ implementation{
 
    void neighboorDiscovery()
    {
- //dbg(GENERAL_CHANNEL, "in neighboor discovery\n");
+   uint16_t sizeList = call NeighboorList.size();
+   uint16_t i;
+   neighboor n, temp;
+  dbg(NEIGHBOR_CHANNEL, "in neighboor discovery\n");
+  while(i<sizeList)
+  {
+      n = call NeighboorList.get(i);
+  }
+
+
+
+
 
    }
 
