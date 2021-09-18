@@ -198,7 +198,7 @@ implementation{
 
    void pushPack(pack Package)
    {
-      call PacketList.pushback(package);
+      call PacketList.pushback(Package);
    }
 
 
@@ -244,7 +244,7 @@ implementation{
   do
   {
       temp = call NeighboorList.get(i);
-      if(temp.Age>5)
+      if(temp.age>5)
       {
          call NeighboorList.remove(i);
          size--;
