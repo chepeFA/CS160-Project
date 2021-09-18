@@ -71,7 +71,7 @@ module Node{
 
 implementation{
    pack sendPackage;
-   uint16_t seqNumber; //store largest sequence number fromm any nodes flood
+   uint16_t seqNumber=0; //store largest sequence number fromm any nodes flood
    uint16_t totalNodes=0;
    uint16_t start;
     
