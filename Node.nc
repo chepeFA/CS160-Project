@@ -95,9 +95,9 @@ implementation{
 
       dbg(GENERAL_CHANNEL, "Booted\n");
       
-       #start = call RandomTimer.rand16();
+       //start = call RandomTimer.rand16();
 
-      #call NeighboorTimer.startPeriodicAt(0,start);
+      //call NeighboorTimer.startPeriodicAt(0,start);
 
       //Fire timers
       dbg(GENERAL_CHANNEL,"Neigboor Timer started at %d \t being shot every: %d \t",0,start);
