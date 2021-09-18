@@ -247,7 +247,7 @@ implementation{
       if(temp.age>5)
       {
          call NeighboorList.remove(i);
-         size--;
+         sizeList--;
          i--;
       }
   }while(i<sizeList);
