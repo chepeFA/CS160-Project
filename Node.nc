@@ -47,6 +47,8 @@ typedef nx_struct neighboor{
    nx_uint16_t age;
 }neighboor;
 
+
+
 module Node{
    uses interface Boot;
    uses interface Random as RandomTimer; 
@@ -79,6 +81,7 @@ implementation{
    void printNeighboorList();
    void neighboorDiscovery();
    void pushPack(pack Package);
+   int isNeighboor(uint16_t node);
 
 
 
@@ -140,15 +143,15 @@ implementation{
             if(myMsg->protocol == 0) //protocol ping
             {
                // dbg(GENERAL_CHANNEL, "Protocol ping reply was activated");
-               makePack(&sendPackage,TOS_NODE_ID,myMsg->src,MAX_TTL,PROTOCOL_PINGREPLY,seqNum,(uint8_t *) myMsg->payload,sizeof(myMsg->payload) );
-               seqNum++;
+               makePack(&sendPackage,TOS_NODE_ID,myMsg->src,MAX_TTL,PROTOCOL_PINGREPLY,seqNumber,(uint8_t *) myMsg->payload,sizeof(myMsg->payload) );
+               seqNumber++;
                pushPack(sendPackage);
             }
 
             if(myMsg->protocol==1)//protocol pingReply
             {
                dbg(FLOODING_CHANNEL, "Received the ping reply from %d\n", myMsg->src);
-                    break; 
+                    //break; 
             }
 
 
@@ -163,7 +166,7 @@ implementation{
             }
             if(myMsg->protocol==1)//protocol ping reply
             {
-               if(!isNeighboor(myMsg->src))
+               if(isNeighboor(myMsg->src)==1)
                {
                   ne.node=myMsg->src;
                   ne.age=0;
@@ -299,6 +302,28 @@ implementation{
 
 
 
+   }
+
+   int isNeighboor(uint16_t node)
+   {
+   uint16_t i;
+   uint 16_t sizeList = call NeighboorList.size();
+   neighboor n;
+
+      if(!call NeighboorList.isEmpty())
+      {
+      i=0;
+         do{
+
+            n = call NeighboorList.get(i);
+            if(n.node==node)
+            {
+               n.age=0;
+               return 1;
+            }
+         }while(i<sizeList);
+      }
+      return 2;
    }
 
    
