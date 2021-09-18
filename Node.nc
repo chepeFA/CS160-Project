@@ -339,9 +339,10 @@ implementation{
 
    void printNeighboors()
    {
+    neighboor temp;
    uint16_t i, sizeList;
    sizeList = call NeighboorList.size();
-   neighboor temp;
+  
 
    if(!call NeighboorList.isEmpty())
    {
