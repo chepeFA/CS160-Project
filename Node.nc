@@ -173,7 +173,7 @@ implementation{
             if(myMsg->protocol==1)//protocol ping reply
             {
 
-               if(isNeighboor(myMsg->src)==1)
+               if(isNeighboor(myMsg->src)==2)
                {
                   ne.node=myMsg->src;
                   ne.age=0;
