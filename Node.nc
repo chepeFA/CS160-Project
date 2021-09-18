@@ -78,6 +78,7 @@ implementation{
    int seenPackage(pack *package);
    void printNeighboorList();
    void neighboorDiscovery();
+   void pushPack(pack Package);
 
 
 
@@ -195,6 +196,11 @@ implementation{
       memcpy(Package->payload, payload, length);
    }
 
+   void pushPack(pack Package)
+   {
+      call PacketList.pushback(package);
+   }
+
 
    int seenPackage(pack* package)
    {
@@ -219,14 +225,38 @@ implementation{
 
    void neighboorDiscovery()
    {
+   char* message;
+   pack Package;
    uint16_t sizeList = call NeighboorList.size();
    uint16_t i;
    neighboor n, temp;
   dbg(NEIGHBOR_CHANNEL, "in neighboor discovery\n");
+  i=0;
   while(i<sizeList)
   {
       n = call NeighboorList.get(i);
+      n.age++;
+      call NeighboorList.remove(i);
+      call NeighboorList.pushback(n);
+      i++;
   }
+  i=0;
+  do
+  {
+      temp = call NeighboorList.get(i);
+      if(temp.Age>5)
+      {
+         call NeighboorList.remove(i);
+         size--;
+         i--;
+      }
+  }while(i<sizeList);
+
+  message = "testing neighboor";
+  makePack(&Package, TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t)sizeof(message));
+  pushPack(Package);
+  call Sender.send(Package, AM_BROADCAST_ADDR);
+
 
 
 
