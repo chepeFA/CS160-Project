@@ -95,9 +95,9 @@ implementation{
 
       dbg(GENERAL_CHANNEL, "Booted\n");
       
-       start = call RandomTimer.rand16();
+       #start = call RandomTimer.rand16();
 
-      call NeighboorTimer.startPeriodicAt(0,start);
+      #call NeighboorTimer.startPeriodicAt(0,start);
 
       //Fire timers
       dbg(GENERAL_CHANNEL,"Neigboor Timer started at %d \t being shot every: %d \t",0,start);
@@ -107,6 +107,7 @@ implementation{
    event void AMControl.startDone(error_t err){
       if(err == SUCCESS){
          dbg(GENERAL_CHANNEL, "Radio On\n");
+         call NeighboorTimer.startPeriodicAt(1000);
       }else{
          //Retry until successful
          call AMControl.start();
@@ -273,7 +274,7 @@ implementation{
    uint16_t sizeList = call NeighboorList.size();
    uint16_t i;
    neighboor n, temp;
-  dbg(NEIGHBOR_CHANNEL, "in neighboor discovery\n");
+ // dbg(NEIGHBOR_CHANNEL, "in neighboor discovery\n");
   i=0;
   while(i<sizeList)
   {
@@ -293,6 +294,7 @@ implementation{
          sizeList--;
          i--;
       }
+      i++;
   }while(i<sizeList);
 
   message = "testing neighboor";
