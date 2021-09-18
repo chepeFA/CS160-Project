@@ -71,7 +71,7 @@ implementation{
    pack sendPackage;
    uint16_t seqNumber; //store largest sequence number fromm any nodes flood
    uint16_t totalNodes=0;
-    uint16_t start;
+   uint16_t start;
     
    // Prototypes
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
@@ -113,7 +113,7 @@ implementation{
    event void AMControl.stopDone(error_t err){}
 
    event message_t* Receive.receive(message_t* msg, void* payload, uint8_t len){
-
+      neighboor ne;
       uint16_t seen;
       //totalNodes++;
 
@@ -130,19 +130,54 @@ implementation{
          //check if we've seen this package before
          if(myMsg->TTL==0 || seen==2) //we've seen it before
          {
-
+            //do not do anything yet
          }
-         else if(myMsg-> dest==AM_BROADCAST_ADDR) //receiving node needs to reply back
+         else if(myMsg-> dest==TOS_NODE_ID) //receiving node needs to reply back
          {
 
 
 
-            if(myMsg->protocol == 0) //protocol ping reply
+            if(myMsg->protocol == 0) //protocol ping
             {
-                dbg(GENERAL_CHANNEL, "Protocol ping reply was activated");
+               // dbg(GENERAL_CHANNEL, "Protocol ping reply was activated");
+               makePack(&sendPackage,TOS_NODE_ID,myMsg->src,MAX_TTL,PROTOCOL_PINGREPLY,seqNum,(uint8_t *) myMsg->payload,sizeof(myMsg->payload) );
+               seqNum++;
+               pushPack(sendPackage);
+            }
+
+            if(myMsg->protocol==1)//protocol pingReply
+            {
+               dbg(FLOODING_CHANNEL, "Received the ping reply from %d\n", myMsg->src);
+                    break; 
             }
 
 
+         }
+         else if(myMsg->dest==AM_BROADCAST_ADDR)
+         {
+            if(myMsg->protocol==0)//protocol ping
+            {
+                  makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,MAX_TTL,PROTOCOL_PINGREPLY,myMsg->seq,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
+                  pushPack(sendPackage);
+                  call Sender.send(sendPackage,myMsg->src);
+            }
+            if(myMsg->protocol==1)//protocol ping reply
+            {
+               if(!isNeighboor(myMsg->src))
+               {
+                  ne.node=myMsg->src;
+                  ne.age=0;
+                  call NeighboorList.pushback(ne);
+                  
+               }
+            }
+
+
+         }
+         else
+         {
+         makePack(&sendPackage,myMsg->src,myMsg->dest,myMsg->TTL,myMsg->protocol,myMsg->seq,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
+         pushPack(sendPackage);
          }
 
 
