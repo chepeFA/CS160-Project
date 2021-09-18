@@ -107,7 +107,7 @@ implementation{
    event void AMControl.startDone(error_t err){
       if(err == SUCCESS){
          dbg(GENERAL_CHANNEL, "Radio On\n");
-         call NeighboorTimer.startPeriodicAt(1000);
+         call NeighboorTimer.startPeriodic(1000);
       }else{
          //Retry until successful
          call AMControl.start();
