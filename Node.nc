@@ -307,7 +307,7 @@ implementation{
    int isNeighboor(uint16_t node)
    {
    uint16_t i;
-   uint 16_t sizeList = call NeighboorList.size();
+   uint16_t sizeList = call NeighboorList.size();
    neighboor n;
 
       if(!call NeighboorList.isEmpty())
