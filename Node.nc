@@ -337,5 +337,26 @@ implementation{
       return 2;
    }
 
+   void printNeighboors()
+   {
+   uint16_t i, sizeList;
+   sizeList = call NeighboorList.size();
+   neighboor temp;
+   if(!call NeighboorList.isEmpty())
+   {
+         dbg(NEIGHBOR_CHANNEL,"Below are the neighboors List of size %d for Node %d",sizeList,TOS_NODE_ID);
+         i=0;
+         while(i<sizeList)
+         {
+            temp = call NeighboorList.get(i);
+            dbg(NEIGHBOR_CHANNEL,"Neigboor: %d ", temp.node);
+         }
+   }
+   else
+   {
+   dbg(NEIGHBOR_CHANNEL,"No neighboors \n");
+   }
+   }
+
    
 }
