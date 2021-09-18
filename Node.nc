@@ -161,8 +161,10 @@ implementation{
    //totalNodes++; //to keep track of the numbers of nodes in the topology
      
       dbg(GENERAL_CHANNEL, "PING EVENT \n");
-      makePack(&sendPackage, TOS_NODE_ID, destination, 0, 0, 0, payload, PACKET_MAX_PAYLOAD_SIZE);
-      call Sender.send(sendPackage, destination);
+      makePack(&sendPackage, TOS_NODE_ID, destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
+      sequenceNumber++;
+      pushPack(sendPackage);
+      //call Sender.send(sendPackage, destination);
    }
 
    event void CommandHandler.printNeighbors(){}
