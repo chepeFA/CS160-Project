@@ -142,15 +142,15 @@ def main():
 
     s.runTime(20);
     #floding
-    s.ping(2, 19, "Hello, World");
+    s.ping(2, 3, "Hello, World");
     s.runTime(20);
     #testing neighboor discovery
     s.neighborDMP(1);#list of neighbor for node 1
     s.runTime(20);
 
     #flooding
-    #s.ping(1, 3, "Hi!");
-    #s.runTime(20);
+    s.ping(1, 3, "Hi!");
+    s.runTime(20);
 
 if __name__ == '__main__':
     main()

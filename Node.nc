@@ -147,6 +147,7 @@ implementation{
                makePack(&sendPackage,TOS_NODE_ID,myMsg->src,MAX_TTL,PROTOCOL_PINGREPLY,seqNumber,(uint8_t *) myMsg->payload,sizeof(myMsg->payload) );
                seqNumber++;
                pushPack(sendPackage);
+               goto b;
             }
 
             if(myMsg->protocol==1)//protocol pingReply
@@ -285,8 +286,8 @@ implementation{
   {
       n = call NeighboorList.get(i);
       n.age++;
-      call NeighboorList.remove(i);
-      call NeighboorList.pushback(n);
+     // call NeighboorList.remove(i);
+      //call NeighboorList.pushback(n);
       i++;
   }
   i=0;
