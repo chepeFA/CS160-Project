@@ -172,6 +172,7 @@ implementation{
                   ne.node=myMsg->src;
                   ne.age=0;
                   call NeighboorList.pushback(ne);
+                  goto a:
                   
                }
             }
