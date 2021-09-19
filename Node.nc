@@ -436,7 +436,7 @@ implementation{
    {
    uint16_t i;
    uint16_t sizeList = call NeighboorList.size();
-   neighboor n;
+   neighboor* n;
 
       if(!call NeighboorList.isEmpty())
       {
@@ -464,7 +464,7 @@ implementation{
    {
     dbg("No neighboors found\n");
    }
-   else()
+   else
    {
          dbg(NEIGHBOR_CHANNEL,"Below are the neighboors List of size %d for Node %d",sizeList,TOS_NODE_ID);
          i=0;
