@@ -176,7 +176,7 @@ implementation{
          {
          bool foundNeighboor;
           
-            neighboor ne, temp;
+            neighboor temp;
             uint16_t i; 
             uint16_t sizeList = call NeighboorList.size();
          /*
@@ -242,7 +242,8 @@ implementation{
             //*************************************************************
             // if receive a package. you are my neighboor. & I need to see how you are communicatiiong with me
             bool foundNeighboor;
-            nd* nNeighboor, nNeighboor_ptr;
+            nD* nNeighboor; 
+            nD* nNeighboor_ptr;
             uint16_t sizeList = call  NeighboorList.size();
             if(myMsg->protocol == PROTOCOL_PING)
             {
