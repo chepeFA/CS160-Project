@@ -175,7 +175,7 @@ implementation{
           
             neighboor ne, temp;
             uint16_t i; 
-            uint16_t sizeList = NeighboorList.size();
+            uint16_t sizeList = call NeighboorList.size();
             
           
             if(myMsg->protocol==0)//protocol ping
