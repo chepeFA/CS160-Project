@@ -386,9 +386,10 @@ implementation{
  if(!call NeighboorList.isEmpty())
  {
   age=0;
- uint16_t sizeList = call NeighboorList.size();
-  i=0;
 
+ //uint16_t sizeList = call NeighboorList.size();
+  i=0;
+ uint16_t sizeList = call NeighboorList.size();
 
   while(i<sizeList)
   {
