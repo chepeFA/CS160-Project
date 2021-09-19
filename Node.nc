@@ -432,6 +432,7 @@ implementation{
 
    }
 
+/*
    int isNeighboor(uint16_t node)
    {
    uint16_t i;
@@ -453,6 +454,7 @@ implementation{
       }
       return 2;
    }
+   */
 
    void printNeighboors()
    {
