@@ -328,6 +328,8 @@ implementation{
    neighboor n, temp;
  // dbg(NEIGHBOR_CHANNEL, "in neighboor discovery\n");
   i=0;
+
+
   while(i<sizeList)
   {
       n = call NeighboorList.get(i);
@@ -350,9 +352,9 @@ implementation{
   }while(i<sizeList);
 
   message = "tes";
-  makePack(&sendPackage, TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t)sizeof(message));
-  pushPack(sendPackage);
-  call Sender.send(sendPackage, AM_BROADCAST_ADDR);
+  makePack(&Package, TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t)sizeof(message));
+  pushPack(Package);
+  call Sender.send(Package, AM_BROADCAST_ADDR);
 
 
 
