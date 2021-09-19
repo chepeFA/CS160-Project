@@ -173,7 +173,7 @@ implementation{
 
          bool foundNeighboor;
           
-            neigboor ne, temp;
+            neighboor ne, temp;
             uint16_t i; 
             uint16_t sizeList = NeighboorList.size();
             
