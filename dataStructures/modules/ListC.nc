@@ -106,4 +106,11 @@ implementation{
 		temp = call List.popfront();
 		return temp;
 	}
+
+	command bool List.isFull() {
+		if (size == MAX_SIZE)
+			return TRUE;
+		else
+			return FALSE;
+	}
 }

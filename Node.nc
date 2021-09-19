@@ -261,7 +261,7 @@ implementation{
                 nNeighboor_ptr = call NeighboorList.get(i);
                 if(nNeighboor_ptr->node == myMsg->src)
                 {
-                  nNeigboor_ptr->age=0;
+                  nNeighboor_ptr->age=0;
                   foundNeighboor=TRUE;
                   break;
                 }
