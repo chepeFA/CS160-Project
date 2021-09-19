@@ -172,12 +172,12 @@ implementation{
          {
 
          bool foundNeighboor;
-          sizeList = call NeighboorList();
-           
+          
+            neigboor ne, temp;
             uint16_t i; 
             uint16_t sizeList = NeighboorList.size();
             
-           neigboor ne, temp;
+          
             if(myMsg->protocol==0)//protocol ping
             {
                   makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,myMsg->TTL-1,PROTOCOL_PINGREPLY,myMsg->seq,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
@@ -199,7 +199,7 @@ implementation{
                //goto a;
                */
 
-                foundNeighboor =false;
+                foundNeighboor =FALSE;
                 i=0;
                 while(i<sizeList)
                 {
@@ -207,7 +207,7 @@ implementation{
                  if(temp->node==myMsg->src)
                  {
                   temp.age=0;
-                  foundNeighboor=true;
+                  foundNeighboor=TRUE;
                   goto a;
                   i++;
                  }
