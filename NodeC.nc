@@ -38,7 +38,7 @@ implementation {
     components new ListC(pack,64) as PacketListC;
     Node.PacketList -> PacketListC;
 
-    components new ListC(neighboor*,64) as NeighboorListC;
+    components new ListC(nD*,64) as NeighboorListC;
     Node.NeighboorList -> NeighboorListC;
 
    
