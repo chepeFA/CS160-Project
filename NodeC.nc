@@ -41,8 +41,7 @@ implementation {
     components new ListC(nD*,64) as NeighboorListC;
     Node.NeighboorList -> NeighboorListC;
 
-    components new ListC(nD*, 64) as NeighborPoolC;
-   Node.NeighboorPool -> NeighborPoolC;
+
 
    
 }
