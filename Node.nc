@@ -119,6 +119,8 @@ implementation{
    event message_t* Receive.receive(message_t* msg, void* payload, uint8_t len){
       neighboor ne;
       uint16_t seen;
+      uint16_t message[PACKET_MAX_PAYLOAD_SIZE];
+      uint16_t dest;
       //totalNodes++;
 
      // dbg(GENERAL_CHANNEL, "Packet Received\n");
@@ -139,6 +141,10 @@ implementation{
          else if(myMsg->dest==TOS_NODE_ID) //receiving node needs to reply back
          {
 
+            if(myMsg->protocol !=99)
+            {
+               pushPack(*myMsg);
+            }
 
 
             if(myMsg->protocol == 0) //protocol ping
@@ -147,6 +153,7 @@ implementation{
                makePack(&sendPackage,TOS_NODE_ID,myMsg->src,MAX_TTL,PROTOCOL_PINGREPLY,seqNumber,(uint8_t *) myMsg->payload,sizeof(myMsg->payload) );
                seqNumber++;
                pushPack(sendPackage);
+               call Sender.send(sendPackage,AM_BROADCAST_ADDR);
                goto b;
             }
 
@@ -163,6 +170,14 @@ implementation{
          }
          else if(myMsg->dest==AM_BROADCAST_ADDR)
          {
+
+         bool foundNeighboor;
+          sizeList = call NeighboorList();
+           
+            uint16_t i; 
+            uint16_t sizeList = NeighboorList.size();
+            
+           neigboor ne, temp;
             if(myMsg->protocol==0)//protocol ping
             {
                   makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,myMsg->TTL-1,PROTOCOL_PINGREPLY,myMsg->seq,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
@@ -172,8 +187,8 @@ implementation{
             }
             if(myMsg->protocol==1)//protocol ping reply
             {
-
-               if(isNeighboor(myMsg->src)==2)
+               /*
+               if(isNeighboor(myMsg->src)==1)
                {
                   ne.node=myMsg->src;
                   ne.age=0;
@@ -181,12 +196,40 @@ implementation{
                   
                   
                }
-               goto a;
+               //goto a;
+               */
+
+                foundNeighboor =false;
+                i=0;
+                while(i<sizeList)
+                {
+                 temp = call NeighboorList.get(i);
+                 if(temp->node==myMsg->src)
+                 {
+                  temp.age=0;
+                  foundNeighboor=true;
+                  goto a;
+                  i++;
+                 }
+                }
+
+                if(!foundNeighboor)
+                {
+
+                  ne.node = myMsg->src;
+                  ne.age=0;
+                  call NeighboorList.pushback(ne);
+                  goto a;
+
+
+
+                }
 
             }
+           
+            //a:
+
             a:
-
-
          }
          else
          {
