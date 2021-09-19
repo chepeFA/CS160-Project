@@ -85,7 +85,7 @@ implementation{
    void printNeighboorList();
    void neighboorDiscovery();
    void pushPack(pack Package);
-   int isNeighboor(uint16_t node);
+   bool isNeighboor(uint16_t node);
 
 
 
@@ -130,6 +130,8 @@ implementation{
      // dbg(GENERAL_CHANNEL, "Packet Received\n");
       //dbg(GENERAL_CHANNEL, "Total number of nodes in this topology %d\n",totalNodes);
      
+
+
       if(len==sizeof(pack)){
          pack* myMsg=(pack*) payload;
 
@@ -175,9 +177,9 @@ implementation{
          }
          else if(myMsg->dest==AM_BROADCAST_ADDR)
          {
-         bool foundNeighboor;
+           bool foundNeighboor;
           
-            neighboor temp;
+            neighboor* temp;
             uint16_t i; 
             uint16_t sizeList = call NeighboorList.size();
          /*
@@ -185,27 +187,27 @@ implementation{
            
             
           
-            if(myMsg->protocol==0)//protocol ping
+            if(myMsg->protocol==PROTOCOL_PING)//protocol ping
             {
                   makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,myMsg->TTL-1,PROTOCOL_PINGREPLY,myMsg->seq,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
                   pushPack(sendPackage);
                   call Sender.send(sendPackage,myMsg->src);
                   goto a;
             }
-            if(myMsg->protocol==1)//protocol ping reply
+            if(myMsg->protocol==PROTOCOL_PINGREPLY)//protocol ping reply
             {
-               /*
-               if(isNeighboor(myMsg->src)==1)
+               
+               if(!isNeighboor(myMsg->src))
                {
-                  ne.node=myMsg->src;
-                  ne.age=0;
+                  ne->node=myMsg->src;
+                  ne->age=0;
                   call NeighboorList.pushback(ne);
                   
                   
                }
                //goto a;
                
-
+               /*
                 foundNeighboor =FALSE;
                 i=0;
                 while(i<sizeList)
@@ -235,10 +237,10 @@ implementation{
             }
            
             //a:
-
-            a:
             */
-
+            a:
+            
+            /*
 
             //*************************************************************
             // if receive a package. you are my neighboor. & I need to see how you are communicatiiong with me
@@ -278,6 +280,7 @@ implementation{
 
               }
             }
+            */
 
          }
          else
@@ -432,15 +435,16 @@ implementation{
 
    }
 
-/*
-   int isNeighboor(uint16_t node)
+
+   bool isNeighboor(uint16_t node)
    {
    uint16_t i;
-   uint16_t sizeList = call NeighboorList.size();
+ 
    neighboor* n;
 
       if(!call NeighboorList.isEmpty())
       {
+        uint16_t sizeList = call NeighboorList.size();
       i=0;
          do{
 
@@ -448,13 +452,13 @@ implementation{
             if(n->node==node)
             {
                n->age=0;
-               return 1;
+               return TRUE;
             }
          }while(i<sizeList);
       }
-      return 2;
+      return FALSE;
    }
-   */
+   
 
    void printNeighboors()
    {
@@ -475,7 +479,9 @@ implementation{
            // temp = call NeighboorList.get(i);
            // dbg(NEIGHBOR_CHANNEL,"Neigboor: %d ", temp.node);
            nD* neighboor_ptr = call NeighboorList.get(i);
-           dbg(GENERAL_CHANNEL,"Neighboor %d, Age: %d", neighboor_ptr->node,neighboor_ptr->age);
+           neighboor_ptr->age++;
+           NeighboorList.pushback(neighboor_ptr);
+          dbg(GENERAL_CHANNEL,"Neighboor %d, Age: %d", neighboor_ptr->node,neighboor_ptr->age);
          }
    }
   
