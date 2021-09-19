@@ -33,19 +33,22 @@ typedef nx_struct linkLayer{
 //application payload: payload is in the packgare
 
 
-/*
-typedef nx_struct Nod{
-  typedef nx_struct Nod *floodingLayer;
-  typedef nx_struct Nod *linkLayer;
-   
-
-}Nod;
-*/
 
 typedef nx_struct neighboor{
    nx_uint16_t node;
    nx_uint16_t age;
 }neighboor;
+
+
+typedef nx_struct nD{  //nd = neighboorDiscovery
+    
+    nx_uint8_t typeMessage; //request or reply;
+    nx_uint16_t sequenceNumber;
+    nx_uint16_t sourceAddress;
+    nx_uint16_t destinationAddress;
+    nx_uint16_t node;
+    nx_uint16_t age;
+}nD;
 
 
 
@@ -100,7 +103,7 @@ implementation{
       //call NeighboorTimer.startPeriodicAt(0,start);
 
       //Fire timers
-      dbg(GENERAL_CHANNEL,"Neigboor Timer started at %d \t being shot every: %d \t",0,start);
+      //dbg(GENERAL_CHANNEL,"Neigboor Timer started at %d \t being shot every: %d \t",0,start);
 
    }
 
@@ -141,13 +144,14 @@ implementation{
          else if(myMsg->dest==TOS_NODE_ID) //receiving node needs to reply back
          {
 
-            if(myMsg->protocol !=99)
-            {
-               pushPack(*myMsg);
-            }
+           // if(myMsg->protocol !=PROTOCOL_CMD)
+            //{
+              // pushPack(*myMsg);
+           // }
+           uint8_t createMsg[PACKET_MAX_PAYLOAD_SIZE];
+          uint16_t dest;
 
-
-            if(myMsg->protocol == 0) //protocol ping
+            if(myMsg->protocol == PROTOCOL_PING) //protocol ping
             {
                // dbg(GENERAL_CHANNEL, "Protocol ping reply was activated");
                makePack(&sendPackage,TOS_NODE_ID,myMsg->src,MAX_TTL,PROTOCOL_PINGREPLY,seqNumber,(uint8_t *) myMsg->payload,sizeof(myMsg->payload) );
@@ -157,7 +161,7 @@ implementation{
                goto b;
             }
 
-            if(myMsg->protocol==1)//protocol pingReply
+            if(myMsg->protocol==PROTOCOL_PINGREPLY)//protocol pingReply
             {
                dbg(FLOODING_CHANNEL, "Received the ping reply from %d\n", myMsg->src);
                     //break; 
@@ -170,6 +174,7 @@ implementation{
          }
          else if(myMsg->dest==AM_BROADCAST_ADDR)
          {
+         /*
 
          bool foundNeighboor;
           
@@ -230,6 +235,47 @@ implementation{
             //a:
 
             a:
+            */
+
+
+            //*************************************************************
+            // if receive a package. you are my neighboor. & I need to see how you are communicatiiong with me
+            bool foundNeighboor;
+            nd* nNeighboor, nNeighboor_ptr;
+            uint16_t sizeList = call  NeighboorList.size();
+            if(myMsg->protocol == PROTOCOL_PING)
+            {
+                        makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, myMsg->TTL-1, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
+                        pushPack(sendPackage);
+                        call Sender.send(sendPackage,myMsg ->src);
+            }
+            if(myMsg->protocol==PROTOCOL_PINGREPLY)
+            {
+              foundNeighboor = FALSE;
+              i=0;
+              while(i<sizeList)
+              {
+                nNeighboor_ptr = call NeighboorList.get(i);
+                if(nNeighboor_ptr->node == myMsg->src)
+                {
+                  neigboor_ptr->age=0;
+                  foundNeighboor=TRUE;
+                  break;
+                }
+
+              }
+
+              if(!foundNeighboor)
+              {
+                nNeighboor = call NeighboorPool.get();
+                nNeighboor->node= myMsg->src;
+                nNeighboor->age=0;
+                call NeighboorList.pushback(nNeighboor);
+
+
+              }
+            }
+
          }
          else
          {
@@ -294,7 +340,12 @@ implementation{
 
    void pushPack(pack Package)
    {
-      call PacketList.pushback(Package);
+    if(call PacketList.isFull())
+    {
+
+     call PacketList.popfront();
+    }
+     call PacketList.pushback(Package);
    }
 
 
@@ -323,17 +374,26 @@ implementation{
    {
    char* message;
    pack Package;
-   uint16_t sizeList = call NeighboorList.size();
+   
    uint16_t i;
-   neighboor n, temp;
+   uint16_t age;
+   nD* n_ptr;
+   nD* temp;
  // dbg(NEIGHBOR_CHANNEL, "in neighboor discovery\n");
+ if(!call NeighboorList.isEmpty())
+ {
+  age=0;
+ uint16_t sizeList = call NeighboorList.size();
   i=0;
 
 
   while(i<sizeList)
   {
-      n = call NeighboorList.get(i);
-      n.age++;
+
+    temp = call NeighboorList.get(i);
+    temp->Age++;
+      //n = call NeighboorList.get(i);
+      //n.age++;
      // call NeighboorList.remove(i);
       //call NeighboorList.pushback(n);
       i++;
@@ -342,14 +402,19 @@ implementation{
   do
   {
       temp = call NeighboorList.get(i);
-      if(temp.age>5)
+      age= temp->age;
+      if(age>5)
       {
-         call NeighboorList.remove(i);
+         temp = call NeighboorList.remove(i);
+         call NeighboorPool.put(temp);
          sizeList--;
          i--;
+
       }
       i++;
   }while(i<sizeList);
+
+  }
 
   message = "tes";
   makePack(&Package, TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t)sizeof(message));
@@ -387,25 +452,27 @@ implementation{
 
    void printNeighboors()
    {
-    neighboor temp;
+  neighboor temp;
    uint16_t i, sizeList;
    sizeList = call NeighboorList.size();
   
-
-   if(!call NeighboorList.isEmpty())
+   if(sizeList==0)
+   {
+    dbg("No neighboors found\n");
+   }
+   else()
    {
          dbg(NEIGHBOR_CHANNEL,"Below are the neighboors List of size %d for Node %d",sizeList,TOS_NODE_ID);
          i=0;
          while(i<sizeList)
          {
-            temp = call NeighboorList.get(i);
-            dbg(NEIGHBOR_CHANNEL,"Neigboor: %d ", temp.node);
+           // temp = call NeighboorList.get(i);
+           // dbg(NEIGHBOR_CHANNEL,"Neigboor: %d ", temp.node);
+           nD* neighboor_ptr = call NeighboorList.get(i);
+           dbg(GENERAL_CHANNEL,"Neighboor %d, Age: %d", neighboor_ptr->node,neighboor_ptr->age);
          }
    }
-   else
-   {
-   dbg(NEIGHBOR_CHANNEL,"No neighboors \n");
-   }
+  
    }
 
    
