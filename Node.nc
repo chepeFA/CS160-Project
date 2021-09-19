@@ -395,7 +395,7 @@ implementation{
   {
 
     temp = call NeighboorList.get(i);
-    temp->Age++;
+    temp->age++;
       //n = call NeighboorList.get(i);
       //n.age++;
      // call NeighboorList.remove(i);
