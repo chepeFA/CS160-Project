@@ -448,10 +448,10 @@ implementation{
       i=0;
          do{
 
-            *n = call NeighboorList.get(i);
-            if(n.node==node)
+            n = call NeighboorList.get(i);
+            if(n->node==node)
             {
-               n.age=0;
+               n->age=0;
                return TRUE;
             }
          }while(i<sizeList);
