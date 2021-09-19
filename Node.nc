@@ -448,7 +448,7 @@ implementation{
       i=0;
          do{
 
-            &(n) = call NeighboorList.get(i);
+            *n = call NeighboorList.get(i);
             if(n.node==node)
             {
                n.age=0;
