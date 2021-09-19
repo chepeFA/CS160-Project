@@ -204,7 +204,7 @@ implementation{
                 while(i<sizeList)
                 {
                  temp = call NeighboorList.get(i);
-                 if(temp->node==myMsg->src)
+                 if(temp.node==myMsg->src)
                  {
                   temp.age=0;
                   foundNeighboor=TRUE;
