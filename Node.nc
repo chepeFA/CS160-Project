@@ -444,9 +444,9 @@ implementation{
          do{
 
             n = call NeighboorList.get(i);
-            if(n.node==node)
+            if(n->node==node)
             {
-               n.age=0;
+               n->age=0;
                return 1;
             }
          }while(i<sizeList);
