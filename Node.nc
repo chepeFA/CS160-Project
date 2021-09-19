@@ -65,6 +65,7 @@ module Node{
    uses interface Timer<TMilli> as NeighboorTimer;
    uses interface List<pack> as PacketList;
    uses interface List<neighboor> as NeighboorList;
+   uses interface Pool<neighbor> as NeighboorPool;
 
 
 
@@ -241,10 +242,10 @@ implementation{
 
             //*************************************************************
             // if receive a package. you are my neighboor. & I need to see how you are communicatiiong with me
-            bool foundNeighboor;
+            //bool foundNeighboor;
             nD* nNeighboor; 
             nD* nNeighboor_ptr;
-            uint16_t sizeList = call  NeighboorList.size();
+            //uint16_t sizeList = call  NeighboorList.size();
             if(myMsg->protocol == PROTOCOL_PING)
             {
                         makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, myMsg->TTL-1, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
@@ -260,7 +261,7 @@ implementation{
                 nNeighboor_ptr = call NeighboorList.get(i);
                 if(nNeighboor_ptr->node == myMsg->src)
                 {
-                  neigboor_ptr->age=0;
+                  nNeigboor_ptr->age=0;
                   foundNeighboor=TRUE;
                   break;
                 }
