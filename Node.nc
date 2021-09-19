@@ -238,7 +238,7 @@ implementation{
            
             //a:
             */
-            a:
+           // a:
             
             /*
 
@@ -479,8 +479,8 @@ implementation{
            // temp = call NeighboorList.get(i);
            // dbg(NEIGHBOR_CHANNEL,"Neigboor: %d ", temp.node);
            nD* neighboor_ptr = call NeighboorList.get(i);
-           neighboor_ptr->age++;
-           NeighboorList.pushback(neighboor_ptr);
+           //neighboor_ptr->age++;
+           //NeighboorList.pushback(neighboor_ptr);
           dbg(GENERAL_CHANNEL,"Neighboor %d, Age: %d", neighboor_ptr->node,neighboor_ptr->age);
          }
    }
