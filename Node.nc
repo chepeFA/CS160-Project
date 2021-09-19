@@ -203,7 +203,7 @@ implementation{
                   
                }
                //goto a;
-               */
+               
 
                 foundNeighboor =FALSE;
                 i=0;
