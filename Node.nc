@@ -64,8 +64,8 @@ module Node{
 
    uses interface Timer<TMilli> as NeighboorTimer;
    uses interface List<pack> as PacketList;
-   uses interface List<neighboor> as NeighboorList;
-   uses interface Pool<neighbor> as NeighboorPool;
+   uses interface List<nD> as NeighboorList;
+   uses interface Pool<nD> as NeighboorPool;
 
 
 
