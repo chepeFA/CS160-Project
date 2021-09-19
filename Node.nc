@@ -378,18 +378,18 @@ implementation{
    char* message;
    pack Package;
    
-   uint16_t i;
-   uint16_t age;
-   nD* n_ptr;
-   nD* temp;
+   
  // dbg(NEIGHBOR_CHANNEL, "in neighboor discovery\n");
  if(!call NeighboorList.isEmpty())
  {
-  age=0;
+  uint16_t sizeList = call NeighboorList.size();
+ uint16_t i=0;
+   uint16_t age=0;
+   nD* n_ptr;
+   nD* temp;
 
  //uint16_t sizeList = call NeighboorList.size();
-  i=0;
- uint16_t sizeList = call NeighboorList.size();
+
 
   while(i<sizeList)
   {
