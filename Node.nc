@@ -440,7 +440,7 @@ implementation{
    {
    uint16_t i;
  
-   neighboor* n;
+   neighboor n;
 
       if(!call NeighboorList.isEmpty())
       {
@@ -449,9 +449,9 @@ implementation{
          do{
 
             n = call NeighboorList.get(i);
-            if(n->node==node)
+            if(n.node==node)
             {
-               n->age=0;
+               n.age=0;
                return TRUE;
             }
          }while(i<sizeList);
