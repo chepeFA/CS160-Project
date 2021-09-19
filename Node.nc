@@ -440,7 +440,7 @@ implementation{
    {
    uint16_t i;
  
-   neighboor n;
+   neighboor* n;
 
       if(!call NeighboorList.isEmpty())
       {
