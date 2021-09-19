@@ -464,7 +464,7 @@ implementation{
   
    if(sizeList==0)
    {
-    dbg("No neighboors found\n");
+    dbg(GENERAL_CHANNEL,"No neighboors found\n");
    }
    else
    {
