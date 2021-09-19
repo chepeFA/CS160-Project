@@ -149,7 +149,7 @@ implementation{
               // pushPack(*myMsg);
            // }
            uint8_t createMsg[PACKET_MAX_PAYLOAD_SIZE];
-          uint16_t dest;
+         
 
             if(myMsg->protocol == PROTOCOL_PING) //protocol ping
             {
@@ -174,13 +174,14 @@ implementation{
          }
          else if(myMsg->dest==AM_BROADCAST_ADDR)
          {
-         /*
-
          bool foundNeighboor;
           
             neighboor ne, temp;
             uint16_t i; 
             uint16_t sizeList = call NeighboorList.size();
+         /*
+
+           
             
           
             if(myMsg->protocol==0)//protocol ping
