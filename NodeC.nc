@@ -18,7 +18,7 @@ implementation {
     components Node;
     components new AMReceiverC(AM_PACK) as GeneralReceive;
    components new TimerMilliC() as NeighboorTimer;
-    components RandomC as Random;
+   components RandomC as Random;
 
     Node -> MainC.Boot;
     Node.RandomTimer -> Random;
@@ -35,11 +35,14 @@ implementation {
     components CommandHandlerC;
     Node.CommandHandler -> CommandHandlerC;
 
-    //components new ListC(pack,64) as PacketListC;
-    //Node.PacketList -> PacketListC;
+    components new ListC(pack,64) as PacketListC;
+    Node.PacketList -> PacketListC;
 
-    //components new ListC(nD*,64) as NeighboorListC;
-    //Node.NeighboorList -> NeighboorListC;
+    components new ListC(neighboorDiscovery*,64) as NeighboorList1C;
+    Node.NeighboorList1 -> NeighboorListC;
+
+    components new ListC(neighboorDiscovery,64) as NeighboorListC;
+    Node.NeighboorDiscoveryList -> NeighboorListC;
 
 
 
