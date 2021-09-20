@@ -21,8 +21,8 @@ implementation {
     //components RandomC as Random;
 
     Node -> MainC.Boot;
-    //Node.RandomTimer -> Random;
-    //Node.NeighboorTimer -> NeighboorTimer;
+    Node.RandomTimer -> Random;
+    Node.NeighboorTimer -> NeighboorTimer;
 
     Node.Receive -> GeneralReceive;
 

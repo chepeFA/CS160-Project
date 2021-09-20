@@ -13,6 +13,15 @@
 #include "includes/sendInfo.h"
 #include "includes/channels.h"
 
+typedef nx_struct neighboorDiscovery{ //first two fields are for nd header
+uint16_t petition;
+uint16_t sequenceNumber;
+uint16_t sourceAddress;  //last two fields are for link layer headers
+uint16_t destinationAddress;
+
+
+};
+
 module Node{
    uses interface Boot;
 
@@ -22,6 +31,8 @@ module Node{
    uses interface SimpleSend as Sender;
 
    uses interface CommandHandler;
+   uses interface Timer<TMilli> as NeighboorTimer;
+   uses interface Random as Random;
 }
 
 implementation{
@@ -31,8 +42,13 @@ implementation{
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
 
    event void Boot.booted(){
-      call AMControl.start();
+   uint16_t start, everySecond;
 
+      call AMControl.start();
+      start = call Random.rand16()%1000;
+      everySecond = call Random.rand16()%4000;
+
+      call NeighboorTimer.startPeriodicAt(start,everySecond);
       dbg(GENERAL_CHANNEL, "Booted\n");
    }
 
