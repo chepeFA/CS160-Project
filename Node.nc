@@ -131,7 +131,7 @@ implementation{
 
       while(i<sizeList)
       {
-         temp = call NeighboorList.get(i);
+         temp = call NeighboorList1.get(i);
          temp->age++;
       }
    }
