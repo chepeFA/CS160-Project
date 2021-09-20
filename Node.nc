@@ -191,7 +191,7 @@ implementation{
       while(i<sizeList)
       {
          seen = call PacketList.get(i);
-         if(seen.src = package->src && seem.dest == package->dest && seen.seq==package->seq)
+         if(seen.src = package->src && seen.dest == package->dest && seen.seq==package->seq)
          {
             return TRUE;
          }
