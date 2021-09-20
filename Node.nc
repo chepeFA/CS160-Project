@@ -55,10 +55,10 @@ implementation{
    event void Boot.booted(){
    //uint16_t start, everySecond;
 
-      call AMControl.start();
+     // call AMControl.start();
       //start = call RandomTimer.rand16()%1000;
       //everySecond = call RandomTimer.rand16()%4000;
-      call NeighboorTimer.startPeriodic(2000);
+     // call NeighboorTimer.startPeriodic(2000);
       //call NeighboorTimer.startPeriodicAt(start,everySecond);
       dbg(GENERAL_CHANNEL, "Booted. \n");
    }
@@ -66,6 +66,7 @@ implementation{
    event void AMControl.startDone(error_t err){
       if(err == SUCCESS){
          dbg(GENERAL_CHANNEL, "Radio On\n");
+         call NeighboorTimer.startPeriodic(1000);
       }else{
          //Retry until successful
          call AMControl.start();
@@ -85,7 +86,7 @@ implementation{
       dbg(GENERAL_CHANNEL, "Packet Received\n");
       if(len==sizeof(pack)){
          pack* myMsg=(pack*) payload;
-        // dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
+         dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
          //return msg;
 
          if(myMsg->TTL==0 || seenPackage(myMsg))
@@ -202,7 +203,7 @@ implementation{
    void findNeighboors()
    {
 
-   //dbg(GENERAL_CHANNEL,"about to find neighboors");
+   dbg(GENERAL_CHANNEL,"about to find neighboors");
    pack Package;
    char* message;
    neighboorDiscovery* neighboorPointer;
