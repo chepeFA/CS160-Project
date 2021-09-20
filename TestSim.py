@@ -143,7 +143,7 @@ def main():
     #s.runTime(20);
     s.runTime(10);
     #floding
-    s.ping(1, 2, "is it working");
+    s.ping(1, 5, "is it working");
     s.runTime(20);
     #testing neighboor discovery
     s.neighborDMP(1);#list of neighbor for node 1
