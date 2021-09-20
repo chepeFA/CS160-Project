@@ -133,7 +133,22 @@ implementation{
       {
          temp = call NeighboorList1.get(i);
          temp->age++;
+         i++;
       }
+
+      i=0;
+      do{
+
+         temp = call NeighboorList1.get(i);
+        
+         if((temp->age)>5)
+         {
+            neighboorPointer = call NeighboorList.remove(i);
+            i--;
+            size--;
+         }
+         i++;
+      }while(i<sizeList);
    }
 
 
