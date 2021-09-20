@@ -159,9 +159,9 @@ implementation{
    void printNeighboors()
    {
    uint16_t i, sizeList;
-   sizeList = call NeighboorList.size();
+   sizeList = call NeighboorList1.size();
    neighboorDiscovery* temp;
-   if(call NeighboorList.isEmpty())
+   if(call NeighboorList1.isEmpty())
    {
       dbg(NEIGHBOR_CHANNEL,"No neighboors \n");
    }
@@ -171,7 +171,7 @@ implementation{
    dbg(NEIGHBOR_CHANNEL,"Neighboor list for node %d \n", TOS_NODE_ID);
    while(i<sizeList)
    {
-      temp = call NeighboorList.get(i);
+      temp = call NeighboorList1.get(i);
       dbg(NEIGHBOR_CHANNEL, "Neighboor: %d, Age: %d \n", temp->node,temp->age);
    }
    }
