@@ -100,6 +100,7 @@ implementation{
             uint16_t i,sizeList;
             neighboorDiscovery* neighboor;
             neighboorDiscovery* temp;
+            neighboorDiscovery t;
 
             if(myMsg->protocol == PROTOCOL_PING)
             {
@@ -112,7 +113,7 @@ implementation{
 
             if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
-               dbg(NEIGHBOR_CHANNEL," in protocol ping reply AM");
+               dbg(NEIGHBOR_CHANNEL," in protocol ping reply AM \n");
 
                sizeList = call NeighboorList1.size();
                foundNeighbor = FALSE;
@@ -132,10 +133,11 @@ implementation{
                {
 
                   //neighboor = call NeighboorList.get();
-                  dbg(NEIGHBOR_CHANNEL," in !foundNeighboor");
-                  temp->node = myMsg->src;
-                  temp->age=0;
-                  call NeighboorList1.pushback(temp);
+                  dbg(NEIGHBOR_CHANNEL," in !foundNeighboor \n");
+                 // call NeighboorList1.get();
+                  t.node = myMsg->src;
+                  t.age=0;
+                  call NeighboorList.pushback(t);
 
 
                }
