@@ -221,6 +221,8 @@ implementation{
       {
          temp = call NeighboorList1.get(i);
          temp->age++;
+         call NeighboorList1.get(i);
+         call NeighboorList1.pushback(temp);
          i++;
       }
 
