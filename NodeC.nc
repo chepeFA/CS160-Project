@@ -17,12 +17,12 @@ implementation {
     components MainC;
     components Node;
     components new AMReceiverC(AM_PACK) as GeneralReceive;
-    components new TimerMilliC() as NeighboorTimer;
-    components RandomC as Random;
+   // components new TimerMilliC() as NeighboorTimer;
+    c//omponents RandomC as Random;
 
     Node -> MainC.Boot;
-    Node.RandomTimer -> Random;
-    Node.NeighboorTimer -> NeighboorTimer;
+    //Node.RandomTimer -> Random;
+    //Node.NeighboorTimer -> NeighboorTimer;
 
     Node.Receive -> GeneralReceive;
 
@@ -35,11 +35,11 @@ implementation {
     components CommandHandlerC;
     Node.CommandHandler -> CommandHandlerC;
 
-    components new ListC(pack,64) as PacketListC;
-    Node.PacketList -> PacketListC;
+    //components new ListC(pack,64) as PacketListC;
+    //Node.PacketList -> PacketListC;
 
-    components new ListC(nD*,64) as NeighboorListC;
-    Node.NeighboorList -> NeighboorListC;
+    //components new ListC(nD*,64) as NeighboorListC;
+    //Node.NeighboorList -> NeighboorListC;
 
 
 
