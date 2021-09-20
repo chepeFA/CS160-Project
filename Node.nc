@@ -18,9 +18,7 @@ nx_uint16_t petition;
 nx_uint16_t sequenceNumber;
 nx_uint16_t sourceAddress;  //last two fields are for link layer headers
 nx_uint16_t destinationAddress;
-
-
-};
+}neighboorDiscovery;
 
 module Node{
    uses interface Boot;
