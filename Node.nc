@@ -35,6 +35,7 @@ module Node{
    uses interface Timer<TMilli> as NeighboorTimer;
    uses interface Random as RandomTimer;
    uses interface List<neighboorDiscovery> as NeighboorList;
+   uses interface List<neighboorDiscovery *> as NeighboorList1;
    uses interface List<pack> as PacketList;
 
 
