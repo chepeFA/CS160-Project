@@ -149,7 +149,7 @@ def main():
     s.runTime(20);
 
     #flooding
-    s.ping(1, 2, "Hi!");
+    s.ping(1, 5, "is ti working?");
     s.runTime(20);
 
 if __name__ == '__main__':
