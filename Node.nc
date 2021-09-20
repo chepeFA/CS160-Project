@@ -125,7 +125,8 @@ implementation{
 
                if(!foundNeighbor)
                {
-
+                  neighboor = call NeighboorList.get();
+                  
                }
             }
          }  
