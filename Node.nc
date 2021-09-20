@@ -159,7 +159,7 @@ implementation{
    void printNeighboors()
    {
 
-   dbg(GENERAL_CHANNEL, "Booted. \n");
+   
    uint16_t i, sizeList;
    neighboorDiscovery* temp;
    sizeList = call NeighboorList1.size();
@@ -177,6 +177,7 @@ implementation{
       dbg(NEIGHBOR_CHANNEL, "Neighboor: %d, Age: %d \n", temp->node,temp->age);
    }
    }
+   dbg(GENERAL_CHANNEL, "Here in print neighboors. \n");
 
    }
 
