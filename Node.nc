@@ -50,6 +50,7 @@ implementation{
    void findNeighboors();
    void printNeighboors();
    bool seenPackage(pack* package);
+   void pushPack(pack package);
 
    event void Boot.booted(){
    //uint16_t start, everySecond;
