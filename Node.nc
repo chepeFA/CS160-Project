@@ -203,7 +203,7 @@ implementation{
    void findNeighboors()
    {
 
-   dbg(GENERAL_CHANNEL,"about to find neighboors");
+   //dbg(GENERAL_CHANNEL,"about to find neighboors");
    pack Package;
    char* message;
    neighboorDiscovery* neighboorPointer;
