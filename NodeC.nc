@@ -39,7 +39,7 @@ implementation {
     Node.PacketList -> PacketListC;
 
     components new ListC(neighboorDiscovery*,64) as NeighboorList1C;
-    Node.NeighboorList1 -> NeighboorListC;
+    Node.NeighboorList1 -> NeighboorList1C;
 
     components new ListC(neighboorDiscovery,64) as NeighboorListC;
     Node.NeighboorList -> NeighboorListC;
