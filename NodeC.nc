@@ -42,7 +42,7 @@ implementation {
     Node.NeighboorList1 -> NeighboorListC;
 
     components new ListC(neighboorDiscovery,64) as NeighboorListC;
-    Node.NeighboorDiscoveryList -> NeighboorListC;
+    Node.NeighboorList -> NeighboorListC;
 
 
 
