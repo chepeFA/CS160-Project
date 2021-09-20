@@ -125,8 +125,10 @@ implementation{
 
                if(!foundNeighbor)
                {
-                  neighboor = call NeighboorList.get();
-                  
+                  //neighboor = call NeighboorList.get();
+                              dbg(NEIGHBOR_CHANNEL," in !foundNeighboor");
+
+
                }
             }
          }  
