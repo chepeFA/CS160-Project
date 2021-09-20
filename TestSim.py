@@ -151,7 +151,7 @@ def main():
     s.runTime(10);
 
     #flooding
-    s.ping(1, 5, "is ti working?");
+    s.ping(1, 2, "is ti working?");
     s.runTime(10);
 
 if __name__ == '__main__':

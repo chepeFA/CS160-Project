@@ -102,6 +102,8 @@ implementation{
 
             if(myMsg->protocol == PROTOCOL_PING)
             {
+               dbg(NEIGHBOR_CHANNEL," protocol ping AM");
+
                makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, myMsg->TTL-1, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
                pushPack(sendPackage);
                call Sender.send(sendPackage, myMsg->src);
@@ -109,6 +111,8 @@ implementation{
 
             if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
+               dbg(NEIGHBOR_CHANNEL," in protocol ping reply AM");
+
                sizeList = call NeighboorList1.size();
                foundNeighbor = FALSE;
                i=0;
@@ -125,8 +129,9 @@ implementation{
 
                if(!foundNeighbor)
                {
+
                   //neighboor = call NeighboorList.get();
-                              dbg(NEIGHBOR_CHANNEL," in !foundNeighboor");
+                  dbg(NEIGHBOR_CHANNEL," in !foundNeighboor");
 
 
                }
@@ -142,6 +147,8 @@ implementation{
 
             if(myMsg->protocol == PROTOCOL_PING)
             {
+               dbg(NEIGHBOR_CHANNEL," in protocol ping TOS_NODE_ID");
+
                makePack(&sendPackage,TOS_NODE_ID,myMsg->src,MAX_TTL,PROTOCOL_PINGREPLY,sequenceNumber,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
                sequenceNumber++;
                pushPack(sendPackage);
@@ -150,12 +157,14 @@ implementation{
 
             if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
+
                dbg(NEIGHBOR_CHANNEL,"Ping is coming from %d",myMsg->src);
             }
          }
 
          else
          {
+         dbg(NEIGHBOR_CHANNEL," No my pkt");
             makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL-1, myMsg->protocol, myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload));
             dbg("Project1F", "Received Message from %d, meant for %d. Rebroadcasting\n", myMsg->src, myMsg->dest);
             pushPack(sendPackage);
