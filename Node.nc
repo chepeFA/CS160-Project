@@ -116,6 +116,28 @@ implementation{
    {
 
    //dbg(GENERAL_CHANNEL,"about to find neighboors");
+   pack Package;
+   char* message;
+   neighboorDiscovery* neighboorPointer;
+   neighboorDiscovery* temp;
+   uint16_t i,sizeLista,age;
+
+
+
+   if(!call NeighboorList.isEmpty())
+   {
+      i=0;
+      age=0;
+
+      while(i<sizeList)
+      {
+         temp = call NeighboorList(i);
+         temp->Age++;
+      }
+   }
+
+
+
    }
 
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length){
