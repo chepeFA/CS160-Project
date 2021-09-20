@@ -40,14 +40,14 @@ implementation{
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
 
    event void Boot.booted(){
-   uint16_t start, everySecond;
+   //uint16_t start, everySecond;
 
       call AMControl.start();
-      start = call RandomTimer.rand16()%1000;
-      everySecond = call RandomTimer.rand16()%4000;
-
-      call NeighboorTimer.startPeriodicAt(start,everySecond);
-      dbg(GENERAL_CHANNEL, "Booted. Timer started at: %d, shooting every %d \n",start,everySecond);
+      //start = call RandomTimer.rand16()%1000;
+      //everySecond = call RandomTimer.rand16()%4000;
+      call NeighboorTimer.startPeriodic(2000);
+      //call NeighboorTimer.startPeriodicAt(start,everySecond);
+      dbg(GENERAL_CHANNEL, "Booted. \n");
    }
 
    event void AMControl.startDone(error_t err){
