@@ -143,9 +143,9 @@ implementation{
         
          if((temp->age)>5)
          {
-            neighboorPointer = call NeighboorList.remove(i);
+            neighboorPointer = call NeighboorList1.remove(i);
             i--;
-            size--;
+            sizeList--;
          }
          i++;
       }while(i<sizeList);
