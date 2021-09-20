@@ -51,6 +51,7 @@ implementation{
    void printNeighboors();
    bool seenPackage(pack* package);
    void pushPack(pack package);
+   bool isN(uint6_t src);
 
    event void Boot.booted(){
    //uint16_t start, everySecond;
@@ -129,7 +130,7 @@ implementation{
 
                }
 
-               if(!foundNeighbor)
+               if(!isN(myMsg->src))
                {
 
                   //neighboor = call NeighboorList.get();
@@ -304,6 +305,27 @@ implementation{
       }
 
       call PacketList.pushback(Package);
+   }
+
+   bool isN(uint16_t src)
+   {
+      if(!call NeighboorList1.isEmpty())
+      {
+         uint16_t i, sizeList = call NeighboorList1.size();
+         neighboorDiscovery nd;
+         i=0;
+
+         while(i<sizeList)
+         {
+            nd = call NeighboorList1.get(i);
+            if(nd.node ==src)
+            {
+               nd.age=0;
+               return TRUE;
+            }
+         }
+      }
+      return FALSE;
    }
 
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length){
