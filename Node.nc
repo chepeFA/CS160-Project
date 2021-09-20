@@ -95,7 +95,7 @@ implementation{
          
          if(myMsg->dest == AM_BROADCAST_ADDR)
          {
-            bool foundNeighboor;
+            bool foundNeighbor;
             uint16_t i,sizeList;
             neighboorDiscovery* neighboor;
             neighboorDiscovery* temp;
@@ -109,7 +109,7 @@ implementation{
 
             if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
-               sizeList = call NeighborList.size();
+               sizeList = call NeighboorList1.size();
                foundNeighbor = FALSE;
                i=0;
                while(i<sizeList)
