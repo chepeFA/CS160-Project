@@ -92,6 +92,43 @@ implementation{
          {
 
          }
+         
+         if(myMsg->dest == AM_BROADCAST_ADDR)
+         {
+            bool foundNeighboor;
+            uint16_t i,sizeList;
+            neighboorDiscovery* neighboor;
+            neighboorDiscovery* temp;
+
+            if(myMsg->protocol == PROTOCOL_PING)
+            {
+               makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, myMsg->TTL-1, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
+               pushPack(sendPackage);
+               call Sender.send(sendPackage, myMsg->src);
+            }
+
+            if(myMsg->protocol == PROTOCOL_PINGREPLY)
+            {
+               sizeList = call NeighborList.size();
+               foundNeighbor = FALSE;
+               i=0;
+               while(i<sizeList)
+               {
+                  temp = call NeighboorList1.get(i);
+                  if(temp->node==myMsg->src)
+                  {
+                     temp->age=0;
+                       foundNeighbor =TRUE;
+                  }
+
+               }
+
+               if(!foundNeighbor)
+               {
+
+               }
+            }
+         }  
          else if(TOS_NODE_ID==myMsg->dest) //this package is for me
          {
             dbg(NEIGHBOR_CHANNEL," packet from %d. Content: %s",myMsg->src,myMsg->payload);
