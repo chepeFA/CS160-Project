@@ -48,6 +48,7 @@ implementation{
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
    void findNeighboors();
    void printNeighboors();
+   bool seenPackage(pack* package);
 
    event void Boot.booted(){
    //uint16_t start, everySecond;
@@ -180,6 +181,23 @@ implementation{
    }
    dbg(GENERAL_CHANNEL, "Here in print neighboors. \n");
 
+   }
+
+   bool seenPackage(pack* package)
+   {
+      uint16_t sizeList = call PacketList.size();
+      uint16_t i =0;
+      pack seen;
+      while(i<sizeList)
+      {
+         seen = call PacketList.get(i);
+         if(seen.src = package->src && seem.dest == package->dest && seen.seq==package->seq)
+         {
+            return TRUE;
+         }
+         i++;
+      }
+      return FALSE;
    }
 
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length){
