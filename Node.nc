@@ -55,7 +55,7 @@ implementation{
    event void Boot.booted(){
    //uint16_t start, everySecond;
 
-     // call AMControl.start();
+      call AMControl.start();
       //start = call RandomTimer.rand16()%1000;
       //everySecond = call RandomTimer.rand16()%4000;
      // call NeighboorTimer.startPeriodic(2000);
