@@ -18,6 +18,10 @@ nx_uint16_t petition;
 nx_uint16_t sequenceNumber;
 nx_uint16_t sourceAddress;  //last two fields are for link layer headers
 nx_uint16_t destinationAddress;
+
+nx_uint16_t node;
+nx_uint16_t age;
+
 }neighboorDiscovery;
 
 module Node{
@@ -25,12 +29,15 @@ module Node{
 
    uses interface SplitControl as AMControl;
    uses interface Receive;
-
    uses interface SimpleSend as Sender;
-
    uses interface CommandHandler;
+
    uses interface Timer<TMilli> as NeighboorTimer;
    uses interface Random as RandomTimer;
+   uses interface List<neighboorDiscovery> as NeighboorList;
+   uses interface List<pack> as PacketList;
+
+
 }
 
 implementation{
@@ -38,6 +45,7 @@ implementation{
 
    // Prototypes
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
+   void findNeighboors();
 
    event void Boot.booted(){
    //uint16_t start, everySecond;
@@ -61,6 +69,7 @@ implementation{
 
    event void NeighboorTimer.fired() {
   // dbg(GENERAL_CHANNEL,"firing timer \n");
+  findNeighboors();
    
    }
 
