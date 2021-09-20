@@ -30,7 +30,7 @@ module Node{
 
    uses interface CommandHandler;
    uses interface Timer<TMilli> as NeighboorTimer;
-   uses interface Random as Random;
+   uses interface Random as RandomTimer;
 }
 
 implementation{
@@ -43,8 +43,8 @@ implementation{
    uint16_t start, everySecond;
 
       call AMControl.start();
-      start = call Random.rand16()%1000;
-      everySecond = call Random.rand16()%4000;
+      start = call RandomTimer.rand16()%1000;
+      everySecond = call RandomTimer.rand16()%4000;
 
       call NeighboorTimer.startPeriodicAt(start,everySecond);
       dbg(GENERAL_CHANNEL, "Booted\n");
