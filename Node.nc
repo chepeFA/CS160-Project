@@ -155,6 +155,29 @@ implementation{
 
    }
 
+
+   void printNeighboors()
+   {
+   uint16_t i, sizeList;
+   sizeList = call NeighboorList.size();
+   neighboorDiscovery* temp;
+   if(call NeighboorList.isEmpty())
+   {
+      dbg(NEIGHBOR_CHANNEL,"No neighboors \n");
+   }
+   else
+   {
+   i=0;
+   dbg(NEIGHBOR_CHANNEL,"Neighboor list for node %d \n", TOS_NODE_ID);
+   while(i<sizeList)
+   {
+      temp = call NeighboorList.get(i);
+      dbg(NEIGHBOR_CHANNEL, "Neighboor: %d, Age: %d \n", temp->node,temp->age);
+   }
+   }
+
+   }
+
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length){
       Package->src = src;
       Package->dest = dest;
