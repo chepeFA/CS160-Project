@@ -14,10 +14,10 @@
 #include "includes/channels.h"
 
 typedef nx_struct neighboorDiscovery{ //first two fields are for nd header
-uint16_t petition;
-uint16_t sequenceNumber;
-uint16_t sourceAddress;  //last two fields are for link layer headers
-uint16_t destinationAddress;
+nx_uint16_t petition;
+nx_uint16_t sequenceNumber;
+nx_uint16_t sourceAddress;  //last two fields are for link layer headers
+nx_uint16_t destinationAddress;
 
 
 };
@@ -60,6 +60,11 @@ implementation{
          call AMControl.start();
       }
    }
+
+   event void NeighboorTimer.fired() {
+   
+   }
+
 
    event void AMControl.stopDone(error_t err){}
 
