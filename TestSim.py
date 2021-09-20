@@ -147,7 +147,7 @@ def main():
     #s.runTime(20);
     #testing neighboor discovery
     s.neighborDMP(1);#list of neighbor for node 1
-    s.neighborDMP(3;#list of neighbor for node 1
+    s.neighborDMP(3);#list of neighbor for node 1
     s.runTime(5);
 
     #flooding
