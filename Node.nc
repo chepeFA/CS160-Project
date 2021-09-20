@@ -158,6 +158,7 @@ implementation{
 
    void printNeighboors()
    {
+   dbg(GENERAL_CHANNEL,"here \n");
    uint16_t i, sizeList;
    neighboorDiscovery* temp;
    sizeList = call NeighboorList1.size();
