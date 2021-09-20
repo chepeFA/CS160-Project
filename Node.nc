@@ -60,7 +60,7 @@ implementation{
    }
 
    event void NeighboorTimer.fired() {
-   dbg(GENERAL_CHANNEL,"firing timer \n");
+  // dbg(GENERAL_CHANNEL,"firing timer \n");
    
    }
 
