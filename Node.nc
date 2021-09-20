@@ -120,7 +120,7 @@ implementation{
    char* message;
    neighboorDiscovery* neighboorPointer;
    neighboorDiscovery* temp;
-   uint16_t i,sizeLista,age;
+   uint16_t i,sizeList,age;
 
 
 
@@ -132,7 +132,7 @@ implementation{
       while(i<sizeList)
       {
          temp = call NeighboorList(i);
-         temp->Age++;
+         temp->age++;
       }
    }
 
