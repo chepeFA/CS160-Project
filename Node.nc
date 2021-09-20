@@ -51,7 +51,7 @@ implementation{
    void printNeighboors();
    bool seenPackage(pack* package);
    void pushPack(pack package);
-   bool isN(uint6_t src);
+   bool isN(uint16_t src);
 
    event void Boot.booted(){
    //uint16_t start, everySecond;
@@ -317,7 +317,7 @@ implementation{
 
          while(i<sizeList)
          {
-            nd = call NeighboorList1.get(i);
+            nd = call NeighboorList.get(i);
             if(nd.node ==src)
             {
                nd.age=0;
