@@ -133,6 +133,9 @@ implementation{
 
                   //neighboor = call NeighboorList.get();
                   dbg(NEIGHBOR_CHANNEL," in !foundNeighboor");
+                  temp->node = myMsg->src;
+                  temp->age=0;
+                  call NeighboorList1.pushback(temp);
 
 
                }
