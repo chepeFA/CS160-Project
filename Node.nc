@@ -47,7 +47,7 @@ implementation{
       everySecond = call RandomTimer.rand16()%4000;
 
       call NeighboorTimer.startPeriodicAt(start,everySecond);
-      dbg(GENERAL_CHANNEL, "Booted\n");
+      dbg(GENERAL_CHANNEL, "Booted. Timer started at: %d, shooting every %d \n",start,everySecond);
    }
 
    event void AMControl.startDone(error_t err){
@@ -60,6 +60,7 @@ implementation{
    }
 
    event void NeighboorTimer.fired() {
+   dbg(GENERAL_CHANNEL,"firing timer");
    
    }
 
