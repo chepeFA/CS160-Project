@@ -18,7 +18,7 @@ implementation {
     components Node;
     components new AMReceiverC(AM_PACK) as GeneralReceive;
    // components new TimerMilliC() as NeighboorTimer;
-    c//omponents RandomC as Random;
+    //components RandomC as Random;
 
     Node -> MainC.Boot;
     //Node.RandomTimer -> Random;
