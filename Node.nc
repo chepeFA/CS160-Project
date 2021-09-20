@@ -43,6 +43,7 @@ module Node{
 
 implementation{
    pack sendPackage;
+   uint16_t sequenceNumber= 0;
 
    // Prototypes
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
@@ -83,8 +84,36 @@ implementation{
       dbg(GENERAL_CHANNEL, "Packet Received\n");
       if(len==sizeof(pack)){
          pack* myMsg=(pack*) payload;
-         dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
-         return msg;
+        // dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
+         //return msg;
+
+         if(myMsg->TTL==0 || seenPackage(myMsg))
+         {
+
+         }
+         else if(TOS_NODE_ID==myMsg->dest) //this package is for me
+         {
+            dbg(NEIGHBOR_CHANNEL," packet from %d. Content: %s",myMsg->src,myMsg->payload);
+            if(myMsg->protocol != PROTOCOL_CMD)
+            {
+               pushPack(*myMsg);
+            }
+
+            if(myMsg->protocol == PROTOCOL_PING)
+            {
+               makePack(&sendPackage,TOS_NODE_ID,myMsg->src,MAX_TTL,PROTOCOL_PINGREPLY,sequenceNumber,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
+               sequenceNumber++;
+               pushPack(sendPackage);
+               call Sender.send(sendPackage,AM_BROADCAST_ADDR);
+            }
+
+            if(myMsg->protocol == PROTOCOL_PINGREPLY)
+            {
+               dbg(NEIGHBOR_CHANNEL,"Ping is coming from %d",myMsg->src);
+            }
+         }
+
+         //else
       }
       dbg(GENERAL_CHANNEL, "Unknown Packet Type %d\n", len);
       return msg;
