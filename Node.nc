@@ -138,7 +138,7 @@ implementation{
                  // call NeighboorList1.get();
                   t.node = myMsg->src;
                   t.age=0;
-                  call NeighboorList1.pushback((*t));
+                  call NeighboorList1.pushback((&t));
 
 
                }
@@ -288,7 +288,7 @@ implementation{
       while(i<sizeList)
       {
          seen = call PacketList.get(i);
-         if(seen.src = package->src && seen.dest == package->dest && seen.seq==package->seq)
+         if(seen.src == package->src && seen.dest == package->dest && seen.seq==package->seq)
          {
             return TRUE;
          }
