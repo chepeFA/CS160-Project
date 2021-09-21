@@ -239,8 +239,8 @@ implementation{
       {
          temp = call NeighboorList1.get(i);
          temp->age++;
-         call NeighboorList1.get(i);
-         call NeighboorList1.pushback(temp);
+         //call NeighboorList1.get(i);
+         //call NeighboorList1.pushback(temp);
          i++;
       }
 
@@ -252,6 +252,7 @@ implementation{
          if((temp->age)>5)
          {
             neighboorPointer = call NeighboorList1.remove(i);
+            call NeighboorPool.put(neighboorPointer);
             i--;
             sizeList--;
          }
