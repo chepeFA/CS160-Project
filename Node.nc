@@ -166,12 +166,7 @@ implementation{
                dbg(NEIGHBOR_CHANNEL,"Ping is coming from %d",myMsg->src);
             }
 
-            if(myMsg ->protocol == PROTOCOL_CMD)
-            {
-
-           
-
-            }
+            
 
 
             
@@ -179,9 +174,9 @@ implementation{
 
          else
          {
-        // dbg(NEIGHBOR_CHANNEL," No my pkt");
+      
             makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL-1, myMsg->protocol, myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload));
-           // dbg("Project1F", "Received Message from %d, meant for %d. Rebroadcasting\n", //myMsg->src, myMsg->dest);
+          
             pushPack(sendPackage);
             call Sender.send(sendPackage, AM_BROADCAST_ADDR);
          }
@@ -292,10 +287,10 @@ implementation{
 
    void pushPack(pack Package)
    {
-      if(call PacketList.isFull())
-      {
-         call PacketList.popfront();
-      }
+      //if(call PacketList.isFull())
+      //{
+         //call PacketList.popfront();
+      //}
 
       call PacketList.pushback(Package);
    }
