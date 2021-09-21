@@ -66,9 +66,9 @@ implementation{
       start = call RandomTimer.rand32() % 2000;
       add = call RandomTimer.rand16() % 2;
       if(add == 1) {
-         offset = 15000 + (call Random.rand32() % 5000);
+         offset = 15000 + (call RandomTimer.rand32() % 5000);
       } else {
-         offset = 15000 - (call Random.rand32() % 5000);
+         offset = 15000 - (call RandomTimer.rand32() % 5000);
       }
       call NeighboorTimer.startPeriodicAt(start, offset);
       dbg(GENERAL_CHANNEL, "Booted. \n");
