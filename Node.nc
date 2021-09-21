@@ -229,9 +229,10 @@ implementation{
    uint16_t i,sizeList,age;
 
 
-
    if(!call NeighboorList.isEmpty())
    {
+         sizeList= call NeighboorList1.size();
+
       i=0;
       age=0;
 
@@ -248,8 +249,8 @@ implementation{
       do{
 
          temp = call NeighboorList1.get(i);
-        
-         if((temp->age)>5)
+         age = temp->age;
+         if(age>5)
          {
             neighboorPointer = call NeighboorList1.remove(i);
             call NeighboorPool.put(neighboorPointer);
