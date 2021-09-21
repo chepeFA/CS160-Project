@@ -97,7 +97,7 @@ implementation{
       dbg(GENERAL_CHANNEL, "Packet Received\n");
       if(len==sizeof(pack)){
          pack* myMsg=(pack*) payload;
-         dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
+        // dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
          //return msg;
 
          if(myMsg->TTL==0 || seenPackage(myMsg))
@@ -124,17 +124,17 @@ implementation{
 
             if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
-               dbg(NEIGHBOR_CHANNEL," in protocol ping reply AM \n");
+              // dbg(NEIGHBOR_CHANNEL," in protocol ping reply AM \n");
 
                sizeList = call NeighboorList1.size();
                foundNeighbor = FALSE;
                i=0;
                while(i<sizeList)
                {
-                  temp = call NeighboorList1.get(i);
-                  if(temp->node==myMsg->src)
+                  neighboor = call NeighboorList1.get(i);
+                  if(neighboor->node==myMsg->src)
                   {
-                     temp->age=0;
+                     neighboor->age=0;
                        foundNeighbor =TRUE;
                   }
 
@@ -178,17 +178,29 @@ implementation{
                dbg(NEIGHBOR_CHANNEL,"Ping is coming from %d",myMsg->src);
             }
 
+            if(myMsg ->protocol == PROTOCOL_CMD)
+            {
+
+            if(PROTOCOL_CMD == CMD_NEIGHBOR_DUMP;)
+            {
+               printNeighboors();
+            }     
+
+            }
+
+
             
          }
 
          else
          {
-         dbg(NEIGHBOR_CHANNEL," No my pkt");
+        // dbg(NEIGHBOR_CHANNEL," No my pkt");
             makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL-1, myMsg->protocol, myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload));
-            dbg("Project1F", "Received Message from %d, meant for %d. Rebroadcasting\n", myMsg->src, myMsg->dest);
+           // dbg("Project1F", "Received Message from %d, meant for %d. Rebroadcasting\n", //myMsg->src, myMsg->dest);
             pushPack(sendPackage);
             call Sender.send(sendPackage, AM_BROADCAST_ADDR);
          }
+             return msg;
       }
       dbg(GENERAL_CHANNEL, "Unknown Packet Type %d\n", len);
       return msg;
