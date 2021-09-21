@@ -138,7 +138,7 @@ implementation{
                  // call NeighboorList1.get();
                   t.node = myMsg->src;
                   t.age=0;
-                  call NeighboorList.pushback(t);
+                  call NeighboorList1.pushback(t);
 
 
                }
