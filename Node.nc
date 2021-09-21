@@ -49,7 +49,6 @@ implementation{
    // Prototypes
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
    void findNeighboors();
-  
    bool seenPackage(pack* package);
    void pushPack(pack package);
    bool isN(uint16_t src);
@@ -104,7 +103,7 @@ implementation{
             {
                dbg(NEIGHBOR_CHANNEL," protocol ping AM \n");
 
-               makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, myMsg->TTL-1, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
+               makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
                pushPack(sendPackage);
                call Sender.send(sendPackage, myMsg->src);
             }
@@ -112,7 +111,7 @@ implementation{
             if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
               // dbg(NEIGHBOR_CHANNEL," in protocol ping reply AM \n");
-
+              neighboorDiscovery nd;
                sizeList = call NeighboorList1.size();
                foundNeighbor = FALSE;
                i=0;
@@ -133,18 +132,21 @@ implementation{
 
                   //neighboor = call NeighboorList.get();
                   dbg(NEIGHBOR_CHANNEL," in !foundNeighboor \n");
-                  temp = call NeighboorPool.get();
-                  temp->node = myMsg->src;
-                  temp->age=0;
-                  call NeighboorList1.pushback(temp);
+                 // temp = call NeighboorPool.get();
+                  //temp->node = myMsg->src;
+                 // temp->age=0;
+                  //call NeighboorList1.pushback(temp);
+                  nd.node= myMsg->src;
+                  nd.age=0;
+                  call NeighboorList(nd);
 
 
                }
             }
          }  
-         else if(TOS_NODE_ID==myMsg->dest) //this package is for me
+         else if(myMsg->dest == TOS_NODE_ID) //this package is for me
          {
-            dbg(NEIGHBOR_CHANNEL," packet from %d. Content: %s",myMsg->src,myMsg->payload);
+            //dbg(NEIGHBOR_CHANNEL," packet from %d. Content: %s",myMsg->src,myMsg->payload);
             if(myMsg->protocol != PROTOCOL_CMD)
             {
                pushPack(*myMsg);
@@ -152,7 +154,7 @@ implementation{
 
             if(myMsg->protocol == PROTOCOL_PING)
             {
-               dbg(NEIGHBOR_CHANNEL," in protocol ping TOS_NODE_ID");
+               dbg(NEIGHBOR_CHANNEL," in protocol ping TOS_NODE_ID \n");
 
                makePack(&sendPackage,TOS_NODE_ID,myMsg->src,MAX_TTL,PROTOCOL_PINGREPLY,sequenceNumber,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
                sequenceNumber++;
@@ -229,10 +231,6 @@ implementation{
       uint16_t age=0;
       neighboorDiscovery* temp;
       neighboorDiscovery* neighboorPointer;
-      
-
-    
-      
 
       while(i<sizeList)
       {
@@ -287,11 +285,7 @@ implementation{
 
    void pushPack(pack Package)
    {
-      //if(call PacketList.isFull())
-      //{
-         //call PacketList.popfront();
-      //}
-
+    
       call PacketList.pushback(Package);
    }
 
