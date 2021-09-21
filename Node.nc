@@ -69,9 +69,9 @@ implementation{
         // offset = 15000 + (call RandomTimer.rand32() % 5000);
       //} else {
         // offset = 15000 - (call RandomTimer.rand32() % 5000);
-      }
+      //}
       //call NeighboorTimer.startPeriodicAt(start, offset);
-      dbg(GENERAL_CHANNEL, "Booted. \n");
+        dbg(GENERAL_CHANNEL, "Booted. \n");
    }
 
    event void AMControl.startDone(error_t err){
