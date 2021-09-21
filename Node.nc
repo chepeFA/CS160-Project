@@ -112,12 +112,12 @@ implementation{
             {
               // dbg(NEIGHBOR_CHANNEL," in protocol ping reply AM \n");
               neighboorDiscovery nd;
-               sizeList = call NeighboorList1.size();
+               sizeList = call NeighboorList.size();
                foundNeighbor = FALSE;
                i=0;
                while(i<sizeList)
                {
-                  neighboor = call NeighboorList1.get(i);
+                  neighboor = call NeighboorList.get(i);
                   if(neighboor->node==myMsg->src)
                   {
                      neighboor->age=0;
@@ -135,7 +135,7 @@ implementation{
                  // temp = call NeighboorPool.get();
                   //temp->node = myMsg->src;
                  // temp->age=0;
-                  //call NeighboorList1.pushback(temp);
+                  //call NeighboorList.pushback(temp);
                   nd.node= myMsg->src;
                   nd.age=0;
                   call NeighboorList.pushback(nd);
@@ -226,7 +226,7 @@ implementation{
 
    if(!call NeighboorList.isEmpty())
    {
-      uint16_t sizeList= call NeighboorList1.size();
+      uint16_t sizeList= call NeighboorList.size();
       uint16_t i=0;
       uint16_t age=0;
       neighboorDiscovery* temp;
@@ -234,7 +234,7 @@ implementation{
 
       while(i<sizeList)
       {
-         temp = call NeighboorList1.get(i);
+         temp = call NeighboorList.get(i);
          temp->age++;
          //call NeighboorList1.get(i);
          //call NeighboorList1.pushback(temp);
@@ -244,11 +244,11 @@ implementation{
       i=0;
       do{
 
-         temp = call NeighboorList1.get(i);
+         temp = call NeighboorList.get(i);
          age = temp->age;
          if(age>5)
          {
-            neighboorPointer = call NeighboorList1.remove(i);
+            neighboorPointer = call NeighboorList.remove(i);
             call NeighboorPool.put(neighboorPointer);
             i--;
             sizeList--;
@@ -291,9 +291,9 @@ implementation{
 
    bool isN(uint16_t src)
    {
-      if(!call NeighboorList1.isEmpty())
+      if(!call NeighboorList.isEmpty())
       {
-         uint16_t i, sizeList = call NeighboorList1.size();
+         uint16_t i, sizeList = call NeighboorList.size();
          neighboorDiscovery nd;
          i=0;
 
