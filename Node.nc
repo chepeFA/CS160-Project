@@ -128,7 +128,7 @@ implementation{
 
                }
 
-               if(!foundNeighbor)//!isN(myMsg->src))
+               if(!isN(myMsg->src))//!foundNeighbor)//!isN(myMsg->src))
                {
 
                   //neighboor = call NeighboorList.get();
@@ -238,7 +238,7 @@ implementation{
       i=0;
       age=0;
       
-      
+
       while(i<sizeList)
       {
          temp = call NeighboorList1.get(i);
