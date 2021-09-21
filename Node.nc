@@ -227,16 +227,17 @@ implementation{
    pack Package;
    char* message;
    
-   uint16_t i,sizeList,age;
+   //uint16_t i,sizeList,age;
 
 
    if(!call NeighboorList.isEmpty())
    {
-       sizeList= call NeighboorList1.size();
-       i=0;
-      age=0;
-      neighboorDiscovery* neighboorPointer;
+      uint16_t sizeList= call NeighboorList1.size();
+      uint16_t i=0;
+      uint16_t age=0;
       neighboorDiscovery* temp;
+      neighboorDiscovery* neighboorPointer;
+      
 
     
       
