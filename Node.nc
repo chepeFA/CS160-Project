@@ -138,7 +138,7 @@ implementation{
                  // call NeighboorList1.get();
                   t.node = myMsg->src;
                   t.age=0;
-                  call NeighboorList1.pushback((&t));
+                  //call NeighboorList1.pushback((&t));
 
 
                }
@@ -166,6 +166,11 @@ implementation{
             {
 
                dbg(NEIGHBOR_CHANNEL,"Ping is coming from %d",myMsg->src);
+            }
+
+            if(myMsg->PROTOCOL_CMD)
+            {
+                 dbg(NEIGHBOR_CHANNEL,"Protocol CMD \n",myMsg->src);
             }
          }
 
