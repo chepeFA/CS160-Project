@@ -226,18 +226,19 @@ implementation{
    //dbg(GENERAL_CHANNEL,"about to find neighboors");
    pack Package;
    char* message;
-   
+   neighboorDiscovery* neighboorPointer;
+      neighboorDiscovery* temp;
    uint16_t i,sizeList,age;
 
 
    if(!call NeighboorList.isEmpty())
    {
-         sizeList= call NeighboorList1.size();
+       sizeList= call NeighboorList1.size();
 
       i=0;
       age=0;
-      neighboorDiscovery* neighboorPointer;
-       neighboorDiscovery* temp;
+      
+      
       while(i<sizeList)
       {
          temp = call NeighboorList1.get(i);
