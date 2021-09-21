@@ -56,28 +56,28 @@ implementation{
 
    event void Boot.booted(){
    //uint16_t start, everySecond;
-      uint32_t start, offset;
-      uint16_t add;
+      //uint32_t start, offset;
+     // uint16_t add;
       call AMControl.start();
       //start = call RandomTimer.rand16()%1000;
       //everySecond = call RandomTimer.rand16()%4000;
      // call NeighboorTimer.startPeriodic(2000);
       //call NeighboorTimer.startPeriodicAt(start,everySecond);
-      start = call RandomTimer.rand32() % 2000;
-      add = call RandomTimer.rand16() % 2;
-      if(add == 1) {
-         offset = 15000 + (call RandomTimer.rand32() % 5000);
-      } else {
-         offset = 15000 - (call RandomTimer.rand32() % 5000);
+      //start = call RandomTimer.rand32() % 2000;
+      //add = call RandomTimer.rand16() % 2;
+      //if(add == 1) {
+        // offset = 15000 + (call RandomTimer.rand32() % 5000);
+      //} else {
+        // offset = 15000 - (call RandomTimer.rand32() % 5000);
       }
-      call NeighboorTimer.startPeriodicAt(start, offset);
+      //call NeighboorTimer.startPeriodicAt(start, offset);
       dbg(GENERAL_CHANNEL, "Booted. \n");
    }
 
    event void AMControl.startDone(error_t err){
       if(err == SUCCESS){
          dbg(GENERAL_CHANNEL, "Radio On\n");
-         //call NeighboorTimer.startPeriodic(1000);
+         call NeighboorTimer.startPeriodic(1000);
       }else{
          //Retry until successful
          call AMControl.start();
