@@ -275,30 +275,6 @@ implementation{
    }
 
 
-   void printNeighboors()
-   {
-
-   
-   uint16_t i, sizeList;
-   neighboorDiscovery* temp;
-   sizeList = call NeighboorList1.size();
-   if(call NeighboorList1.isEmpty())
-   {
-      dbg(NEIGHBOR_CHANNEL,"No neighboors \n");
-   }
-   else
-   {
-   i=0;
-   dbg(NEIGHBOR_CHANNEL,"Neighboor list for node %d \n", TOS_NODE_ID);
-   while(i<sizeList)
-   {
-      temp = call NeighboorList1.get(i);
-      dbg(NEIGHBOR_CHANNEL, "Neighboor: %d, Age: %d \n", temp->node,temp->age);
-   }
-   }
-   dbg(GENERAL_CHANNEL, "Here in print neighboors. \n");
-
-   }
 
    bool seenPackage(pack* package)
    {
