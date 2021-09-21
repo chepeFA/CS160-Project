@@ -63,8 +63,8 @@ implementation{
       //everySecond = call RandomTimer.rand16()%4000;
      // call NeighboorTimer.startPeriodic(2000);
       //call NeighboorTimer.startPeriodicAt(start,everySecond);
-      start = call Random.rand32() % 2000;
-      add = call Random.rand16() % 2;
+      start = call RandomTimer.rand32() % 2000;
+      add = call RandomTimer.rand16() % 2;
       if(add == 1) {
          offset = 15000 + (call Random.rand32() % 5000);
       } else {
