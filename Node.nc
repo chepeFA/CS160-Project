@@ -181,7 +181,7 @@ implementation{
             if(myMsg ->protocol == PROTOCOL_CMD)
             {
 
-            if(PROTOCOL_CMD == CMD_NEIGHBOR_DUMP;)
+            if(PROTOCOL_CMD == CMD_NEIGHBOR_DUMP)
             {
                printNeighboors();
             }     
