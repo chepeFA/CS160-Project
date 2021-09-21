@@ -37,6 +37,7 @@ module Node{
    uses interface List<neighboorDiscovery> as NeighboorList;
    uses interface List<neighboorDiscovery *> as NeighboorList1;
    uses interface List<pack> as PacketList;
+   uses interface Pool<neighboorDiscovery> as NeighboorPool;
 
 
 }
@@ -135,10 +136,10 @@ implementation{
 
                   //neighboor = call NeighboorList.get();
                   dbg(NEIGHBOR_CHANNEL," in !foundNeighboor \n");
-                 // call NeighboorList1.get();
-                  t.node = myMsg->src;
-                  t.age=0;
-                  //call NeighboorList1.pushback((&t));
+                 temp= call NeighboorPool.get();
+                  temp->node = myMsg->src;
+                  temp->age=0;
+                  call NeighboorList1.pushback(temp);
 
 
                }
@@ -168,10 +169,7 @@ implementation{
                dbg(NEIGHBOR_CHANNEL,"Ping is coming from %d",myMsg->src);
             }
 
-            if(myMsg->PROTOCOL_CMD)
-            {
-                 dbg(NEIGHBOR_CHANNEL,"Protocol CMD \n",myMsg->src);
-            }
+            
          }
 
          else
