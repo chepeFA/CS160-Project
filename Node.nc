@@ -131,7 +131,7 @@ implementation{
 
                }
 
-               if(!isN(myMsg->src))
+               if(!foundNeighboor)//!isN(myMsg->src))
                {
 
                   //neighboor = call NeighboorList.get();
