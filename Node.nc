@@ -133,7 +133,7 @@ implementation{
 
                   //neighboor = call NeighboorList.get();
                   dbg(NEIGHBOR_CHANNEL," in !foundNeighboor \n");
-                 temp= call NeighboorPool.get();
+                  temp= call NeighboorPool.get();
                   temp->node = myMsg->src;
                   temp->age=0;
                   call NeighboorList1.pushback(temp);
@@ -226,17 +226,19 @@ implementation{
    //dbg(GENERAL_CHANNEL,"about to find neighboors");
    pack Package;
    char* message;
-   neighboorDiscovery* neighboorPointer;
-      neighboorDiscovery* temp;
+   
    uint16_t i,sizeList,age;
 
 
    if(!call NeighboorList.isEmpty())
    {
        sizeList= call NeighboorList1.size();
-
-      i=0;
+       i=0;
       age=0;
+      neighboorDiscovery* neighboorPointer;
+      neighboorDiscovery* temp;
+
+    
       
 
       while(i<sizeList)
