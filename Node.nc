@@ -57,7 +57,7 @@ implementation{
    event void Boot.booted(){
 
       call AMControl.start();
-       call NeighboorTimer.startPeriodic(1000);
+      call NeighboorTimer.startPeriodic(1000);
         dbg(GENERAL_CHANNEL, "Booted. \n");
    }
 
@@ -98,7 +98,7 @@ implementation{
             uint16_t i,sizeList;
             neighboorDiscovery* neighboor;
             neighboorDiscovery* temp;
-            neighboorDiscovery t;
+           
 
             if(myMsg->protocol == PROTOCOL_PING)
             {
@@ -122,7 +122,8 @@ implementation{
                   if(neighboor->node==myMsg->src)
                   {
                      neighboor->age=0;
-                       foundNeighbor =TRUE;
+                     foundNeighbor =TRUE;
+                     break;
                   }
 
                }
@@ -225,8 +226,7 @@ implementation{
    //dbg(GENERAL_CHANNEL,"about to find neighboors");
    pack Package;
    char* message;
-   neighboorDiscovery* neighboorPointer;
-   neighboorDiscovery* temp;
+   
    uint16_t i,sizeList,age;
 
 
@@ -236,7 +236,8 @@ implementation{
 
       i=0;
       age=0;
-
+      neighboorDiscovery* neighboorPointer;
+       neighboorDiscovery* temp;
       while(i<sizeList)
       {
          temp = call NeighboorList1.get(i);
