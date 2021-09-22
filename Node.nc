@@ -322,8 +322,8 @@ implementation{
    void printNeighborList()
    {
    uint16_t i, sizeList;
-   sizeList = call NeighboorList1.size();
-   if(sizeList==0)
+  // sizeList = call NeighboorList1.size();
+   if(!NeighboorList1.isEmpty())
    {
       dbg(NEIGHBOR_CHANNEL,"No neighbors \n");
    }
