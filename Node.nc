@@ -236,7 +236,7 @@ implementation{
       while(i<sizeList)
       {
          temp = call NeighboorList1.get(i);
-         temp->age++;
+         temp->age=temp->age+1;
          call NeighboorList1.remove(i);
          call NeighboorList1.pushback(temp);
          i++;
