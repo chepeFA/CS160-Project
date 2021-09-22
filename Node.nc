@@ -173,6 +173,7 @@ implementation{
 
             if(myMsg->protocol == PROTOCOL_CMD && PROTOCOL_CMD == CMD_NEIGHBOR_DUMP)
             {
+               dbg(NEIGHBOR_CHANNEL,"Testing \n");
                printNeighborList();
             }
 
