@@ -135,7 +135,7 @@ implementation{
                {
 
                   //neighboor = call NeighboorList.get();
-                  //dbg(NEIGHBOR_CHANNEL," in !foundNeighboor \n");
+                  dbg(NEIGHBOR_CHANNEL," in !foundNeighboor \n");
                   temp = call NeighboorPool.get();
                   temp->node = myMsg->src;
                   temp->age=0;
@@ -176,7 +176,7 @@ implementation{
          else
          {
       
-            makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL, myMsg->protocol, myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload));
+            makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL-1, myMsg->protocol, myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload));
           
             pushPack(sendPackage);
             call Sender.send(sendPackage, AM_BROADCAST_ADDR);
@@ -193,7 +193,7 @@ implementation{
       makePack(&sendPackage, TOS_NODE_ID, destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
       sequenceNumber++;
       pushPack(sendPackage);
-      //call Sender.send(sendPackage, destination);
+      //call Sender.send(sendPackage, AM_BROADCAST_ADDR);//destination);
    }
 
    event void CommandHandler.printNeighbors(){}
