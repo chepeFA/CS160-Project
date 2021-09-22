@@ -156,10 +156,10 @@ implementation{
 
                */
 
-               if(!isNeighbor(myMsg->src))
+               if(!isN(myMsg->src))
                {
                   nd->node = myMsg->src;
-                  nd.age=0;
+                  nd->age=0;
                   call neighboorList.pushback(nd);
                }
             }
