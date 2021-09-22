@@ -43,6 +43,7 @@ module Node{
 }
 
 implementation{
+//global variables
    pack sendPackage;
    uint16_t sequenceNumber= 0;
 
@@ -111,7 +112,7 @@ implementation{
             if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
               // dbg(NEIGHBOR_CHANNEL," in protocol ping reply AM \n");
-              neighboorDiscovery nd;
+               neighboorDiscovery nd;
                sizeList = call NeighboorList1.size();
                foundNeighbor = FALSE;
                i=0;
@@ -132,13 +133,13 @@ implementation{
 
                   //neighboor = call NeighboorList.get();
                   dbg(NEIGHBOR_CHANNEL," in !foundNeighboor \n");
-                 // temp = call NeighboorPool.get();
-                  //temp->node = myMsg->src;
-                 // temp->age=0;
-                  //call NeighboorList1.pushback(temp);
-                  nd.node= myMsg->src;
-                  nd.age=0;
-                  call NeighboorList.pushback(nd);
+                  temp = call NeighboorPool.get();
+                  temp->node = myMsg->src;
+                  temp->age=0;
+                  call NeighboorList1.pushback(temp);
+                  //nd.node= myMsg->src;
+                  //nd.age=0;
+                  //call NeighboorList.pushback(nd);
 
 
                }
@@ -260,8 +261,8 @@ implementation{
 
    message = "ping \n";
    makePack(&Package,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t) sizeof(message));
-   pushPack(Package);
-   call Sender.send(Package,AM_BROADCAST_ADDR);
+   pushPack(sendPackage);
+   call Sender.send(sendPackage,AM_BROADCAST_ADDR);
    }
 
 
