@@ -75,7 +75,7 @@ implementation{
    event void NeighboorTimer.fired() {
   // dbg(GENERAL_CHANNEL,"firing timer \n");
   findNeighboors();
-  printNeighboorList();
+  printNeighbrList();
    
    }
 
