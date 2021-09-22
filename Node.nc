@@ -111,7 +111,7 @@ implementation{
                call Sender.send(sendPackage, myMsg->src);
             }
 
-            if(myMsg->protocol == PROTOCOL_PINGREPLY)
+            else if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
                  //dbg(NEIGHBOR_CHANNEL," protocol ping REPLY AM \n");
                neighboorDiscovery nd;
@@ -165,22 +165,11 @@ implementation{
                call Sender.send(sendPackage,AM_BROADCAST_ADDR);
             }
 
-            if(myMsg->protocol == PROTOCOL_PINGREPLY)
+            else if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
 
                dbg(NEIGHBOR_CHANNEL,"Ping is coming from %d",myMsg->src);
-            }
-
-            if(myMsg->protocol == PROTOCOL_CMD && PROTOCOL_CMD == CMD_NEIGHBOR_DUMP)
-            {
-               dbg(NEIGHBOR_CHANNEL,"Testing \n");
-               printNeighborList();
-            }
-
-            
-
-
-            
+            }          
          }
 
          else
@@ -226,8 +215,7 @@ implementation{
    void findNeighboors()
    {
 
-   //dbg(GENERAL_CHANNEL,"about to find neighboors \n");
-   pack Package;
+
    char* message;
    
    //uint16_t i,sizeList,age;
