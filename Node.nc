@@ -113,7 +113,7 @@ implementation{
 
             if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
-                 dbg(NEIGHBOR_CHANNEL," protocol ping REPLY AM \n");
+                 #dbg(NEIGHBOR_CHANNEL," protocol ping REPLY AM \n");
                neighboorDiscovery nd;
                sizeList = call NeighboorList1.size();
                foundNeighbor = FALSE;
