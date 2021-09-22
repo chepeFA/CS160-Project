@@ -255,9 +255,9 @@ implementation{
 
 
    message = "ping \n";
-   makePack(&Package,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t) sizeof(message));
-   pushPack(Package);
-   call Sender.send(Package,AM_BROADCAST_ADDR);
+   makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t) sizeof(message));
+   pushPack(sendPackage);
+   call Sender.send(sendPackage,AM_BROADCAST_ADDR);
 
    }
 
