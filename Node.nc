@@ -321,8 +321,8 @@ implementation{
    void printNeighborList()
    {
    uint16_t i, sizeList;
-   sizeList = call NeighborList1.size();
-   if(size==0)
+   sizeList = call NeighboorList1.size();
+   if(sizeList==0)
    {
       dbg(NEIGHBOR_CHANNEL,"No neighbors \n");
    }
@@ -333,7 +333,7 @@ implementation{
       while(i<sizeList)
       {
          neighboorDiscovery temp = call NeighboorList1.get(i);
-         dgh(NEIGHBOR_CHANNEL,"Neighbor: %d, Age: %d",temp->node,temp->age);
+         dbg(NEIGHBOR_CHANNEL,"Neighbor: %d, Age: %d",temp->node,temp->age);
       }
    }
    }
