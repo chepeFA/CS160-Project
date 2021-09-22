@@ -18,11 +18,10 @@ nx_uint16_t petition;
 nx_uint16_t sequenceNumber;
 nx_uint16_t sourceAddress;  //last two fields are for link layer headers
 nx_uint16_t destinationAddress;
-
 nx_uint16_t node;
 nx_uint16_t age;
-
 }neighboorDiscovery;
+
 
 module Node{
    uses interface Boot;
@@ -38,8 +37,6 @@ module Node{
    uses interface List<neighboorDiscovery *> as NeighboorList1;
    uses interface List<pack> as PacketList;
    uses interface Pool<neighboorDiscovery> as NeighboorPool;
-
-
 }
 
 implementation{
@@ -111,7 +108,9 @@ implementation{
                dbg(NEIGHBOR_CHANNEL," protocol ping AM \n");
 
                makePack(&sendPackage, TOS_NODE_ID,myMsg->src,myMsg->TTL-1, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
+               sequenceNumber++;
                pushPack(sendPackage);
+               //call Sender.send(sendPackage, myMsg->src);
                call Sender.send(sendPackage, myMsg->src);
             }
 
