@@ -92,7 +92,7 @@ implementation{
 
          if(myMsg->TTL==0 || seenPackage(myMsg))
          {
-            dbg(GENERAL_CHANNEL,"Dropping package \n");
+           // dbg(GENERAL_CHANNEL,"Dropping package \n");
          }
          
          if(myMsg->dest == AM_BROADCAST_ADDR)
