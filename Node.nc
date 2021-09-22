@@ -114,7 +114,6 @@ implementation{
             else if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
                  //dbg(NEIGHBOR_CHANNEL," protocol ping REPLY AM \n");
-               neighboorDiscovery nd;
                sizeList = call NeighboorList1.size();
                foundNeighbor = FALSE;
                i=0;
@@ -215,7 +214,7 @@ implementation{
    void findNeighboors()
    {
 
-
+   pack Package;
    char* message;
    
    //uint16_t i,sizeList,age;
@@ -256,9 +255,9 @@ implementation{
 
 
    message = "ping \n";
-   makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t) sizeof(message));
-   pushPack(sendPackage);
-   call Sender.send(sendPackage,AM_BROADCAST_ADDR);
+   makePack(&Package,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t) sizeof(message));
+   pushPack(Package);
+   call Sender.send(Package,AM_BROADCAST_ADDR);
 
    }
 
