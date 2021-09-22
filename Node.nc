@@ -160,7 +160,7 @@ implementation{
                {
                   nd->node = myMsg->src;
                   nd->age=0;
-                  call neighboorList.pushback(nd);
+                  call neighboorList1.pushback(nd);
                }
             }
          }  
