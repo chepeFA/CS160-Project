@@ -44,6 +44,7 @@ implementation{
    pack sendPackage;
    uint16_t sequenceNumber= 0;
    uint8_t commandID;
+   uint16_t LSTable[20][20];
 
 
    // Prototypes
@@ -107,8 +108,8 @@ implementation{
             {
                dbg(NEIGHBOR_CHANNEL," protocol ping AM \n");
 
-               makePack(&sendPackage, TOS_NODE_ID,myMsg->src,myMsg->TTL-1, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
-               sequenceNumber++;
+               makePack(&sendPackage, TOS_NODE_ID,AM_BROADCAST_ADDR,MAX_TTL, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
+               //sequenceNumber++;
                pushPack(sendPackage);
                call Sender.send(sendPackage, myMsg->src);
                //call Sender.send(sendPackage, AM_BROADCAST_ADDR);
@@ -116,6 +117,9 @@ implementation{
 
             else if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
+
+            neighboorDiscovery* nd;
+            /*
                  //dbg(NEIGHBOR_CHANNEL," protocol ping REPLY AM \n");
                sizeList = call NeighboorList1.size();
                foundNeighbor = FALSE;
@@ -149,6 +153,15 @@ implementation{
 
 
                }
+
+               */
+
+               if(!isNeighbor(myMsg->src))
+               {
+                  nd->node = myMsg->src;
+                  nd.age=0;
+                  call neighboorList.pushback(nd);
+               }
             }
          }  
          else if(myMsg->dest == TOS_NODE_ID) //this package is for me
@@ -163,10 +176,10 @@ implementation{
             {
                dbg(NEIGHBOR_CHANNEL," in protocol ping TOS_NODE_ID \n");
 
-               makePack(&sendPackage,TOS_NODE_ID,myMsg->src,myMsg->TTL-1,PROTOCOL_PINGREPLY,sequenceNumber,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
+               makePack(&sendPackage,TOS_NODE_ID,myMsg->src,MAX_TTL,PROTOCOL_PINGREPLY,sequenceNumber,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
               sequenceNumber++;
                pushPack(sendPackage);
-               call Sender.send(sendPackage,AM_BROADCAST_ADDR);
+              // call Sender.send(sendPackage,AM_BROADCAST_ADDR);
             }
 
             else if(myMsg->protocol == PROTOCOL_PINGREPLY)
