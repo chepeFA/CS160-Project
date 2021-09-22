@@ -75,6 +75,7 @@ implementation{
    event void NeighboorTimer.fired() {
   // dbg(GENERAL_CHANNEL,"firing timer \n");
   findNeighboors();
+  printNeighboorList();
    
    }
 
@@ -224,7 +225,7 @@ implementation{
    void findNeighboors()
    {
 
-   //dbg(GENERAL_CHANNEL,"about to find neighboors");
+   //dbg(GENERAL_CHANNEL,"about to find neighboors \n");
    pack Package;
    char* message;
    
@@ -269,7 +270,7 @@ implementation{
    makePack(&Package,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t) sizeof(message));
    pushPack(sendPackage);
    call Sender.send(sendPackage,AM_BROADCAST_ADDR);
-   printNeighborList();
+
    }
 
 
@@ -323,7 +324,7 @@ implementation{
    {
    uint16_t i, sizeList;
   // sizeList = call NeighboorList1.size();
-   if(!call NeighboorList1.isEmpty())
+   if(call NeighboorList1.isEmpty())
    {
       dbg(NEIGHBOR_CHANNEL,"No neighbors \n");
    }
