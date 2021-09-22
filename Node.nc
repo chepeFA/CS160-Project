@@ -323,7 +323,7 @@ implementation{
    {
    uint16_t i, sizeList;
   // sizeList = call NeighboorList1.size();
-   if(!NeighboorList1.isEmpty())
+   if(!call NeighboorList1.isEmpty())
    {
       dbg(NEIGHBOR_CHANNEL,"No neighbors \n");
    }
