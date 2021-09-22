@@ -53,6 +53,7 @@ implementation{
    bool seenPackage(pack* package);
    void pushPack(pack package);
    bool isN(uint16_t src);
+   void printNeighborList();
 
    event void Boot.booted(){
 
@@ -167,6 +168,11 @@ implementation{
             {
 
                dbg(NEIGHBOR_CHANNEL,"Ping is coming from %d",myMsg->src);
+            }
+
+            if(myMsg->protocol == PROTOCOL_CMD && PROTOCOL_CMD == CMD_NEIGHBOR_DUMP)
+            {
+               printNeighborList();
             }
 
             
@@ -309,6 +315,27 @@ implementation{
          }
       }
       return FALSE;
+   }
+
+
+   void printNeighborList()
+   {
+   uint16_t i, sizeList;
+   sizeList = call NeighborList1.size();
+   if(size==0)
+   {
+      dbg(NEIGHBOR_CHANNEL,"No neighbors \n");
+   }
+   else
+   {
+      dbg(NEIGHBOR_CHANNEL,"Neighbors for node %d:  \n",TOS_NODE_ID);
+      i=0;
+      while(i<sizeList)
+      {
+         neighboorDiscovery temp = call NeighboorList1.get(i);
+         dgh(NEIGHBOR_CHANNEL,"Neighbor: %d, Age: %d",temp->node,temp->age);
+      }
+   }
    }
 
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length){
