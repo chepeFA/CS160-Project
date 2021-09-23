@@ -106,7 +106,7 @@ implementation{
 
             if(myMsg->protocol == PROTOCOL_PING)
             {
-               dbg(NEIGHBOR_CHANNEL," protocol ping AM \n");
+               //dbg(NEIGHBOR_CHANNEL," protocol ping AM \n");
 
                makePack(&sendPackage, TOS_NODE_ID,AM_BROADCAST_ADDR,MAX_TTL, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
                //sequenceNumber++;
