@@ -119,15 +119,15 @@ implementation{
             {
             
                  //dbg(NEIGHBOR_CHANNEL," protocol ping REPLY AM \n");
-               sizeList = call NeighboorList.size();
+               sizeList = call NeighboorList1.size();
                foundNeighbor = FALSE;
                i=0;
                while(i<sizeList)
                {
-                  n = call NeighboorList.get(i);
-                  if(n.node==myMsg->src)
+                  neighboor = call NeighboorList.get(i);
+                  if(eighboorn->node==myMsg->src)
                   {
-                     n.age=0;
+                     neighboor->age=0;
                      foundNeighbor =TRUE;
                      break;
                   }
