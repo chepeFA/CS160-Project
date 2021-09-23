@@ -237,7 +237,7 @@ implementation{
    //uint16_t i,sizeList,age;
 
 
-   if(!call NeighboorList.isEmpty())
+   if(!call NeighboorList1.isEmpty())
    {
       uint16_t sizeList= call NeighboorList1.size();
       uint16_t i=0;
