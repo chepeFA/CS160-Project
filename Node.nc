@@ -141,7 +141,7 @@ implementation{
                {
 
                   //neighboor = call NeighboorList.get();
-                  dbg(NEIGHBOR_CHANNEL," in !foundNeighboor \n");
+                  //dbg(NEIGHBOR_CHANNEL," in !foundNeighboor \n");
                   temp = call NeighboorPool.get();
                   temp->node = myMsg->src;
                   temp->age=0;
