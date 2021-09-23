@@ -187,7 +187,26 @@ implementation{
             {
 
                dbg(NEIGHBOR_CHANNEL,"Ping is coming from %d",myMsg->src);
-            }          
+            }    
+
+            else if(myMsg->protocol == PROTOCOL_CMD)
+            {
+               switch(getCMD((uint8_t *) &myMsg->payload, sizeof(myMsg->payload))){
+                  case CMD_PING:
+                  memcpy(&createMsg, (myMsg->payload) + CMD_LENGTH+1, sizeof(myMsg->payload) - CMD_LENGTH+1);
+                  memcpy(&dest, (myMsg->payload)+ CMD_LENGTH, sizeof(uint8_t));
+                  makePack(&sendPackage, TOS_NODE_ID, (dest-48)&(0x00FF),
+                        MAX_TTL, PROTOCOL_PING, sequenceNumber, (uint8_t *)createMsg, sizeof(createMsg)); 
+                  sequenceNumber++;
+                  //Push the packet we want to send into our seen/sent list
+                  pushPack(sendPackage);
+                  call Sender.send(sendPackage, AM_BROADCAST_ADDR);
+                  break;
+                  
+                  case CMD_NEIGHBOR_DUMP:
+                  printNeighborList();
+                  break;
+            }      
          }
 
          else
