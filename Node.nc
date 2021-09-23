@@ -101,7 +101,7 @@ implementation{
             bool foundNeighbor;
             uint16_t i,sizeList;
             neighboorDiscovery* neighboor, *temp;
-            neighboorDiscovery nd;
+            neighboorDiscovery nd,n;
            
 
             if(myMsg->protocol == PROTOCOL_PING)
@@ -119,15 +119,15 @@ implementation{
             {
             
                  //dbg(NEIGHBOR_CHANNEL," protocol ping REPLY AM \n");
-               sizeList = call NeighboorList1.size();
+               sizeList = call NeighboorList.size();
                foundNeighbor = FALSE;
                i=0;
                while(i<sizeList)
                {
-                  neighboor = call NeighboorList1.get(i);
-                  if(neighboor->node==myMsg->src)
+                  n = call NeighboorList.get(i);
+                  if(n.node==myMsg->src)
                   {
-                     neighboor->age=0;
+                     n.age=0;
                      foundNeighbor =TRUE;
                      break;
                   }
