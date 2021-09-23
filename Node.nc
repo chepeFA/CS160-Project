@@ -332,7 +332,7 @@ implementation{
    void printNeighborList()
    {
    uint16_t i, sizeList;
-   sizeList =call NeighboorPool.size();// call NeighboorList1.size();
+   sizeList =call NeighboorList1.size();// call NeighboorList1.size();
    dbg(NEIGHBOR_CHANNEL,"size list %d:",sizeList);
    if(sizeList==0)//call NeighboorList1.isEmpty)
    {
