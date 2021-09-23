@@ -119,7 +119,7 @@ implementation{
             {
 
             neighboorDiscovery* nd;
-            /*
+            
                  //dbg(NEIGHBOR_CHANNEL," protocol ping REPLY AM \n");
                sizeList = call NeighboorList1.size();
                foundNeighbor = FALSE;
@@ -154,14 +154,15 @@ implementation{
 
                }
 
-               */
-
+               
+               /*
                if(!isN(myMsg->src))
                {
                   nd->node = myMsg->src;
                   nd->age=0;
                   call NeighboorList1.pushback(nd);
                }
+               */
             }
          }  
          else if(myMsg->dest == TOS_NODE_ID) //this package is for me
