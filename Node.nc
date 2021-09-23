@@ -44,7 +44,7 @@ implementation{
    pack sendPackage;
    uint16_t sequenceNumber= 0;
    uint8_t commandID;
-   uint16_t LSTable[20][20];
+   
 
 
    // Prototypes
@@ -75,7 +75,7 @@ implementation{
    event void NeighboorTimer.fired() {
   // dbg(GENERAL_CHANNEL,"firing timer \n");
   findNeighboors();
-  //printNeighborList();
+  printNeighborList();
    
    }
 
@@ -145,8 +145,8 @@ implementation{
                   temp = call NeighboorPool.get();
                   temp->node = myMsg->src;
                   temp->age=0;
-                  call NeighboorList1.pushback(temp);
-                  //call NeighboorPool.put(temp);
+                  //call NeighboorList1.pushback(temp);
+                  call NeighboorPool.put(temp);
                   //nd.node= myMsg->src;
                   //nd.age=0;
                   //call NeighboorList.pushback(nd);
