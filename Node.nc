@@ -117,14 +117,12 @@ implementation{
 
             else if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
-
-            neighboorDiscovery* nd;
             
                  //dbg(NEIGHBOR_CHANNEL," protocol ping REPLY AM \n");
                sizeList = call NeighboorList1.size();
                foundNeighbor = FALSE;
                i=0;
-               while(i<sizeList)
+               while(i<=sizeList)
                {
                   neighboor = call NeighboorList1.get(i);
                   if(neighboor->node==myMsg->src)
@@ -247,7 +245,7 @@ implementation{
       neighboorDiscovery* temp;
       neighboorDiscovery* neighboorPointer;
 
-      while(i<sizeList)
+      while(i<=sizeList)
       {
          temp = call NeighboorList1.get(i);
          temp->age=temp->age+1;
@@ -269,7 +267,7 @@ implementation{
             sizeList--;
          }
          i++;
-      }while(i<sizeList);
+      }while(i<=sizeList);
    }
 
 
@@ -289,7 +287,7 @@ implementation{
       uint16_t sizeList = call PacketList.size();
       uint16_t i =0;
       pack seen;
-      while(i<sizeList)
+      while(i<=sizeList)
       {
          seen = call PacketList.get(i);
          if(seen.src == package->src && seen.dest == package->dest && seen.seq==package->seq)
@@ -342,7 +340,7 @@ implementation{
    {
       dbg(NEIGHBOR_CHANNEL,"Neighbors for node %d:  \n",TOS_NODE_ID);
       i=0;
-      while(i<sizeList)
+      while(i<=sizeList)
       {
          neighboorDiscovery* temp = call NeighboorList1.get(i);
          dbg(NEIGHBOR_CHANNEL,"Neighbor: %d, Age: %d",temp->node,temp->age);
