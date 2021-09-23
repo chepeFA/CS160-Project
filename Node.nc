@@ -250,8 +250,8 @@ implementation{
       {
          temp = call NeighboorList1.get(i);
          temp->age=temp->age+1;
-         call NeighboorList1.remove(i);
-         call NeighboorList1.pushback(temp);
+         //call NeighboorList1.remove(i);
+         //call NeighboorList1.pushback(temp);
          i++;
       }
 
@@ -273,7 +273,7 @@ implementation{
 
 
    message = "ping \n";
-   makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,MAX_TTL,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t) sizeof(message));
+   makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t) sizeof(message));
    pushPack(sendPackage);
    call Sender.send(sendPackage,AM_BROADCAST_ADDR);
    //   void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
