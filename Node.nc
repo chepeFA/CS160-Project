@@ -344,7 +344,7 @@ implementation{
       i=0;
       while(i<sizeList)
       {
-         neighboorDiscovery* temp = call NeighboorList1.get(i);
+         neighboorDiscovery* temp = call NeighboorPool.get();//NeighboorList1.get(i);
          dbg(NEIGHBOR_CHANNEL,"Neighbor: %d, Age: %d",temp->node,temp->age);
      // }
    }
