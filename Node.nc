@@ -124,7 +124,7 @@ implementation{
                i=0;
                while(i<sizeList)
                {
-                  neighboor = call NeighboorList.get(i);
+                  neighboor = call NeighboorList1.get(i);
                   if(neighboor->node==myMsg->src)
                   {
                      neighboor->age=0;
