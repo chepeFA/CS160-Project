@@ -333,19 +333,19 @@ implementation{
    {
    uint16_t i, sizeList;
    sizeList = call NeighboorList1.size();
-   if(sizeList==0)//call NeighboorList1.isEmpty)
-   {
-      dbg(NEIGHBOR_CHANNEL,"No neighbors \n");
-   }
-   else
-   {
+   //if(sizeList==0)//call NeighboorList1.isEmpty)
+   //{
+     // dbg(NEIGHBOR_CHANNEL,"No neighbors \n");
+   //}
+   //else
+   //{
       dbg(NEIGHBOR_CHANNEL,"Neighbors for node %d:  \n",TOS_NODE_ID);
       i=0;
       while(i<sizeList)
       {
          neighboorDiscovery* temp = call NeighboorList1.get(i);
          dbg(NEIGHBOR_CHANNEL,"Neighbor: %d, Age: %d",temp->node,temp->age);
-      }
+     // }
    }
    }
 
