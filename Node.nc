@@ -268,7 +268,7 @@ implementation{
          if(age>5)
          {
             call NeighboorList.remove(i);
-            //call NeighboorPool.put(nd);
+            call NeighboorList.pushback(nd);
             i--;
             sizeList--;
          }
