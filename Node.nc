@@ -100,8 +100,7 @@ implementation{
          {
             bool foundNeighbor;
             uint16_t i,sizeList;
-            neighboorDiscovery* neighboor;
-            neighboorDiscovery* temp;
+            neighboorDiscovery* neighboor; *temp;
            
 
             if(myMsg->protocol == PROTOCOL_PING)
