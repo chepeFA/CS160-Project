@@ -143,8 +143,8 @@ implementation{
                   temp = call NeighboorPool.get();
                   temp->node = myMsg->src;
                   temp->age=0;
-                  call NeighboorList1.pushback(temp);
-                    //call NeighboorPool.put(temp);
+                  // NeighboorList1.pushback(temp);
+                    call NeighboorPool.put(temp);
                   //nd.node= myMsg->src;
                   //nd.age=0;
                   //call NeighboorList.pushback(nd);
