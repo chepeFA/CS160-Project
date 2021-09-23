@@ -264,7 +264,7 @@ implementation{
          if(age>5)
          {
             neighboorPointer = call NeighboorList1.remove(i);
-           // call NeighboorPool.put(neighboorPointer);
+            call NeighboorPool.put(neighboorPointer);
             i--;
             sizeList--;
          }
