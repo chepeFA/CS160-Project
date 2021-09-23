@@ -101,6 +101,7 @@ implementation{
             bool foundNeighbor;
             uint16_t i,sizeList;
             neighboorDiscovery* neighboor, *temp;
+            neighboorDiscovery nd;
            
 
             if(myMsg->protocol == PROTOCOL_PING)
@@ -134,7 +135,7 @@ implementation{
                }
 
                //new neighbor
-               if(!foundNeighbor)//!isN(myMsg->src))//)//!isN(myMsg->src))
+               if(!isN(myMsg->src))//!foundNeighbor)//!isN(myMsg->src))//)//!isN(myMsg->src))
                {
 
                   //neighboor = call NeighboorList.get();
@@ -142,8 +143,11 @@ implementation{
                   temp = call NeighboorPool.get();
                   temp->node = myMsg->src;
                   temp->age=0;
-                  call NeighboorList1.pushback(temp);
-                  call NeighboorPool.put(temp);
+                 // call NeighboorList1.pushback(temp);
+                 nd.node= myMsg->src;
+                 nd.age=0;
+                 call NeighboorList.pushback(nd);
+                  //call NeighboorPool.put(temp);
                   //nd.node= myMsg->src;
                   //nd.age=0;
                   //call NeighboorList.pushback(nd);
@@ -236,18 +240,19 @@ implementation{
    //uint16_t i,sizeList,age;
 
 
-   if(!call NeighboorList1.isEmpty())
+   if(!call NeighboorList.isEmpty())
    {
-      uint16_t sizeList= call NeighboorList1.size();
+      uint16_t sizeList= call NeighboorList.size();
       uint16_t i=0;
       uint16_t age=0;
       neighboorDiscovery* temp;
       neighboorDiscovery* neighboorPointer;
+      neighboorDiscovery nd;
 
       while(i<sizeList)
       {
-         temp = call NeighboorList1.get(i);
-         temp->age=temp->age+1;
+         nd = call NeighboorList.get(i);
+         temp.age=temp->age+1;
          //call NeighboorList1.remove(i);
          //call NeighboorList1.pushback(temp);
          i++;
@@ -256,12 +261,12 @@ implementation{
       i=0;
       do{
 
-         temp = call NeighboorList1.get(i);
-         age = temp->age;
+         nd = call NeighboorList.get(i);
+         age = nd.age;
          if(age>5)
          {
-            neighboorPointer = call NeighboorList1.remove(i);
-            call NeighboorPool.put(neighboorPointer);
+            nd = call NeighboorList.remove(i);
+            call NeighboorPool.put(nd);
             i--;
             sizeList--;
          }
@@ -329,7 +334,7 @@ implementation{
    void printNeighborList()
    {
    uint16_t i, sizeList;
-   sizeList =call NeighboorList1.size();// call NeighboorList1.size();
+   sizeList =call NeighboorList.size();// call NeighboorList1.size();
    dbg(NEIGHBOR_CHANNEL,"size list %d:",sizeList);
    if(sizeList==0)//call NeighboorList1.isEmpty)
    {
@@ -341,8 +346,8 @@ implementation{
       i=0;
       while(i<sizeList)
       {
-         neighboorDiscovery* temp = call NeighboorList1.get(i);
-         dbg(NEIGHBOR_CHANNEL,"Neighbor: %d, Age: %d",temp->node,temp->age);
+         neighboorDiscovery temp = call NeighboorList.get(i);
+         dbg(NEIGHBOR_CHANNEL,"Neighbor: %d, Age: %d",temp.node,temp.age);
       }
    }
    }
