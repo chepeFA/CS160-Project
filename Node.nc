@@ -122,7 +122,7 @@ implementation{
                sizeList = call NeighboorList1.size();
                foundNeighbor = FALSE;
                i=0;
-               while(i<=sizeList)
+               while(i<sizeList)
                {
                   neighboor = call NeighboorList1.get(i);
                   if(neighboor->node==myMsg->src)
@@ -245,7 +245,7 @@ implementation{
       neighboorDiscovery* temp;
       neighboorDiscovery* neighboorPointer;
 
-      while(i<=sizeList)
+      while(i<sizeList)
       {
          temp = call NeighboorList1.get(i);
          temp->age=temp->age+1;
@@ -267,7 +267,7 @@ implementation{
             sizeList--;
          }
          i++;
-      }while(i<=sizeList);
+      }while(i<sizeList);
    }
 
 
@@ -340,7 +340,7 @@ implementation{
    {
       dbg(NEIGHBOR_CHANNEL,"Neighbors for node %d:  \n",TOS_NODE_ID);
       i=0;
-      while(i<=sizeList)
+      while(i<sizeList)
       {
          neighboorDiscovery* temp = call NeighboorList1.get(i);
          dbg(NEIGHBOR_CHANNEL,"Neighbor: %d, Age: %d",temp->node,temp->age);
