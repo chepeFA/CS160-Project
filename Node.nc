@@ -255,8 +255,8 @@ implementation{
       {
          nd = call NeighboorList.get(i);
          nd.age=nd.age+1;
-         call NeighboorList.remove(i);
-         call NeighboorList.pushback(nd);
+         //call NeighboorList.remove(i);
+         //call NeighboorList.pushback(nd);
          i++;
       }
 
