@@ -145,8 +145,8 @@ implementation{
                   temp = call NeighboorPool.get();
                   temp->node = myMsg->src;
                   temp->age=0;
-                  //call NeighboorList1.pushback(temp);
-                    call NeighboorPool.put(temp);
+                  call NeighboorList1.pushback(temp);
+                    //call NeighboorPool.put(temp);
                   //nd.node= myMsg->src;
                   //nd.age=0;
                   //call NeighboorList.pushback(nd);
@@ -334,19 +334,19 @@ implementation{
    uint16_t i, sizeList;
    sizeList =call NeighboorPool.size();// call NeighboorList1.size();
    dbg(NEIGHBOR_CHANNEL,"size list %d:",sizeList);
-   //if(sizeList==0)//call NeighboorList1.isEmpty)
-   //{
-     // dbg(NEIGHBOR_CHANNEL,"No neighbors \n");
-   //}
-   //else
-   //{
+   if(sizeList==0)//call NeighboorList1.isEmpty)
+   {
+      dbg(NEIGHBOR_CHANNEL,"No neighbors \n");
+   }
+   else
+   {
       dbg(NEIGHBOR_CHANNEL,"Neighbors for node %d:  \n",TOS_NODE_ID);
       i=0;
       while(i<sizeList)
       {
-         neighboorDiscovery* temp = call NeighboorPool.get();//NeighboorList1.get(i);
+         neighboorDiscovery* temp = call NeighboorList1.get(i);
          dbg(NEIGHBOR_CHANNEL,"Neighbor: %d, Age: %d",temp->node,temp->age);
-     // }
+      }
    }
    }
 
