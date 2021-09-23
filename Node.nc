@@ -117,6 +117,7 @@ implementation{
 
             else if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
+            /*
             
                  //dbg(NEIGHBOR_CHANNEL," protocol ping REPLY AM \n");
                sizeList = call NeighboorList1.size();
@@ -133,6 +134,7 @@ implementation{
                   }
 
                }
+               */
 
                //new neighbor
                if(!isN(myMsg->src))//!foundNeighbor)//!isN(myMsg->src))//)//!isN(myMsg->src))
