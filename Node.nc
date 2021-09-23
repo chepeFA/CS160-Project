@@ -265,7 +265,7 @@ implementation{
          age = t.age;
          if(age>5)
          {
-            tcall NeighboorList.remove(i);
+            call NeighboorList.remove(i);
             //call NeighboorPool.put(nd);
             i--;
             sizeList--;
