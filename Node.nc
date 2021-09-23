@@ -252,7 +252,7 @@ implementation{
       while(i<sizeList)
       {
          nd = call NeighboorList.get(i);
-         temp.age=temp->age+1;
+         temp.age=temp.age+1;
          //call NeighboorList1.remove(i);
          //call NeighboorList1.pushback(temp);
          i++;
@@ -266,7 +266,7 @@ implementation{
          if(age>5)
          {
             nd = call NeighboorList.remove(i);
-            call NeighboorPool.put(nd);
+            ///call NeighboorPool.put(nd);
             i--;
             sizeList--;
          }
