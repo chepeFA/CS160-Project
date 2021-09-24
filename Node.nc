@@ -92,8 +92,7 @@ implementation{
       if(len==sizeof(pack))
       {
          pack* myMsg=(pack*) payload;
-        //dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
-        //return msg;
+      
 
          if(myMsg->TTL==0 || seenPackage(myMsg))
          {
@@ -136,7 +135,7 @@ implementation{
                 }
          }  
 
-         }
+      }
          else if(myMsg->dest == TOS_NODE_ID) //this package is for me
          {
 
@@ -172,10 +171,17 @@ implementation{
             call Sender.send(sendPackage, AM_BROADCAST_ADDR);
          }
              return msg;
+
       }
-      dbg(GENERAL_CHANNEL, "Unknown Packet Type %d payload: %s \n", len,myMsg->payload);
-      return msg;
-   }
+
+
+             dbg(GENERAL_CHANNEL, "Unknown Packet Type %d %s \n", len);
+             return msg;
+
+}
+
+      
+   
 
    
 
