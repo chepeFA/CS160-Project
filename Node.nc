@@ -148,15 +148,15 @@ implementation{
 
                   dbg(NEIGHBOR_CHANNEL," in !foundNeighboor \n");
 
-                  temp = call NeighboorPool.get();
+                  //temp = call NeighboorPool.get();
                  
-                  temp->node = myMsg->src;
-                  temp->age=0;
+                  //temp->node = myMsg->src;
+                  //temp->age=0;
                  // a = call NeighboorList.get();
-                  //n.node = myMsg->src;
-                  //n.age=0;
-                 call NeighboorList1.pushback(temp);
-                  //call NeighboorList.pushback(n);
+                  n.node = myMsg->src;
+                  n.age=0;
+                  //call NeighboorList1.pushback(temp);
+                  call NeighboorList.pushback(n);
                 //  dbg(NEIGHBOR_CHANNEL," node: %d, Age: %d \n",n.node,n.age);
 
 
