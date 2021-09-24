@@ -335,7 +335,7 @@ implementation{
       while(i<sizeList)
       {
          neighboorDiscovery temp = call NeighboorList.get(i);
-         dbg(NEIGHBOR_CHANNEL,"Neighbor: %d, Age: %d",temp.node,temp.age);
+         dbg(NEIGHBOR_CHANNEL,"Neighbor: %d \n",temp.node);
          i++;
       }
    }
