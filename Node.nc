@@ -188,7 +188,7 @@ implementation{
          }
              return msg;
       }
-      dbg(GENERAL_CHANNEL, "Unknown Packet Type %d payload: %s \n", len,payload);
+      dbg(GENERAL_CHANNEL, "Unknown Packet Type %d payload: %s \n", len,myMsg->payload);
       return msg;
    }
    }
