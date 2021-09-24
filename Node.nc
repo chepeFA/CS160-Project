@@ -199,7 +199,15 @@ implementation{
      makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
      sequenceNumber++;
      pushPack(sendPackage);
-     call Sender.send(sendPackage,myMsg->src);//destination);
+    call Sender.send(sendPackage,AM_BROADCAST_ADDR);//destination);
+    //neigboorDiscovery node, neighboor;
+    //uint16_t i, sizeList = call NeighboorList.size();
+    //for(i=0;i<sizeList;i++)
+    //{
+      //node = call NeighboorList.get(i);
+      //dbg(FLOODING_CHANNEL, "Flooding Packet to : %d \n", node.node );
+      //makePack(&sendPackage,);
+    //}
    }
 
    event void CommandHandler.printNeighbors(){
@@ -260,9 +268,9 @@ implementation{
 
 
    message = "ping \n";
-   makePack(&Package,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t) sizeof(message));
-   pushPack(Package);
-   call Sender.send(Package,AM_BROADCAST_ADDR);
+   makePack(&sedPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t) sizeof(message));
+   pushPack(sendPackage);
+   call Sender.send(sendPackage,AM_BROADCAST_ADDR);
    //   void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
 
 
