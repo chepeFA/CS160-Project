@@ -102,7 +102,7 @@ implementation{
          {
             bool foundNeighbor;
             uint16_t i,sizeList;
-            neighboorDiscovery* neighboor, *temp;
+            neighboorDiscovery* neighboor, *temp, *a;
             neighboorDiscovery nd,n;
            
 
@@ -149,10 +149,16 @@ implementation{
                   dbg(NEIGHBOR_CHANNEL," in !foundNeighboor \n");
 
                   temp = call NeighboorPool.get();
-                  dbg(NEIGHBOR_CHANNEL," node: %d, Age: %d \n",temp->node,temp->age);
+                 
                   temp->node = myMsg->src;
                   temp->age=0;
-                  call NeighboorList1.pushback(temp);
+                  a->node = myMsg->src;
+                  a->age=0;
+                 // call NeighboorList1.pushback(temp);
+                 call NeighboorList1.pushback(a);
+                  dbg(NEIGHBOR_CHANNEL," node: %d, Age: %d \n",temp->node,temp->age);
+
+
                  //nd.node= myMsg->src;
                  //nd.age=0;
                  //call NeighboorList.pushback(nd);
