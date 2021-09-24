@@ -156,8 +156,8 @@ implementation{
                   n.node = myMsg->src;
                   n.age=0;
                  // call NeighboorList1.pushback(temp);
-                 call NeighboorList.pushback(n);
-                  dbg(NEIGHBOR_CHANNEL," node: %d, Age: %d \n",temp->node,temp->age);
+                  call NeighboorList.pushback(n);
+                  dbg(NEIGHBOR_CHANNEL," node: %d, Age: %d \n",n.node,n.age);
 
 
                  //nd.node= myMsg->src;
