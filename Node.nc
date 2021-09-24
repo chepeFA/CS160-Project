@@ -141,47 +141,13 @@ implementation{
                
                i=0;
                //new neighbor
-             if(!foundNeighbor)//!isN(myMsg->src))//)//!isN(myMsg->src))
+             if(!isN(myMsg->src))//!isN(myMsg->src))//)//!isN(myMsg->src))
                {
-
-                 // neighboor = call NeighboorList.get();
-
-                  dbg(NEIGHBOR_CHANNEL," in !foundNeighboor \n");
-
-                  //temp = call NeighboorPool.get();
-                 
-                  //temp->node = myMsg->src;
-                  //temp->age=0;
-                 // a = call NeighboorList.get();
                   n.node = myMsg->src;
                   n.age=0;
-                  //call NeighboorList1.pushback(temp);
                   call NeighboorList.pushback(n);
-                //  dbg(NEIGHBOR_CHANNEL," node: %d, Age: %d \n",n.node,n.age);
 
-
-                 //nd.node= myMsg->src;
-                 //nd.age=0;
-                 //call NeighboorList.pushback(nd);
-                  //call NeighboorPool.put(temp);
-                  //nd.node= myMsg->src;
-                  //nd.age=0;
-                  //call NeighboorList.pushback(nd);
-
-
-               }
-               
-
-               
-               /*
-               if(!isN(myMsg->src))
-               {
-                  nd->node = myMsg->src;
-                  nd->age=0;
-                  call NeighboorList1.pushback(nd);
-               }
-               */
-            }
+                }
          }  
          else if(myMsg->dest == TOS_NODE_ID) //this package is for me
          {
