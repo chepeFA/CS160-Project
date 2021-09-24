@@ -304,7 +304,7 @@ implementation{
             nx = call NeighboorList.get(i);
             if(nx.node == src)
             {
-               nx.age=0;
+               //nx.age=0;
                return TRUE;
             }
             i++;
