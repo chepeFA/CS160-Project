@@ -246,7 +246,7 @@ implementation{
    {
       uint16_t sizeList= call NeighboorList.size();
       uint16_t i=0;
-    //  uint16_t age=0;
+      uint16_t age=0;
       neighboorDiscovery* temp;
       neighboorDiscovery* neighboorPointer;
       neighboorDiscovery nd,t;
