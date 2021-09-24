@@ -109,7 +109,7 @@ implementation{
 
             if(myMsg->protocol == PROTOCOL_PING)
             {
-               //dbg(NEIGHBOR_CHANNEL," protocol ping AM \n");
+               dbg(NEIGHBOR_CHANNEL," protocol ping AM \n");
 
                makePack(&sendPackage, TOS_NODE_ID,AM_BROADCAST_ADDR,myMsg->TTL-1, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
                //sequenceNumber++;
@@ -124,7 +124,7 @@ implementation{
             {
             /*
             
-                 //dbg(NEIGHBOR_CHANNEL," protocol ping REPLY AM \n");
+                 dbg(NEIGHBOR_CHANNEL," protocol ping REPLY AM \n");
                sizeList = call NeighboorList.size();
                foundNeighbor = FALSE;
                i=0;
@@ -163,7 +163,7 @@ implementation{
 
             if(myMsg->protocol == PROTOCOL_PING)
             {
-               //dbg(NEIGHBOR_CHANNEL," in protocol ping TOS_NODE_ID \n");
+               dbg(NEIGHBOR_CHANNEL," in protocol ping TOS_NODE_ID \n");
 
                makePack(&sendPackage,TOS_NODE_ID,myMsg->src,MAX_TTL,PROTOCOL_PINGREPLY,sequenceNumber,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
               sequenceNumber++;
@@ -181,7 +181,7 @@ implementation{
 
          else
          {
-      
+            dbg(FLOODING_CHANNEL,"Rebroadcasting again \n");
             makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL-1, myMsg->protocol, myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload));
             pushPack(sendPackage);
             call Sender.send(sendPackage, AM_BROADCAST_ADDR);
@@ -195,11 +195,11 @@ implementation{
 
 
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
-     //dbg(GENERAL_CHANNEL, "PING EVENT \n");
-     //makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_PING, //sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
-     //sequenceNumber++;
-     //pushPack(sendPackage);
-     //call Sender.send(sendPackage, AM_BROADCAST_ADDR);//destination);
+     dbg(GENERAL_CHANNEL, "PING EVENT \n");
+     makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_PING, //sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
+     sequenceNumber++;
+     pushPack(sendPackage);
+     call Sender.send(sendPackage, AM_BROADCAST_ADDR);//destination);
    }
 
    event void CommandHandler.printNeighbors(){
