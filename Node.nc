@@ -77,7 +77,7 @@ implementation{
    event void NeighboorTimer.fired() {
   // dbg(GENERAL_CHANNEL,"firing timer \n");
   findNeighboors();
- printNeighborList();
+ //printNeighborList();
    
    }
 
@@ -201,7 +201,10 @@ implementation{
     call Sender.send(sendPackage, AM_BROADCAST_ADDR);//destination);
    }
 
-   event void CommandHandler.printNeighbors(){}
+   event void CommandHandler.printNeighbors(){
+
+   printNeighborList();
+   }
 
    event void CommandHandler.printRouteTable(){}
 
@@ -294,9 +297,9 @@ implementation{
 
       //if(!call NeighboorList.isEmpty())
       //{
-
-         uint16_t i, sizeList = call NeighboorList.size();
          neighboorDiscovery nx;
+         uint16_t i, sizeList = call NeighboorList.size();
+         
          i=0;
 
          while(i<sizeList)
@@ -304,7 +307,7 @@ implementation{
             nx = call NeighboorList.get(i);
             if(nx.node == src)
             {
-               //nx.age=0;
+               nx.age=0;
                return TRUE;
             }
             i++;
@@ -316,9 +319,11 @@ implementation{
 
    void printNeighborList()
    {
-   uint16_t i, sizeList;
+   neighboorDiscover nd;
+   /*uint16_t i, sizeList;
    sizeList =call NeighboorList.size();// call NeighboorList1.size();
    dbg(NEIGHBOR_CHANNEL,"size list %d:",sizeList);
+
    if(sizeList==0)//call NeighboorList1.isEmpty)
    {
       dbg(NEIGHBOR_CHANNEL,"No neighbors \n");
@@ -333,6 +338,21 @@ implementation{
          dbg(NEIGHBOR_CHANNEL,"Neighbor: %d, Age: %d",temp.node,temp.age);
       }
    }
+   */
+   uint16_t i, sizeList;
+   sizeList =call NeighboorList.size();
+   i=0;
+   while(i<sizeList)
+   {
+   nd = call NeighboorList.get(i);
+   if(nd.node!=0)
+   {
+
+   }
+
+   i++;
+   }
+
    }
 
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length){
