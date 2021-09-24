@@ -114,13 +114,13 @@ implementation{
                makePack(&sendPackage, TOS_NODE_ID,AM_BROADCAST_ADDR,myMsg->TTL-1, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
                //sequenceNumber++;
                pushPack(sendPackage);
-               call Sender.send(sendPackage, AM_BROADCAST_ADDR);
+               call Sender.send(sendPackage, myMsg->src);
                //call Sender.send(sendPackage, AM_BROADCAST_ADDR);
             }
 
             else if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
-            
+            /*
             
                  //dbg(NEIGHBOR_CHANNEL," protocol ping REPLY AM \n");
                sizeList = call NeighboorList.size();
@@ -138,7 +138,7 @@ implementation{
                   i++;
 
                }
-               
+               */
                
                i=0;
                //new neighbor
@@ -237,7 +237,7 @@ implementation{
     while(i<sizeList)
     {
       t = call NeighboorList.get(i);
-      if(t.age>5)
+      if(t.age>3)
       {
          call NeighboorList.remove(i);
          sizeList--;
@@ -254,9 +254,9 @@ implementation{
 
 
    message = "ping \n";
-   makePack(&Package,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t) sizeof(message));
-   pushPack(Package);
-   call Sender.send(Package,AM_BROADCAST_ADDR);
+   makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t) sizeof(message));
+   pushPack(sendPackage);
+   call Sender.send(sendPackage,AM_BROADCAST_ADDR);
    //   void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
 
 
