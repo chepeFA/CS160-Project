@@ -122,15 +122,15 @@ implementation{
             
             
                  //dbg(NEIGHBOR_CHANNEL," protocol ping REPLY AM \n");
-               sizeList = call NeighboorList1.size();
+               sizeList = call NeighboorList.size();
                foundNeighbor = FALSE;
                i=0;
                while(i<sizeList)
                {
-                  neighboor = call NeighboorList1.get(i);
-                  if(neighboor->node==myMsg->src)
+                  nd = call NeighboorList.get(i);
+                  if(nd.node==myMsg->src)
                   {
-                     neighboor->age=0;
+                     nd.age=0;
                      foundNeighbor =TRUE;
                      break;
                   }
@@ -153,11 +153,11 @@ implementation{
                   temp->node = myMsg->src;
                   temp->age=0;
                  // a = call NeighboorList.get();
-                  n.node = myMsg->src;
-                  n.age=0;
-                 // call NeighboorList1.pushback(temp);
-                  call NeighboorList.pushback(n);
-                  dbg(NEIGHBOR_CHANNEL," node: %d, Age: %d \n",n.node,n.age);
+                  //n.node = myMsg->src;
+                  //n.age=0;
+                 call NeighboorList1.pushback(temp);
+                  //call NeighboorList.pushback(n);
+                //  dbg(NEIGHBOR_CHANNEL," node: %d, Age: %d \n",n.node,n.age);
 
 
                  //nd.node= myMsg->src;
