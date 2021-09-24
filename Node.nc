@@ -139,7 +139,7 @@ implementation{
          else if(myMsg->dest == TOS_NODE_ID) //this package is for me
          {
 
-            dbg(FLOODING_CHANNEL," packet from %d. payload: %s",myMsg->src,myMsg->payload);
+           // dbg(FLOODING_CHANNEL," packet from %d. payload: %s",myMsg->src,myMsg->payload);
            // if(myMsg->protocol != PROTOCOL_CMD)
             //{
               // pushPack(*myMsg);
