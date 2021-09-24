@@ -238,12 +238,14 @@ implementation{
 
    pack Package;
    char* message;
+   neighboorDiscovery nd,t;
    
    //uint16_t i,sizeList,age;
 
 
    if(!call NeighboorList.isEmpty())
    {
+   /*
       uint16_t sizeList= call NeighboorList.size();
       uint16_t i=0;
       uint16_t age=0;
@@ -274,6 +276,30 @@ implementation{
          }
          i++;
       }while(i<sizeList);
+      */
+      uint16_t i=0, sizeList = call NeighboorList();
+      while(i<sizeList)
+      {
+         nd = call NeighboorList.get(i);
+         nd.age++;
+         call NeighboorList.remove(i);
+         call NeighboorList.pushback(nd);
+         i++;
+      }
+      i=0;
+      while(i<sizeList)
+      {
+         t = call NeighboorList.get(i);
+         age = t.age;
+         if(age>5)
+         {
+            call NeighborList.remove(i);
+            sizeList--;
+            i--;
+         }
+         i++;
+      }
+
    }
 
 
