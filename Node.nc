@@ -156,10 +156,10 @@ implementation{
          {
 
             dbg(FLOODING_CHANNEL," packet from %d. Content: %s",myMsg->src,myMsg->payload);
-            if(myMsg->protocol != PROTOCOL_CMD)
-            {
-               pushPack(*myMsg);
-            }
+           // if(myMsg->protocol != PROTOCOL_CMD)
+            //{
+              // pushPack(*myMsg);
+            //}
 
             if(myMsg->protocol == PROTOCOL_PING)
             {
