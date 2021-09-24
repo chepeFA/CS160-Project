@@ -319,7 +319,7 @@ implementation{
 
    void printNeighborList()
    {
-   neighboorDiscover nd;
+   neighboorDiscovery nd;
    /*uint16_t i, sizeList;
    sizeList =call NeighboorList.size();// call NeighboorList1.size();
    dbg(NEIGHBOR_CHANNEL,"size list %d:",sizeList);
