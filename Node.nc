@@ -50,7 +50,7 @@ implementation{
    // Prototypes
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
    void findNeighboors();
-   bool seenPackage(pack package);
+   bool seenPackage(pack *package);
    void pushPack(pack package);
    bool isN(uint16_t src);
    void printNeighborList();
@@ -210,10 +210,10 @@ implementation{
 
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
      //dbg(GENERAL_CHANNEL, "PING EVENT \n");
-      makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
-      sequenceNumber++;
-      pushPack(sendPackage);
-    call Sender.send(sendPackage, AM_BROADCAST_ADDR);//destination);
+      //makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_PING, //sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
+      //sequenceNumber++;
+      //pushPack(sendPackage);
+    //call Sender.send(sendPackage, AM_BROADCAST_ADDR);//destination);
    }
 
    event void CommandHandler.printNeighbors(){}
