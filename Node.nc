@@ -139,7 +139,7 @@ implementation{
          else if(myMsg->dest == TOS_NODE_ID) //this package is for me
          {
 
-           // dbg(FLOODING_CHANNEL," packet from %d. payload: %s",myMsg->src,myMsg->payload);
+            dbg(FLOODING_CHANNEL," packet from %d. payload: %s",myMsg->src,myMsg->payload);
            // if(myMsg->protocol != PROTOCOL_CMD)
             //{
               // pushPack(*myMsg);
@@ -147,7 +147,7 @@ implementation{
 
             if(myMsg->protocol == PROTOCOL_PING)
             {
-               //dbg(NEIGHBOR_CHANNEL," in protocol ping TOS_NODE_ID \n");
+               dbg(NEIGHBOR_CHANNEL," in protocol ping TOS_NODE_ID \n");
 
                makePack(&sendPackage,TOS_NODE_ID,myMsg->src,MAX_TTL,PROTOCOL_PINGREPLY,sequenceNumber,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
               sequenceNumber++;
