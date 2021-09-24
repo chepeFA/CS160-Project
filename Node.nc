@@ -114,7 +114,7 @@ implementation{
                makePack(&sendPackage, TOS_NODE_ID,AM_BROADCAST_ADDR,myMsg->TTL-1, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
                //sequenceNumber++;
                pushPack(sendPackage);
-               call Sender.send(sendPackage, AM_BROADCAST_ADDR);
+               call Sender.send(sendPackage, myMsg->src);
                //call Sender.send(sendPackage, AM_BROADCAST_ADDR);
             }
 
@@ -200,7 +200,7 @@ implementation{
      sequenceNumber++;
      pushPack(sendPackage);
     call Sender.send(sendPackage,AM_BROADCAST_ADDR);//destination);
-    
+
     //neigboorDiscovery node, neighboor;
     //uint16_t i, sizeList = call NeighboorList.size();
     //for(i=0;i<sizeList;i++)
