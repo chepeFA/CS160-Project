@@ -50,7 +50,7 @@ implementation{
    // Prototypes
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
    void findNeighboors();
-   bool seenPackage(pack* package);
+   bool seenPackage(pack package);
    void pushPack(pack package);
    bool isN(uint16_t src);
    void printNeighborList();
