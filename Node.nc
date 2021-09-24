@@ -118,6 +118,8 @@ implementation{
                //call Sender.send(sendPackage, AM_BROADCAST_ADDR);
             }
 
+
+            //hearing back from a neighbor
             else if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
             /*
@@ -289,22 +291,24 @@ implementation{
 
    bool isN(uint16_t src)
    {
-      if(!call NeighboorList.isEmpty())
-      {
+
+      //if(!call NeighboorList.isEmpty())
+      //{
+
          uint16_t i, sizeList = call NeighboorList.size();
-         neighboorDiscovery nd;
+         neighboorDiscovery nx;
          i=0;
 
          while(i<sizeList)
          {
-            nd = call NeighboorList.get(i);
-            if(nd.node ==src)
+            nx = call NeighboorList.get(i);
+            if(nx.node == src)
             {
-               nd.age=0;
+               nx.age=0;
                return TRUE;
             }
          }
-      }
+      //}
       return FALSE;
    }
 
