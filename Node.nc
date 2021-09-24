@@ -91,7 +91,7 @@ implementation{
       //dbg(GENERAL_CHANNEL, "Packet Received\n");
       if(len==sizeof(pack)){
          pack* myMsg=(pack*) payload;
-         dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
+        // dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
         //return msg;
 
          if(myMsg->TTL==0 || seenPackage(myMsg))
@@ -242,7 +242,7 @@ implementation{
     while(i<sizeList)
     {
       t = call NeighboorList.get(i);
-      if(t.age>3)
+      if(t.age>5)
       {
          call NeighboorList.remove(i);
          sizeList--;
