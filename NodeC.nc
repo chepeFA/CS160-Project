@@ -10,28 +10,21 @@
 #include <Timer.h>
 #include "includes/CommandMsg.h"
 #include "includes/packet.h"
-#include "includes/socket.h"
-#include "includes/TCPpacket.h"
 
 configuration NodeC{
 }
 implementation {
     components MainC;
     components Node;
-    components RandomC as Random;
-    components new TimerMilliC() as neighborTimer;
-    components new TimerMilliC() as transmitTimer;
     components new AMReceiverC(AM_PACK) as GeneralReceive;
+   components new TimerMilliC() as NeighboorTimer;
+   components RandomC as Random;
 
-    Node.neighborTimer -> neighborTimer;
-
-    Node.transmitTimer -> transmitTimer;
- 
     Node -> MainC.Boot;
+    Node.RandomTimer -> Random;
+    Node.NeighboorTimer -> NeighboorTimer;
 
     Node.Receive -> GeneralReceive;
-
-    Node.Random -> Random;
 
     components ActiveMessageC;
     Node.AMControl -> ActiveMessageC;
@@ -39,18 +32,22 @@ implementation {
     components new SimpleSendC(AM_PACK);
     Node.Sender -> SimpleSendC;
 
-    components new HashmapC(uint16_t, 64) as RoutingTableC;
-    Node.RoutingTable -> RoutingTableC; 
-
-    components new ListC(pack, 64) as PacketListC;
-    Node.PacketList -> PacketListC;
-
-    components new ListC(Neighbor, 64) as NeighborsC;
-    Node.NeighborList -> NeighborsC;
-
-    components new ListC(socket_t, 10) as SocketList;
-    Node.SocketList -> SocketList;
-
     components CommandHandlerC;
     Node.CommandHandler -> CommandHandlerC;
+
+    components new ListC(pack,64) as PacketListC;
+    Node.PacketList -> PacketListC;
+
+    components new ListC(neighboorDiscovery*,64) as NeighboorList1C;
+    Node.NeighboorList1 -> NeighboorList1C;
+
+    components new ListC(neighboorDiscovery,64) as NeighboorListC;
+    Node.NeighboorList -> NeighboorListC;
+
+    components new PoolC(neighboorDiscovery,64) as NeighboorPoolC;
+    Node.NeighboorPool -> NeighboorPoolC;
+
+
+
+   
 }
