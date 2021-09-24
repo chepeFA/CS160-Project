@@ -91,7 +91,7 @@ implementation{
       //dbg(GENERAL_CHANNEL, "Packet Received\n");
       if(len==sizeof(pack)){
          pack* myMsg=(pack*) payload;
-        dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
+        //dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
         //return msg;
 
          if(myMsg->TTL==0 || seenPackage(myMsg))
