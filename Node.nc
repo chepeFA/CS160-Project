@@ -139,7 +139,7 @@ implementation{
                }
                
                
-
+               i=0;
                //new neighbor
              if(!foundNeighbor)//!isN(myMsg->src))//)//!isN(myMsg->src))
                {
@@ -152,10 +152,11 @@ implementation{
                  
                   temp->node = myMsg->src;
                   temp->age=0;
-                  a->node = myMsg->src;
-                  a->age=0;
+                 // a = call NeighboorList.get();
+                  n.node = myMsg->src;
+                  n.age=0;
                  // call NeighboorList1.pushback(temp);
-                 call NeighboorList1.pushback(a);
+                 call NeighboorList1.pushback(n);
                   dbg(NEIGHBOR_CHANNEL," node: %d, Age: %d \n",temp->node,temp->age);
 
 
