@@ -250,7 +250,7 @@ implementation{
    if(!call NeighboorList1.isEmpty())
    {
       uint16_t sizeList= call NeighboorList1.size();
-      uint16_t i=0;
+     
       uint16_t age=0;
       neighboorDiscovery* temp;
       neighboorDiscovery* neighboorPointer;
@@ -270,10 +270,10 @@ implementation{
          if(age>5)
          {
 
-         neighboorPointer = call NeighboorList.remove(i);
-         call NeighboorPool.put(neghboorPointer);
+         neighboorPointer = call NeighboorList1.remove(i);
+         call NeighboorPool.put(neighboorPointer);
          i--;
-         size--;
+         sizeList--;
          }
 
       }
@@ -322,7 +322,7 @@ implementation{
       }
       */
 
-   }
+   
 
 
    message = "ping \n";
