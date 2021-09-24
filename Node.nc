@@ -284,7 +284,7 @@ implementation{
          {
 
          neighboorPointer = call NeighboorList.remove(i);
-         ..call NeighboorPool.put(neighboorPointer);
+         //call NeighboorPool.put(neighboorPointer);
          i--;
          sizeList--;
          }
