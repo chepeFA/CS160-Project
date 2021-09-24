@@ -143,10 +143,10 @@ def main():
     #s.runTime(20);
     s.runTime(20);
     #floding
-    s.ping(1, 2, "Hello world");
+    s.ping(1, 5, "Hey buddy");
     s.runTime(20);
     #testing neighboor discovery
-    s.neighborDMP(8);#list of neighbor for node 1
+    s.neighborDMP(4);#list of neighbor for node 1
     s.runTime(20);
    # s.neighborDMP(3);#list of neighbor for node 1
     #s.ping(1, 3, "Hi");
