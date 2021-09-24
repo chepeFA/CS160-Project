@@ -1,409 +1,212 @@
-/*
+/**
  * ANDES Lab - University of California, Merced
  * This class provides the basic functions of a network node.
  *
  * @author UCM ANDES Lab
  * @date   2013/09/03
- *
- */
+ * 
+ */ 
 #include <Timer.h>
-#include "includes/command.h"
-#include "includes/packet.h"
-#include "includes/CommandMsg.h"
-#include "includes/sendInfo.h"
-#include "includes/channels.h"
+#include "command.h"
+#include "packet.h"
+#include "sendInfo.h"
+#include "ping.h"
 
-typedef nx_struct neighboorDiscovery{ //first two fields are for nd header
-nx_uint16_t petition;
-nx_uint16_t sequenceNumber;
-nx_uint16_t sourceAddress;  //last two fields are for link layer headers
-nx_uint16_t destinationAddress;
-nx_uint16_t node;
-nx_uint16_t age;
-}neighboorDiscovery;
-
+typedef nx_struct neighbor {
+   nx_uint16_t Node;
+   nx_uint8_t Age;
+}neighbor;
 
 module Node{
    uses interface Boot;
 
+   uses interface List<pack> as PacketList;
+   uses interface Random as Random;
    uses interface SplitControl as AMControl;
    uses interface Receive;
-   uses interface SimpleSend as Sender;
-   uses interface CommandHandler;
+   uses interface Timer<TMilli> as PeriodicTimer;
+   uses interface List<neighbor *> as NeighborList;
+   uses interface Pool<neighbor> as NeighborPool;
 
-   uses interface Timer<TMilli> as NeighboorTimer;
-   uses interface Random as RandomTimer;
-   uses interface List<neighboorDiscovery> as NeighboorList;
-   uses interface List<neighboorDiscovery *> as NeighboorList1;
-   uses interface List<pack> as PacketList;
-   uses interface Pool<neighboorDiscovery> as NeighboorPool;
+   uses interface SimpleSend as Sender;
 }
 
 implementation{
-   //global variables
    pack sendPackage;
-   uint16_t sequenceNumber= 0;
-   uint8_t commandID;
-   
+   uint16_t seqCounter = 0;
+   uint16_t firedCounter = 0;
 
 
    // Prototypes
+   bool findPack(pack *Package);
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
-   void findNeighboors();
-   bool seenPackage(pack *package);
-   void pushPack(pack package);
-   bool isN(uint16_t src);
+   void pushPack(pack Package);
+   void discoverNeighborList();
    void printNeighborList();
-
+ 
    event void Boot.booted(){
-
+      uint32_t start, offset;
+      uint16_t add;
       call AMControl.start();
-     
-        dbg(GENERAL_CHANNEL, "Booted. \n");
+      //dbg("genDebug", "Booted\n");
+      start = call Random.rand32() % 2000;
+      add = call Random.rand16() % 2;
+      //randomize firing period
+      if(add == 1) {
+         offset = 15000 + (call Random.rand32() % 5000);
+      } else {
+         offset = 15000 - (call Random.rand32() % 5000);
+      }
+      call PeriodicTimer.startPeriodicAt(start, offset);
+      dbg("Project1N", "Booted with periodic timer starting at %d, firing every %d\n", start, offset);
    }
 
    event void AMControl.startDone(error_t err){
       if(err == SUCCESS){
-         dbg(GENERAL_CHANNEL, "Radio On\n");
-      call NeighboorTimer.startPeriodic(20000);
-        
+         dbg("genDebug", "Radio On\n");
       }else{
          //Retry until successful
          call AMControl.start();
       }
    }
 
-   event void NeighboorTimer.fired() {
-  // dbg(GENERAL_CHANNEL,"firing timer \n");
-  findNeighboors();
- printNeighborList();
-   
-   }
-
-
    event void AMControl.stopDone(error_t err){}
 
-
+   event void PeriodicTimer.fired() {
+      discoverNeighborList();
+   }
 
    event message_t* Receive.receive(message_t* msg, void* payload, uint8_t len){
-      //dbg(GENERAL_CHANNEL, "Packet Received\n");
+      //dbg("genDebug", "Packet Received\n");
       if(len==sizeof(pack)){
          pack* myMsg=(pack*) payload;
-        // dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
-        //return msg;
 
-         if(myMsg->TTL==0 || seenPackage(myMsg))
-         {
-           // dbg(GENERAL_CHANNEL,"Dropping package \n");
-         }
-         
-         if(myMsg->dest == AM_BROADCAST_ADDR)
-         {
+         //Check the packet first to see if we've seen it before
+         if(myMsg->TTL == 0 || findPack(myMsg)) {
+            //Drop the packet if we've seen it or if it's TTL has run out: i.e. do nothing
+            //dbg("Project1F", "Dropping packet seq#%d from %d\n", myMsg->seq, myMsg->src);           
+         } else if(myMsg->dest == AM_BROADCAST_ADDR) {
+            //Handle neighbor discovery packets separately
             bool foundNeighbor;
-            uint16_t i,sizeList;
-            neighboorDiscovery* neighboor, *temp;
-            neighboorDiscovery nd,n;
-           
-
-            if(myMsg->protocol == PROTOCOL_PING)
-            {
-               //dbg(NEIGHBOR_CHANNEL," protocol ping AM \n");
-
-               makePack(&sendPackage, TOS_NODE_ID,AM_BROADCAST_ADDR,myMsg->TTL-1, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
-               //sequenceNumber++;
+            uint16_t size, i = 0;
+            neighbor* Neighbor, *neighbor_ptr;
+            switch(myMsg->protocol) {
+               case PROTOCOL_PING:
+               //Configuration packet for neighbor discovery, make sure to send directly back to sender
+               //dbg("Project1N", "Received discovery packet, responding to %d\n", myMsg->src);
+               makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, myMsg->TTL-1, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
                pushPack(sendPackage);
-               //call Sender.send(sendPackage, myMsg->src);
-               call Sender.send(sendPackage, AM_BROADCAST_ADDR);
-            }
+               call Sender.send(sendPackage, myMsg->src);
+               break;
 
-            else if(myMsg->protocol == PROTOCOL_PINGREPLY)
-            {
-            
-            
-                 //dbg(NEIGHBOR_CHANNEL," protocol ping REPLY AM \n");
-               sizeList = call NeighboorList1.size();
+               case PROTOCOL_PINGREPLY:
+               //Received ping reply from NeighborList, time to update their age
+               //dbg("Project1N", "Received discovery response from %d\n", myMsg->src);
+               //Search for neighor first
+               size = call NeighborList.size();
                foundNeighbor = FALSE;
-               i=0;
-               while(i<sizeList)
-               {
-                  neighboor = call NeighboorList1.get(i);
-                  if(neighboor->node==myMsg->src)
-                  {
-                     neighboor->age=0;
-                     foundNeighbor =TRUE;
+   
+               for(i = 0; i < size; i++) {
+                  neighbor_ptr = call NeighborList.get(i);
+                  if(neighbor_ptr->Node == myMsg->src) {
+                     //dbg("Project1N", "Updating node %d in neighbor list\n", myMsg->src);
+                     //Found the neighbor, update age
+                     neighbor_ptr->Age = 0;
+                     foundNeighbor = TRUE;
                      break;
                   }
-
                }
-               
-               
-
-               //new neighbor
-             if(!foundNeighbor)//!isN(myMsg->src))//)//!isN(myMsg->src))
-               {
-
-                 // neighboor = call NeighboorList.get();
-
-                  dbg(NEIGHBOR_CHANNEL," in !foundNeighboor \n");
-
-                  temp = call NeighboorPool.get();
-                  dbg(NEIGHBOR_CHANNEL," node: %d, Age: %d \n",temp->node,temp->age);
-                  temp->node = myMsg->src;
-                  temp->age=0;
-                  call NeighboorList1.pushback(temp);
-                 //nd.node= myMsg->src;
-                 //nd.age=0;
-                 //call NeighboorList.pushback(nd);
-                  //call NeighboorPool.put(temp);
-                  //nd.node= myMsg->src;
-                  //nd.age=0;
-                  //call NeighboorList.pushback(nd);
-
-
+               //If I found it then exit, otherwise I need to push it into my list
+               if(!foundNeighbor) {
+                  //dbg("Project1N", "Node %d not found in list so inserting now\n", myMsg->src);
+                  Neighbor = call NeighborPool.get();
+                  Neighbor->Node = myMsg->src;
+                  Neighbor->Age = 0;
+                  call NeighborList.pushback(Neighbor);
                }
-               
+               break;
 
-               
-               /*
-               if(!isN(myMsg->src))
-               {
-                  nd->node = myMsg->src;
-                  nd->age=0;
-                  call NeighboorList1.pushback(nd);
-               }
-               */
+               default:
+               break;
             }
-         }  
-         else if(myMsg->dest == TOS_NODE_ID) //this package is for me
-         {
-            dbg(NEIGHBOR_CHANNEL," packet from %d. Content: %s",myMsg->src,myMsg->payload);
-            if(myMsg->protocol != PROTOCOL_CMD)
-            {
-               pushPack(*myMsg);
+ 
+         } else if(TOS_NODE_ID==myMsg->dest){
+            dbg("Project1F", "Packet from %d has arrived! Msg: %s\n", myMsg->src, myMsg->payload);
+ 
+            //First thing is to push the incoming packet into our seen/sent list
+            //Don't push our command protocols into the list. This breaks sending multiple pings from the same node.
+            if(myMsg->protocol != PROTOCOL_CMD) {
+               pushPack(*myMsg);    
             }
 
-            if(myMsg->protocol == PROTOCOL_PING)
-            {
-               dbg(NEIGHBOR_CHANNEL," in protocol ping TOS_NODE_ID \n");
+            switch(myMsg->protocol){
+               uint8_t createMsg[PACKET_MAX_PAYLOAD_SIZE];
+               uint16_t dest;
 
-               makePack(&sendPackage,TOS_NODE_ID,myMsg->src,MAX_TTL,PROTOCOL_PINGREPLY,sequenceNumber,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
-              sequenceNumber++;
+               case PROTOCOL_PING:
+               //dbg("Project1F", "Sending Ping Reply to %d! \n", myMsg->src);
+               makePack(&sendPackage, TOS_NODE_ID, myMsg->src, MAX_TTL,
+                     PROTOCOL_PINGREPLY, seqCounter, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
+               seqCounter++;
+               //Push the packet we want to send into our seen/sent list
                pushPack(sendPackage);
-             call Sender.send(sendPackage,myMsg->src);
+               call Sender.send(sendPackage, AM_BROADCAST_ADDR);
+               break;
+
+               case PROTOCOL_PINGREPLY:
+               dbg("Project1F", "Received a Ping Reply from %d!\n", myMsg->src);
+               break;
+
+               case PROTOCOL_CMD:
+               switch(getCMD((uint8_t *) &myMsg->payload, sizeof(myMsg->payload))){
+                  case CMD_PING:
+                  memcpy(&createMsg, (myMsg->payload) + CMD_LENGTH+1, sizeof(myMsg->payload) - CMD_LENGTH+1);
+                  memcpy(&dest, (myMsg->payload)+ CMD_LENGTH, sizeof(uint8_t));
+                  makePack(&sendPackage, TOS_NODE_ID, (dest-48)&(0x00FF),
+                        MAX_TTL, PROTOCOL_PING, seqCounter, (uint8_t *)createMsg, sizeof(createMsg)); 
+                  seqCounter++;
+                  //Push the packet we want to send into our seen/sent list
+                  pushPack(sendPackage);
+                  call Sender.send(sendPackage, AM_BROADCAST_ADDR);
+                  break;
+                  
+                  case CMD_NEIGHBOR_DUMP:
+                  printNeighborList();
+                  break;
+                  
+                  default:
+                  break;
+               }
+               break;
+               
+               default:
+               break;
             }
-
-            else if(myMsg->protocol == PROTOCOL_PINGREPLY)
-            {
-
-               dbg(NEIGHBOR_CHANNEL,"Ping is coming from %d",myMsg->src);
-            }    
-   
-         }
-
-         else
-         {
-      
+         } else {
+            //Handle packets that do not belong to you
             makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL-1, myMsg->protocol, myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload));
+            dbg("Project1F", "Received Message from %d, meant for %d. Rebroadcasting\n", myMsg->src, myMsg->dest);
             pushPack(sendPackage);
             call Sender.send(sendPackage, AM_BROADCAST_ADDR);
          }
-             return msg;
+         return msg;
       }
-      dbg(GENERAL_CHANNEL, "Unknown Packet Type %d\n", len);
+
+      dbg("genDebug", "Unknown Packet Type\n");
       return msg;
    }
-
-
-   event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
-     //dbg(GENERAL_CHANNEL, "PING EVENT \n");
-      makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
-      sequenceNumber++;
-      pushPack(sendPackage);
-    call Sender.send(sendPackage, AM_BROADCAST_ADDR);//destination);
-   }
-
-   event void CommandHandler.printNeighbors(){}
-
-   event void CommandHandler.printRouteTable(){}
-
-   event void CommandHandler.printLinkState(){}
-
-   event void CommandHandler.printDistanceVector(){}
-
-   event void CommandHandler.setTestServer(){}
-
-   event void CommandHandler.setTestClient(){}
-
-   event void CommandHandler.setAppServer(){}
-
-   event void CommandHandler.setAppClient(){}
-
-
-   void findNeighboors()
-   {
-
-   pack Package;
-   char* message;
-   neighboorDiscovery nd,t;
-   uint16_t i=0;
-      uint16_t age=0;
-   
-   //uint16_t i,sizeList,age;
-
-
-   if(!call NeighboorList1.isEmpty())
-   {
-      uint16_t sizeList= call NeighboorList1.size();
-     
-      uint16_t age=0;
-      neighboorDiscovery* temp;
-      neighboorDiscovery* neighboorPointer;
-      while(i<sizeList)
-      {
-         temp = call NeighboorList1.get(i);
-         temp->age+=1;
-         //call NeighboorList.remove(i);
-         //call NeighboorList.pushback(nd);
-         i++;
-      }
-      i=0;
-      while(i<sizeList)
-      {
-         temp = call NeighboorList1.get(i);
-         age = temp->age;
-         if(age>5)
-         {
-
-         neighboorPointer = call NeighboorList1.remove(i);
-         call NeighboorPool.put(neighboorPointer);
-         i--;
-         sizeList--;
-         }
-
-      }
-   }
-   /*
-      neighboorDiscovery nd,t;
-
-      
-
-      i=0;
-      do{
-
-         t = call NeighboorList.get(i);
-         age = t.age;
-         
-            call NeighboorList.remove(i);
-          //  call NeighboorList.pushback(nd);
-            i--;
-            sizeList--;
-         }
-         i++;
-      }while(i<sizeList);
-      */
-      /*
-      uint16_t sizeList = call NeighboorList.size();
-      while(i<sizeList)
-      {
-         nd = call NeighboorList.get(i);
-         nd.age++;
-         call NeighboorList.remove(i);
-         call NeighboorList.pushback(nd);
-         i++;
-      }
-      i=0;
-      while(i<sizeList)
-      {
-         t = call NeighboorList.get(i);
-         age = t.age;
-         if(age>5)
-         {
-            call NeighboorList.remove(i);
-            sizeList--;
-            i--;
-         }
-         i++;
-      }
-      */
-
-   
-
-
-   message = "ping \n";
-   makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t) sizeof(message));
-   pushPack(sendPackage);
-   call Sender.send(sendPackage,AM_BROADCAST_ADDR);
-   //   void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
-
-
-   }
-
-
-
-   bool seenPackage(pack* package)
-   {
-      uint16_t sizeList = call PacketList.size();
-      uint16_t i =0;
-      pack seen;
-      while(i<=sizeList)
-      {
-         seen = call PacketList.get(i);
-         if(seen.src == package->src && seen.dest == package->dest && seen.seq==package->seq)
-         {
+   //Searches for a packet in our seen/sent packet list
+   bool findPack(pack *Package) {
+      uint16_t size = call PacketList.size();
+      uint16_t i = 0;
+      pack Match;
+      for(i = 0; i < size; i++) {
+         Match = call PacketList.get(i);
+         if(Match.src == Package->src && Match.dest == Package->dest && Match.seq == Package->seq) {
             return TRUE;
          }
-         i++;
       }
       return FALSE;
-   }
-
-   void pushPack(pack Package)
-   {
-    
-      call PacketList.pushback(Package);
-   }
-
-   bool isN(uint16_t src)
-   {
-      if(!call NeighboorList.isEmpty())
-      {
-         uint16_t i, sizeList = call NeighboorList.size();
-         neighboorDiscovery nd;
-         i=0;
-
-         while(i<sizeList)
-         {
-            nd = call NeighboorList.get(i);
-            if(nd.node ==src)
-            {
-               nd.age=0;
-               return TRUE;
-            }
-         }
-      }
-      return FALSE;
-   }
-
-
-   void printNeighborList()
-   {
-   uint16_t i, sizeList;
-   sizeList =call NeighboorList.size();// call NeighboorList1.size();
-   dbg(NEIGHBOR_CHANNEL,"size list %d:",sizeList);
-   if(sizeList==0)//call NeighboorList1.isEmpty)
-   {
-      dbg(NEIGHBOR_CHANNEL,"No neighbors \n");
-   }
-   else
-   {
-      dbg(NEIGHBOR_CHANNEL,"Neighbors for node %d:  \n",TOS_NODE_ID);
-      i=0;
-      while(i<sizeList)
-      {
-         neighboorDiscovery temp = call NeighboorList.get(i);
-         dbg(NEIGHBOR_CHANNEL,"Neighbor: %d, Age: %d",temp.node,temp.age);
-      }
-   }
    }
 
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length){
@@ -414,4 +217,63 @@ implementation{
       Package->protocol = protocol;
       memcpy(Package->payload, payload, length);
    }
+
+   void pushPack(pack Package) {
+      if(call PacketList.isFull()) {
+         call PacketList.popfront();
+      }
+      call PacketList.pushback(Package);
+   }
+ 
+   void discoverNeighborList() {
+      pack Package;
+      char* message;
+      //Age all NeighborList first if list is not empty
+      //dbg("Project1N", "Discovery activated: %d checking list for neighbors\n", TOS_NODE_ID);
+      if(!call NeighborList.isEmpty()) {
+         uint16_t size = call NeighborList.size();
+         uint16_t i = 0;
+         uint16_t age = 0;
+         neighbor* neighbor_ptr;
+         neighbor* temp;
+         //Age the NeighborList
+         for(i = 0; i < size; i++) {
+            temp = call NeighborList.get(i);
+            temp->Age++;
+         }
+         //If any are older than 5 neighbor confirmation requests then drop them from our list
+         for(i = 0; i < size; i++) {
+            temp = call NeighborList.get(i);
+            age = temp->Age;
+            if(age > 5) {
+               neighbor_ptr = call NeighborList.remove(i);
+               //dbg("Project1N", "Node %d is older than 5 pings, dropping from list\n", neighbor_ptr->Node);
+               call NeighborPool.put(neighbor_ptr);
+               i--;
+               size--;
+            }
+         }
+      }
+      //Ready to ping NeighborList
+      message = "womp\n";
+      makePack(&Package, TOS_NODE_ID, AM_BROADCAST_ADDR, 2, PROTOCOL_PING, 1, (uint8_t*) message, (uint8_t) sizeof(message));
+
+      pushPack(Package);
+      call Sender.send(Package, AM_BROADCAST_ADDR);
+   }
+ 
+   void printNeighborList() {
+      uint16_t i, size;
+      size = call NeighborList.size();
+      //Print out NeighborList after updating
+      if(size == 0) {
+         dbg("Project1N", "No Neighbors found\n");
+      } else {
+         dbg("Project1N", "Updated Neighbors. Dumping new neighbor list of size %d for Node %d\n", size, TOS_NODE_ID);
+         for(i = 0; i < size; i++) {
+            neighbor* neighbor_ptr = call NeighborList.get(i);
+            dbg("Project1N", "Neighbor: %d, Age: %d\n", neighbor_ptr->Node, neighbor_ptr->Age);
+         }
+      }
+   }     
 }
