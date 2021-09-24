@@ -156,7 +156,7 @@ implementation{
                   n.node = myMsg->src;
                   n.age=0;
                  // call NeighboorList1.pushback(temp);
-                 call NeighboorList1.pushback(n);
+                 call NeighboorList.pushback(n);
                   dbg(NEIGHBOR_CHANNEL," node: %d, Age: %d \n",temp->node,temp->age);
 
 
@@ -260,16 +260,16 @@ implementation{
    //uint16_t i,sizeList,age;
 
 
-   if(!call NeighboorList1.isEmpty())
+   if(!call NeighboorList.isEmpty())
    {
-      uint16_t sizeList= call NeighboorList1.size();
+      uint16_t sizeList= call NeighboorList.size();
      
       uint16_t age=0;
-      neighboorDiscovery* temp;
-      neighboorDiscovery* neighboorPointer;
+      neighboorDiscovery temp;
+      neighboorDiscovery neighboorPointer;
       while(i<sizeList)
       {
-         temp = call NeighboorList1.get(i);
+         temp = call NeighboorList.get(i);
          temp->age+=1;
          //call NeighboorList.remove(i);
          //call NeighboorList.pushback(nd);
@@ -278,12 +278,12 @@ implementation{
       i=0;
       while(i<sizeList)
       {
-         temp = call NeighboorList1.get(i);
+         temp = call NeighboorList.get(i);
          age = temp->age;
          if(age>5)
          {
 
-         neighboorPointer = call NeighboorList1.remove(i);
+         neighboorPointer = call NeighboorList.remove(i);
          call NeighboorPool.put(neighboorPointer);
          i--;
          sizeList--;
