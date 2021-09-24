@@ -58,13 +58,14 @@ implementation{
    event void Boot.booted(){
 
       call AMControl.start();
-      call NeighboorTimer.startPeriodic(10000);
+     
         dbg(GENERAL_CHANNEL, "Booted. \n");
    }
 
    event void AMControl.startDone(error_t err){
       if(err == SUCCESS){
          dbg(GENERAL_CHANNEL, "Radio On\n");
+      call NeighboorTimer.startPeriodic(10000);
         
       }else{
          //Retry until successful
@@ -75,7 +76,7 @@ implementation{
    event void NeighboorTimer.fired() {
   // dbg(GENERAL_CHANNEL,"firing timer \n");
   findNeighboors();
- // printNeighborList();
+ printNeighborList();
    
    }
 
