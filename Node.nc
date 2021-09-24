@@ -154,7 +154,7 @@ implementation{
          }  
          else if(myMsg->dest == TOS_NODE_ID) //this package is for me
          {
-            dbg(NEIGHBOR_CHANNEL," packet from %d. Content: %s",myMsg->src,myMsg->payload);
+            dbg(FLOODING_CHANNEL," packet from %d. Content: %s",myMsg->src,myMsg->payload);
             if(myMsg->protocol != PROTOCOL_CMD)
             {
                pushPack(*myMsg);
