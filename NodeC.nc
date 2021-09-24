@@ -4,50 +4,40 @@
  *
  * @author UCM ANDES Lab
  * @date   2013/09/03
- *
- */
+ * 
+ */ 
 
 #include <Timer.h>
-#include "includes/CommandMsg.h"
-#include "includes/packet.h"
 
 configuration NodeC{
 }
 implementation {
     components MainC;
     components Node;
-    components new AMReceiverC(AM_PACK) as GeneralReceive;
-   components new TimerMilliC() as NeighboorTimer;
-   components RandomC as Random;
+    components new AMReceiverC(6);
+    components new TimerMilliC() as myTimerC;
+    
+   Node -> MainC.Boot;
+    
+   Node.Receive -> AMReceiverC;
 
-    Node -> MainC.Boot;
-    Node.RandomTimer -> Random;
-    Node.NeighboorTimer -> NeighboorTimer;
+   Node.PeriodicTimer -> myTimerC;
 
-    Node.Receive -> GeneralReceive;
+   components ActiveMessageC;
+   Node.AMControl -> ActiveMessageC;
 
-    components ActiveMessageC;
-    Node.AMControl -> ActiveMessageC;
-
-    components new SimpleSendC(AM_PACK);
-    Node.Sender -> SimpleSendC;
-
-    components CommandHandlerC;
-    Node.CommandHandler -> CommandHandlerC;
-
-    components new ListC(pack,64) as PacketListC;
-    Node.PacketList -> PacketListC;
-
-    components new ListC(neighboorDiscovery*,64) as NeighboorList1C;
-    Node.NeighboorList1 -> NeighboorList1C;
-
-    components new ListC(neighboorDiscovery,64) as NeighboorListC;
-    Node.NeighboorList -> NeighboorListC;
-
-    components new PoolC(neighboorDiscovery,64) as NeighboorPoolC;
-    Node.NeighboorPool -> NeighboorPoolC;
-
-
-
+   components SimpleSendC;
+   Node.Sender -> SimpleSendC;
    
+   components new ListC(pack, 64) as PacketListC;
+   Node.PacketList -> PacketListC;
+   
+   components new ListC(neighbor*, 64) as NeighborListC;
+   Node.NeighborList -> NeighborListC;
+   
+   components new PoolC(neighbor, 64) as NeighborPoolC;
+   Node.NeighborPool -> NeighborPoolC;
+   
+   components RandomC as Random;
+   Node.Random -> Random;
 }
