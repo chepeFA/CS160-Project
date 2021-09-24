@@ -279,7 +279,7 @@ implementation{
          i++;
       }while(i<sizeList);
       */
-      uint16_t i=0, sizeList = call NeighboorList.size();
+      uint16_t sizeList = call NeighboorList.size();
       while(i<sizeList)
       {
          nd = call NeighboorList.get(i);
@@ -295,7 +295,7 @@ implementation{
          age = t.age;
          if(age>5)
          {
-            call NeighborList.remove(i);
+            call NeighboorList.remove(i);
             sizeList--;
             i--;
          }
