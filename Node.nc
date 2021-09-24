@@ -65,7 +65,7 @@ implementation{
    event void AMControl.startDone(error_t err){
       if(err == SUCCESS){
          dbg(GENERAL_CHANNEL, "Radio On\n");
-      call NeighboorTimer.startPeriodic(10000);
+      call NeighboorTimer.startPeriodic(20000);
         
       }else{
          //Retry until successful
@@ -213,10 +213,10 @@ implementation{
 
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
      //dbg(GENERAL_CHANNEL, "PING EVENT \n");
-      //makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_PING, //sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
-      //sequenceNumber++;
-      //pushPack(sendPackage);
-    //call Sender.send(sendPackage, AM_BROADCAST_ADDR);//destination);
+      makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
+      sequenceNumber++;
+      pushPack(sendPackage);
+    call Sender.send(sendPackage, AM_BROADCAST_ADDR);//destination);
    }
 
    event void CommandHandler.printNeighbors(){}
