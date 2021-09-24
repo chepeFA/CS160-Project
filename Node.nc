@@ -239,6 +239,8 @@ implementation{
    pack Package;
    char* message;
    neighboorDiscovery nd,t;
+   uint16_t i=0;
+      uint16_t age=0;
    
    //uint16_t i,sizeList,age;
 
@@ -277,7 +279,7 @@ implementation{
          i++;
       }while(i<sizeList);
       */
-      uint16_t i=0, sizeList = call NeighboorList();
+      uint16_t i=0, sizeList = call NeighboorList.size();
       while(i<sizeList)
       {
          nd = call NeighboorList.get(i);
