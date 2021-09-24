@@ -307,6 +307,7 @@ implementation{
                nx.age=0;
                return TRUE;
             }
+            i++;
          }
       //}
       return FALSE;
