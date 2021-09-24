@@ -223,70 +223,32 @@ implementation{
    char* message;
    neighboorDiscovery nd,t;
     uint16_t i=0;
+    uint16_t sizeList= call NeighboorList.size();
+    while(i<sizeList)
+    {
+      nd = call NeighboorList(i);
+      nd.age+=1;
+      call NeighboorList.remove(i);                    
+      call NeighboorList.pushback(nd);
+      i++;
+
+    }
+    i=0;
+    while(i<sizeList)
+    {
+      t = NeighboorList.get(i);
+      if(t.age>5)
+      {
+         call NeighboorList.remove(i);
+         sizeList--;
+         i--;
+      }
+      i++;
+    }
       
    
    //uint16_t i,sizeList,age;
 
-
-   if(!call NeighboorList.isEmpty())
-   {
-      uint16_t sizeList= call NeighboorList.size();
-     
-      uint16_t age=0;
-      neighboorDiscovery temp;
-      neighboorDiscovery neighboorPointer;
-      while(i<sizeList)
-      {
-         temp = call NeighboorList.get(i);
-         temp.age+=1;
-         //call NeighboorList.remove(i);
-         //call NeighboorList.pushback(nd);
-         i++;
-      }
-      i=0;
-      while(i<sizeList)
-      {
-         temp = call NeighboorList.get(i);
-         age = temp.age;
-         if(age>5)
-         {
-
-         neighboorPointer = call NeighboorList.remove(i);
-         //call NeighboorPool.put(neighboorPointer);
-         i--;
-         sizeList--;
-         }
-         i++;
-      }
-   }
-   /*
-      neighboorDiscovery nd,t;
-
-      */
-      /*
-      uint16_t sizeList = call NeighboorList.size();
-      while(i<sizeList)
-      {
-         nd = call NeighboorList.get(i);
-         nd.age++;
-         call NeighboorList.remove(i);
-         call NeighboorList.pushback(nd);
-         i++;
-      }
-      i=0;
-      while(i<sizeList)
-      {
-         t = call NeighboorList.get(i);
-         age = t.age;
-         if(age>5)
-         {
-            call NeighboorList.remove(i);
-            sizeList--;
-            i--;
-         }
-         i++;
-      }
-      */
 
    
 
