@@ -320,7 +320,7 @@ implementation{
    void printNeighborList()
    {
    neighboorDiscovery nd;
-   /*uint16_t i, sizeList;
+   uint16_t i, sizeList;
    sizeList =call NeighboorList.size();// call NeighboorList1.size();
    dbg(NEIGHBOR_CHANNEL,"size list %d:",sizeList);
 
@@ -338,7 +338,8 @@ implementation{
          dbg(NEIGHBOR_CHANNEL,"Neighbor: %d, Age: %d",temp.node,temp.age);
       }
    }
-   */
+   
+   /*
    uint16_t i, sizeList;
    sizeList =call NeighboorList.size();
    i=0;
@@ -352,7 +353,7 @@ implementation{
 
    i++;
    }
-
+   /*
    }
 
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length){
