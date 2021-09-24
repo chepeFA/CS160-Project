@@ -226,7 +226,7 @@ implementation{
     uint16_t sizeList= call NeighboorList.size();
     while(i<sizeList)
     {
-      nd = call NeighboorList(i);
+      nd = call NeighboorList.get(i);
       nd.age+=1;
       call NeighboorList.remove(i);                    
       call NeighboorList.pushback(nd);
@@ -236,7 +236,7 @@ implementation{
     i=0;
     while(i<sizeList)
     {
-      t = NeighboorList.get(i);
+      t = call NeighboorList.get(i);
       if(t.age>5)
       {
          call NeighboorList.remove(i);
