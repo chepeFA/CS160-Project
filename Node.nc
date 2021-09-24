@@ -89,7 +89,8 @@ implementation{
    event message_t* Receive.receive(message_t* msg, void* payload, uint8_t len)
    {
       //dbg(GENERAL_CHANNEL, "Packet Received\n");
-      if(len==sizeof(pack)){
+      if(len==sizeof(pack))
+      {
          pack* myMsg=(pack*) payload;
         //dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
         //return msg;
@@ -122,25 +123,7 @@ implementation{
             //hearing back from a neighbor
             else if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
-            /*
-            
-                 dbg(NEIGHBOR_CHANNEL," protocol ping REPLY AM \n");
-               sizeList = call NeighboorList.size();
-               foundNeighbor = FALSE;
-               i=0;
-               while(i<sizeList)
-               {
-                  nd = call NeighboorList.get(i);
-                  if(nd.node==myMsg->src)
-                  {
-                     nd.age=0;
-                     foundNeighbor =TRUE;
-                     break;
-                  }
-                  i++;
-
-               }
-               */
+           
                
                i=0;
                //new neighbor
@@ -152,6 +135,8 @@ implementation{
 
                 }
          }  
+
+         }
          else if(myMsg->dest == TOS_NODE_ID) //this package is for me
          {
 
@@ -191,6 +176,7 @@ implementation{
       dbg(GENERAL_CHANNEL, "Unknown Packet Type %d payload: %s \n", len,myMsg->payload);
       return msg;
    }
+
    }
 
 
