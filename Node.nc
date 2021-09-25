@@ -168,7 +168,7 @@ implementation{
 
          else
          {
-           dbg(FLOODING_CHANNEL,"Rebroadcasting again. Source %d, Destination: %d \n",myMsg->src,AM_BROADCAST_ADDR);
+           dbg(FLOODING_CHANNEL,"Rebroadcasting again. Source %d, Destination: %d \n",myMsg->src,my->Msg->dest);
             makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL-1, myMsg->protocol, myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload));
             pushPack(sendPackage);
             call Sender.send(sendPackage, AM_BROADCAST_ADDR);
