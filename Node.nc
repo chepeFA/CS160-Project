@@ -159,7 +159,7 @@ implementation{
             else if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
 
-               dbg(NEIGHBOR_CHANNEL,"Ping is coming from %d",myMsg->src);
+              // dbg(NEIGHBOR_CHANNEL,"Ping is coming from %d",myMsg->src);
             }   
 
 
