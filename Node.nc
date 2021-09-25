@@ -153,13 +153,16 @@ implementation{
               sequenceNumber++;
                pushPack(sendPackage);
               call Sender.send(sendPackage,AM_BROADCAST_ADDR);
+              goto a;
             }
 
             else if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
 
                //dbg(NEIGHBOR_CHANNEL,"Ping is coming from %d",myMsg->src);
-            }    
+            }   
+
+            a: 
    
          }
 
