@@ -111,11 +111,11 @@ implementation{
             {
               // dbg(NEIGHBOR_CHANNEL," protocol ping AM \n");
 
-               makePack(&sendPackage, TOS_NODE_ID,myMsg->src,myMsg->TTL-1, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
+               makePack(&sendPackage, TOS_NODE_ID,AM_BROADCAST_ADDR,MX_TTL, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
                sequenceNumber++;
                pushPack(sendPackage);
-              // call Sender.send(sendPackage, myMsg->src);
-              call Sender.send(sendPackage, AM_BROADCAST_ADDR);
+              call Sender.send(sendPackage, myMsg->src);
+             // call Sender.send(sendPackage, AM_BROADCAST_ADDR);
             }
 
 
@@ -265,7 +265,7 @@ implementation{
    
 
 
-   message = "ping \n";
+   message = "\n";
    makePack(&Package,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t) sizeof(message));
    pushPack(Package);
    call Sender.send(Package,AM_BROADCAST_ADDR);
