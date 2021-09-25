@@ -123,7 +123,7 @@ implementation{
             else if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
            
-               dbg(FLOODING_CHANNEL,"Received a package from %d", myMsg->src);
+               //dbg(FLOODING_CHANNEL,"Received a package from %d", myMsg->src);
                i=0;
                //new neighbor
              if(!isN(myMsg->src))//!isN(myMsg->src))//)//!isN(myMsg->src))
@@ -148,7 +148,7 @@ implementation{
             if(myMsg->protocol == PROTOCOL_PING)
             {
                //dbg(NEIGHBOR_CHANNEL," in protocol ping TOS_NODE_ID \n");
-               dbg(NEIGHBOR_CHANNEL,"sending ping to node: %d",myMsg->src);
+              // dbg(NEIGHBOR_CHANNEL,"sending ping to node: %d",myMsg->src);
                makePack(&sendPackage,TOS_NODE_ID,myMsg->src,MAX_TTL,PROTOCOL_PINGREPLY,sequenceNumber,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
               sequenceNumber++;
                pushPack(sendPackage);
