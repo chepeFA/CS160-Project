@@ -141,9 +141,9 @@ def main():
     s.addChannel(s.FLOODING_CHANNEL);
 
     #s.runTime(20);
-    s.runTime(20);
+    #s.runTime(20);
     #floding
-    s.ping(1, 5, "Hello world");
+    #s.ping(1, 5, "Hello world");
     s.runTime(20);
     #testing neighboor discovery
     s.neighborDMP(4);#list of neighbor for node 4
