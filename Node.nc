@@ -201,10 +201,10 @@ implementation{
      //dbg(FLOODING_CHANNEL,"destination: %d \n",AM_BROADCAST_ADDR);
      dbg(FLOODING_CHANNEL,"destination: %d \n",destination);
 
-     makePack(&sendPackage, TOS_NODE_ID,destination, MAX_TTL, PROTOCOL_PINGREPLY, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
+     makePack(&sendPackage, TOS_NODE_ID,destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
      sequenceNumber++;
      pushPack(sendPackage);
-     call Sender.send(sendPackage,AM_BROADCAST_ADDR);//destination);
+     call Sender.send(sendPackage,myMsg->src);//destination);
 
     //neigboorDiscovery node, neighboor;
     //uint16_t i, sizeList = call NeighboorList.size();
