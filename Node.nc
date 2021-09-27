@@ -126,7 +126,7 @@ implementation{
             else if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
            
-               dbg(FLOODING_CHANNEL,"Received a package from %d", myMsg->src);
+               //dbg(FLOODING_CHANNEL,"Received a package from %d", myMsg->src);
                i=0;
                //new neighbor
              if(!isN(myMsg->src))//!isN(myMsg->src))//)//!isN(myMsg->src))
@@ -143,6 +143,7 @@ implementation{
          {
 
             dbg(FLOODING_CHANNEL," packet from %d.payload: %s \n",myMsg->src,myMsg->payload);
+
             if(myMsg->protocol != PROTOCOL_CMD)
             {
              pushPack(*myMsg);
@@ -200,7 +201,7 @@ implementation{
      //dbg(FLOODING_CHANNEL,"destination: %d \n",AM_BROADCAST_ADDR);
      dbg(FLOODING_CHANNEL,"destination: %d \n",destination);
 
-     makePack(&sendPackage, TOS_NODE_ID,destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
+     makePack(&sendPackage, TOS_NODE_ID,destination, MAX_TTL, PROTOCOL_PINGREPLY, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
      sequenceNumber++;
      pushPack(sendPackage);
      call Sender.send(sendPackage,AM_BROADCAST_ADDR);//destination);
