@@ -111,8 +111,8 @@ implementation{
             {
               // dbg(NEIGHBOR_CHANNEL," protocol ping AM \n");
 
-               makePack(&sendPackage, TOS_NODE_ID,AM_BROADCAST_ADDR,MAX_TTL, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
-               sequenceNumber++;
+               makePack(&sendPackage, TOS_NODE_ID,AM_BROADCAST_ADDR,MmyMsg->TTL-1, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
+               //sequenceNumber++;
                pushPack(sendPackage);
               call Sender.send(sendPackage, myMsg->src);
              // call Sender.send(sendPackage, AM_BROADCAST_ADDR);
@@ -140,10 +140,10 @@ implementation{
          {
 
             dbg(FLOODING_CHANNEL," packet from %d.payload: %s \n",myMsg->src,myMsg->payload);
-           // if(myMsg->protocol != PROTOCOL_CMD)
-            //{
-              // pushPack(*myMsg);
-            //}
+            if(myMsg->protocol != PROTOCOL_CMD)
+            {
+             pushPack(*myMsg);
+            }
 
             if(myMsg->protocol == PROTOCOL_PING)
             {
@@ -159,7 +159,7 @@ implementation{
             else if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
 
-              dbg(NEIGHBOR_CHANNEL,"Ping is coming from %d",myMsg->src);
+              dbg(NEIGHBOR_CHANNEL,"Ping is coming from %d \n",myMsg->src);
             }   
 
 
@@ -267,7 +267,7 @@ implementation{
 
    message = "\n";
    makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t) sizeof(message));
-   pushPack(sendPackage);
+   pushPack(Package);
    call Sender.send(sendPackage,AM_BROADCAST_ADDR);
    //   void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
 
