@@ -126,7 +126,7 @@ implementation{
             else if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
            
-               //dbg(FLOODING_CHANNEL,"Received a package from %d", myMsg->src);
+               dbg(FLOODING_CHANNEL,"Received a package from %d", myMsg->src);
                i=0;
                //new neighbor
              if(!isN(myMsg->src))//!isN(myMsg->src))//)//!isN(myMsg->src))
