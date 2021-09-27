@@ -46,6 +46,8 @@ implementation{
    uint16_t sequenceNumber= 0;
    uint8_t commandID;
    uint16_t srcAdd;
+   uint16_t itlAdd;
+   uint16_t fnlAdd;
 
    
 
@@ -145,7 +147,10 @@ implementation{
          else if(myMsg->dest == TOS_NODE_ID) //this package is for me
          {
 
+            if(myMsg->src == itlAdd && myMsg->dest==fnlAdd)
+            {
             dbg(FLOODING_CHANNEL," packet from %d.payload: %s \n",myMsg->src,myMsg->payload);
+            }
 
             if(myMsg->protocol != PROTOCOL_CMD)
             {
@@ -209,6 +214,8 @@ implementation{
      sequenceNumber++;
      pushPack(sendPackage);
      call Sender.send(sendPackage,AM_BROADCAST_ADDR);//destination);
+     itlAdd = TOS_NODE_ID;
+     fnlAdd= destination;
 
     //neigboorDiscovery node, neighboor;
     //uint16_t i, sizeList = call NeighboorList.size();
