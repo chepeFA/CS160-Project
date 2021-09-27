@@ -155,6 +155,7 @@ implementation{
               sequenceNumber++;
                pushPack(sendPackage);
               call Sender.send(sendPackage,AM_BROADCAST_ADDR);
+              goto a;
               
             }
 
@@ -165,7 +166,7 @@ implementation{
             }   
 
 
-   
+            a:
          }
 
          else
