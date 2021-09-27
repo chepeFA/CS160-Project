@@ -105,16 +105,16 @@ implementation{
          else if(myMsg->dest == AM_BROADCAST_ADDR)
          {
           
-           
+
             bool foundNeighbor;
             uint16_t i,sizeList;
             neighboorDiscovery* neighboor, *temp, *a;
             neighboorDiscovery nd,n;
-            dbg(GENERAL_CHANNEL,"in AM dest \n");
+           // dbg(GENERAL_CHANNEL,"in AM dest \n");
 
             if(myMsg->protocol == PROTOCOL_PING)
             {
-              // dbg(NEIGHBOR_CHANNEL," protocol ping AM \n");
+              dbg(NEIGHBOR_CHANNEL," protocol ping AM \n");
 
                makePack(&sendPackage, TOS_NODE_ID,AM_BROADCAST_ADDR,myMsg->TTL-1, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
                //sequenceNumber++;
