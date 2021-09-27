@@ -103,6 +103,7 @@ implementation{
          
          else if(myMsg->dest == AM_BROADCAST_ADDR)
          {
+          dbg(FLOODING_CHANNEL,"in AM dest \n");
             bool foundNeighbor;
             uint16_t i,sizeList;
             neighboorDiscovery* neighboor, *temp, *a;
