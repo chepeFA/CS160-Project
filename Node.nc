@@ -147,10 +147,9 @@ implementation{
          else if(myMsg->dest == TOS_NODE_ID) //this package is for me
          {
 
-            if(myMsg->src == itlAdd && myMsg->dest==fnlAdd)
-            {
+            
             dbg(FLOODING_CHANNEL," packet from %d.payload: %s \n",myMsg->src,myMsg->payload);
-            }
+            
 
             if(myMsg->protocol != PROTOCOL_CMD)
             {
