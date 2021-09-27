@@ -172,7 +172,7 @@ implementation{
          {
            
             makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL-1, myMsg->protocol, myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload));
-            dbg(FLOODING_CHANNEL,"Rebroadcasting again. Source %d, Destination: %d \n",myMsg->src,myMsg->dest);
+            dbg(FLOODING_CHANNEL,"Rebroadcasting again. Source %d, Destination: %d ,protocol: \n",myMsg->src,myMsg->dest,myMsg->protocol);
             pushPack(sendPackage);
             call Sender.send(sendPackage, AM_BROADCAST_ADDR);
          }
@@ -195,7 +195,7 @@ implementation{
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
      //dbg(GENERAL_CHANNEL, "PING EVENT \n");
      dbg(FLOODING_CHANNEL,"source: %d \n",TOS_NODE_ID);
-     dbg(FLOODING_CHANNEL,"destination: %d \n",AM_BROADCAST_ADDR);
+     //dbg(FLOODING_CHANNEL,"destination: %d \n",AM_BROADCAST_ADDR);
      dbg(FLOODING_CHANNEL,"destination: %d \n",destination);
 
      makePack(&sendPackage, TOS_NODE_ID,destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
