@@ -99,7 +99,7 @@ implementation{
            // dbg(GENERAL_CHANNEL,"Dropping package \n");
          }
          
-         if(myMsg->dest == AM_BROADCAST_ADDR)
+         else if(myMsg->dest == AM_BROADCAST_ADDR)
          {
             bool foundNeighbor;
             uint16_t i,sizeList;
