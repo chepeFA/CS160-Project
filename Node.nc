@@ -231,7 +231,7 @@ implementation{
    event void CommandHandler.printNeighbors(){
 
    printNeighborList();
-   dbg("GENERAL_CHANNEL","cost is: %d",cost);
+   
 
    }
 
@@ -368,7 +368,7 @@ implementation{
          i++;
       }
    }
-   
+   dbg("GENERAL_CHANNEL","cost is: %d",cost);
   
 
    }
