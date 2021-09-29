@@ -231,7 +231,7 @@ implementation{
    event void CommandHandler.printNeighbors(){
 
    printNeighborList();
-   
+    dbg(GENERAL_CHANNEL,"cost is: %d",cost);
 
    }
 
@@ -364,7 +364,7 @@ implementation{
       while(i<sizeList)
       {
          neighboorDiscovery temp = call NeighboorList.get(i);
-         dbg("GENERAL_CHANNEL","cost is: %d",cost);
+        
          dbg(NEIGHBOR_CHANNEL,"Neighbor: %d \n",temp.node);
          i++;
       }
