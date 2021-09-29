@@ -49,6 +49,7 @@ implementation{
    uint16_t itlAdd;
    uint16_t fnlAdd;
    uint16_t cost=0; //number of hops
+   uint16_t temp;
 
    
 
