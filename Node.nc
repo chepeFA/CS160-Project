@@ -151,6 +151,7 @@ implementation{
 
             
             dbg(FLOODING_CHANNEL," packet from %d.payload: %s \n",myMsg->src,myMsg->payload);
+            cost++;
             temp=cost;
 
             if(myMsg->protocol != PROTOCOL_CMD)
@@ -231,7 +232,7 @@ implementation{
    event void CommandHandler.printNeighbors(){
 
    printNeighborList();
-    dbg(GENERAL_CHANNEL,"cost is: %d",cost);
+    dbg(GENERAL_CHANNEL,"cost is: %d \n",cost);
 
    }
 
@@ -364,7 +365,7 @@ implementation{
       while(i<sizeList)
       {
          neighboorDiscovery temp = call NeighboorList.get(i);
-        
+
          dbg(NEIGHBOR_CHANNEL,"Neighbor: %d \n",temp.node);
          i++;
       }
