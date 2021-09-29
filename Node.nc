@@ -213,10 +213,11 @@ implementation{
      dbg(FLOODING_CHANNEL,"destination: %d \n",destination);
      itlAdd = TOS_NODE_ID;
      fnlAdd= destination;
+     cost++;
      makePack(&sendPackage, TOS_NODE_ID,destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
      sequenceNumber++;
      pushPack(sendPackage);
-     cost++;
+
      call Sender.send(sendPackage,AM_BROADCAST_ADDR);//destination);
     
 
