@@ -48,6 +48,7 @@ implementation{
    uint16_t srcAdd;
    uint16_t itlAdd;
    uint16_t fnlAdd;
+   uint16_t cost=0; //number of hops
 
    
 
@@ -112,7 +113,7 @@ implementation{
             uint16_t i,sizeList;
             neighboorDiscovery* neighboor, *temp, *a;
             neighboorDiscovery nd,n;
-           // dbg(GENERAL_CHANNEL,"in AM dest \n");
+           
 
             if(myMsg->protocol == PROTOCOL_PING)
             {
@@ -149,7 +150,7 @@ implementation{
 
             
             dbg(FLOODING_CHANNEL," packet from %d.payload: %s \n",myMsg->src,myMsg->payload);
-            
+            temp=cost;
 
             if(myMsg->protocol != PROTOCOL_CMD)
             {
@@ -180,7 +181,7 @@ implementation{
 
          else
          {
-             
+             cost++;
             makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL-1
             , myMsg->protocol, myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload));
             dbg(FLOODING_CHANNEL,"Rebroadcasting again. We are in node:  %d, going to,  Destination: %d \n",TOS_NODE_ID,myMsg->dest);
@@ -229,6 +230,8 @@ implementation{
    event void CommandHandler.printNeighbors(){
 
    printNeighborList();
+   dbg("GENERAL_CHANNEL","cost is: %d",cost);
+
    }
 
    event void CommandHandler.printRouteTable(){}
