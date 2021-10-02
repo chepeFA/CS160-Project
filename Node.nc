@@ -22,6 +22,13 @@ nx_uint16_t node;
 nx_uint16_t age;
 }neighboorDiscovery;
 
+typedef nx_struct tableLS{
+  nx_unit16_t destination;
+  nx_unit16_t nextHop;
+  nx_unit16_t cost;
+
+}tableLS;
+
 
 module Node{
    uses interface Boot;
@@ -94,7 +101,7 @@ implementation{
 
    event message_t* Receive.receive(message_t* msg, void* payload, uint8_t len)
    {
-   cost++;
+   
       //dbg(GENERAL_CHANNEL, "Packet Received\n");
       if(len==sizeof(pack))
       {
