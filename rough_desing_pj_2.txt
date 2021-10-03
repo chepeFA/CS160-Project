@@ -1,0 +1,4 @@
+Notes about desing 2nd project: 
+Create a struct for the LSTable.
+Struct fields are: Destination, Cost, Next Hop.
+This struct represents the forwarding table for each node in the topology. 

@@ -58,6 +58,9 @@ implementation{
    uint16_t cost=0; //number of hops
    uint16_t temp;
 
+   //Project 2
+    tableLS routingTable[255]= {0}; //initialize all structs fields to zero.
+
    
 
 
