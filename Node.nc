@@ -23,9 +23,9 @@ nx_uint16_t age;
 }neighboorDiscovery;
 
 typedef nx_struct tableLS{
-  nx_uit16_t destination;
-  nx_uit16_t nextHop;
-  nx_uit16_t cost;
+  nx_uint16_t destination;
+  nx_uint16_t nextHop;
+  nx_uint16_t cost;
 
 }tableLS;
 
