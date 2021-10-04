@@ -38,13 +38,17 @@ module Node{
    uses interface SimpleSend as Sender;
    uses interface CommandHandler;
 
+   //PROJECT 1
    uses interface Timer<TMilli> as NeighboorTimer;
    uses interface Random as RandomTimer;
    uses interface List<neighboorDiscovery> as NeighboorList;
-   
    uses interface List<pack> as PacketList;
    uses interface Pool<neighboorDiscovery> as NeighboorPool;
    uses interface List<neighboorDiscovery *> as NeighboorList1;
+
+
+   //PROJECT 2
+   uses interface Hashmap<tableLS> as RoutingTable;
 }
 
 implementation{
@@ -60,7 +64,7 @@ implementation{
 
    //Project 2
     tableLS routingTable[255]= {0}; //initialize all structs fields to zero.
-
+    uint16_t seqNumberLSA=0;
    
 
 
