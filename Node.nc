@@ -48,7 +48,9 @@ module Node{
 
 
    //PROJECT 2
-   uses interface Hashmap<tableLS> as RoutingTable;
+   uses interface Hashmap<tableLS> as RoutingTable;//forwarding table for each node
+   uses interface Hashmap<pack> as PacketCache;// to implment cache
+   uses interface Timer<TMilli> as RoutingTimer;
 }
 
 implementation{
@@ -68,13 +70,30 @@ implementation{
    
 
 
-   // Prototypes
+   // Prototypes Project 1
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
    void findNeighboors();
    bool seenPackage(pack *package);
    void pushPack(pack package);
    bool isN(uint16_t src);
    void printNeighborList();
+
+   // Prototypes Project 2
+   void dijkstra();
+   void forwarding(pack* Package);
+   void printLSTable();
+
+   void printRoutingTable();
+
+   void localroute();
+   void Route_flood();
+   void checkdest(table* tmptable);
+   bool checkMin(table* tmptable);
+
+
+
+
+
 
    event void Boot.booted(){
 
@@ -87,6 +106,7 @@ implementation{
       if(err == SUCCESS){
          dbg(GENERAL_CHANNEL, "Radio On\n");
       call NeighboorTimer.startPeriodic(10000);
+      call RoutingTimer.startPeriodic(10000);
         
       }else{
          //Retry until successful
@@ -103,6 +123,11 @@ implementation{
 
 
    event void AMControl.stopDone(error_t err){}
+
+   event void RoutingTimer.fired()
+   {
+   
+   }
 
 
 
@@ -230,6 +255,7 @@ implementation{
      dbg(FLOODING_CHANNEL,"destination: %d \n",destination);
      itlAdd = TOS_NODE_ID;
      fnlAdd= destination;
+     dbg(GENERAL_CHANNEL,"Payload at zero is :%s", payload[0])
      
      makePack(&sendPackage, TOS_NODE_ID,destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
      sequenceNumber++;
