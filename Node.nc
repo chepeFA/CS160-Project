@@ -65,7 +65,7 @@ implementation{
    uint16_t temp;
 
    //Project 2
-    tableLS routingTable[255]= {0}; //initialize all structs fields to zero.
+    tableLS routingTable[255]={0}; //initialize all structs fields to zero.
     uint16_t seqNumberLSA=0;
    
 
@@ -255,7 +255,7 @@ implementation{
      dbg(FLOODING_CHANNEL,"destination: %d \n",destination);
      itlAdd = TOS_NODE_ID;
      fnlAdd= destination;
-     dbg(GENERAL_CHANNEL,"Payload at zero is :%s", payload[0]);
+     dbg(GENERAL_CHANNEL,"Payload at zero is : %s", payload[0]);
      
      makePack(&sendPackage, TOS_NODE_ID,destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
      sequenceNumber++;
