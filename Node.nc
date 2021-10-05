@@ -87,8 +87,8 @@ implementation{
 
    void localroute();
    void Route_flood();
-   void checkdest(table* tmptable);
-   bool checkMin(table* tmptable);
+   void checkdest(tableLS* tmptable);
+   bool checkMin(tablLS* tmptable);
 
 
 
