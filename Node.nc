@@ -255,7 +255,7 @@ implementation{
      dbg(FLOODING_CHANNEL,"destination: %d \n",destination);
      itlAdd = TOS_NODE_ID;
      fnlAdd= destination;
-     //dbg(GENERAL_CHANNEL,"Payload at zero is : %s", payload[0]);
+     dbg(GENERAL_CHANNEL,"Payload at zero is : %s", payload[0]);
      
      makePack(&sendPackage, TOS_NODE_ID,destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
      sequenceNumber++;
@@ -264,14 +264,6 @@ implementation{
      call Sender.send(sendPackage,AM_BROADCAST_ADDR);//destination);
     
 
-    //neigboorDiscovery node, neighboor;
-    //uint16_t i, sizeList = call NeighboorList.size();
-    //for(i=0;i<sizeList;i++)
-    //{
-      //node = call NeighboorList.get(i);
-      //dbg(FLOODING_CHANNEL, "Flooding Packet to : %d \n", node.node );
-      //makePack(&sendPackage,);
-    //}
    }
 
    event void CommandHandler.printNeighbors(){
