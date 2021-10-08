@@ -206,6 +206,8 @@ implementation{
 
             if(myMsg->protocol == PROTOCOL_PING)
             {
+
+              uint32_t nexxxtHop = call RoutingTable.get(myMsg->src);
             
                //dbg(NEIGHBOR_CHANNEL," in protocol ping TOS_NODE_ID \n");
               // dbg(NEIGHBOR_CHANNEL,"sending ping to node: %d",myMsg->src);
@@ -216,7 +218,7 @@ implementation{
               //working on 10.08 call Sender.send(sendPackage,AM_BROADCAST_ADDR);
 
 
-              uint32_t nexxxtHop = call RoutingTable.get(myMsg->src);
+              
               if(call RoutingTable.contains(myMsg->src))
               {
                   dbg(ROUTING_CHANNEL,"Sending package to next hop %d n",nexxxtHop);
