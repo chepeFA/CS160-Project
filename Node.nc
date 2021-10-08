@@ -425,7 +425,7 @@ implementation{
       while(i<19)
       {
         routingTable = call RoutingTable.get(i);
-        if(routingTable!=0)
+        if(routingTable.cost!=0)
         {
         dbg(ROUTING_CHANNEL,"%d\t  %d\t,  %d\n",routingTable.destination,routingTable.nextHop,routingTable.cost);
         i++;
