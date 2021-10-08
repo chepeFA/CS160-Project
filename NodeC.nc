@@ -17,14 +17,16 @@ implementation {
     components MainC;
     components Node;
     components new AMReceiverC(AM_PACK) as GeneralReceive;
-   components new TimerMilliC() as NeighboorTimer;
-   components new TimerMilliC() as RoutingTimer;
-   components RandomC as Random;
+    components new TimerMilliC() as NeighboorTimer;
+    components new TimerMilliC() as RoutingTimer;
+    components RandomC as Random;
+
+
 
     Node -> MainC.Boot;
     Node.RandomTimer -> Random;
     Node.NeighboorTimer -> NeighboorTimer;
-    Node.RoutingTimer-> RoutingTimer;
+    Node.RoutingTimer -> RoutingTimer;
 
     Node.Receive -> GeneralReceive;
 
@@ -33,7 +35,7 @@ implementation {
 
     components new SimpleSendC(AM_PACK);
     Node.Sender -> SimpleSendC;
-
+    
     components CommandHandlerC;
     Node.CommandHandler -> CommandHandlerC;
 
@@ -49,7 +51,8 @@ implementation {
     components new PoolC(neighboorDiscovery,64) as NeighboorPoolC;
     Node.NeighboorPool -> NeighboorPoolC;
 
-
-
+    components new HashmapC(tableLS,255) as RoutingTableC;
+    Node.RoutingTable -> RoutingTableC;
+   
    
 }
