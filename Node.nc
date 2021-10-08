@@ -269,11 +269,13 @@ implementation{
    event void CommandHandler.printNeighbors(){
 
    printNeighborList();
-    dbg(GENERAL_CHANNEL,"cost is: %d \n",cost);
+   // dbg(GENERAL_CHANNEL,"cost is: %d \n",cost);
 
    }
 
-   event void CommandHandler.printRouteTable(){}
+   event void CommandHandler.printRouteTable(){
+   printRoutingTable();
+   }
 
    event void CommandHandler.printLinkState(){}
 
