@@ -362,6 +362,20 @@ implementation{
       call PacketList.pushback(Package);
    }
 
+   void PachCacheHash(pack Package,int id)
+   {
+    if(seePacketLSA==0 && Package.src==TOS_NODE_ID)
+    {
+      call PacketCache.insert(id,sendPackage);
+    }
+    else if(seePacketLSA==1 && Package.src==TOS_NODE_ID )
+    {
+      call PacketCache.remove(id);
+      call PacketCache.insert(id,sendPackage);
+
+    }
+   }
+
    bool isN(uint16_t src)
    {
 
