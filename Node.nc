@@ -84,9 +84,7 @@ implementation{
    void dijkstra();
    void forwarding(pack* Package);
    void printLSTable();
-
    void printRoutingTable();
-
    void localroute();
    void Route_flood();
    void checkdest(tableLS* tmptable);
@@ -109,6 +107,7 @@ implementation{
          dbg(GENERAL_CHANNEL, "Radio On\n");
          //start neighbor discovery and routing timer as soon as radio is on
       call NeighboorTimer.startPeriodic(10000);
+
       call RoutingTimer.startPeriodic(30000);
         
       }else{
@@ -129,7 +128,7 @@ implementation{
 
    event void RoutingTimer.fired()
    {
-   
+    void sendLSP();
    }
 
 
@@ -275,7 +274,7 @@ implementation{
    }
 
    event void CommandHandler.printRouteTable(){
-   printRoutingTable();
+  // printRoutingTable();
    }
 
    event void CommandHandler.printLinkState(){}
@@ -434,6 +433,20 @@ implementation{
         i++;
         }
       }
+   }
+
+
+   void sendLSP()
+   {
+    tableLS potentialRoute[1];
+    uint16_t key = call RoutingTable.getKeys();
+    uint16_t i=0,size = call NeighboorList.size();
+    for(i=0;key[i]!=0;i++)
+    {
+      potentialRoute[0]=call RoutingTable.get(key[i]);
+      makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,0,PROTOCOL_LINKEDLIST,0,(uint8_t*)potentialRoute,sizeof(tableLS)*1);
+      call Sender.send(sendPackage,AM_BROADCAST_ADDR);
+    }
    }
 
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length){
