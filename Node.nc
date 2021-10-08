@@ -421,13 +421,14 @@ implementation{
       tableLS routingTable;
 
       dbg(ROUTING_CHANNEL,"Routing Table: \n");
-      dbg(ROUTING_CHANNEL,"Dest \t, Next Hop: \t, Cost \n")
-      while(i<18)
+      dbg(ROUTING_CHANNEL,"Dest \t, Next Hop: \t, Cost \n");
+      while(i<19)
       {
         routingTable = call RoutingTable.get(i);
         if(routingTable!=0)
         {
         dbg(ROUTING_CHANNEL,"%d\t  %d\t,  %d\n",routingTable.destination,routingTable.nextHop,routingTable.cost);
+        i++;
         }
       }
    }
