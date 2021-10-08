@@ -90,7 +90,7 @@ implementation{
    void Route_flood();
    void checkdest(tableLS* tmptable);
    bool checkMin(tableLS* tmptable);
-  void PackCacheHash(pack Package,int id)
+  void PackCacheHash(pack Package,int id);
 
 
 
