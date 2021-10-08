@@ -216,7 +216,7 @@ implementation{
               if(call RoutingTable.get(myMsg->src))
               {
                   dbg(ROUTING_CHANNEL,"Sending package to next hop %d n",nexxxtHop);
-                  call Sender.send(sendPackage,nexxxHop);
+                  call Sender.send(sendPackage,nexxxtHop);
               }
               
             }
