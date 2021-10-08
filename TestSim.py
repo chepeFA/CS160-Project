@@ -149,7 +149,7 @@ def main():
     s.neighborDMP(6);#list of neighbor for node 4
     s.runTime(5);
 
-    s. CMD_ROUTE_DUMP(5);
+    s. cmdRouteDMP(5);
     s.runTime(5);
    # s.neighborDMP(3);#list of neighbor for node 1
     #s.ping(1, 3, "Hi");
