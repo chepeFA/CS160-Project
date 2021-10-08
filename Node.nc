@@ -432,10 +432,17 @@ implementation{
 
    //PROJECT_2 FUNCTIONS
 
-   int seenPacketLSA(int seen)
+   int seenPacketLSA(int id)
    {
-
-    return 1;
+    if(!call PacketCache.contains(id)) //is not in the cache
+    {
+      return 0;
+    }
+    else //it is in the cache
+    {
+       return 1;
+    }
+   
    }
 
    void printRoutingTable()
