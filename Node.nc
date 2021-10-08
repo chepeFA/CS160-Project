@@ -418,7 +418,7 @@ implementation{
 
    //PROJECT_2 FUNCTIONS
 
-   int seenPacketLSA()
+   int seenPacketLSA(int seen)
    {
 
     return 1;
