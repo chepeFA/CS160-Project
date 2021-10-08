@@ -206,7 +206,7 @@ implementation{
 
             if(myMsg->protocol == PROTOCOL_PING)
             {
-            uint32_t nexxxtHop= call RoutingTable.get(myMsg->src);
+            
                //dbg(NEIGHBOR_CHANNEL," in protocol ping TOS_NODE_ID \n");
               // dbg(NEIGHBOR_CHANNEL,"sending ping to node: %d",myMsg->src);
                makePack(&sendPackage,TOS_NODE_ID,myMsg->src,MAX_TTL,PROTOCOL_PINGREPLY,sequenceNumber,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
@@ -214,7 +214,7 @@ implementation{
                pushPack(sendPackage);
                //dbg(FLOODING_CHANNEL," packet from %d, destination %d \n",myMsg->src,myMsg->dest);
               //working on 10.08 call Sender.send(sendPackage,AM_BROADCAST_ADDR);
-
+              uint32_t nexxxtHop = call RoutingTable.get(myMsg->src);
               if(call RoutingTable.get(myMsg->src))
               {
                   dbg(ROUTING_CHANNEL,"Sending package to next hop %d n",nexxxtHop);
