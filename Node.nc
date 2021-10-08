@@ -51,6 +51,7 @@ module Node{
    uses interface Hashmap<tableLS> as RoutingTable;//forwarding table for each node
    uses interface Hashmap<pack> as PacketCache;// to implment cache
    uses interface Timer<TMilli> as RoutingTimer;
+   uses interface List<pack> as LSAPacketCache;
 }
 
 implementation{
@@ -105,8 +106,9 @@ implementation{
    event void AMControl.startDone(error_t err){
       if(err == SUCCESS){
          dbg(GENERAL_CHANNEL, "Radio On\n");
+         //start neighbor discovery and routing timer as soon as radio is on
       call NeighboorTimer.startPeriodic(10000);
-      call RoutingTimer.startPeriodic(10000);
+      call RoutingTimer.startPeriodic(30000);
         
       }else{
          //Retry until successful
@@ -189,10 +191,10 @@ implementation{
          else if(myMsg->dest == TOS_NODE_ID) //this package is for me
          {
 
-            cost++;
+           // cost++;
             dbg(FLOODING_CHANNEL," packet from %d.payload: %s \n",myMsg->src,myMsg->payload);
             
-            temp=cost;
+           // temp=cost;
 
             if(myMsg->protocol != PROTOCOL_CMD)
             {
@@ -221,12 +223,12 @@ implementation{
             
          }
 
-         else
+         else //Broadcasting
          {
-            cost++;
+            //cost++;
             makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL-1
             , myMsg->protocol, myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload));
-            dbg(FLOODING_CHANNEL,"Rebroadcasting again. We are in node:  %d, going to,  Destination: %d \n",TOS_NODE_ID,myMsg->dest);
+            //dbg(FLOODING_CHANNEL,"Rebroadcasting again. We are in node:  %d, going to,  Destination: %d \n",TOS_NODE_ID,myMsg->dest);
             pushPack(sendPackage);
             call Sender.send(sendPackage, AM_BROADCAST_ADDR);
          }
@@ -247,19 +249,17 @@ implementation{
 
 
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
-     //dbg(GENERAL_CHANNEL, "PING EVENT \n");
-     //cost++;
-    // cost++;
+    
+  
      dbg(FLOODING_CHANNEL,"source: %d \n",TOS_NODE_ID);
-     //dbg(FLOODING_CHANNEL,"destination: %d \n",AM_BROADCAST_ADDR);
      dbg(FLOODING_CHANNEL,"destination: %d \n",destination);
      itlAdd = TOS_NODE_ID;
      fnlAdd= destination;
-     dbg(GENERAL_CHANNEL,"Payload at zero is : %s", payload[0]);
+     
      
      makePack(&sendPackage, TOS_NODE_ID,destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
      sequenceNumber++;
-     pushPack(sendPackage);
+     pushPack(sendPackage);//send package to our cache
 
      call Sender.send(sendPackage,AM_BROADCAST_ADDR);//destination);
     
@@ -410,6 +410,26 @@ implementation{
    
   
 
+   }
+
+
+   //PROJECT_2 FUNCTIONS
+
+   void printRoutingTable()
+   {
+      uint16_t i=0;
+      tableLS routingTable;
+
+      dbg(ROUTING_CHANNEL,"Routing Table: \n");
+      dbg(ROUTING_CHANNEL,"Dest \t, Next Hop: \t, Cost \n")
+      while(i<18)
+      {
+        routingTable = call RoutingTable.get(i);
+        if(routingTable!=0)
+        {
+        dbg(ROUTING_CHANNEL,"%d\t  %d\t,  %d\n",routingTable.destination,routingTable.nextHop,routingTable.cost);
+        }
+      }
    }
 
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length){
