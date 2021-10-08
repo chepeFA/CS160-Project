@@ -90,7 +90,7 @@ implementation{
    void Route_flood();
    void checkdest(tableLS* tmptable);
    bool checkMin(tableLS* tmptable);
- 
+
 
 
 
@@ -206,7 +206,7 @@ implementation{
 
             if(myMsg->protocol == PROTOCOL_PING)
             {
-            uint16_t nexxxtHop= call RoutingTable.get(myMsg->src);
+            uint32_t nexxxtHop= call RoutingTable.get(myMsg->src);
                //dbg(NEIGHBOR_CHANNEL," in protocol ping TOS_NODE_ID \n");
               // dbg(NEIGHBOR_CHANNEL,"sending ping to node: %d",myMsg->src);
                makePack(&sendPackage,TOS_NODE_ID,myMsg->src,MAX_TTL,PROTOCOL_PINGREPLY,sequenceNumber,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
