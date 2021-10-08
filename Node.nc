@@ -146,7 +146,7 @@ implementation{
 
          if(myMsg->TTL==0 || seenPackage(myMsg))
          {
-           // dbg(GENERAL_CHANNEL,"Dropping package \n");
+          
          }
          
          else if(myMsg->dest == AM_BROADCAST_ADDR)
@@ -204,13 +204,20 @@ implementation{
 
             if(myMsg->protocol == PROTOCOL_PING)
             {
+            uint16_t nexxxtHop= call RoutingTable.get(myMsg->src);
                //dbg(NEIGHBOR_CHANNEL," in protocol ping TOS_NODE_ID \n");
               // dbg(NEIGHBOR_CHANNEL,"sending ping to node: %d",myMsg->src);
                makePack(&sendPackage,TOS_NODE_ID,myMsg->src,MAX_TTL,PROTOCOL_PINGREPLY,sequenceNumber,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
               sequenceNumber++;
                pushPack(sendPackage);
                //dbg(FLOODING_CHANNEL," packet from %d, destination %d \n",myMsg->src,myMsg->dest);
-              call Sender.send(sendPackage,AM_BROADCAST_ADDR);
+              //working on 10.08 call Sender.send(sendPackage,AM_BROADCAST_ADDR);
+
+              if(call RoutingTable.get(myMsg->src))
+              {
+                  dbg(ROUTING_CHANNEL,"Sending package to next hop %d n",nexxxtHop);
+                  call Sender.send(sendPackage,nexxxHop);
+              }
               
             }
 
