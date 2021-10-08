@@ -440,8 +440,8 @@ implementation{
    {
     tableLS potentialRoute[1];
     uint16_t* key = call RoutingTable.getKeys();
-    uint16_t i=0,size = call NeighboorList.size();
-    
+    uint16_t i=0;
+
     for(i=0;key[i]!=0;i++)
     {
       potentialRoute[0]=call RoutingTable.get(key[i]);
