@@ -81,7 +81,7 @@ implementation{
    void printNeighborList();
 
    // Prototypes Project 2
-   int packetLSA(int seen);
+   int seenPacketLSA(int seen);
    void dijkstra();
    void forwarding(pack* Package);
    void printLSTable();
@@ -418,10 +418,10 @@ implementation{
 
    //PROJECT_2 FUNCTIONS
 
-   int packetLSA()
+   int seenPacketLSA()
    {
 
-   return 1;
+    return 1;
    }
 
    void printRoutingTable()
