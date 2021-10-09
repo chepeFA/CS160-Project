@@ -526,7 +526,7 @@ implementation{
     for(i=0;key[i]!=0;i++)
     {
       potentialRoute[0]=call RoutingTable.get(key[i]);
-      makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,0,PROTOCOL_LINKEDLIST,0,(uint8_t*)potentialRoute,sizeof(tableLS)*1);
+      makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,0,PROTOCOL_LINKSTATE,0,(uint8_t*)potentialRoute,sizeof(tableLS)*1);
       call Sender.send(sendPackage,AM_BROADCAST_ADDR);
     }
    }
