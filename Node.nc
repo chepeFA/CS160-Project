@@ -81,6 +81,7 @@ implementation{
    void printNeighborList();
 
    // Prototypes Project 2
+   void sendLSP();
    int seenPacketLSA(int seen);
    void computeDijkstra();
    void forwarding(pack* Package);
@@ -446,9 +447,9 @@ implementation{
       i=0;
       while(i<sizeList)
       {
-         neighboorDiscovery temp = call NeighboorList.get(i);
+         neighboorDiscovery temP = call NeighboorList.get(i);
 
-         dbg(NEIGHBOR_CHANNEL,"Neighbor: %d \n",temp.node);
+         dbg(NEIGHBOR_CHANNEL,"Neighbor: %d \n",temP.node);
          i++;
       }
    }
