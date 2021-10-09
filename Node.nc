@@ -92,6 +92,7 @@ implementation{
    void checkdest(tableLS* tmptable);
    bool checkMin(tableLS* tmptable);
    void nodeNeighborCost();
+   void IPModule(pack* LSPacket);
 
 
 
@@ -498,7 +499,7 @@ implementation{
       }
    }
 
-   void nodeNeighborCost()
+   void nodeNeighborCost()// populate routing table w neighbor costs
    {
       neighboorDiscovery nodeTemp;
       uint16_t neighborListSize = call NeighboorList.size();
@@ -523,7 +524,7 @@ implementation{
    }
 
 
-   void sendLSP()
+   void sendLSP() //send advs of lsa packets
    {
     tableLS potentialRoute[1];
     uint16_t* key = call RoutingTable.getKeys();
@@ -536,6 +537,17 @@ implementation{
       call Sender.send(sendPackage,AM_BROADCAST_ADDR);
     }
    }
+
+   void IPModule(pack* LSPacket)
+   {
+   bool exists = call RountingTable.contains(LSPacket->dest);
+      if(exists)
+      {
+
+      }
+   }
+
+
 
 
 
