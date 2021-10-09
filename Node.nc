@@ -490,6 +490,11 @@ implementation{
         nodeTemp=  call NeighboorList.get(i);
         if(nodeTemp.node !=0 && ! call RoutingTable.contains(nodeTemp.node))
         {
+           // 
+            routingTable[i].destination = nodeTemp.node;
+            routingTable[i].nextHop = TOS_NODE_ID;
+            routingTable[i].cost = 1;
+            call RoutingTable.insert(routingTable[i].destination,routingTable[i]);
 
         }
 
