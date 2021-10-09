@@ -82,7 +82,7 @@ implementation{
 
    // Prototypes Project 2
    int seenPacketLSA(int seen);
-   void dijkstra();
+   void computeDijkstra();
    void forwarding(pack* Package);
    void printLSTable();
    void printRoutingTable();
@@ -90,6 +90,7 @@ implementation{
    void Route_flood();
    void checkdest(tableLS* tmptable);
    bool checkMin(tableLS* tmptable);
+   void nodeNeighborCost();
 
 
 
@@ -303,6 +304,8 @@ implementation{
 
    event void CommandHandler.setAppClient(){}
 
+   //PROJECT 1 functions---------------------------------------------------
+
 
    void findNeighboors()
    {
@@ -476,6 +479,12 @@ implementation{
       }
    }
 
+   void nodeNeighborCost()
+   {
+      neighboorDiscovery nodeTemp;
+      uint16_t neighborListSize = call NeighboorList.size();
+   }
+
 
    void sendLSP()
    {
@@ -490,6 +499,8 @@ implementation{
       call Sender.send(sendPackage,AM_BROADCAST_ADDR);
     }
    }
+
+
 
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length){
       Package->src = src;
