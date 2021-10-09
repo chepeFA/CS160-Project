@@ -133,7 +133,7 @@ implementation{
 
    event void RoutingTimer.fired()
    {
-    void sendLSP();
+    sendLSP();
    }
 
 
