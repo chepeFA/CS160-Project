@@ -270,6 +270,7 @@ implementation{
      dbg(FLOODING_CHANNEL,"destination: %d \n",destination);
      itlAdd = TOS_NODE_ID;
      fnlAdd= destination;
+
      
      
      makePack(&sendPackage, TOS_NODE_ID,destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
@@ -277,11 +278,11 @@ implementation{
      pushPack(sendPackage);//send package to our cache
 
      //Project 1 sender all Sender.send(sendPackage,AM_BROADCAST_ADDR);//destination);
-     if((call RoutingTable.get(destination)))
-     {
-      dbg(ROUTING_CHANNEL,"Sending to next hop %d \n",call RoutingTable.get(destination));
-      call Sender.send(sendPackage,(call RoutingTable.get(destination)));
-     }
+     //if(call RoutingTable.get(destination))
+     //{
+     // dbg(ROUTING_CHANNEL,"Sending to next hop %d \n",call RoutingTable.get(destination));
+      //call Sender.send(sendPackage,call RoutingTable.get(destination));
+     //}
 
     
 
