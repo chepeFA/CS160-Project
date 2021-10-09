@@ -159,7 +159,7 @@ implementation{
 
             bool foundNeighbor;
             uint16_t i,sizeList;
-            neighboorDiscovery* neighboor, *temp, *a;
+            neighboorDiscovery* neighboor, *ttemp, *a;
             neighboorDiscovery nd,n;
            
 
@@ -284,10 +284,10 @@ implementation{
      pushPack(sendPackage);//send package to our cache
 
      //Project 1 sender all Sender.send(sendPackage,AM_BROADCAST_ADDR);//destination);
-     if(call RoutingTable.get(destination))
+     if(call RoutingTable.contains(destination))
      {
      dbg(ROUTING_CHANNEL,"Sending to next hop %d \n",call RoutingTable.get(destination));
-      call Sender.send(sendPackage,call RoutingTable.get(destination));
+      call Sender.send(sendPackage,call RoutingTable.contains(destination));
      }
 
     
