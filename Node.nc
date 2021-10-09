@@ -476,7 +476,7 @@ implementation{
    void printRoutingTable()
    {
       uint16_t i=0;
-      tableLS routingTable;
+      tableLS rT;
 
       dbg(ROUTING_CHANNEL,"Routing Table: \n");
       dbg(ROUTING_CHANNEL,"Dest \t, Next Hop: \t, Cost \n");
