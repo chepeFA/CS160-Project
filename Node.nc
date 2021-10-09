@@ -483,6 +483,18 @@ implementation{
    {
       neighboorDiscovery nodeTemp;
       uint16_t neighborListSize = call NeighboorList.size();
+      uint16_t i=0;
+      while(i<neighborListSize)
+      {
+
+        nodeTemp=  call NeighboorList.get(i);
+        if(nodeTemp.node !=0 && ! call RoutingTable.contains(nodeTemp.node))
+        {
+
+        }
+
+        i++;
+      }
    }
 
 
