@@ -207,7 +207,7 @@ implementation{
             if(myMsg->protocol == PROTOCOL_PING)
             {
 
-              uint32_t nexxxtHop = call RoutingTable.get(myMsg->src);
+             // uint32_t nexxxtHop = call RoutingTable.get(myMsg->src);
             
                //dbg(NEIGHBOR_CHANNEL," in protocol ping TOS_NODE_ID \n");
               // dbg(NEIGHBOR_CHANNEL,"sending ping to node: %d",myMsg->src);
@@ -219,10 +219,10 @@ implementation{
 
 
               
-              if(call RoutingTable.contains(myMsg->src))
+              if(call RoutingTable.get(myMsg->src))
               {
-                  dbg(ROUTING_CHANNEL,"Sending package to next hop %d n",nexxxtHop);
-                  call Sender.send(sendPackage,nexxxtHop);
+                  dbg(ROUTING_CHANNEL,"Sending package to next hop %d n",call RoutingTable.get(myMsg->src));
+                  call Sender.send(sendPackage,call RoutingTable.get(myMsg->src));
               }
               
             }
