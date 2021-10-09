@@ -540,7 +540,7 @@ implementation{
 
    void IPModule(pack* LSPacket)
    {
-   bool exists = call RountingTable.contains(LSPacket->dest);
+   bool exists = call RoutingTable.contains(LSPacket->dest);
       if(exists)
       {
 
