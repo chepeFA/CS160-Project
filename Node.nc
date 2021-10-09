@@ -22,11 +22,11 @@ nx_uint16_t node;
 nx_uint16_t age;
 }neighboorDiscovery;
 
+
 typedef nx_struct tableLS{
   nx_uint16_t destination;
   nx_uint16_t nextHop;
   nx_uint16_t cost;
-
 }tableLS;
 
 
@@ -189,6 +189,11 @@ implementation{
                   call NeighboorList.pushback(n);
 
                 }
+         }
+
+         else if(myMsg->protocol == PROTOCOL_LINKSTATE)
+         {
+            
          }  
 
       }
@@ -278,11 +283,11 @@ implementation{
      pushPack(sendPackage);//send package to our cache
 
      //Project 1 sender all Sender.send(sendPackage,AM_BROADCAST_ADDR);//destination);
-     //if(call RoutingTable.get(destination))
-     //{
-     // dbg(ROUTING_CHANNEL,"Sending to next hop %d \n",call RoutingTable.get(destination));
-      //call Sender.send(sendPackage,call RoutingTable.get(destination));
-     //}
+     if(call RoutingTable.get(destination))
+     {
+     dbg(ROUTING_CHANNEL,"Sending to next hop %d \n",call RoutingTable.get(destination));
+      call Sender.send(sendPackage,call RoutingTable.get(destination));
+     }
 
     
 
@@ -453,7 +458,7 @@ implementation{
    }
 
 
-   //PROJECT_2 FUNCTIONS
+   //PROJECT_2 FUNCTIONS----------------------------------------
 
    int seenPacketLSA(int id)
    {
@@ -477,10 +482,10 @@ implementation{
       dbg(ROUTING_CHANNEL,"Dest \t, Next Hop: \t, Cost \n");
       while(i<19)
       {
-        routingTable = call RoutingTable.get(i);
-        if(routingTable.cost!=0)
+        rT = call RoutingTable.get(i);
+        if(rT.cost!=0)
         {
-        dbg(ROUTING_CHANNEL,"%d\t  %d\t,  %d\n",routingTable.destination,routingTable.nextHop,routingTable.cost);
+        dbg(ROUTING_CHANNEL,"%d\t  %d\t,  %d\n",rT.destination,rT.nextHop,rT.cost);
         i++;
         }
       }
@@ -507,6 +512,7 @@ implementation{
 
         i++;
       }
+      sendLSP();
    }
 
 
