@@ -328,6 +328,8 @@ implementation{
 
     if(call RoutingTable.contains(destination))
     {
+
+      dbg(ROUTING_CHANNEL,"here \n");
       route = call RoutingTable.get(destination);
       if(route.cost!=1)
       {
@@ -344,6 +346,7 @@ implementation{
 
     else
     {
+    dbg(ROUTING_CHANNEL,"here \n");
       tableLS route;
 route = call RoutingTable.get(destination);
 if(route.cost==1){
@@ -365,7 +368,7 @@ call Sender.send(sendPackage,route.nextHop);
    }
 
    event void CommandHandler.printRouteTable(){
-  printRoutingTable();
+  //printRoutingTable();
    }
 
    event void CommandHandler.printLinkState(){}
