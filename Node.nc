@@ -337,7 +337,7 @@ implementation{
    }
 
    event void CommandHandler.printRouteTable(){
-  // printRoutingTable();
+  printRoutingTable();
    }
 
    event void CommandHandler.printLinkState(){}
