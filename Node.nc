@@ -202,7 +202,9 @@ implementation{
 
          else if(myMsg->protocol == PROTOCOL_LINKSTATE)
          {
-            
+            memcpy(route,myMsg->payload,sizeof(route)*1);
+            route[0].nextHop = myMsg->src;
+            //checkdest;
          }  
 
       }
