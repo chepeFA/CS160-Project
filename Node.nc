@@ -298,7 +298,7 @@ implementation{
           
      route = call RoutingTable.get(destination);
      dbg(ROUTING_CHANNEL,"Sending to next hop %d \n",call RoutingTable.get(destination));
-     call Sender.send(sendPackage,call RoutingTable.get(route.destination));
+     call Sender.send(sendPackage,destination);
      }
 
     
