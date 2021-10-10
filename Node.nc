@@ -270,8 +270,8 @@ implementation{
 
            //working from pj 1 
            //call Sender.send(sendPackage, AM_BROADCAST_ADDR);
-           b = call RoutingTable.contains(myMsg->dest);
-           if(b)
+          
+           if(call RoutingTable.contains(myMsg->dest);)
            {
             call Sender.send(sendPackage,b.nextHop);
            }
