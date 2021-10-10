@@ -54,5 +54,7 @@ implementation {
     components new HashmapC(tableLS,255) as RoutingTableC;
     Node.RoutingTable -> RoutingTableC;
    
+    components new HashmapC(uint16_t, 64) as RoutingTable1C;
+    Node.RoutingTable1 -> RoutingTableC;
    
 }
