@@ -55,6 +55,6 @@ implementation {
     Node.RoutingTable -> RoutingTableC;
    
     components new HashmapC(uint16_t, 64) as RoutingTable1C;
-    Node.RoutingTable1 -> RoutingTableC;
+    Node.RoutingTable1 -> RoutingTable1C;
    
 }
