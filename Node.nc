@@ -294,7 +294,7 @@ implementation{
      if(call RoutingTable.contains(destination))
      {
      dbg(ROUTING_CHANNEL,"Sending to next hop %d \n",call RoutingTable.get(destination));
-     // call Sender.send(sendPackage,call RoutingTable.get(destination));
+      call Sender.send(sendPackage,call RoutingTable.get(destination));
      }
 
     
