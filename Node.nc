@@ -24,9 +24,9 @@ nx_uint16_t age;
 
 
 typedef nx_struct tableLS{
-  nx_uint16_t destination;
-  nx_uint16_t nextHop;
-  nx_uint16_t cost;
+  nx_uint8_t destination;
+  nx_uint8_t nextHop;
+  nx_uint8_t cost;
 }tableLS;
 
 
@@ -295,10 +295,10 @@ implementation{
      //Project 1 sender all Sender.send(sendPackage,AM_BROADCAST_ADDR);//destination);
      if(call RoutingTable.get(destination))
      {
-           route = call RoutingTable.get(destination);
+          
 
      dbg(ROUTING_CHANNEL,"Sending to next hop %d \n",call RoutingTable.get(destination));
-     call Sender.send(sendPackage,call RoutingTable1.get(destination));
+     call Sender.send(sendPackage,call RoutingTable.get(destination));
      }
 
     
