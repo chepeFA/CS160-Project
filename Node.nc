@@ -142,6 +142,7 @@ implementation{
 
    event message_t* Receive.receive(message_t* msg, void* payload, uint8_t len)
    {
+   tableLS route[1];
    
       //dbg(GENERAL_CHANNEL, "Packet Received\n");
       if(len==sizeof(pack))
