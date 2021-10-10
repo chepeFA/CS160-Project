@@ -53,6 +53,7 @@ module Node{
    uses interface Hashmap<pack> as PacketCache;// to implment cache
    uses interface Timer<TMilli> as RoutingTimer;
    uses interface List<pack> as LSAPacketCache;
+   uses interface Hashmap<uint16_t> as RoutingTable1;
 }
 
 implementation{
@@ -291,12 +292,12 @@ implementation{
      pushPack(sendPackage);//send package to our cache
 
      //Project 1 sender all Sender.send(sendPackage,AM_BROADCAST_ADDR);//destination);
-     if(call RoutingTable.contains(destination))
+     if(call RoutingTable1.get(destination))
      {
            route = call RoutingTable.get(destination);
 
      dbg(ROUTING_CHANNEL,"Sending to next hop %d \n",call RoutingTable.get(destination));
-     call Sender.send(sendPackage,route);
+     call Sender.send(sendPackage,call RoutingTable1.get(destination));
      }
 
     
