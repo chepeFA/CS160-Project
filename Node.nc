@@ -555,13 +555,13 @@ implementation{
    void sendLSP() //send advs of lsa packets
    {
     tableLS potentialRoute[1];
-    uint16_t* key = call RoutingTable.getKeys();
+    uint32_t* key = call RoutingTable.getKeys();
     uint16_t i=0;
 
     for(i=0;key[i]!=0;i++)
     {
       potentialRoute[0]=call RoutingTable.get(key[i]);
-      makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,3,PROTOCOL_LINKSTATE,0,(uint8_t*)potentialRoute,sizeof(tableLS)*1);
+      makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,0,PROTOCOL_LINKSTATE,0,(uint8_t*)potentialRoute,sizeof(tableLS)*1);
       call Sender.send(sendPackage,AM_BROADCAST_ADDR);
     }
    }
