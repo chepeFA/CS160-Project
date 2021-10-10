@@ -346,9 +346,10 @@ implementation{
 
     else
     {
-    dbg(ROUTING_CHANNEL,"here 2\n");
-      tableLS route;
+         tableLS route;
 route = call RoutingTable.get(destination);
+    dbg(ROUTING_CHANNEL,"here 2\n");
+ 
 if(route.cost==1){
 
 dbg(ROUTING_CHANNEL,"Routing Packet - src: %d, dest: %d, seq: %d, next hop: %d, cost: \n",TOS_NODE_ID,destination,sequenceNumber,route.nextHop);
