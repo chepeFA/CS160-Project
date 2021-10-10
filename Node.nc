@@ -234,11 +234,11 @@ implementation{
 
 
               
-              //if(call RoutingTable.contains(myMsg->src))
-              //{
-                  //dbg(ROUTING_CHANNEL,"Sending package to next hop %d n",call //RoutingTable.get(myMsg->src));
-               //   call Sender.send(sendPackage,call RoutingTable.get(myMsg->src));
-             // }
+              if(call RoutingTable.contains(myMsg->src))
+              {
+                  dbg(ROUTING_CHANNEL,"Sending package to next hop %d n",call //RoutingTable.get(myMsg->src));
+                 call Sender.send(sendPackage,call RoutingTable.get(myMsg->src));
+              }
               
             }
 
