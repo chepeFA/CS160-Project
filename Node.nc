@@ -355,6 +355,8 @@ call Sender.send(sendPackage,route.nextHop);
 
    }
 
+   }
+
    event void CommandHandler.printNeighbors(){
 
    printNeighborList();
