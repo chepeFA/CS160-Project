@@ -223,7 +223,7 @@ implementation{
             {
 
              // uint32_t nexxxtHop = call RoutingTable.get(myMsg->src);
-            
+           
                //dbg(NEIGHBOR_CHANNEL," in protocol ping TOS_NODE_ID \n");
               // dbg(NEIGHBOR_CHANNEL,"sending ping to node: %d",myMsg->src);
                makePack(&sendPackage,TOS_NODE_ID,myMsg->src,MAX_TTL,PROTOCOL_PINGREPLY,sequenceNumber,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
@@ -237,8 +237,10 @@ implementation{
               
               if(call RoutingTable.contains(myMsg->src))
               {
+                 tableLS a;
+                 a = call RoutingTable.get(myMsg->src);
                   dbg(ROUTING_CHANNEL,"Sending package to next hop %d n",call RoutingTable.get(myMsg->src));
-                 call Sender.send(sendPackage,call RoutingTable.get(myMsg->src));
+                 call Sender.send(sendPackage,a.destination);//destination is one try
               }
               
             }
