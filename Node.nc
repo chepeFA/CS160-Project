@@ -277,7 +277,7 @@ implementation{
            }
            else
            {
-           dbg(ROUTING_CHANNEL,"Route not found... \n");
+           dbg(ROUTING_CHANNEL,"Route not found \n");
            }
          }
              return msg;
@@ -556,7 +556,7 @@ implementation{
     for(i=0;key[i]!=0;i++)
     {
       potentialRoute[0]=call RoutingTable.get(key[i]);
-      makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,0,PROTOCOL_LINKSTATE,0,(uint8_t*)potentialRoute,sizeof(tableLS)*1);
+      makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,3,PROTOCOL_LINKSTATE,0,(uint8_t*)potentialRoute,sizeof(tableLS)*1);
       call Sender.send(sendPackage,AM_BROADCAST_ADDR);
     }
    }
