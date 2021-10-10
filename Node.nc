@@ -328,9 +328,9 @@ implementation{
 
     if(call RoutingTable.contains(destination))
     {
-
-      dbg(ROUTING_CHANNEL,"here \n");
       route = call RoutingTable.get(destination);
+      dbg(ROUTING_CHANNEL,"here \n");
+      
       if(route.cost!=1)
       {
         dbg(ROUTING_CHANNEL,"Routing Packet - src: %d, dest: %d, seq: %d, next hop: %d, cost:%d \n",TOS_NODE_ID,destination,MAX_TTL,route.nextHop,route.cost);
@@ -346,7 +346,7 @@ implementation{
 
     else
     {
-    dbg(ROUTING_CHANNEL,"here \n");
+    dbg(ROUTING_CHANNEL,"here 2\n");
       tableLS route;
 route = call RoutingTable.get(destination);
 if(route.cost==1){
