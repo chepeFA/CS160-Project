@@ -173,9 +173,10 @@ implementation{
                makePack(&sendPackage, TOS_NODE_ID,AM_BROADCAST_ADDR,myMsg->TTL-1, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
                //sequenceNumber++;
                pushPack(sendPackage);
-                call Sender.send(sendPackage, myMsg->src);
+               call Sender.send(sendPackage, myMsg->src);
                 //dbg(FLOODING_CHANNEL," packet from %d, destination %d \n",myMsg->src,myMsg->dest);
              // call Sender.send(sendPackage, AM_BROADCAST_ADDR);
+             IPModule(myMsg);
             }
 
 
