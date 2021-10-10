@@ -554,6 +554,25 @@ implementation{
           call Sender.send(sendPackage,route.nextHop);
 
         }
+        else
+        {
+        dbg(ROUTING_CHANNEL,"sending to other route");
+         makePack(&sendPackage,LSPacket->src,LSPacket->dest,3,LSPacket->protocol,LSPacket->seq,(uint8_t*)LSPacket->payload,sizeof(LSPacket->payload));
+          call Sender.send(sendPackage,LSPacket->dest);
+
+        }
+      }
+      else
+      {
+      route = = call RoutingTable.get(LSPacket->dest);
+      if(route.cost==1)
+      {
+         dbg(ROUTING_CHANNEL,"Routing Packet: source: %d, destination: %d, sequence: %d, Next Hop: %d, cost:%d \n",LSPacket->src,LSPacket->dest,LSPacket->seq,route.nextHop,route.cost);
+
+
+          makePack(&sendPackage,LSPacket->src,LSPacket->dest,3,PROTOCOL_PING,LSPacket->seq,(uint8_t*)LSPacket->payload,sizeof(LSPacket->payload));
+          call Sender.send(sendPackage,route.nextHop);
+      }
       }
    }
 
