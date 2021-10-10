@@ -280,6 +280,7 @@ implementation{
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
     
     tableLS route;
+    route = call RoutingTable.get(destination);
      dbg(FLOODING_CHANNEL,"source: %d \n",TOS_NODE_ID);
      dbg(FLOODING_CHANNEL,"destination: %d \n",destination);
      itlAdd = TOS_NODE_ID;
@@ -292,7 +293,7 @@ implementation{
      pushPack(sendPackage);//send package to our cache
 
      //Project 1 sender all Sender.send(sendPackage,AM_BROADCAST_ADDR);//destination);
-     if(call RoutingTable1.get(destination))
+     if(call RoutingTable.get(destination))
      {
            route = call RoutingTable.get(destination);
 
