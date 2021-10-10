@@ -310,7 +310,7 @@ implementation{
      makePack(&sendPackage, TOS_NODE_ID,destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
      sequenceNumber++;
      pushPack(sendPackage);//send package to the cache
-
+     dbg(ROUTING_CHANNEL,"after push packet\n");
      //Project 1 sender all Sender.send(sendPackage,AM_BROADCAST_ADDR);//destination);
     // if(call RoutingTable.contains(destination))
      //{
