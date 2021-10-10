@@ -548,8 +548,10 @@ implementation{
         if(route.cost!=1)
         {
           dbg(ROUTING_CHANNEL,"Routing Packet: source: %d, destination: %d, sequence: %d, Next Hop: %d, cost:%d \n",LSPacket->src,LSPacket->dest,LSPacket->seq,route.nextHop,route.cost);
-          makePack(&sendPackage, LSPacket->src,LSPacket->dest,3,LSPacket->protocol,LSPacket->seq,(uint8_t*) LSPacket->payload),sizeof(LSPacket->payload));
+
+        
           call Sender.send(sendPackage,route.nextHop);
+           void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
         }
       }
    }
