@@ -547,11 +547,12 @@ implementation{
         route = call RoutingTable.get(LSPacket->dest);
         if(route.cost!=1)
         {
+          dbg(ROUTING_CHANNEL,"Routing Packet: source: %d, destination: %d, sequence: %d, Next Hop: %d, cost:%d \n",LSPacket->src,LSPacket->dest,LSPacket->seq,route.nextHop,route.cost);
           
 
           
           call Sender.send(sendPackage,route.nextHop);
-          
+
         }
       }
    }
