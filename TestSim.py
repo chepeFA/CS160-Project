@@ -147,7 +147,7 @@ def main():
     s.ping(1, 8, "Hello world");
     s.runTime(5);
     #testing neighboor discovery
-    s.neighborDMP(6);#list of neighbor for node 6
+    s.neighborDMP(4);#list of neighbor for node 4
     s.runTime(5);
 
     #s.routeDMP(8);
