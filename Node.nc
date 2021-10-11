@@ -265,7 +265,7 @@ implementation{
                //else
              //   dbg(ROUTING_CHANNEL, "Path not found.\n");
               
-           // }
+            }
 
             else if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
