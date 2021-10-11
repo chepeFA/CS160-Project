@@ -251,7 +251,8 @@ implementation{
                pushPack(sendPackage);
                //dbg(FLOODING_CHANNEL," packet from %d, destination %d \n",myMsg->src,myMsg->dest);
              
-              //working on 10.08 call Sender.send(sendPackage,AM_BROADCAST_ADDR);
+              //working on 10.08 
+              call Sender.send(sendPackage,AM_BROADCAST_ADDR);
 
 
               
@@ -289,6 +290,7 @@ implementation{
 
            //working from pj 1 
            call Sender.send(sendPackage, AM_BROADCAST_ADDR);
+          
           
            //if(call RoutingTable1.get(myMsg->dest))
            //{
