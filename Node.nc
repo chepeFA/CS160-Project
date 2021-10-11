@@ -215,7 +215,7 @@ implementation{
          updateLSTable((uint8_t *)myMsg->payload,myMsg->src);
          makePack(&sendPackage,myMsg->src,myMsg->dest,myMsg->TTL,myMsg->protocol,myMsg->seq,(uint8_t*)myMsg->payload,sizeof(myMsg->payload));
          pushPack(sendPackage);
-         call Sender.send(sendPackage.AM_BROADCAST_ADDR);
+         call Sender.send(sendPackage,AM_BROADCAST_ADDR);
          // dbg(ROUTING_CHANNEL,"in protocol link state \n");
            // memcpy(route,myMsg->payload,sizeof(route)*1);
             //route[0].nextHop = myMsg->src;
@@ -289,7 +289,7 @@ implementation{
           
            if(call RoutingTable1.get(myMsg->src))
            {
-              call Sender.send(sendPackage,call RoutingTable.get(myMsg->dest));
+              call Sender.send(sendPackage,call RoutingTable1.get(myMsg->dest));
            }
            else{
            dbg(ROUTING_CHANNEL, "Route not found...\n");
