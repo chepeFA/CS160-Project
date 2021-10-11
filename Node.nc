@@ -316,9 +316,10 @@ implementation{
 
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
     
-      tableLS route;
+     // tableLS route;
      // tableLS* temp;
     //  route = call RoutingTable.get(destination);
+     dbg(GENERAL_CHANNEL, "PING EVENT \n");
      dbg(FLOODING_CHANNEL,"source: %d \n",TOS_NODE_ID);
      dbg(FLOODING_CHANNEL,"destination: %d \n",destination);
      itlAdd = TOS_NODE_ID;
