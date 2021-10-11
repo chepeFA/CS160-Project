@@ -734,7 +734,7 @@ call Sender.send(sendPackage,route.nextHop);
       char payload[255];
         char tempC[127];
         uint16_t i, size = call NeighborList.size();          
-        neighborDiscovery neighbor;      
+        neighboorDiscovery neighbor;      
         for(i = 0; i < size; i++){
             neighbor = call NeighborList.get(i);
             sprintf(tempC, "%d", neighbor.ndoe);
@@ -742,7 +742,7 @@ call Sender.send(sendPackage,route.nextHop);
             strcat(payload, ",");
         }
         
-        makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, 50, PROTOCOL_LINKSTATE, seqNum,
+        makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, 50, PROTOCOL_LINKSTATE, sequenceNumber,
                 (uint8_t *) payload, (uint8_t)sizeof(payload));
 
         sequenceNumber++;
