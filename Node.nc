@@ -320,7 +320,7 @@ implementation{
      
       route = call RoutingTable.get(temp[0].destination);
 
-   if(call RoutingTable.get(temp.destination))
+   if(call RoutingTable.get(temp[0].destination))
    {
    dbg(ROUTING_CHANNEL,"Sending to next hop");
    call Sender.send(sendPackage,call RoutingTable.get(temp[0].destination));
