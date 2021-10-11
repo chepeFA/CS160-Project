@@ -563,8 +563,8 @@ call Sender.send(sendPackage,route.nextHop);
    void initLSTable()
    {
    uint16_t i, j;
-        for(i = 0; i < MAX; i++){
-            for(j = 0; j < MAX; j++){
+        for(i = 0; i < 20; i++){
+            for(j = 0; j < 20; j++){
                     LSTable[i][j] = INFINITY;                           // Initialize all link state table values to infinity(20)
             }
         }
