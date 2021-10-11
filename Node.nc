@@ -215,10 +215,10 @@ implementation{
 
          else if(myMsg->protocol == PROTOCOL_LINKSTATE)
          {
-         //updateLSTable((uint8_t *)myMsg->payload,myMsg->src);
-         //makePack(&sendPackage,myMsg->src,myMsg->dest,myMsg->TTL,myMsg->protocol,myMsg->seq,(uint8_t*)myMsg->payload,sizeof(myMsg->payload));
-         //pushPack(sendPackage);
-       //---  call Sender.send(sendPackage,AM_BROADCAST_ADDR);
+         updateLSTable((uint8_t *)myMsg->payload,myMsg->src);
+         makePack(&sendPackage,myMsg->src,myMsg->dest,myMsg->TTL,myMsg->protocol,myMsg->seq,(uint8_t*)myMsg->payload,sizeof(myMsg->payload));
+         pushPack(sendPackage);
+        call Sender.send(sendPackage,AM_BROADCAST_ADDR);
          // dbg(ROUTING_CHANNEL,"in protocol link state \n");
            // memcpy(route,myMsg->payload,sizeof(route)*1);
             //route[0].nextHop = myMsg->src;
