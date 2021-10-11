@@ -68,7 +68,7 @@ implementation{
   // uint16_t temp;
 
    //Project 2
-    //tableLS routingTable[255]={0}; //initialize all structs fields to zero.
+    tableLS routingTable[255]={0}; //initialize all structs fields to zero.
     uint16_t seqNumberLSA=0;
     uint16_t LSTable[20][20];
    
