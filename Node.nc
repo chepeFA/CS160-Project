@@ -779,7 +779,7 @@ call Sender.send(sendPackage,route.nextHop);
     }
 
 
-    void computeDijstra()
+    void computeDijkstra()
     {
 
 
