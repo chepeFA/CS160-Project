@@ -205,6 +205,7 @@ implementation{
 
          else if(myMsg->protocol == PROTOCOL_LINKSTATE)
          {
+          dbg(ROUTING_CHANNEL,"in protocol link state \n");
             memcpy(route,myMsg->payload,sizeof(route)*1);
             route[0].nextHop = myMsg->src;
             checkdest(route);
