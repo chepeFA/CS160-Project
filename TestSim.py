@@ -148,7 +148,7 @@ def main():
     s.runTime(5);
     #testing neighboor discovery
     s.neighborDMP(4);#list of neighbor for node 4
-    s.runTime(10);
+    s.runTime(20);
 
     #s.routeDMP(8);
     #s.runTime(5);
