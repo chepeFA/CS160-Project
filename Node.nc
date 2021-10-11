@@ -177,7 +177,9 @@ implementation{
             {
               
               //cost++;
-               makePack(&sendPackage, TOS_NODE_ID,AM_BROADCAST_ADDR,myMsg->TTL-1, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
+              // makePack(&sendPackage, TOS_NODE_ID,AM_BROADCAST_ADDR,myMsg->TTL-1, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
+               makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_PINGREPLY,  myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload));   
+
                //sequenceNumber++;
                pushPack(sendPackage);
                call Sender.send(sendPackage, myMsg->src);
@@ -280,8 +282,8 @@ implementation{
          tableLS b;
          b = call RoutingTable.get(myMsg->src);
             //cost++;
-            makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL-1
-            , myMsg->protocol, myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload)); 
+           // makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL-1, myMsg->protocol, myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload)); 
+            makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL, myMsg->protocol, myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload));
             //dbg(FLOODING_CHANNEL,"Rebroadcasting again. We are in node:  %d, going to,  Destination: %d \n",TOS_NODE_ID,myMsg->dest);
             pushPack(sendPackage);
 
@@ -333,7 +335,7 @@ implementation{
 
    if(call RoutingTable1.get(destination))
    {
-   dbg(ROUTING_CHANNEL,"Sending to next hop");
+   dbg(ROUTING_CHANNEL,"Sending to next hop: %d",call RoutingTable1.get(destination));
    call Sender.send(sendPackage,call RoutingTable1.get(destination));
    }
    else
