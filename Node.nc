@@ -304,6 +304,7 @@ implementation{
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
     
       tableLS route;
+      tableLS* temp;
     //  route = call RoutingTable.get(destination);
      dbg(FLOODING_CHANNEL,"source: %d \n",TOS_NODE_ID);
      dbg(FLOODING_CHANNEL,"destination: %d \n",destination);
@@ -317,11 +318,12 @@ implementation{
      pushPack(sendPackage);//send package to the cache
      dbg(ROUTING_CHANNEL,"after push packet\n");
      
-      route = call RoutingTable.get(routingTable[0].destination);
-   if(call RoutingTable.get(routingTable.destination))
+      route = call RoutingTable.get(temp[0].destination);
+
+   if(call RoutingTable.get(temp.destination))
    {
    dbg(ROUTING_CHANNEL,"Sending to next hop");
-   call Sender.send(sendPackage,call RoutingTable.get(routingTable.destination));
+   call Sender.send(sendPackage,call RoutingTable.get(temp[0].destination));
    }
    else
    {
