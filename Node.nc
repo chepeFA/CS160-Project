@@ -304,7 +304,7 @@ implementation{
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
     
       tableLS route;
-      route = call RoutingTable.get(destination);
+    //  route = call RoutingTable.get(destination);
      dbg(FLOODING_CHANNEL,"source: %d \n",TOS_NODE_ID);
      dbg(FLOODING_CHANNEL,"destination: %d \n",destination);
      itlAdd = TOS_NODE_ID;
@@ -317,7 +317,16 @@ implementation{
      pushPack(sendPackage);//send package to the cache
      dbg(ROUTING_CHANNEL,"after push packet\n");
      
-
+      route = call RoutingTable.get(routingTable[0].destination);
+   if(call RoutingTable.get(routingTable[0].destination))
+   {
+   dbg(ROUTING_CHANNEL,"Sending to next hop");
+   call Sender.send(sendPackage,call RoutingTable.get(routingTable[0].destination));
+   }
+   else
+   {
+   dbg(ROUTING_CHANNEL,"Route to destination not found...\n");
+   }
 
 
      //Project 1 sender all Sender.send(sendPackage,AM_BROADCAST_ADDR);//destination);
@@ -369,17 +378,8 @@ call Sender.send(sendPackage,route.nextHop);
 
    }
    */
-   tableLS route;
-   route = call RoutingTable.get(route[0].destination);
-   if(call RoutingTable.get(route[0].destination))
-   {
-   dbg(ROUTING_CHANNEL,"Sending to next hop");
-   call Sender.send(sendPackage,call RoutingTable.get(route[0].destination));
-   }
-   else
-   {
-   dbg(ROUTING_CHANNEL,"Route to destination not found...\n");
-   }
+ 
+  
 
    }
 
