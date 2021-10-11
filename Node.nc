@@ -253,19 +253,19 @@ implementation{
                //dbg(FLOODING_CHANNEL," packet from %d, destination %d \n",myMsg->src,myMsg->dest);
              
               //working on 10.08 as part of pj1
-              call Sender.send(sendPackage,AM_BROADCAST_ADDR);
+            //  call Sender.send(sendPackage,AM_BROADCAST_ADDR);
 
 
               
-            //  if(call RoutingTable1.get(myMsg->src))
-              //{
-               //  tableLS a;
+            if(call RoutingTable1.get(myMsg->src))
+              {
+                 //tableLS a;
                  //a = call RoutingTable.get(myMsg->src);
-                //--  dbg(ROUTING_CHANNEL,"Sending package to next hop %d n",call RoutingTable1.get(myMsg->src));
-                 //call Sender.send(sendPackage,call RoutingTable1.get(//myMsg->src));//destination is one 
-              //}
-               //else
-             //   dbg(ROUTING_CHANNEL, "Path not found.\n");
+                dbg(ROUTING_CHANNEL,"Sending package to next hop %d n",call RoutingTable1.get(myMsg->src));
+                 call Sender.send(sendPackage,call RoutingTable1.get(myMsg->src));//destination is one 
+              }
+               else
+                dbg(ROUTING_CHANNEL, "Path not found.\n");
               
             }
 
