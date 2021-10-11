@@ -291,7 +291,7 @@ implementation{
            //working from pj 1 
            call Sender.send(sendPackage, AM_BROADCAST_ADDR);
           
-          
+
            //if(call RoutingTable1.get(myMsg->dest))
            //{
              // call Sender.send(sendPackage,call RoutingTable1.get(myMsg->dest));
@@ -332,7 +332,9 @@ implementation{
      makePack(&sendPackage, TOS_NODE_ID,destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
      sequenceNumber++;
      pushPack(sendPackage);//send package to the cache
-     dbg(ROUTING_CHANNEL,"after push packet\n");
+     call Sender.send(sendPackage,AM_BROADCAST_ADDR);
+
+    // dbg(ROUTING_CHANNEL,"after push packet\n");
      
      // route = call RoutingTable.get(temp[0].destination);
      /*
