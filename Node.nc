@@ -750,6 +750,80 @@ call Sender.send(sendPackage,route.nextHop);
         call Sender.send(sendPackage, AM_BROADCAST_ADDR);
     }
 
+
+     void updateLSTable(uint8_t * payload, uint16_t source){
+        uint8_t * temp = payload;
+        uint16_t length = strlen((char *)payload);              // Update the link state table neighbor pairs upon receiving a link state packet
+        uint16_t i = 0;
+        char buffer[5];
+        while (i < length){
+            if(*(temp + 1) == ','){
+                memcpy(buffer, temp, 1);
+                temp += 2;
+                i += 2;
+                buffer[1] = '\0';
+            }else if(*(temp + 2) == ','){
+               memcpy(buffer, temp, 2);
+                temp += 3;
+                i += 3;
+                buffer[2] = '\0';
+            }
+            
+                LSTable[source - 1][atoi(buffer) - 1] = 1;
+        }
+
+        computeDijkstra();
+    }
+
+
+    void computeDijstra()
+    {
+
+
+        uint16_t myID = TOS_NODE_ID - 1, i, count, v, u;
+        uint16_t dist[20];
+        bool sptSet[20];
+        int parent[20];
+        int temp;
+
+        for(i = 0; i < 20; i++){
+            dist[i] = 9999;
+            sptSet[i] = FALSE;
+            parent[i] = -1;   
+        }
+
+        dist[myID] = 0;
+
+        for(count = 0; count < 20 - 1; count++){
+            u = minDist(dist, sptSet);
+            sptSet[u] = TRUE;
+
+            for(v = 0; v < 20; v++){
+                if(!sptSet[v] && LSTable[u][v] != INFINITY && dist[u] + LSTable[u][v] < dist[v]){
+                    parent[v] = u;
+                    dist[v] = dist[u] + LSTable[u][v];
+                }
+            }           
+        }
+
+        for(i = 0; i < 20; i++){
+            temp = i;
+            while(parent[temp] != -1  && parent[temp] != myID && temp < MAX){
+                temp = parent[temp];
+            }
+            if(parent[temp] != myID){
+                call RoutingTable1.insert(i + 1, 0);
+            }
+            else
+                call RoutingTable1.insert(i + 1, temp + 1);
+        }
+    }
+
+
+    
+
+
+
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length){
       Package->src = src;
       Package->dest = dest;
