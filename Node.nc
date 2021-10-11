@@ -733,11 +733,11 @@ call Sender.send(sendPackage,route.nextHop);
     {
       char payload[255];
         char tempC[127];
-        uint16_t i, size = call NeighborList.size();          
+        uint16_t i, size = call NeighboorList.size();          
         neighboorDiscovery neighbor;      
         for(i = 0; i < size; i++){
             neighbor = call NeighborList.get(i);
-            sprintf(tempC, "%d", neighbor.ndoe);
+            sprintf(tempC, "%d", neighbor.node);
             strcat(payload, tempC);
             strcat(payload, ",");
         }
