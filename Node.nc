@@ -203,8 +203,8 @@ implementation{
                   n.node = myMsg->src;
                   n.age=0;
                   call NeighboorList.pushback(n);
-                   //LSTable[TOS_NODE_ID - 1][myMsg->src - 1] = 1;
-                        //sendLSPacket();
+                   LSTable[TOS_NODE_ID - 1][myMsg->src - 1] = 1;
+                    sendLSPacket();
 
 
                   //pj2 
