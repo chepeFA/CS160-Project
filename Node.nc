@@ -728,6 +728,28 @@ call Sender.send(sendPackage,route.nextHop);
 
     }
 
+
+    void sendLSPacket()
+    {
+      char payload[255];
+        char tempC[127];
+        uint16_t i, size = call NeighborList.size();          
+        neighborDiscovery neighbor;      
+        for(i = 0; i < size; i++){
+            neighbor = call NeighborList.get(i);
+            sprintf(tempC, "%d", neighbor.ndoe);
+            strcat(payload, tempC);
+            strcat(payload, ",");
+        }
+        
+        makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, 50, PROTOCOL_LINKSTATE, seqNum,
+                (uint8_t *) payload, (uint8_t)sizeof(payload));
+
+        sequenceNumber++;
+        pushPack(sendPackage);
+        call Sender.send(sendPackage, AM_BROADCAST_ADDR);
+    }
+
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length){
       Package->src = src;
       Package->dest = dest;
