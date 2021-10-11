@@ -592,8 +592,9 @@ call Sender.send(sendPackage,route.nextHop);
 
     tableLS potentialRoute[1];
     uint32_t* key = call RoutingTable.getKeys();
-    dbg(ROUTING_CHANNEL,"in sendLLSP\n");
+    
     uint16_t i=0;
+    dbg(ROUTING_CHANNEL,"in sendLSP\n");
 
     for(i=0;key[i]!=0;i++)
     {
