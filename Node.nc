@@ -333,13 +333,13 @@ implementation{
      makePack(&sendPackage, TOS_NODE_ID,destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
      sequenceNumber++;
      pushPack(sendPackage);//send package to the cache
-     call Sender.send(sendPackage,AM_BROADCAST_ADDR);
+    // call Sender.send(sendPackage,AM_BROADCAST_ADDR);
 
     // dbg(ROUTING_CHANNEL,"after push packet\n");
      
      // route = call RoutingTable.get(temp[0].destination);
-     /*
-   if(call RoutingTable1.contains(destination))
+     
+   if(call RoutingTable1.get(destination))
    {
    dbg(ROUTING_CHANNEL,"Sending to next hop: %d",call RoutingTable1.get(destination));
    call Sender.send(sendPackage,call RoutingTable1.get(destination));
@@ -348,7 +348,7 @@ implementation{
    {
    dbg(ROUTING_CHANNEL,"Route to destination not found...\n");
    }
-   */
+   
 
      //Project 1 sender all Sender.send(sendPackage,AM_BROADCAST_ADDR);//destination);
     // if(call RoutingTable.contains(destination))
