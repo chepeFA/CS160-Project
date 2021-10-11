@@ -323,7 +323,7 @@ implementation{
    if(call RoutingTable1.get(destination))
    {
    dbg(ROUTING_CHANNEL,"Sending to next hop");
-   call Sender.send(sendPackage,call RoutingTable1s.get(destination));
+   call Sender.send(sendPackage,call RoutingTable1.get(destination));
    }
    else
    {
