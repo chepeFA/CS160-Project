@@ -318,10 +318,10 @@ implementation{
      dbg(ROUTING_CHANNEL,"after push packet\n");
      
       route = call RoutingTable.get(routingTable[0].destination);
-   if(call RoutingTable.get(routingTable[0].destination))
+   if(call RoutingTable.get(routingTable.destination))
    {
    dbg(ROUTING_CHANNEL,"Sending to next hop");
-   call Sender.send(sendPackage,call RoutingTable.get(routingTable[0].destination));
+   call Sender.send(sendPackage,call RoutingTable.get(routingTable.destination));
    }
    else
    {
