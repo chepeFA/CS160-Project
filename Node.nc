@@ -820,6 +820,15 @@ call Sender.send(sendPackage,route.nextHop);
     }
 
 
+      uint16_t minDist(uint16_t dist[], bool sptSet[]){
+        uint16_t min = 9999, minIndex = 18, i;
+        for(i = 0; i < 20; i++){
+            if(sptSet[i] == FALSE && dist[i] < min)
+                min = dist[i], minIndex = i;
+        }
+        return minIndex;
+    }
+
     
 
 
