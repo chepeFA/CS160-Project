@@ -736,7 +736,7 @@ call Sender.send(sendPackage,route.nextHop);
         uint16_t i, size = call NeighboorList.size();          
         neighboorDiscovery neighbor;      
         for(i = 0; i < size; i++){
-            neighbor = call NeighborList.get(i);
+            neighbor = call NeighboorList.get(i);
             sprintf(tempC, "%d", neighbor.node);
             strcat(payload, tempC);
             strcat(payload, ",");
