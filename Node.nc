@@ -808,7 +808,7 @@ call Sender.send(sendPackage,route.nextHop);
 
         for(i = 0; i < 20; i++){
             temp = i;
-            while(parent[temp] != -1  && parent[temp] != myID && temp < MAX){
+            while(parent[temp] != -1  && parent[temp] != myID && temp < 20){
                 temp = parent[temp];
             }
             if(parent[temp] != myID){
