@@ -246,7 +246,7 @@ implementation{
                  tableLS a;
                  a = call RoutingTable.get(myMsg->src);
                   dbg(ROUTING_CHANNEL,"Sending package to next hop %d n",call RoutingTable.get(myMsg->src));
-                 call Sender.send(sendPackage,);//destination is one 
+                 //call Sender.send(sendPackage);//destination is one 
               }
                else
                 dbg(ROUTING_CHANNEL, "Path not found, cancelling reply\n");
@@ -488,7 +488,7 @@ call Sender.send(sendPackage,route.nextHop);
     {
       call PacketCache.insert(id,sendPackage);
     }
-    else if(seenPacketLSA==1 && Package.src==TOS_NODE_ID )
+    else if(seenPacketLSA ==1 && Package.src==TOS_NODE_ID )
     {
       call PacketCache.remove(id);
       call PacketCache.insert(id,sendPackage);
