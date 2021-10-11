@@ -70,6 +70,7 @@ implementation{
    //Project 2
     tableLS routingTable[255]={0}; //initialize all structs fields to zero.
     uint16_t seqNumberLSA=0;
+    uint16_t LSTable[20][20];
    
 
 
@@ -95,6 +96,9 @@ implementation{
    void insertTable(tableLS* tempTable);
    void nodeNeighborCost();
    void IPModule(pack* LSPacket);
+   void sendLSPacket();
+   void updateLSTable(uint8_t * payload, uint16_t source);
+   uint16_t minDist(uint16_t dist[], bool sptSet[]);
 
 
 
@@ -136,7 +140,7 @@ implementation{
 
    event void RoutingTimer.fired()
    {
-    sendLSP();
+    initLSTable();
    }
 
 
@@ -195,10 +199,12 @@ implementation{
                   n.node = myMsg->src;
                   n.age=0;
                   call NeighboorList.pushback(n);
+                   LSTable[TOS_NODE_ID - 1][myMsg->src - 1] = 1;
+                        sendLSPacket();
 
 
                   //pj2 
-                  nodeNeighborCost();
+                 // nodeNeighborCost();
 
                 }
          }
@@ -553,6 +559,16 @@ call Sender.send(sendPackage,route.nextHop);
 
 
    //PROJECT_2 FUNCTIONS----------------------------------------
+
+   void initLSTable()
+   {
+   uint16_t i, j;
+        for(i = 0; i < MAX; i++){
+            for(j = 0; j < MAX; j++){
+                    LSTable[i][j] = INFINITY;                           // Initialize all link state table values to infinity(20)
+            }
+        }
+   }
 
    int seenPacketLSA(int id)
    {
