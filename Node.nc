@@ -288,7 +288,7 @@ implementation{
            //working from pj 1 
            //call Sender.send(sendPackage, AM_BROADCAST_ADDR);
           
-           if(call RoutingTable1.get(myMsg->src))
+           if(call RoutingTable1.get(myMsg->dest))
            {
               call Sender.send(sendPackage,call RoutingTable1.get(myMsg->dest));
            }
