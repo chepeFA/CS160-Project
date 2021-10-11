@@ -406,7 +406,7 @@ call Sender.send(sendPackage,route.nextHop);
    }
 
    event void CommandHandler.printRouteTable(){
-  //printRoutingTable();
+  printRoutingTable();
    }
 
    event void CommandHandler.printLinkState(){}
@@ -590,20 +590,28 @@ call Sender.send(sendPackage,route.nextHop);
 
    void printRoutingTable()
    {
-      uint16_t i=0;
-      tableLS rT;
+     // uint16_t i=0;
+      //tableLS rT;
 
-      dbg(ROUTING_CHANNEL,"Routing Table: \n");
-      dbg(ROUTING_CHANNEL,"Dest \t, Next Hop: \t, Cost \n");
-      while(i<20)
-      {
-        rT = call RoutingTable.get(i);
-        if(rT.cost!=0)
-        {
-        dbg(ROUTING_CHANNEL,"%d\t  %d\t,  %d\n",rT.destination,rT.nextHop,rT.cost);
-        i++;
+      //dbg(ROUTING_CHANNEL,"Routing Table: \n");
+      //dbg(ROUTING_CHANNEL,"Dest \t, Next Hop: \t, Cost \n");
+      //while(i<20)
+      //{
+        //rT = call RoutingTable.get(i);
+        //if(rT.cost!=0)
+        //{
+        //dbg(ROUTING_CHANNEL,"%d\t  %d\t,  %d\n",rT.destination,rT.nextHop,rT.cost);
+        //i++;
+        //}
+      //}
+         uint16_t size = call RoutingTable1.size(), i, output;
+        for(i = 0; i < size; i++){
+            output = call RoutingTable1.get((uint32_t) i);
+            dbg(ROUTING_CHANNEL, "Key: %d\t Next Hop: %d\n", i, output);
         }
-      }
+
+        dbg(ROUTING_CHANNEL, "\n");
+
    }
 
    void nodeNeighborCost()// populate routing table w neighbor costs
