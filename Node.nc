@@ -203,8 +203,8 @@ implementation{
                   n.node = myMsg->src;
                   n.age=0;
                   call NeighboorList.pushback(n);
-                   LSTable[TOS_NODE_ID - 1][myMsg->src - 1] = 1;
-                        sendLSPacket();
+                   //LSTable[TOS_NODE_ID - 1][myMsg->src - 1] = 1;
+                        //sendLSPacket();
 
 
                   //pj2 
@@ -215,10 +215,10 @@ implementation{
 
          else if(myMsg->protocol == PROTOCOL_LINKSTATE)
          {
-         updateLSTable((uint8_t *)myMsg->payload,myMsg->src);
-         makePack(&sendPackage,myMsg->src,myMsg->dest,myMsg->TTL,myMsg->protocol,myMsg->seq,(uint8_t*)myMsg->payload,sizeof(myMsg->payload));
-         pushPack(sendPackage);
-         call Sender.send(sendPackage,AM_BROADCAST_ADDR);
+         //updateLSTable((uint8_t *)myMsg->payload,myMsg->src);
+         //makePack(&sendPackage,myMsg->src,myMsg->dest,myMsg->TTL,myMsg->protocol,myMsg->seq,(uint8_t*)myMsg->payload,sizeof(myMsg->payload));
+         //pushPack(sendPackage);
+       //---  call Sender.send(sendPackage,AM_BROADCAST_ADDR);
          // dbg(ROUTING_CHANNEL,"in protocol link state \n");
            // memcpy(route,myMsg->payload,sizeof(route)*1);
             //route[0].nextHop = myMsg->src;
@@ -255,17 +255,17 @@ implementation{
 
 
               
-              if(call RoutingTable1.get(myMsg->src))
-              {
+            //  if(call RoutingTable1.get(myMsg->src))
+              //{
                //  tableLS a;
                  //a = call RoutingTable.get(myMsg->src);
-                  dbg(ROUTING_CHANNEL,"Sending package to next hop %d n",call RoutingTable1.get(myMsg->src));
-                 call Sender.send(sendPackage,call RoutingTable1.get(myMsg->src));//destination is one 
-              }
-               else
-                dbg(ROUTING_CHANNEL, "Path not found.\n");
+                //--  dbg(ROUTING_CHANNEL,"Sending package to next hop %d n",call RoutingTable1.get(myMsg->src));
+                 //call Sender.send(sendPackage,call RoutingTable1.get(//myMsg->src));//destination is one 
+              //}
+               //else
+             //   dbg(ROUTING_CHANNEL, "Path not found.\n");
               
-            }
+           // }
 
             else if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
@@ -288,15 +288,15 @@ implementation{
             pushPack(sendPackage);
 
            //working from pj 1 
-           //call Sender.send(sendPackage, AM_BROADCAST_ADDR);
+           call Sender.send(sendPackage, AM_BROADCAST_ADDR);
           
-           if(call RoutingTable1.get(myMsg->dest))
-           {
-              call Sender.send(sendPackage,call RoutingTable1.get(myMsg->dest));
-           }
-           else{
-           dbg(ROUTING_CHANNEL, "Route not found...\n");
-           }
+           //if(call RoutingTable1.get(myMsg->dest))
+           //{
+             // call Sender.send(sendPackage,call RoutingTable1.get(myMsg->dest));
+           //}
+           //else{
+           //dbg(ROUTING_CHANNEL, "Route not found...\n");
+           //}
          }
              return msg;
 
@@ -333,7 +333,7 @@ implementation{
      dbg(ROUTING_CHANNEL,"after push packet\n");
      
      // route = call RoutingTable.get(temp[0].destination);
-
+     /*
    if(call RoutingTable1.contains(destination))
    {
    dbg(ROUTING_CHANNEL,"Sending to next hop: %d",call RoutingTable1.get(destination));
@@ -343,7 +343,7 @@ implementation{
    {
    dbg(ROUTING_CHANNEL,"Route to destination not found...\n");
    }
-
+   */
 
      //Project 1 sender all Sender.send(sendPackage,AM_BROADCAST_ADDR);//destination);
     // if(call RoutingTable.contains(destination))
