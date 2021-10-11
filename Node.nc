@@ -92,6 +92,7 @@ implementation{
    void Route_flood();
    void checkdest(tableLS* tempTable);
    bool checkMin(tableLS* tempTable);
+   void insertTable(tableLS* tempTable);
    void nodeNeighborCost();
    void IPModule(pack* LSPacket);
 
@@ -673,8 +674,20 @@ call Sender.send(sendPackage,route.nextHop);
       }
    }
 
+    void insertTable(tableLS* tempTable)
+    {
+      uint16_t i= 0;
+      for(i=0;routingTable[i].destination!=0;i++)
+      {
 
+      }
+      routingTable[i].destination = tempTable[0].destination;
+      routingTable[i].nextHop = tempTable[0].nextHop;
+      routingTable[i].cost = tempTable[0].cost+1;
+      call RoutingTable.insert(tempTable[0].destination,routingTable[i]);
+      sendLSP();
 
+    }
 
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length){
       Package->src = src;
