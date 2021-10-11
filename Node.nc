@@ -90,8 +90,8 @@ implementation{
    void printRoutingTable();
    void localroute();
    void Route_flood();
-   void checkdest(tableLS* tmptable);
-   bool checkMin(tableLS* tmptable);
+   void checkdest(tableLS* tempTable);
+   bool checkMin(tableLS* tempTable);
    void nodeNeighborCost();
    void IPModule(pack* LSPacket);
 
@@ -206,7 +206,7 @@ implementation{
          {
             memcpy(route,myMsg->payload,sizeof(route)*1);
             route[0].nextHop = myMsg->src;
-            //checkdest;
+            checkdest(route);
          }  
 
       }
@@ -601,7 +601,7 @@ call Sender.send(sendPackage,route.nextHop);
       potentialRoute[0]=call RoutingTable.get(key[i]);
       makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,0,PROTOCOL_LINKSTATE,sequenceNumber,(uint8_t*)potentialRoute,sizeof(tableLS)*1);
       call Sender.send(sendPackage,AM_BROADCAST_ADDR);
-      dbg(ROUTING_CHANNEL,"In sendLSP \n");
+      //dbg(ROUTING_CHANNEL,"In sendLSP \n");
     }
    }
 
@@ -643,6 +643,35 @@ call Sender.send(sendPackage,route.nextHop);
       }
    }
 
+   void checkdest(tableLS* tempTable)
+   {
+      uint16_t i=0,j=0;
+      if(checkMin(tempTable))
+      {
+        if(!call RoutingTable.contains(tempTable[i].destination) && tempTable[i].destination!= TOS_NODE_ID)
+        {
+          insertTable(tempTable);
+        }
+      }
+   }
+
+   bool checkMin(tableLS* tempTable)
+   {
+      tableLS route;
+      route = call RoutingTable.get(tempTable[0].destination);
+      if(route.cost!=0 && route.cost> tempTable[0].cost)
+      {
+        return TRUE;
+      }
+      if(route.cost==0)
+      {
+          return TRUE;
+      }
+      else
+      {
+      return FALSE;
+      }
+   }
 
 
 
