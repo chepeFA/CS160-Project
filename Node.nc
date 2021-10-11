@@ -65,10 +65,10 @@ implementation{
    uint16_t itlAdd;
    uint16_t fnlAdd;
    uint16_t cost=0; //number of hops
-   uint16_t temp;
+  // uint16_t temp;
 
    //Project 2
-    tableLS routingTable[255]={0}; //initialize all structs fields to zero.
+    //tableLS routingTable[255]={0}; //initialize all structs fields to zero.
     uint16_t seqNumberLSA=0;
     uint16_t LSTable[20][20];
    
@@ -315,7 +315,7 @@ implementation{
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
     
       tableLS route;
-      tableLS* temp;
+     // tableLS* temp;
     //  route = call RoutingTable.get(destination);
      dbg(FLOODING_CHANNEL,"source: %d \n",TOS_NODE_ID);
      dbg(FLOODING_CHANNEL,"destination: %d \n",destination);
@@ -495,6 +495,7 @@ call Sender.send(sendPackage,route.nextHop);
       call PacketList.pushback(Package);
    }
 
+   /*
    void PackCacheHash(pack Package,int id)
    {
     if(seenPacketLSA==0 && Package.src==TOS_NODE_ID)
@@ -508,6 +509,7 @@ call Sender.send(sendPackage,route.nextHop);
 
     }
    }
+   */
 
    bool isN(uint16_t src)
    {
@@ -570,7 +572,7 @@ call Sender.send(sendPackage,route.nextHop);
    uint16_t i, j;
         for(i = 0; i < 20; i++){
             for(j = 0; j < 20; j++){
-                    LSTable[i][j] = INFINITY;                           // Initialize all link state table values to infinity(20)
+                    LSTable[i][j] = 9999;                           // Initialize all link state table values to infinity(20)
             }
         }
    }
