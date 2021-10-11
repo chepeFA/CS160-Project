@@ -241,15 +241,15 @@ implementation{
 
 
               
-              if(call RoutingTable.contains(myMsg->src))
+              if(call RoutingTable1.get(myMsg->src))
               {
-                 tableLS a;
-                 a = call RoutingTable.get(myMsg->src);
-                  dbg(ROUTING_CHANNEL,"Sending package to next hop %d n",call RoutingTable.get(myMsg->src));
-                 //call Sender.send(sendPackage);//destination is one 
+               //  tableLS a;
+                 //a = call RoutingTable.get(myMsg->src);
+                  dbg(ROUTING_CHANNEL,"Sending package to next hop %d n",call RoutingTable1.get(myMsg->src));
+                 call Sender.send(sendPackage,call RoutingTable1.get(myMsg->src));//destination is one 
               }
                else
-                dbg(ROUTING_CHANNEL, "Path not found, cancelling reply\n");
+                dbg(ROUTING_CHANNEL, "Path not found.\n");
               
             }
 
@@ -323,7 +323,7 @@ implementation{
    if(call RoutingTable1.get(destination))
    {
    dbg(ROUTING_CHANNEL,"Sending to next hop");
-   call Sender.send(sendPackage,call RoutingTable1.get(destination));
+   call Sender.send(sendPackage,call RoutingTable1s.get(destination));
    }
    else
    {
