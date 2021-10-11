@@ -120,8 +120,8 @@ implementation{
          dbg(GENERAL_CHANNEL, "Radio On\n");
          //start neighbor discovery and routing timer as soon as radio is on
       call NeighboorTimer.startPeriodic(10000);
-
-      call RoutingTimer.startPeriodic(30000);
+      initLSTable();
+      //call RoutingTimer.startPeriodic(30000);
         
       }else{
          //Retry until successful
@@ -141,7 +141,7 @@ implementation{
 
    event void RoutingTimer.fired()
    {
-   initLSTable();
+  // initLSTable();
    }
 
 
