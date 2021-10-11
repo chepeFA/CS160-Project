@@ -99,6 +99,7 @@ implementation{
    void sendLSPacket();
    void updateLSTable(uint8_t * payload, uint16_t source);
    uint16_t minDist(uint16_t dist[], bool sptSet[]);
+   void initLSTable();
 
 
 
@@ -140,7 +141,7 @@ implementation{
 
    event void RoutingTimer.fired()
    {
-    initLSTable();
+   initLSTable();
    }
 
 
