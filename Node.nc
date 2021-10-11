@@ -589,9 +589,10 @@ call Sender.send(sendPackage,route.nextHop);
 
    void sendLSP() //send advs of lsa packets
    {
-   dbg(ROUTING_CHANNEL,"in sendLLSP\n");
+
     tableLS potentialRoute[1];
     uint32_t* key = call RoutingTable.getKeys();
+    dbg(ROUTING_CHANNEL,"in sendLLSP\n");
     uint16_t i=0;
 
     for(i=0;key[i]!=0;i++)
