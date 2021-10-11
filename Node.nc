@@ -246,7 +246,7 @@ implementation{
                  tableLS a;
                  a = call RoutingTable.get(myMsg->src);
                   dbg(ROUTING_CHANNEL,"Sending package to next hop %d n",call RoutingTable.get(myMsg->src));
-                 call Sender.send(sendPackage,a.destination);//destination is one 
+                 call Sender.send(sendPackage,);//destination is one 
               }
                else
                 dbg(ROUTING_CHANNEL, "Path not found, cancelling reply\n");
@@ -316,6 +316,10 @@ implementation{
      sequenceNumber++;
      pushPack(sendPackage);//send package to the cache
      dbg(ROUTING_CHANNEL,"after push packet\n");
+     
+
+
+
      //Project 1 sender all Sender.send(sendPackage,AM_BROADCAST_ADDR);//destination);
     // if(call RoutingTable.contains(destination))
      //{
@@ -331,6 +335,7 @@ implementation{
       //dbg(ROUTING_CHANNEL, "Route to destination not found...\n");
         //}
 
+        /*
     if(call RoutingTable.contains(destination))
     {
       route = call RoutingTable.get(destination);
@@ -363,8 +368,22 @@ call Sender.send(sendPackage,route.nextHop);
     }
 
    }
+   */
+   tableLs route;
+   route = call RoutingTable.get(route[0].destination);
+   if(call RoutingTable.get(route[0].destination))
+   {
+   dbg(ROUTING_CHANNEL,"Sending to next hop");
+   call Sender.send(sendPackage,call RoutingTable.get(route[0].destination));
+   }
+   else
+   {
+   dbg(ROUTING_CHANNEL,"Route to destination not found...\n");
+   }
 
    }
+
+
 
    event void CommandHandler.printNeighbors(){
 
