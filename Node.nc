@@ -803,7 +803,7 @@ call Sender.send(sendPackage,route.nextHop);
             sptSet[u] = TRUE;
 
             for(v = 0; v < 20; v++){
-                if(!sptSet[v] && LSTable[u][v] != INFINITY && dist[u] + LSTable[u][v] < dist[v]){
+                if(!sptSet[v] && LSTable[u][v] != 9999 && dist[u] + LSTable[u][v] < dist[v]){
                     parent[v] = u;
                     dist[v] = dist[u] + LSTable[u][v];
                 }
