@@ -176,7 +176,7 @@ implementation{
                call Sender.send(sendPackage, myMsg->src);
                 //dbg(FLOODING_CHANNEL," packet from %d, destination %d \n",myMsg->src,myMsg->dest);
              // call Sender.send(sendPackage, AM_BROADCAST_ADDR);
-             IPModule(myMsg);
+             //IPModule(myMsg);
             }
 
 
@@ -244,8 +244,10 @@ implementation{
                  tableLS a;
                  a = call RoutingTable.get(myMsg->src);
                   dbg(ROUTING_CHANNEL,"Sending package to next hop %d n",call RoutingTable.get(myMsg->src));
-                 call Sender.send(sendPackage,a.destination);//destination is one try
+                 call Sender.send(sendPackage,a.destination);//destination is one 
               }
+               else
+                dbg(ROUTING_CHANNEL, "Path not found, cancelling reply\n");
               
             }
 
@@ -262,9 +264,10 @@ implementation{
          else //Broadcasting
          {
          tableLS b;
+         b = call RoutingTable.get(myMsg->src);
             //cost++;
             makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL-1
-            , myMsg->protocol, myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload));
+            , myMsg->protocol, myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload)); 
             //dbg(FLOODING_CHANNEL,"Rebroadcasting again. We are in node:  %d, going to,  Destination: %d \n",TOS_NODE_ID,myMsg->dest);
             pushPack(sendPackage);
 
@@ -335,12 +338,12 @@ implementation{
       {
         dbg(ROUTING_CHANNEL,"Routing Packet - src: %d, dest: %d, seq: %d, next hop: %d, cost:%d \n",TOS_NODE_ID,destination,MAX_TTL,route.nextHop,route.cost);
          makePack(&sendPackage, TOS_NODE_ID, destination, 3,PROTOCOL_PING, sequenceNumber, (uint8_t*) payload, sizeof(payload));
-             call Sender.send(sendPackage,route.nextHop); //will send to next node
+         call Sender.send(sendPackage,route.nextHop); //will send to next node
       }
       else
       {
         dbg(ROUTING_CHANNEL,"Routing Packet - src: %d, dest: %d, seq: %d, next hop: %d, cost:%d, protocol %d \n",TOS_NODE_ID,destination,sequenceNumber,route.nextHop,route.cost,TOS_NODE_ID, destination, 3, PROTOCOL_PING, sequenceNumber, (uint8_t*) payload, sizeof( payload));
-    call Sender.send(sendPackage,destination); //will send to its dest
+        call Sender.send(sendPackage,destination); //will send to its dest
       }
     }
 
@@ -548,7 +551,7 @@ call Sender.send(sendPackage,route.nextHop);
 
       dbg(ROUTING_CHANNEL,"Routing Table: \n");
       dbg(ROUTING_CHANNEL,"Dest \t, Next Hop: \t, Cost \n");
-      while(i<19)
+      while(i<20)
       {
         rT = call RoutingTable.get(i);
         if(rT.cost!=0)
@@ -586,6 +589,7 @@ call Sender.send(sendPackage,route.nextHop);
 
    void sendLSP() //send advs of lsa packets
    {
+   dbg(ROUTING_CHANNEL,"in sendLLSP\n");
     tableLS potentialRoute[1];
     uint32_t* key = call RoutingTable.getKeys();
     uint16_t i=0;
@@ -593,7 +597,7 @@ call Sender.send(sendPackage,route.nextHop);
     for(i=0;key[i]!=0;i++)
     {
       potentialRoute[0]=call RoutingTable.get(key[i]);
-      makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,0,PROTOCOL_LINKSTATE,0,(uint8_t*)potentialRoute,sizeof(tableLS)*1);
+      makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,50,PROTOCOL_LINKSTATE,sequenceNumber,(uint8_t*)potentialRoute,sizeof(tableLS)*1);
       call Sender.send(sendPackage,AM_BROADCAST_ADDR);
     }
    }
