@@ -119,6 +119,7 @@ implementation{
    bool isInLinkStateInfo(LSP);
    bool isUpdatedLSP(LSP);
    void updateLSP(LSP);
+   void sortLinkStateInfo();
 
 
 
@@ -249,6 +250,15 @@ implementation{
                return msg;
               }
             }
+            else
+            {
+            addLSP(lsp);
+
+
+            }
+
+            sortLinkStateInfo();
+
          }  
          
       }
@@ -886,7 +896,29 @@ call Sender.send(sendPackage,route.nextHop);
 
     
 
+    void floodLSP() {
+    LSP myLSP;
+    pack myPack;
 
+    //Get a list of current neighbors
+    uint8_t i, numNeighbors = call NeighboorList.size(); 
+    uint8_t *neighbors =NeighboorList;// call NeighborDiscovery.getNeighbors();
+
+    //Encapsulate this list into a LSP
+    myLSP.numNeighbors = numNeighbors;
+    myLSP.id = TOS_NODE_ID;
+    for(i = 0; i < numNeighbors; i++) {
+      myLSP.neighbors[i] = neighbors[i];
+    }
+    myLSP.age = 5;
+
+    //dbg(FLOODING_CHANNEL, "Flooding LSP\n", TOS_NODE_ID);
+
+    //Encapsulate this LSP into a pack struct
+    makePack(&myPack, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_LINKSTATE, 0, &myLSP, PACKET_MAX_PAYLOAD_SIZE);
+    //Flood this pack on the network
+    call Sender.send(myPack, myPack.dest);
+  }
 
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length){
       Package->src = src;
