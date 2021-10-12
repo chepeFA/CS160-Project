@@ -967,28 +967,32 @@ call Sender.send(sendPackage,route.nextHop);
 
     bool isInLinkStateInfo(LSP lsp) {
     uint16_t size = call LinkStateInfo.size();
-    uint8_t i;
+    uint8_t i=0;
     LSP comp;
 
     if(!call LinkStateInfo.isEmpty()) {
-      for(i = 0; i < size; i++) {
+     
+      while(i < size) {
         comp = call LinkStateInfo.get(i);
         if(comp.id == lsp.id) {
           return TRUE;
         }
+        i++;
       }
     }
     return FALSE;
   }
 
     bool isUpdatedLSP(LSP lsp) {
-    uint8_t i, pos = getPos(lsp.id);
+    uint8_t i=0, pos = getPos(lsp.id);
     LSP comp = call LinkStateInfo.get(pos);
 
     if(lsp.numNeighbors == comp.numNeighbors) {
-      for(i = 0; i < comp.numNeighbors; i++) {
+      while(i < comp.numNeighbors) {
         if(lsp.neighbors[i] != comp.neighbors[i])
           return TRUE;
+
+          i++;
       }
       return FALSE;
     }
@@ -997,14 +1001,15 @@ call Sender.send(sendPackage,route.nextHop);
 
 
     uint8_t getPos(uint8_t id) {
-    uint8_t pos, size = call LinkStateInfo.size();
+    uint8_t pos=0, size = call LinkStateInfo.size();
     LSP lsp;
 
-    for(pos = 0; pos < size; pos++) {
+    while(pos < size) {
       lsp = call LinkStateInfo.get(pos);
       if(id == lsp.id) {
         return pos;
       }
+      pos++;
     }
     return 0;
   }
