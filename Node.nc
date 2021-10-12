@@ -978,6 +978,34 @@ call Sender.send(sendPackage,route.nextHop);
     return FALSE;
   }
 
+    bool isUpdatedLSP(LSP lsp) {
+    uint8_t i, pos = getPos(lsp.id);
+    LSP comp = call LinkStateInfo.get(pos);
+
+    if(lsp.numNeighbors == comp.numNeighbors) {
+      for(i = 0; i < comp.numNeighbors; i++) {
+        if(lsp.neighbors[i] != comp.neighbors[i])
+          return TRUE;
+      }
+      return FALSE;
+    }
+    return TRUE;
+  }
+
+
+    uint8_t getPos(uint8_t id) {
+    uint8_t pos, size = call LinkStateInfo.size();
+    LSP lsp;
+
+    for(pos = 0; pos < size; pos++) {
+      lsp = call LinkStateInfo.get(pos);
+      if(id == lsp.id) {
+        return pos;
+      }
+    }
+    return 0;
+  }
+
   
 
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length){
