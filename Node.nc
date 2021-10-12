@@ -781,6 +781,7 @@ call Sender.send(sendPackage,route.nextHop);
         dbg(GENERAL_CHANNEL,"Before while \n");
         while (i < length){
             if(*(temp + 1) == ','){
+            dbg(GENERAL_CHANNEL,"inside if \n");
                 memcpy(buffer, temp, 1);
                 temp += 2;
                 i += 2;
