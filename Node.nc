@@ -13,6 +13,7 @@
 #include "includes/sendInfo.h"
 #include "includes/channels.h"
 
+//struct pj1
 typedef nx_struct neighboorDiscovery{ //first two fields are for nd header
 nx_uint16_t petition;
 nx_uint16_t sequenceNumber;
@@ -23,11 +24,20 @@ nx_uint16_t age;
 }neighboorDiscovery;
 
 
+//struct pj2
 typedef nx_struct tableLS{
   nx_uint8_t destination;
   nx_uint8_t nextHop;
   nx_uint8_t cost;
 }tableLS;
+
+typedef nx_struct link_state_pack{
+  nx_uint8_t id;
+  nx_uint8_t numNeighbors;
+  nx_uint8_t age;
+  nx_uint8_t neighbors[PACKET_MAX_PAYLOAD_SIZE - 3];
+  //costs array corresponding to neighbor links: not needed since assume all links have same cost
+}LSP;
 
 
 
@@ -54,6 +64,8 @@ module Node{
    uses interface Timer<TMilli> as RoutingTimer;
    uses interface List<pack> as LSAPacketCache;
    uses interface Hashmap<uint16_t> as RoutingTable1;
+   uses interface List<LSP> as LinkStateInfo;
+   uses interface Hashmap<tableLS> as BackUpRoutingTable;
 }
 
 implementation{
@@ -213,6 +225,7 @@ implementation{
                 }
          }
 
+         /*
          else if(myMsg->protocol == PROTOCOL_LINKSTATE)
          {
          updateLSTable((uint8_t *)myMsg->payload,myMsg->src);
@@ -224,7 +237,7 @@ implementation{
             //route[0].nextHop = myMsg->src;
             //checkdest(route);
          }  
-
+         */
       }
          else if(myMsg->dest == TOS_NODE_ID) //this package is for me
          {

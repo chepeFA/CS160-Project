@@ -42,6 +42,9 @@ implementation {
     components new ListC(pack,64) as PacketListC;
     Node.PacketList -> PacketListC;
 
+    components new ListC(pack,64) as LinkStateInfoC;
+    Node.LinkStateInfo -> LinkStateInfoC;
+
     components new ListC(neighboorDiscovery*,64) as NeighboorList1C;
     Node.NeighboorList1 -> NeighboorList1C;
 
@@ -53,6 +56,9 @@ implementation {
 
     components new HashmapC(tableLS,255) as RoutingTableC;
     Node.RoutingTable -> RoutingTableC;
+
+    components new HashmapC(tableLS,255) as BackUpRoutingTableC;
+    Node.BackUpRoutingTable -> BackUpRoutingTableC;
    
     components new HashmapC(uint16_t, 64) as RoutingTable1C;
     Node.RoutingTable1 -> RoutingTable1C;
