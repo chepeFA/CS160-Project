@@ -115,12 +115,14 @@ implementation{
    void updateLSTable(uint8_t * payload, uint16_t source);
    uint16_t minDist(uint16_t dist[], bool sptSet[]);
    void initLSTable();
+
    bool isInLinkStateInfo(LSP);
    bool isUpdatedLSP(LSP);
    void updateLSP(LSP);
    void sortLinkStateInfo();
    error_t addLSP(LSP);
    void floodLSP();
+  uint8_t getPos(uint8_t id)
 
 
 
