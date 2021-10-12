@@ -939,7 +939,7 @@ call Sender.send(sendPackage,route.nextHop);
     //Adds a LSP to LinkStateInfo
   error_t addLSP(LSP lsp) { 
     uint16_t size = call LinkStateInfo.size();
-    uint16_t maxSize = call LinkStateInfo.maxSize();
+  //  uint16_t maxSize = call LinkStateInfo.maxSize();
 
     if(isInLinkStateInfo(lsp)) {
       return EALREADY;
