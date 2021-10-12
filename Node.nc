@@ -121,6 +121,7 @@ implementation{
    bool isUpdatedLSP(LSP);
    void updateLSP(LSP);
    void sortLinkStateInfo();
+   error_t addLSP(LSP);
 
 
 
@@ -929,7 +930,7 @@ call Sender.send(sendPackage,route.nextHop);
     //dbg(FLOODING_CHANNEL, "Flooding LSP\n", TOS_NODE_ID);
 
     //Encapsulate this LSP into a pack struct
-    makePack(&myPack, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_LINKSTATE, 0, (uint8_t*)myLSP, PACKET_MAX_PAYLOAD_SIZE);
+    makePack(&myPack, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_LINKSTATE, 0, &myLSP, PACKET_MAX_PAYLOAD_SIZE);
     //Flood this pack on the network
     call Sender.send(myPack, myPack.dest);
   }
