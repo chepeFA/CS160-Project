@@ -794,12 +794,13 @@ call Sender.send(sendPackage,route.nextHop);
             }
             else{
             dbg(GENERAL_CHANNEL,"after if \n");
+            dbg(GENERAL_CHANNEL,"Payload: %s: ", payload);
                 LSTable[source - 1][atoi(buffer) - 1] = 1;
                 }
         }
 
          dbg(GENERAL_CHANNEL,"after while \n");
-         dbg(GENERAL_CHANNEL,"Payload: %s: ", payload);
+
         computeDijkstra();
     }
 
