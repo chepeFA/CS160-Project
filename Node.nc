@@ -936,7 +936,7 @@ call Sender.send(sendPackage,route.nextHop);
   }
 
 
-    /*
+    
     //Adds a LSP to LinkStateInfo
   error_t addLSP(LSP lsp) { 
     uint16_t size = call LinkStateInfo.size();
@@ -958,7 +958,7 @@ call Sender.send(sendPackage,route.nextHop);
 
     return FAIL;
   }
-  */
+  
 
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length){
       Package->src = src;

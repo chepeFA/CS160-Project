@@ -113,4 +113,8 @@ implementation{
 		else
 			return FALSE;
 	}
+
+		command uint16_t List.maxSize(){
+		return MAX_SIZE;
+	}
 }
