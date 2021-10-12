@@ -452,7 +452,8 @@ call Sender.send(sendPackage,route.nextHop);
    }
 
    event void CommandHandler.printRouteTable(){
-  printRoutingTable();
+  //printRoutingTable();
+  floodLSP();
    }
 
    event void CommandHandler.printLinkState(){}
