@@ -395,55 +395,7 @@ implementation{
    
 
      //Project 1 sender all Sender.send(sendPackage,AM_BROADCAST_ADDR);//destination);
-    // if(call RoutingTable.contains(destination))
-     //{
-          
-     //route = call RoutingTable.get(destination);
-     //dbg(ROUTING_CHANNEL,"Sending to next hop %d \n",call RoutingTable.get(destination));
-   //  call Sender.send(sendPackage,destination);
-     //}
-
-     //else{
-
-
-      //dbg(ROUTING_CHANNEL, "Route to destination not found...\n");
-        //}
-
-        /*
-    if(call RoutingTable.contains(destination))
-    {
-      route = call RoutingTable.get(destination);
-      dbg(ROUTING_CHANNEL,"here \n");
-      
-      if(route.cost!=1)
-      {
-        dbg(ROUTING_CHANNEL,"Routing Packet - src: %d, dest: %d, seq: %d, next hop: %d, cost:%d \n",TOS_NODE_ID,destination,MAX_TTL,route.nextHop,route.cost);
-         makePack(&sendPackage, TOS_NODE_ID, destination, 3,PROTOCOL_PING, sequenceNumber, (uint8_t*) payload, sizeof(payload));
-         call Sender.send(sendPackage,route.nextHop); //will send to next node
-      }
-      else
-      {
-        dbg(ROUTING_CHANNEL,"Routing Packet - src: %d, dest: %d, seq: %d, next hop: %d, cost:%d, protocol %d \n",TOS_NODE_ID,destination,sequenceNumber,route.nextHop,route.cost,TOS_NODE_ID, destination, 3, PROTOCOL_PING, sequenceNumber, (uint8_t*) payload, sizeof( payload));
-        call Sender.send(sendPackage,destination); //will send to its dest
-      }
-    }
-
-    else
-    {
-         tableLS route;
-route = call RoutingTable.get(destination);
-    dbg(ROUTING_CHANNEL,"here 2\n");
- 
-if(route.cost==1){
-
-dbg(ROUTING_CHANNEL,"Routing Packet - src: %d, dest: %d, seq: %d, next hop: %d, cost: \n",TOS_NODE_ID,destination,sequenceNumber,route.nextHop);
-makePack(&sendPackage, TOS_NODE_ID, destination, 3, PROTOCOL_PING, sequenceNumber, (uint8_t*) payload, sizeof(payload));
-call Sender.send(sendPackage,route.nextHop);
-    }
-
-   }
-   */
- 
+   
   
 
    }
@@ -866,7 +818,7 @@ call Sender.send(sendPackage,route.nextHop);
     call Confirmed.pushback(current);
 
 
-    while(a)
+    while()
     {
 
     }
