@@ -79,6 +79,7 @@ implementation{
    uint16_t itlAdd;
    uint16_t fnlAdd;
    uint16_t cost=0; //number of hops
+   uint8_t neighboors[17];
   // uint16_t temp;
 
    //Project 2
@@ -899,10 +900,23 @@ call Sender.send(sendPackage,route.nextHop);
     void floodLSP() {
     LSP myLSP;
     pack myPack;
+    neighboorDiscovery nd;
+    uint16_t a;
+    uint8_t *neighbors;
 
     //Get a list of current neighbors
     uint8_t i, numNeighbors = call NeighboorList.size(); 
-    uint8_t *neighbors =NeighboorList;// call NeighborDiscovery.getNeighbors();
+    //=NeighboorList;// call NeighborDiscovery.getNeighbors();
+
+   a=0;
+   while(a<numNeighbors)
+   {
+    nd = call NeighboorList.get(a);
+    neighboors[a] = nd.node;
+
+   a++
+   }
+   neighbors = neighboors;
 
     //Encapsulate this list into a LSP
     myLSP.numNeighbors = numNeighbors;
@@ -915,7 +929,7 @@ call Sender.send(sendPackage,route.nextHop);
     //dbg(FLOODING_CHANNEL, "Flooding LSP\n", TOS_NODE_ID);
 
     //Encapsulate this LSP into a pack struct
-    makePack(&myPack, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_LINKSTATE, 0, &myLSP, PACKET_MAX_PAYLOAD_SIZE);
+    makePack(&myPack, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_LINKSTATE, 0, (uint8_t*)myLSP, PACKET_MAX_PAYLOAD_SIZE);
     //Flood this pack on the network
     call Sender.send(myPack, myPack.dest);
   }
