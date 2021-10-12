@@ -117,4 +117,8 @@ implementation{
 		command uint16_t List.maxSize(){
 		return MAX_SIZE;
 	}
+
+		command void List.replace(uint8_t position, t input) {
+		container[position] = input;
+	}
 }
