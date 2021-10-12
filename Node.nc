@@ -962,6 +962,22 @@ call Sender.send(sendPackage,route.nextHop);
   }
 
 
+    bool isInLinkStateInfo(LSP lsp) {
+    uint16_t size = call LinkStateInfo.size();
+    uint8_t i;
+    LSP comp;
+
+    if(!call LinkStateInfo.isEmpty()) {
+      for(i = 0; i < size; i++) {
+        comp = call LinkStateInfo.get(i);
+        if(comp.id == lsp.id) {
+          return TRUE;
+        }
+      }
+    }
+    return FALSE;
+  }
+
   
 
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length){
