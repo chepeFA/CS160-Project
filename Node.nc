@@ -122,7 +122,7 @@ implementation{
    void sortLinkStateInfo();
    error_t addLSP(LSP);
    void floodLSP();
-  uint8_t getPos(uint8_t id)
+  uint8_t getPos(uint8_t id);
 
 
 
