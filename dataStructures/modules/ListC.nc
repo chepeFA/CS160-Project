@@ -18,6 +18,10 @@ implementation{
 	t container[n];
 	uint16_t size = 0;
 
+	command void List.replace(uint8_t position, t input) {
+		container[position] = input;
+	}
+
 	command void List.pushback(t input){
 		// Check to see if we have room for the input.
 		if(size < MAX_SIZE){
@@ -88,6 +92,11 @@ implementation{
 		return size;
 	}
 
+	command uint16_t List.maxSize(){
+		return MAX_SIZE;
+	}
+
+
 	command t List.get(uint16_t position){
 		return container[position];
 	}
@@ -114,11 +123,6 @@ implementation{
 			return FALSE;
 	}
 
-		command uint16_t List.maxSize(){
-		return MAX_SIZE;
-	}
+	
 
-		command void List.replace(uint8_t position, t input) {
-		container[position] = input;
-	}
 }

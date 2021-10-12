@@ -42,7 +42,7 @@ implementation {
     components new ListC(pack,64) as PacketListC;
     Node.PacketList -> PacketListC;
 
-    components new ListC(LSP,64) as LinkStateInfoC;
+    components new ListC(LSP,20) as LinkStateInfoC;
     Node.LinkStateInfo -> LinkStateInfoC;
 
     components new ListC(neighboorDiscovery*,64) as NeighboorList1C;
