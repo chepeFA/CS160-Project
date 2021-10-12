@@ -120,7 +120,7 @@ implementation{
    bool isInLinkStateInfo(LSP);
    bool isUpdatedLSP(LSP);
    void updateLSP(LSP);
-   //void sortLinkStateInfo();
+   void sortLinkStateInfo();
    error_t addLSP(LSP);
    void floodLSP();
 
