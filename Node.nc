@@ -935,6 +935,29 @@ call Sender.send(sendPackage,route.nextHop);
     call Sender.send(myPack, myPack.dest);
   }
 
+
+    //Adds a LSP to LinkStateInfo
+  error_t addLSP(LSP lsp) { 
+    uint16_t size = call LinkStateInfo.size();
+    uint16_t maxSize = call LinkStateInfo.maxSize();
+
+    if(isInLinkStateInfo(lsp)) {
+      return EALREADY;
+    }
+
+    if(size == maxSize) {
+      call LinkStateInfo.popfront();
+      call LinkStateInfo.pushback(lsp);
+      return SUCCESS;
+    }
+    else {
+      call LinkStateInfo.pushback(lsp);
+      return SUCCESS;
+    }
+
+    return FAIL;
+  }
+
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length){
       Package->src = src;
       Package->dest = dest;
