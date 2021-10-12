@@ -122,8 +122,9 @@ implementation{
    void sortLinkStateInfo();
    error_t addLSP(LSP);
    void floodLSP();
-  uint8_t getPos(uint8_t id);
-  void updateLSP(LSP lsp);
+   uint8_t getPos(uint8_t id);
+   void updateLSP(LSP lsp);
+   void updateAgesNodes();
 
 
 
@@ -146,7 +147,7 @@ implementation{
          //start neighbor discovery and routing timer as soon as radio is on
       call NeighboorTimer.startPeriodic(10000);
       
-      //call RoutingTimer.startPeriodic(30000);
+      call RoutingTimer.startOneShot(90000);
         
       }else{
          //Retry until successful
@@ -167,6 +168,9 @@ implementation{
    event void RoutingTimer.fired()
    {
   // initLSTable();
+  computeDijkstra();
+
+
    }
 
 
@@ -849,44 +853,19 @@ call Sender.send(sendPackage,route.nextHop);
     void computeDijkstra()
     {
 
+    tableLS current, a,b;
+    LSP lsp;
+    uint8_t currentPos, tentativePos, minTentaive, nextHop =0,i;
 
-        uint16_t myID = TOS_NODE_ID - 1, i, count, v, u;
-        uint16_t dist[20];
-        bool sptSet[20];
-        int parent[20];
-        int temp;
 
-        for(i = 0; i < 20; i++){
-            dist[i] = 9999;
-            sptSet[i] = FALSE;
-            parent[i] = -1;   
-        }
+    //distance to my self is zero
+    current.destination=TOS_NODE_ID;
+    current.cost = 0;
+    current.nextHop=0;
 
-        dist[myID] = 0;
+    call Confirmed.pushback(current);
 
-        for(count = 0; count < 20 - 1; count++){
-            u = minDist(dist, sptSet);
-            sptSet[u] = TRUE;
-
-            for(v = 0; v < 20; v++){
-                if(!sptSet[v] && LSTable[u][v] != 9999 && dist[u] + LSTable[u][v] < dist[v]){
-                    parent[v] = u;
-                    dist[v] = dist[u] + LSTable[u][v];
-                }
-            }           
-        }
-
-        for(i = 0; i < 20; i++){
-            temp = i;
-            while(parent[temp] != -1  && parent[temp] != myID && temp < 20){
-                temp = parent[temp];
-            }
-            if(parent[temp] != myID){
-                call RoutingTable1.insert(i + 1, 0);
-            }
-            else
-                call RoutingTable1.insert(i + 1, temp + 1);
-        }
+        
     }
 
 
