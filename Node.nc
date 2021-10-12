@@ -123,6 +123,7 @@ implementation{
    error_t addLSP(LSP);
    void floodLSP();
   uint8_t getPos(uint8_t id);
+  void updateLSP(LSP lsp);
 
 
 
@@ -1006,6 +1007,12 @@ call Sender.send(sendPackage,route.nextHop);
       }
     }
     return 0;
+  }
+
+    void updateLSP(LSP lsp) {
+    uint8_t pos = getPos(lsp.id);
+
+    call LinkStateInfo.replace(pos, lsp);
   }
 
   
