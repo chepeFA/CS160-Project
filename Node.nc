@@ -118,7 +118,7 @@ implementation{
    //----
    bool isInLinkStateInfo(LSP);
    bool isUpdatedLSP(LSP);
-   void updatedLSP(LSP);
+   void updateLSP(LSP);
 
 
 
