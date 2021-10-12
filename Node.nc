@@ -792,7 +792,7 @@ call Sender.send(sendPackage,route.nextHop);
                 i += 3;
                 buffer[2] = '\0';
             }
-            
+            dbg(GENERAL_CHANNEL,"after if \n");
                 LSTable[source - 1][atoi(buffer) - 1] = 1;
         }
 
