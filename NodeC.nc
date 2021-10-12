@@ -51,6 +51,12 @@ implementation {
     components new ListC(neighboorDiscovery,64) as NeighboorListC;
     Node.NeighboorList -> NeighboorListC;
 
+     components new ListC(tableLS,64) as ConfirmedC;
+    Node.Confirmed -> ConfirmedC;
+
+     components new ListC(tableLS,64) as TentativeC;
+    Node.Tentative -> TentativeC;
+
     components new PoolC(neighboorDiscovery,64) as NeighboorPoolC;
     Node.NeighboorPool -> NeighboorPoolC;
 

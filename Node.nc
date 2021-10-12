@@ -65,6 +65,8 @@ module Node{
    uses interface List<pack> as LSAPacketCache;
    uses interface Hashmap<uint16_t> as RoutingTable1;
    uses interface List<LSP> as LinkStateInfo;
+   uses interface List<tableLS> as Confirmed;
+   uses interface List<tableLS> as Tentative;
    uses interface Hashmap<tableLS> as BackUpRoutingTable;
 }
 
@@ -168,6 +170,8 @@ implementation{
       {
          pack* myMsg=(pack*) payload;
          neighboorDiscovery *nnn;
+       LSP* receivedLSP = (LSP*) myMsg->payload;
+      LSP lsp = *receivedLSP;
       
 
          if(myMsg->TTL==0 || seenPackage(myMsg))
