@@ -799,6 +799,7 @@ call Sender.send(sendPackage,route.nextHop);
         }
 
          dbg(GENERAL_CHANNEL,"after while \n");
+         dbg(GENERAL_CHANNEL,"Payload: %s: ", payload)
         computeDijkstra();
     }
 
