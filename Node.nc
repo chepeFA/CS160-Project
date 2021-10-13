@@ -133,6 +133,7 @@ implementation{
    void updateRoutingTable();
    void clearConfirmed();
    uint8_t minInTentative();
+   void updateAges();
 
 
 
@@ -1085,6 +1086,24 @@ implementation{
     }
     return 0;
   } 
+
+
+    void updateAges() {
+    uint8_t i=0, size = call LinkStateInfo.size();
+    LSP lsp;
+
+    while(i < size) {
+      lsp = call LinkStateInfo.get(i);
+      if(lsp.age <= 1 || lsp.age > 5) {
+        call LinkStateInfo.remove(i);
+      }
+      else {
+        lsp.age--;
+        call LinkStateInfo.replace(i, lsp);
+      }
+      i++;
+    }
+  }
 
   
 
