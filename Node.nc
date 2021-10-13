@@ -965,7 +965,7 @@ implementation{
    {
     nd = call NeighboorList.get(a);
     neighboors[a] = nd.node;
-
+    dbg(NEIGHBOR_CHANNEL,"Neighbor for node: %d,: %d, %d", TOS_NODE_ID, nd.node,neighboors[a]);
    a++;
    }
    neighbors = neighboors;
