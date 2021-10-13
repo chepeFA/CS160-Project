@@ -132,6 +132,7 @@ implementation{
    bool inConfirmed(uint8_t);
    void updateRoutingTable();
    void clearConfirmed();
+   uint8_t minInTentative();
 
 
 
