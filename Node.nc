@@ -157,7 +157,7 @@ implementation{
          //start neighbor discovery and routing timer as soon as radio is on
       call NeighboorTimer.startPeriodic(10000);
 
-      //floodLSP();
+      floodLSP();
       call RoutingTimer.startOneShot(90000);
         
       }else{
@@ -179,7 +179,7 @@ implementation{
    event void RoutingTimer.fired()
    {
   // initLSTable();
-  floodLSP();
+ 
   computeDijkstra();
   updateAges();
 
@@ -260,7 +260,7 @@ implementation{
          else if(myMsg->protocol == PROTOCOL_LINKSTATE)
          {
         
-          dbg(ROUTING_CHANNEL,"In protocol link state \n");
+         // dbg(ROUTING_CHANNEL,"In protocol link state \n");
             if(isInLinkStateInfo(lsp))
             {
               if(isUpdatedLSP(lsp))
@@ -975,12 +975,12 @@ implementation{
     myLSP.id = TOS_NODE_ID;
     for(i = 0; i < numNeighbors; i++) {
       myLSP.neighbors[i] = neighbors[i];
-      dbg(GENERAL_CHANNEL,"Neighbors: %d", myLSP.neighbors[i]);
-      zzz++;
-      if(zzz>10)
-      {
-        break;
-      }
+    //  dbg(GENERAL_CHANNEL,"Neighbors: %d", myLSP.neighbors[i]);
+      //zzz++;
+      //if(zzz>10)
+      //{
+        //break;
+      //}
     }
     myLSP.age = 5;
 
