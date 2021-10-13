@@ -154,7 +154,7 @@ def main():
     s.runTime(5);
 
     s.neighborDMP(8);#list of neighbor for node 4
-    s.runTime(5);
+    s.runTime(1);
 
    # s.routeDMP(8);
     #s.runTime(4);
