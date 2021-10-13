@@ -789,8 +789,8 @@ implementation{
     do
     {
 
-      currentPos = getPos(entry.dest);
-      lsp = call LinkStateInfo.get(pos);
+      currentPos = getPos(current.destination);
+      lsp = call LinkStateInfo.get(currentPos);
 
       while(i<lsp.numNeighbors)
       {
