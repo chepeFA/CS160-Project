@@ -134,6 +134,7 @@ implementation{
    void clearConfirmed();
    uint8_t minInTentative();
    void updateAges();
+   void printLinkStateInfo();
 
 
 
@@ -178,6 +179,7 @@ implementation{
    {
   // initLSTable();
   computeDijkstra();
+  updateAges();
 
 
    }
@@ -420,7 +422,7 @@ implementation{
 
    event void CommandHandler.printRouteTable(){
   //printRoutingTable();
-  floodLSP();
+  //floodLSP();
    }
 
    event void CommandHandler.printLinkState(){}
@@ -1101,6 +1103,25 @@ implementation{
         lsp.age--;
         call LinkStateInfo.replace(i, lsp);
       }
+      i++;
+    }
+  }
+
+    //Prints contents of LinkStateInfo
+  void printLinkStateInfo() {
+    uint8_t size = call LinkStateInfo.size();
+    uint8_t i=0, j=0;
+    LSP lsp;
+
+    dbg(FLOODING_CHANNEL, "Node %d Link State Info(%d entries):\n", TOS_NODE_ID, size);
+
+    while(i < size) {
+      lsp = call LinkStateInfo.get(i);
+      printf("\t\t\t\tNode %2d sent [ ", lsp.id);
+      while(j < lsp.numNeighbors) {
+        printf("%2d ", lsp.neighbors[j]);
+      }
+      printf("]\n");
       i++;
     }
   }
