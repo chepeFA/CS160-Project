@@ -949,6 +949,7 @@ implementation{
     
 
     void floodLSP() {
+    dbg(GENERAL_CHANNEL,"About to start flooding \n");
     LSP myLSP;
     uint8_t zzz=0;
     pack myPack;
