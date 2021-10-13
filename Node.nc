@@ -808,7 +808,7 @@ implementation{
       }
       else
       {
-      nextHop = findNextHopto(a.destination);
+      nextHop = findNextHopTo(a.destination);
       }
 
       if(!inTentative(a.destination) && !inConfirmed(a.destination))
