@@ -148,10 +148,10 @@ def main():
     s.runTime(5);
     #testing neighboor discovery
     s.neighborDMP(3);
-    s.runTime(5);
+    s.runTime(1);
 
     s.neighborDMP(2);#list of neighbor for node 4
-    s.runTime(5);
+    s.runTime(1);
 
     s.neighborDMP(8);#list of neighbor for node 4
     s.runTime(1);
