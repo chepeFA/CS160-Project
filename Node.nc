@@ -808,7 +808,7 @@ implementation{
       }
       else
       {
-      nextHop = findNextHoptp(a.destination);
+      nextHop = findNextHopto(a.destination);
       }
 
       if(!inTentative(a.destination) && !inConfirmed(a.destination))
@@ -838,7 +838,7 @@ implementation{
 
     while(i < size) {
       entry = call Tentative.get(i);
-      if(entry.dest == nodeid) {
+      if(entry.destination == nodeid) {
         return i;
       }
       i++;
@@ -933,7 +933,7 @@ implementation{
 
     while(i < size) {
       entry = call Tentative.get(i);
-      if(entry.dest == nodeid) {
+      if(entry.destination == nodeid) {
         return TRUE;
       }
       i++;
@@ -948,7 +948,7 @@ implementation{
 
     while(i < size) {
       entry = call Confirmed.get(i);
-      if(entry.dest == nodeid) {
+      if(entry.destination == nodeid) {
         return TRUE;
       }
       i++;
@@ -1021,13 +1021,13 @@ implementation{
     while(k < size) {
       //Search that entrys neigbors for 'dest'
       entry = call Confirmed.get(k);
-      pos = getPos(entry.dest);
+      pos = getPos(entry.destination);
       lsp = call LinkStateInfo.get(pos);
 
       while(j < lsp.numNeighbors) {
         //If found, then return that entrys 'next_hop'
         if(lsp.neighbors[j] == dest) {
-          return entry.next_hop;
+          return entry.nextHop;
         }
         j++;
       }
