@@ -198,7 +198,7 @@ implementation{
          pack* myMsg=(pack*) payload;
          neighboorDiscovery *nnn;
        LSP* receivedLSP = (LSP*) myMsg->payload;
-      LSP lsp = *receivedLSP;
+        LSP lsp = *receivedLSP;
       
 
          if(myMsg->TTL==0 || seenPackage(myMsg))
@@ -260,6 +260,7 @@ implementation{
          else if(myMsg->protocol == PROTOCOL_LINKSTATE)
          {
         
+          dbg(ROUTING_CHANNEL,"In protocol link state \n");
             if(isInLinkStateInfo(lsp))
             {
               if(isUpdatedLSP(lsp))
