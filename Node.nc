@@ -409,9 +409,12 @@ implementation{
      pushPack(sendPackage);//send package to the cache
      call Sender.send(sendPackage,AM_BROADCAST_ADDR);
      */
+
      tableLS route = call RoutingTable.get(destination);
     // uint8_t nextHop = getNextHopTo(destination);
      dbg(GENERAL_CHANNEL, "PING EVENT \n");
+     dbg(FLOODING_CHANNEL,"source: %d \n",TOS_NODE_ID);
+     dbg(FLOODING_CHANNEL,"destination: %d \n",destination);
      makePack(&sendPackage, TOS_NODE_ID, destination, 0, PROTOCOL_PING, 0, payload, PACKET_MAX_PAYLOAD_SIZE);
      call Sender.send(sendPackage,route.nextHop);
 
