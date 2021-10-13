@@ -257,7 +257,7 @@ implementation{
          
          else if(myMsg->protocol == PROTOCOL_LINKSTATE)
          {
-         dbg(ROUTING_CHANNEL,"Protocol, link state \n");
+      //   dbg(ROUTING_CHANNEL,"Protocol, link state \n");
             if(isInLinkStateInfo(lsp))
             {
               if(isUpdatedLSP(lsp))
@@ -395,9 +395,9 @@ implementation{
      
      // route = call RoutingTable.get(temp[0].destination);
      
-   if(call RoutingTable1.get(destination))
+   if(call RoutingTable.get(destination))
    {
-   dbg(ROUTING_CHANNEL,"Sending to next hop: %d",call RoutingTable1.get(destination));
+   dbg(ROUTING_CHANNEL,"Sending to next hop: %d",call RoutingTable.get(destination));
    call Sender.send(sendPackage,call RoutingTable1.get(destination));
    }
    else
