@@ -606,18 +606,23 @@ implementation{
    
    }
 
-   void printRoutingTable()
-   {
      
-         uint16_t size = call RoutingTable1.size(), i, output;
-        for(i = 0; i < size; i++){
-            output = call RoutingTable1.get((uint32_t) i);
-            dbg(ROUTING_CHANNEL, "Key: %d\t Next Hop: %d\n", i, output);
-        }
+          void printRoutingTable() {
+    uint8_t i=0, size = call RoutingTable.size();
+    tableLS entry;
 
-        dbg(ROUTING_CHANNEL, "\n");
+    uint32_t *keys = call RoutingTable.getKeys();
 
-   }
+    printf("\n\t\t\t    Routing Table for node %d\n", TOS_NODE_ID);
+
+    while(i < size) {
+      entry = call RoutingTable.get(keys[i]);
+      printf("\t\t\t\t(%d, %d, %d)\n", entry.dest, entry.cost, entry.next_hop);
+      i++;
+    }
+  }
+
+   
 
    void nodeNeighborCost()// populate routing table w neighbor costs
    {
