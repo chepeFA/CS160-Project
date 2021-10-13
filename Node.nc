@@ -130,6 +130,8 @@ implementation{
    uint8_t findNextHopTo(uint8_t dest);
    bool inTentative(uint8_t);
    bool inConfirmed(uint8_t);
+   void updateRoutingTable();
+   void clearConfirmed();
 
 
 
@@ -602,20 +604,7 @@ implementation{
 
    void printRoutingTable()
    {
-     // uint16_t i=0;
-      //tableLS rT;
-
-      //dbg(ROUTING_CHANNEL,"Routing Table: \n");
-      //dbg(ROUTING_CHANNEL,"Dest \t, Next Hop: \t, Cost \n");
-      //while(i<20)
-      //{
-        //rT = call RoutingTable.get(i);
-        //if(rT.cost!=0)
-        //{
-        //dbg(ROUTING_CHANNEL,"%d\t  %d\t,  %d\n",rT.destination,rT.nextHop,rT.cost);
-        //i++;
-        //}
-      //}
+     
          uint16_t size = call RoutingTable1.size(), i, output;
         for(i = 0; i < size; i++){
             output = call RoutingTable1.get((uint32_t) i);
@@ -819,6 +808,12 @@ implementation{
       else if(inTentative(a.destination))
       {
         tentativePos = posInTentative(a.destination);
+        b = call Tentative.get(tentativePos);
+        if(a.cost<b.cost)
+        {
+          b.cost = a.cost;
+          call Tentative.replace(tentativePos,b);
+        }
       }
 
 
@@ -826,11 +821,49 @@ implementation{
        i++;
       }
 
-    }while(i>0);
 
+      minTentative = minInTentative();
+      current = call Tentative.get(minTentative);
+      call Tentative.remove(minTentative);
+      call Confirmed.pushback(entry);
+
+
+    }while(call Confirmed.size()<call LinkStateInfo.size());
+
+    updateRoutingTable();
+    clearConfirmed();
 
         
     }
+
+  void clearConfirmed() {
+    while(!call Confirmed.isEmpty())
+      call Confirmed.popfront();
+  }
+
+      void updateRoutingTable() {
+    uint8_t i=0, j, size = call Confirmed.size();
+    tableLS entry;
+    uint32_t *keys;
+
+    while(i < size) {
+      entry = call Confirmed.get(i);
+      call RoutingTable.insert(entry.destination, entry);
+      i++;
+    }
+
+    //Cleanup
+    i=0;
+    keys = call RoutingTable.getKeys();
+    while(i < call RoutingTable.size()) {
+      entry = call RoutingTable.get(keys[i]);
+      if(!inConfirmed(entry.dest)) {
+        call RoutingTable.remove(keys[i]);
+      }
+      i++;
+    }
+
+  }
 
       uint8_t posInTentative(uint8_t nodeid) {
     tableLS entry;
@@ -844,6 +877,22 @@ implementation{
       i++;
     }
     return 0;
+  }
+
+    uint8_t minInTentative() {
+    uint8_t i=1, size = call Tentative.size();
+    uint8_t minPos = 0;
+    RouteEntry entry, minEntry = call Tentative.get(0);
+
+    while(i < size) {
+      entry = call Tentative.get(i);
+      if(entry.cost < minEntry.cost) {
+        minEntry = entry;
+        minPos = i;
+      }
+      i++;
+    }
+    return minPos;
   }
 
     bool isNextHop(uint8_t id) {
