@@ -421,7 +421,8 @@ implementation{
    }
 
    event void CommandHandler.printRouteTable(){
-  //printRoutingTable();
+   printLinkStateInfo();
+  printRoutingTable();
   //floodLSP();
    }
 
