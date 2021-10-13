@@ -257,6 +257,7 @@ implementation{
          
          else if(myMsg->protocol == PROTOCOL_LINKSTATE)
          {
+         dbg(ROUTING_CHANNEL,"Protocol, link state \n");
             if(isInLinkStateInfo(lsp))
             {
               if(isUpdatedLSP(lsp))
@@ -421,8 +422,8 @@ implementation{
    }
 
    event void CommandHandler.printRouteTable(){
-    printLinkStateInfo();
-   printRoutingTable();
+   // printLinkStateInfo();
+   //printRoutingTable();
   
    }
 
