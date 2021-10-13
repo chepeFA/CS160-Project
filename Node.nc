@@ -438,8 +438,8 @@ implementation{
    }
 
    event void CommandHandler.printRouteTable(){
-   // printLinkStateInfo();
-   //printRoutingTable();
+   printLinkStateInfo();
+   printRoutingTable();
   
    }
 
