@@ -156,8 +156,8 @@ def main():
     s.neighborDMP(8);#list of neighbor for node 4
     s.runTime(1);
 
-   # s.routeDMP(8);
-    #s.runTime(4);
+    s.routeDMP(2);
+    s.runTime(4);
    # s.neighborDMP(3);#list of neighbor for node 1
     #s.ping(1, 3, "Hi");
     #s.runTime(10);
