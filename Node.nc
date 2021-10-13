@@ -638,7 +638,7 @@ implementation{
     while(i < size) {
       entry = call RoutingTable.get(keys[i]);
      // printf("(%d, %d, %d)\", entry.destination, entry.cost, entry.nextHop);
-     printf(entry.destination,"\t",entrey.cost,"\t",entry.nextHop);
+     printf(entry.destination,"\t",entry.cost,"\t",entry.nextHop);
       i++;
     }
   }
