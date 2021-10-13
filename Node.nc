@@ -770,7 +770,7 @@ implementation{
 
     tableLS current, a,b;
     LSP lsp;
-    uint8_t currentPos, tentativePos, minTentaive, nextHop =0,i=0;
+    uint8_t currentPos, tentativePos, minTentative, nextHop =0,i=0;
 
 
     //distance to my self is zero
@@ -825,7 +825,7 @@ implementation{
       minTentative = minInTentative();
       current = call Tentative.get(minTentative);
       call Tentative.remove(minTentative);
-      call Confirmed.pushback(entry);
+      call Confirmed.pushback(current);
 
 
     }while(call Confirmed.size()<call LinkStateInfo.size());
@@ -857,7 +857,7 @@ implementation{
     keys = call RoutingTable.getKeys();
     while(i < call RoutingTable.size()) {
       entry = call RoutingTable.get(keys[i]);
-      if(!inConfirmed(entry.dest)) {
+      if(!inConfirmed(entry.destination)) {
         call RoutingTable.remove(keys[i]);
       }
       i++;
@@ -882,7 +882,7 @@ implementation{
     uint8_t minInTentative() {
     uint8_t i=1, size = call Tentative.size();
     uint8_t minPos = 0;
-    RouteEntry entry, minEntry = call Tentative.get(0);
+    tableLS entry, minEntry = call Tentative.get(0);
 
     while(i < size) {
       entry = call Tentative.get(i);
