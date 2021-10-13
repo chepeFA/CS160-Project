@@ -949,7 +949,7 @@ implementation{
     
 
     void floodLSP() {
-    dbg(GENERAL_CHANNEL,"About to start flooding \n");
+
     LSP myLSP;
     uint8_t zzz=0;
     pack myPack;
@@ -959,6 +959,7 @@ implementation{
 
     //Get a list of current neighbors
     uint8_t i, numNeighbors = call NeighboorList.size(); 
+    dbg(GENERAL_CHANNEL,"About to start flooding \n");
     //=NeighboorList;// call NeighborDiscovery.getNeighbors();
 
    a=0;
