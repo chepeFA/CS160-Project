@@ -144,7 +144,7 @@ def main():
     #s.runTime(20);
     s.runTime(20);
     #floding
-    s.ping(1, 4, "Hello world");
+    s.ping(1, 2, "Hello world");
     s.runTime(5);
     #testing neighboor discovery
    # s.neighborDMP(3);
