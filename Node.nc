@@ -794,14 +794,14 @@ implementation{
 
       while(i<lsp.numNeighbors)
       {
-      a.dest = lsp.neighbors[i];
+      a.destination = lsp.neighbors[i];
       a.cost = current.cost +1;
 
 
        i++;
       }
 
-    }while();
+    }while(i>0);
 
 
         
