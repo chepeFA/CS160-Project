@@ -142,19 +142,19 @@ def main():
     s.addChannel(s.ROUTING_CHANNEL);
 
     #s.runTime(20);
-    s.runTime(10);
+    s.runTime(20);
     #floding
     s.ping(1, 4, "Hello world");
     s.runTime(5);
     #testing neighboor discovery
     s.neighborDMP(3);
-    s.runTime(10);
+    s.runTime(5);
 
     s.neighborDMP(2);#list of neighbor for node 4
-    s.runTime(5);
+    s.runTime(10);
 
     s.neighborDMP(8);#list of neighbor for node 4
-    s.runTime(5);
+    s.runTime(10);
 
    # s.routeDMP(8);
     #s.runTime(4);
