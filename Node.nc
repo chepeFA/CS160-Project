@@ -776,7 +776,7 @@ implementation{
 
     tableLS current, a,b;
     LSP lsp;
-    uint8_t currentPos, tentativePos, minTentaive, nextHop =0,i;
+    uint8_t currentPos, tentativePos, minTentaive, nextHop =0,i=0;
 
 
     //distance to my self is zero
@@ -785,6 +785,23 @@ implementation{
     current.nextHop=0;
 
     call Confirmed.pushback(current);
+
+    do
+    {
+
+      currentPos = getPos(entry.dest);
+      lsp = call LinkStateInfo.get(pos);
+
+      while(i<lsp.numNeighbors)
+      {
+      a.dest = lsp.neighbors[i];
+      a.cost = current.cost +1;
+
+
+       i++;
+      }
+
+    }while();
 
 
         
