@@ -125,6 +125,7 @@ implementation{
    uint8_t getPos(uint8_t id);
    void updateLSP(LSP lsp);
    void updateAgesNodes();
+   uint8_t posInTentative(uint8_t nodeid);
 
 
 
@@ -797,6 +798,26 @@ implementation{
       a.destination = lsp.neighbors[i];
       a.cost = current.cost +1;
 
+      if(isNextHop(a.destination))
+      {
+        nextHop = a.destination;
+      }
+      else
+      {
+      nextHop = findNextHoptp(a.destination);
+      }
+
+      if(!inTentative(a.destination) && !inConfirmed(a.destination))
+      {
+        call Tentative.pushback(a);
+      }
+
+      else if(inTentative(a.destination))
+      {
+        tentativePos = posInTentative(a.destination);
+      }
+
+
 
        i++;
       }
@@ -806,6 +827,20 @@ implementation{
 
         
     }
+
+      uint8_t posInTentative(uint8_t nodeid) {
+    tableLS entry;
+    uint8_t i=0, size = call Tentative.size();
+
+    while(i < size;) {
+      entry = call Tentative.get(i);
+      if(entry.dest == nodeid) {
+        return i;
+      }
+      i++;
+    }
+    return 0;
+  }
 
 
   
