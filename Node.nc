@@ -257,7 +257,7 @@ implementation{
          
          else if(myMsg->protocol == PROTOCOL_LINKSTATE)
          {
-         dbg(ROUTING_CHANNEL,"Protocol, link state \n");
+        
             if(isInLinkStateInfo(lsp))
             {
               if(isUpdatedLSP(lsp))
@@ -313,15 +313,7 @@ implementation{
 
 
               
-            if(call RoutingTable1.get(myMsg->src))
-              {
-                 //tableLS a;
-                 //a = call RoutingTable.get(myMsg->src);
-                dbg(ROUTING_CHANNEL,"Sending package to next hop %d n",call RoutingTable1.get(myMsg->src));
-                 call Sender.send(sendPackage,call RoutingTable1.get(myMsg->src));//destination is one 
-              }
-               else
-                dbg(ROUTING_CHANNEL, "Path not found.\n");
+           
               
             }
 
@@ -375,9 +367,7 @@ implementation{
 
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
     
-     // tableLS route;
-     // tableLS* temp;
-    //  route = call RoutingTable.get(destination);
+    /*  
      dbg(GENERAL_CHANNEL, "PING EVENT \n");
      dbg(FLOODING_CHANNEL,"source: %d \n",TOS_NODE_ID);
      dbg(FLOODING_CHANNEL,"destination: %d \n",destination);
@@ -390,6 +380,15 @@ implementation{
      sequenceNumber++;
      pushPack(sendPackage);//send package to the cache
      call Sender.send(sendPackage,AM_BROADCAST_ADDR);
+     */
+
+     uint8_t nextHop = call LinkStateRouting.getNextHopTo(destination);
+     dbg(GENERAL_CHANNEL, "PING EVENT \n");
+     makePack(&sendPackage, TOS_NODE_ID, destination, 0, 0, 0, payload, PACKET_MAX_PAYLOAD_SIZE);
+     call Sender.send(sendPackage, nextHop);
+
+
+
 
     // dbg(ROUTING_CHANNEL,"after push packet\n");
      
