@@ -770,37 +770,6 @@ implementation{
     }
 
 
-     void updateLSTable(uint8_t * payload, uint16_t source){
-        uint8_t * temp = payload;
-        uint16_t length = strlen((char *)payload);            
-        uint16_t i = 0;
-        char buffer[5];
-        dbg(GENERAL_CHANNEL,"Before while \n");
-        while (i < length){
-            if(*(temp + 1) == ','){
-            dbg(GENERAL_CHANNEL,"inside if \n");
-                memcpy(buffer, temp, 1);
-                temp += 2;
-                i += 2;
-                buffer[1] = '\0';
-            }else if(*(temp + 2) == ','){
-               memcpy(buffer, temp, 2);
-                temp += 3;
-                i += 3;
-                buffer[2] = '\0';
-            }
-            else{
-            dbg(GENERAL_CHANNEL,"after if \n");
-            dbg(GENERAL_CHANNEL,"Payload: %s: ", payload);
-                LSTable[source - 1][atoi(buffer) - 1] = 1;
-                }
-        }
-
-         dbg(GENERAL_CHANNEL,"after while \n");
-
-        computeDijkstra();
-    }
-
 
     void computeDijkstra()
     {
