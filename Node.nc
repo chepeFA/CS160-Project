@@ -126,6 +126,10 @@ implementation{
    void updateLSP(LSP lsp);
    void updateAgesNodes();
    uint8_t posInTentative(uint8_t nodeid);
+   bool isNextHop(uint8_t id);
+   uint8_t findNextHopTo(uint8_t dest);
+   bool inTentative(uint8_t);
+   bool inConfirmed(uint8_t);
 
 
 
@@ -832,7 +836,7 @@ implementation{
     tableLS entry;
     uint8_t i=0, size = call Tentative.size();
 
-    while(i < size;) {
+    while(i < size) {
       entry = call Tentative.get(i);
       if(entry.dest == nodeid) {
         return i;
@@ -840,6 +844,19 @@ implementation{
       i++;
     }
     return 0;
+  }
+
+    bool isNextHop(uint8_t id) {
+    uint8_t i=0, pos = getPos(TOS_NODE_ID);
+    LSP lsp = call LinkStateInfo.get(pos);
+
+    while(i < lsp.numNeighbors) {
+      if(lsp.neighbors[i] == id) {
+        return TRUE;
+      }
+      i++;
+    }
+    return FALSE;
   }
 
 
@@ -910,6 +927,35 @@ implementation{
     return FAIL;
   }
 
+    bool inTentative(uint8_t nodeid) {
+    tableLS entry;
+    uint8_t i=0, size = call Tentative.size();
+
+    while(i < size) {
+      entry = call Tentative.get(i);
+      if(entry.dest == nodeid) {
+        return TRUE;
+      }
+      i++;
+    }
+    return FALSE;
+  }
+
+
+    bool inConfirmed(uint8_t nodeid) {
+    tableLS entry;
+    uint8_t i=0, size = call Confirmed.size();
+
+    while(i < size) {
+      entry = call Confirmed.get(i);
+      if(entry.dest == nodeid) {
+        return TRUE;
+      }
+      i++;
+    }
+    return FALSE;
+  }
+
 
     bool isInLinkStateInfo(LSP lsp) {
     uint16_t size = call LinkStateInfo.size();
@@ -965,6 +1011,30 @@ implementation{
 
     call LinkStateInfo.replace(pos, lsp);
   }
+
+    uint8_t findNextHopTo(uint8_t dest) {
+    uint8_t k=0, j=0, size = call Confirmed.size();
+    uint8_t pos;
+    tableLS entry;
+    LSP lsp;
+    //For each entry in Confirmed
+    while(k < size) {
+      //Search that entrys neigbors for 'dest'
+      entry = call Confirmed.get(k);
+      pos = getPos(entry.dest);
+      lsp = call LinkStateInfo.get(pos);
+
+      while(j < lsp.numNeighbors) {
+        //If found, then return that entrys 'next_hop'
+        if(lsp.neighbors[j] == dest) {
+          return entry.next_hop;
+        }
+        j++;
+      }
+      k++;
+    }
+    return 0;
+  } 
 
   
 
