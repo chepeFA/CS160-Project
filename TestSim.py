@@ -151,7 +151,7 @@ def main():
     #s.runTime(10);
 
     s.routeDMP(8);
-    s.runTime(5);
+    s.runTime(10);
    # s.neighborDMP(3);#list of neighbor for node 1
     #s.ping(1, 3, "Hi");
     #s.runTime(10);
