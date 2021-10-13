@@ -142,7 +142,7 @@ def main():
     s.addChannel(s.ROUTING_CHANNEL);
 
     #s.runTime(20);
-    s.runTime(20);
+    s.runTime(10);
     #floding
     s.ping(1, 4, "Hello world");
     s.runTime(5);
