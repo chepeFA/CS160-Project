@@ -156,7 +156,8 @@ implementation{
          initLSTable();
          //start neighbor discovery and routing timer as soon as radio is on
       call NeighboorTimer.startPeriodic(10000);
-      floodLSP();
+
+      //floodLSP();
       call RoutingTimer.startOneShot(90000);
         
       }else{
@@ -178,6 +179,7 @@ implementation{
    event void RoutingTimer.fired()
    {
   // initLSTable();
+  floodLSP();
   computeDijkstra();
   updateAges();
 
