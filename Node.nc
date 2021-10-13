@@ -155,7 +155,7 @@ implementation{
          dbg(GENERAL_CHANNEL, "Radio On\n");
          initLSTable();
          //start neighbor discovery and routing timer as soon as radio is on
-      call NeighboorTimer.startPeriodic(100);
+      call NeighboorTimer.startPeriodic(200);
 
       //floodLSP();
       call RoutingTimer.startOneShot(90000);
