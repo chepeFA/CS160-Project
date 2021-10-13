@@ -415,6 +415,7 @@ implementation{
      dbg(GENERAL_CHANNEL, "PING EVENT \n");
      dbg(FLOODING_CHANNEL,"source: %d \n",TOS_NODE_ID);
      dbg(FLOODING_CHANNEL,"destination: %d \n",destination);
+     dbg(GENERAL_CHANNEL,"what we got after consulting routing table is: %d",call RoutingTable.get(destination))
      makePack(&sendPackage, TOS_NODE_ID, destination, 0, PROTOCOL_PING, 0, payload, PACKET_MAX_PAYLOAD_SIZE);
      call Sender.send(sendPackage,route.nextHop);
 
