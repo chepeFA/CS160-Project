@@ -634,7 +634,7 @@ implementation{
     uint32_t *keys = call RoutingTable.getKeys();
 
     //printf("\n\t\t\t    Routing Table for node %d\n", TOS_NODE_ID);
-    dbg(ROUTING_CHANNEL,"Routing Table for node %d \n Destination: %d \t Cost: %d \t Next Hop: %d \n"TOS_NODE_ID);
+    dbg(ROUTING_CHANNEL,"Routing Table for node %d \n Destination: %d \t Cost: %d \t Next Hop: %d \n",TOS_NODE_ID);
     while(i < size) {
       entry = call RoutingTable.get(keys[i]);
      // printf("(%d, %d, %d)\", entry.destination, entry.cost, entry.nextHop);
