@@ -944,6 +944,7 @@ implementation{
 
     void floodLSP() {
     LSP myLSP;
+    uint8_t zzz=0;
     pack myPack;
     neighboorDiscovery nd;
     uint16_t a;
@@ -969,6 +970,11 @@ implementation{
     for(i = 0; i < numNeighbors; i++) {
       myLSP.neighbors[i] = neighbors[i];
       dbg(GENERAL_CHANNEL,"Neighbors: %d", myLSP.neighbors[i]);
+      zzz++;
+      if(zzz>10)
+      {
+        break;
+      }
     }
     myLSP.age = 5;
 
