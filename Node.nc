@@ -445,7 +445,7 @@ implementation{
    }
 
    event void CommandHandler.printRouteTable(){
-  // printLinkStateInfo();
+  printLinkStateInfo();
    printRoutingTable();
   
    }
@@ -1159,6 +1159,7 @@ implementation{
       printf("\t\t\t\tNode %2d sent [ ", lsp.id);
       while(j < lsp.numNeighbors) {
         printf("%2d ", lsp.neighbors[j]);
+        j++;
       }
       printf("]\n");
       i++;
