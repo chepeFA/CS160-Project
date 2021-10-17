@@ -412,7 +412,7 @@ implementation{
      */
 
      tableLS route = call RoutingTable.get(destination);
-    uint8_t nextHop = route.nextHop;
+     uint8_t nextHop = route.nextHop;
      dbg(GENERAL_CHANNEL, "PING EVENT \n");
      dbg(FLOODING_CHANNEL,"source: %d \n",TOS_NODE_ID);
      dbg(FLOODING_CHANNEL,"destination: %d \n",destination);
@@ -554,11 +554,14 @@ implementation{
 
    bool isN(uint16_t src)
    {
+   uint16_t sizeList = call NeighboorList.size();
+   uint16_t i=0;
+   neighboorDiscovery nx;
 
-      //if(!call NeighboorList.isEmpty())
-      //{
-         neighboorDiscovery nx;
-         uint16_t i, sizeList = call NeighboorList.size();
+      if(!call NeighboorList.isEmpty())
+      {
+         //neighboorDiscovery nx;
+        // uint16_t i, sizeList = call NeighboorList.size();
          
          i=0;
 
@@ -572,7 +575,7 @@ implementation{
             }
             i++;
          }
-      //}
+      }
       return FALSE;
    }
 
