@@ -276,7 +276,7 @@ implementation{
                 neighboor = call NeighboorPool.get();
                 neighboor->node = myMsg->src;
                 neighboor->age=0;
-                call NeighboorList.pushback(&neighboor);
+                call NeighboorList.pushback(*neighboor);
                 }
          }
 
