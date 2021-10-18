@@ -368,7 +368,7 @@ implementation{
             pushPack(sendPackage);
 
            //working from pj 1 
-           //call Sender.send(sendPackage, AM_BROADCAST_ADDR);
+           call Sender.send(sendPackage, AM_BROADCAST_ADDR);
           
 
            //if(call RoutingTable1.get(myMsg->dest))
