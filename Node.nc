@@ -462,23 +462,23 @@ implementation{
   uint16_t i=0;
   uint16_t age=0;
   uint16_t sizeList= call NeighboorList.size();
-  neighboorDiscovery* neighbor_ptr;
-  neighboorDiscovery* temp;
+  neighboorDiscovery neighbor_ptr;
+  neighboorDiscovery temp;
   while(i<sizeList)
   {
-  temp = call NeighboorList1.get(i);
-  temp->age++;
+  temp = call NeighboorList.get(i);
+  temp.age++;
   i++;
   }
 
   i=0;
   while(i<sizeList)
   {
-  temp = call NeighboorList1.get(i);
+  temp = call NeighboorList.get(i);
   age = temp->age;
   if(age>5)
   {
-    neighbor_ptr = call NeighboorList1.remove(i);
+    neighbor_ptr = call NeighboorList.remove(i);
     call NeighboorPool.put(neighbor_ptr);
     i--;
     sizeList--;
@@ -487,7 +487,7 @@ implementation{
   i++;
   }
   message = "help\n";
-  makePack(&Package,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t*) message, (uint8_t) sizeof(message));
+  makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t*) message, (uint8_t) sizeof(message));
   pushPack(Package);
   call Sender.send(Package, AM_BROADCAST_ADDR);
    }
