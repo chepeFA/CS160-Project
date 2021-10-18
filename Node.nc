@@ -237,7 +237,7 @@ implementation{
             //hearing back from a neighbor
             else if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
-            sizeList =call NeighboorList1.size();
+            sizeList =call NeighboorList.size();
            foundNeighbor=FALSE;
                //dbg(GENERAL_CHANNEL,"Received a package from %d", myMsg->src);
                i=0;
@@ -262,7 +262,7 @@ implementation{
                 */
                 while(i<sizeList)
                 {
-                neighboor_ptr = call NeighboorList1.get(i);
+                neighboor_ptr = call NeighboorList.get(i);
                 if(neighboor_ptr->node==myMsg->src)
                 {
                 neighboor_ptr->age=0;
