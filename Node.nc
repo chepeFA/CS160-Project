@@ -147,7 +147,6 @@ implementation{
 
       call AMControl.start();
       call NeighboorTimer.startPeriodic(20000);
-     
         dbg(GENERAL_CHANNEL, "Booted. \n");
    }
 
@@ -406,7 +405,7 @@ implementation{
    event void CommandHandler.printNeighbors(){
 
    printNeighborList();
-   // dbg(GENERAL_CHANNEL,"cost is: %d \n",cost);
+   //dbg(GENERAL_CHANNEL,"cost is: %d \n",cost);
 
    }
 
@@ -437,9 +436,10 @@ implementation{
    pack Package;
    char* message;
    neighboorDiscovery nd,t;
-    uint16_t i=0;
-    uint16_t sizeList= call NeighboorList.size();
-    dbg(NEIGHBOR_CHANNEL,"About to start finding neighbors \n";
+   uint16_t i=0;
+  uint16_t sizeList= call NeighboorList.size();
+  //dbg(NEIGHBOR_CHANNEL,"About to start finding neighbors \n";
+
     while(i<sizeList)
     {
       nd = call NeighboorList.get(i);
@@ -602,7 +602,8 @@ implementation{
    }
 
      
-          void printRoutingTable() {
+          void printRoutingTable()
+           {
     uint8_t i=0, size = call RoutingTable.size();
     tableLS entry;
 
