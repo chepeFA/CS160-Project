@@ -374,7 +374,7 @@ implementation{
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
     
   dbg(GENERAL_CHANNEL,"Ping command was enabled \n");
-  findNeighboors();
+  //findNeighboors();
 
    }
 
