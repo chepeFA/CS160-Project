@@ -414,7 +414,7 @@ implementation{
    neighboorDiscovery nd,t;
    uint16_t i=0;
   uint16_t sizeList= call NeighboorList.size();
- // dbg(GENERAL_CHANNEL,"About to start finding neighbors\n");
+ //dbg(GENERAL_CHANNEL,"About to start finding neighbors\n");
 
     while(i<sizeList)
     {
@@ -429,7 +429,7 @@ implementation{
     while(i<sizeList)
     {
       t = call NeighboorList.get(i);
-      if(t.age>5)
+      if(t.age>3)
       {
          call NeighboorList.remove(i);
          sizeList--;
@@ -445,7 +445,7 @@ implementation{
    
 
 
-   message = "help";
+   message = "help\n";
    makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,0,(uint8_t *)message,(uint8_t) sizeof(message));
    pushPack(Package);
    call Sender.send(Package,AM_BROADCAST_ADDR);
