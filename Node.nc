@@ -146,7 +146,7 @@ implementation{
    event void Boot.booted(){
 
       call AMControl.start();
-      call NeighboorTimer.startPeriodic(10000);
+      call NeighboorTimer.startPeriodic(20000);
      
         dbg(GENERAL_CHANNEL, "Booted. \n");
    }
