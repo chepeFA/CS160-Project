@@ -213,7 +213,7 @@ implementation{
            
             bool foundNeighbor;
             uint16_t i,sizeList;
-            neighboorDiscovery* neighboor, *ttemp, *a;
+            neighboorDiscovery* neighboor, *neighboor_ptr, *a;
             neighboorDiscovery nd,n;
            // dbg(GENERAL_CHANNEL,"In destination broadcast \n");
 
@@ -237,7 +237,7 @@ implementation{
             //hearing back from a neighbor
             else if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
-            sizeList =call NeighboorList.size();
+            sizeList =call NeighboorList1.size();
            foundNeighbor=FALSE;
                //dbg(GENERAL_CHANNEL,"Received a package from %d", myMsg->src);
                i=0;
@@ -262,10 +262,10 @@ implementation{
                 */
                 while(i<sizeList)
                 {
-                nd = call NeighboorList.get(i);
-                if(nd.node==myMsg->src)
+                neighboor_ptr = call NeighboorList1.get(i);
+                if(neighboor_ptr->node==myMsg->src)
                 {
-                nd.age=0;
+                nd->age=0;
                 foundNeighbor=TRUE;
                 }
                 i++;
@@ -409,7 +409,7 @@ implementation{
 
    event void CommandHandler.printRouteTable(){
   printLinkStateInfo();
-   printRoutingTable();
+  printRoutingTable();
   
    }
 
@@ -960,6 +960,7 @@ implementation{
     uint8_t zzz=0;
     pack myPack;
     neighboorDiscovery nd;
+    neighboorDiscovery* nd;
     uint16_t a;
     uint8_t *neighbors;
 

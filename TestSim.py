@@ -147,46 +147,46 @@ def main():
     s.ping(1, 8, "Hello world");
     s.runTime(20);
     #testing neighboor discovery
-    #s.neighborDMP(1);
-    #s.runTime(5);
-
-    #s.neighborDMP(2);
-    #s.runTime(5);
-
-    #s.neighborDMP(3);
-    #s.runTime(5);
-
-    #s.neighborDMP(4);
-    #s.runTime(5);
-
-    #s.neighborDMP(5);
-    #s.runTime(5);
-
-    #s.neighborDMP(6);
-    #s.runTime(5);
-
-    #s.neighborDMP(7);
-    #s.runTime(5);
-
-    #s.neighborDMP(8);
-    #s.runTime(5);
-
-    #s.neighborDMP(9);
-    #s.runTime(5);
-    #s.neighborDMP(2);#list of neighbor for node 4
-    #s.runTime(1);
-
-    #s.neighborDMP(8);#list of neighbor for node 4
-    #s.runTime(1);
-
-    #s.routeDMP(1);
-    #s.runTime(5);
-
-    #s.routeDMP(2);
-    #s.runTime(5);
-
-    s.routeDMP(3);
+    s.neighborDMP(1);
     s.runTime(5);
+
+    s.neighborDMP(2);
+    s.runTime(5);
+
+    s.neighborDMP(3);
+    s.runTime(5);
+
+    s.neighborDMP(4);
+    s.runTime(5);
+
+    s.neighborDMP(5);
+    s.runTime(5);
+
+    s.neighborDMP(6);
+    s.runTime(5);
+
+    s.neighborDMP(7);
+    s.runTime(5);
+
+    s.neighborDMP(8);
+    s.runTime(5);
+
+    s.neighborDMP(9);
+    s.runTime(5);
+    s.neighborDMP(2);#list of neighbor for node 4
+    s.runTime(1);
+
+    s.neighborDMP(8);#list of neighbor for node 4
+    s.runTime(1);
+
+    s.routeDMP(1);
+    s.runTime(5);
+
+    s.routeDMP(2);
+    s.runTime(5);
+
+    #s.routeDMP(3);
+    #s.runTime(5);
 
     #s.routeDMP(4);
     #s.runTime(5);
