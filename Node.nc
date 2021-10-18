@@ -226,7 +226,7 @@ implementation{
 
                //sequenceNumber++;
                pushPack(sendPackage);
-               dbg(GENERAL_CHANNEL,"Sending to: \n",myMsg->src);
+             //  dbg(GENERAL_CHANNEL,"Sending to: \n",myMsg->src);
                call Sender.send(sendPackage, myMsg->src);
                 //dbg(FLOODING_CHANNEL," packet from %d, destination %d \n",myMsg->src,myMsg->dest);
              // call Sender.send(sendPackage, AM_BROADCAST_ADDR);
