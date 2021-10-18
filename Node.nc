@@ -210,12 +210,12 @@ implementation{
          else if(myMsg->dest == AM_BROADCAST_ADDR)
          {
           
-         dbg(GENERAL_CHANNEL,"In destination broadcast \n");
+           
             bool foundNeighbor;
             uint16_t i,sizeList;
             neighboorDiscovery* neighboor, *ttemp, *a;
             neighboorDiscovery nd,n;
-           
+           dbg(GENERAL_CHANNEL,"In destination broadcast \n");
 
             if(myMsg->protocol == PROTOCOL_PING)
             {
