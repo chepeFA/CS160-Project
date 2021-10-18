@@ -215,7 +215,7 @@ implementation{
             uint16_t i,sizeList;
             neighboorDiscovery* neighboor, *ttemp, *a;
             neighboorDiscovery nd,n;
-           dbg(GENERAL_CHANNEL,"In destination broadcast \n");
+            dbg(GENERAL_CHANNEL,"In destination broadcast \n");
 
             if(myMsg->protocol == PROTOCOL_PING)
             {
@@ -263,7 +263,7 @@ implementation{
       }
          else if(myMsg->dest == TOS_NODE_ID) //this package is for me
          {
-         dbg(GENERAL_CHANNEL,"In destination TOS_NODE_ID \n");
+          dbg(GENERAL_CHANNEL,"In destination TOS_NODE_ID \n");
            // cost++;
             dbg(FLOODING_CHANNEL," packet from %d.payload: %s \n",myMsg->src,myMsg->payload);
             
@@ -372,7 +372,7 @@ implementation{
 
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
     
-  
+  dbg(GENERAL_CHANNEL,"Ping command was enabled \n");
 
    }
 
