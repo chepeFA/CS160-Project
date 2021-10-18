@@ -439,6 +439,7 @@ implementation{
    neighboorDiscovery nd,t;
     uint16_t i=0;
     uint16_t sizeList= call NeighboorList.size();
+    dbg(GENERAL_CHANNEL,"About to start finding neighbors \n";
     while(i<sizeList)
     {
       nd = call NeighboorList.get(i);
@@ -468,7 +469,7 @@ implementation{
    
 
 
-   message = "neighboor";
+   message = "n";
    makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t) sizeof(message));
    pushPack(Package);
    call Sender.send(Package,AM_BROADCAST_ADDR);
