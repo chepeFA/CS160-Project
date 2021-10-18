@@ -238,7 +238,7 @@ implementation{
             else if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
             sizeList =call NeighboorList.size();
-           
+           foundNeighbor=FALSE;
                //dbg(GENERAL_CHANNEL,"Received a package from %d", myMsg->src);
                i=0;
                //new neighbor
@@ -263,8 +263,20 @@ implementation{
                 while(i<sizeList)
                 {
                 nd = call NeighboorList.get(i);
-
+                if(nd.node==myMsg->src)
+                {
+                nd.age=0;
+                foundNeighbor=TRUE;
+                }
                 i++;
+                }
+
+                if(!foundNeighbor)
+                {
+                n = call NeighboorPool.get();
+                n.node = myMsg->src;
+                n.age=0;
+                call NeighboorList.pushback(n);
                 }
          }
 
@@ -418,7 +430,7 @@ implementation{
 
    void findNeighboors()
    {
-   
+   /*
    pack Package;
    char* message;
    neighboorDiscovery nd,t;
@@ -460,51 +472,43 @@ implementation{
    pushPack(Package);
    call Sender.send(Package,AM_BROADCAST_ADDR);
    //void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
-   
-
-   /*
-   pack Package;
-   char* message;
-   neighboorDiscovery nd,t;
- 
-
-   if(!call NeighboorList.isEmpty())
-   {
-  uint16_t i=0;
-  uint16_t age=0;
-  uint16_t sizeList= call NeighboorList.size();
-  neighboorDiscovery neighbor_ptr;
-  neighboorDiscovery temp;
-  while(i<sizeList)
-  {
-  temp = call NeighboorList.get(i);
-  temp.age++;
-  i++;
-  }
-
-  i=0;
-  while(i<sizeList)
-  {
-  temp = call NeighboorList.get(i);
-  age = temp->age;
-  if(age>5)
-  {
-    neighbor_ptr = call NeighboorList.remove(i);
-    call NeighboorPool.put(neighbor_ptr);
-    i--;
-    sizeList--;
-  }
-
-  i++;
-  }
-  message = "help\n";
-  makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t*) message, (uint8_t) sizeof(message));
-  pushPack(Package);
-  call Sender.send(Package, AM_BROADCAST_ADDR);
-   }
-
    */
 
+   //beg of the function
+   pack Package;
+    char* message;
+
+    if(!call NeighborList.isEmpty()) {
+      uint16_t size = call NeighborList.size();
+      uint16_t i = 0;
+      uint16_t age = 0;
+      neighboorDiscovery neighbor_ptr,temp;
+     
+      //Age the NeighborList
+      for(i = 0; i < size; i++) {
+        temp = call NeighborList.get(i);
+        temp.Age+=1;
+      }
+
+      for(i = 0; i < size; i++) {
+        temp = call NeighboorList.get(i);
+        age = temp.Age;
+        if(age > 5) {
+          neighbor_ptr = call NeighborList.remove(i);
+          //dbg("Project1N", "Node %d is older than 5 pings, dropping from list\n", neighbor_ptr->Node);
+          call NeighborPool.put(neighbor_ptr);
+          i--;
+          size--;
+        }
+      }
+    }
+
+
+   //end of the function
+    message = "help\n";
+   makePack(&Package,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t) sizeof(message));
+   pushPack(Package);
+   call Sender.send(Package,AM_BROADCAST_ADDR);
 
    }
 
