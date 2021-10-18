@@ -408,7 +408,7 @@ implementation{
 
    void findNeighboors()
    {
-   /*
+   
    pack Package;
    char* message;
    neighboorDiscovery nd,t;
@@ -449,9 +449,10 @@ implementation{
    makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t) sizeof(message));
    pushPack(Package);
    call Sender.send(Package,AM_BROADCAST_ADDR);
-   //   void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
-   */
+   //void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
+   
 
+   /*
    pack Package;
    char* message;
    neighboorDiscovery nd,t;
@@ -491,6 +492,8 @@ implementation{
   pushPack(Package);
   call Sender.send(Package, AM_BROADCAST_ADDR);
    }
+
+   */
 
 
    }
