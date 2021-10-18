@@ -417,11 +417,12 @@ implementation{
      dbg(FLOODING_CHANNEL,"source: %d \n",TOS_NODE_ID);
      dbg(FLOODING_CHANNEL,"destination: %d \n",destination);
      dbg(GENERAL_CHANNEL,"what we got after consulting routing table is: %d",nextHop);
+     dbg(GENERAL_CHANNEL,"route.nextHop is:",route.nextHop);
     // makePack(&sendPackage, TOS_NODE_ID, destination, 0, PROTOCOL_PING, 0, payload, PACKET_MAX_PAYLOAD_SIZE);
          makePack(&sendPackage, TOS_NODE_ID,destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
      sequenceNumber++;
      pushPack(sendPackage);//send package to the cache
-     call Sender.send(sendPackage,AM_BROADCAST_ADDR);
+     call Sender.send(sendPackage,route.nextHop);
 
 
 
