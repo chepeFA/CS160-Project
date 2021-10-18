@@ -146,8 +146,9 @@ implementation{
    event void Boot.booted(){
 
       call AMControl.start();
-      call NeighboorTimer.startPeriodic(20000);
+      
         dbg(GENERAL_CHANNEL, "Booted. \n");
+        call NeighboorTimer.startPeriodic(20000);
    }
 
    event void AMControl.startDone(error_t err){
@@ -432,7 +433,7 @@ implementation{
 
    void findNeighboors()
    {
-   dbg(GENERAL_CHANNEL,"About to start finding neighbors\n";
+   dbg(GENERAL_CHANNEL,"About to start finding neighbors\n");
    pack Package;
    char* message;
    neighboorDiscovery nd,t;
