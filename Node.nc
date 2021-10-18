@@ -156,7 +156,7 @@ implementation{
          dbg(GENERAL_CHANNEL, "Radio On\n");
       //   initLSTable();
          //start neighbor discovery and routing timer as soon as radio is on
-     call NeighboorTimer.startPeriodic(1000);
+     call NeighboorTimer.startPeriodic(10000);
 
       //floodLSP();
      // call RoutingTimer.startOneShot(90000);
@@ -237,10 +237,12 @@ implementation{
             //hearing back from a neighbor
             else if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
+            sizeList =call NeighboorList.size();
            
                //dbg(GENERAL_CHANNEL,"Received a package from %d", myMsg->src);
                i=0;
                //new neighbor
+               /*
              if(!isN(myMsg->src))//!isN(myMsg->src))//)//!isN(myMsg->src))
                {
                   //
@@ -255,6 +257,14 @@ implementation{
                   //pj2 
                  // nodeNeighborCost();
 
+
+                }
+                */
+                while(i<sizeList)
+                {
+                nd = call NeighboorList.get(i);
+
+                i++;
                 }
          }
 
