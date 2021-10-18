@@ -210,7 +210,7 @@ implementation{
          else if(myMsg->dest == AM_BROADCAST_ADDR)
          {
           
-
+         dbg(GENERAL_CHANNEL,"In destination broadcast \n");
             bool foundNeighbor;
             uint16_t i,sizeList;
             neighboorDiscovery* neighboor, *ttemp, *a;
@@ -221,8 +221,8 @@ implementation{
             {
               
               //cost++;
-             makePack(&sendPackage, TOS_NODE_ID,AM_BROADCAST_ADDR,myMsg->TTL-1, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
-            //  makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_PINGREPLY,  myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload));   
+            // makePack(&sendPackage, TOS_NODE_ID,AM_BROADCAST_ADDR,myMsg->TTL-1, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
+             makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload));   
 
                //sequenceNumber++;
                pushPack(sendPackage);
@@ -263,7 +263,7 @@ implementation{
       }
          else if(myMsg->dest == TOS_NODE_ID) //this package is for me
          {
-
+         dbg(GENERAL_CHANNEL,"In destination TOS_NODE_ID \n");
            // cost++;
             dbg(FLOODING_CHANNEL," packet from %d.payload: %s \n",myMsg->src,myMsg->payload);
             
@@ -288,7 +288,7 @@ implementation{
                //dbg(FLOODING_CHANNEL," packet from %d, destination %d \n",myMsg->src,myMsg->dest);
              
               //working on 10.08 as part of pj1
-            call Sender.send(sendPackage,AM_BROADCAST_ADDR);
+              call Sender.send(sendPackage,AM_BROADCAST_ADDR);
 
 
               
@@ -338,7 +338,7 @@ implementation{
          b = call RoutingTable.get(myMsg->src);
             //cost++;
            //makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL-1, myMsg->protocol, myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload)); 
-            makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL-1, myMsg->protocol, myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload));
+            makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL, myMsg->protocol, myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload));
             //dbg(FLOODING_CHANNEL,"Rebroadcasting again. We are in node:  %d, going to,  Destination: %d \n",TOS_NODE_ID,myMsg->dest);
             pushPack(sendPackage);
 
