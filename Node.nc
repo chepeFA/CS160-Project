@@ -193,7 +193,7 @@ implementation{
    {
    tableLS route[1];
    
-      dbg(GENERAL_CHANNEL, "Packet Received\n");
+     // dbg(GENERAL_CHANNEL, "Packet Received\n");
       if(len==sizeof(pack))
       {
          pack* myMsg=(pack*) payload;
@@ -373,8 +373,11 @@ implementation{
 
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
     
-  dbg(GENERAL_CHANNEL,"Ping command was enabled \n");
-  //findNeighboors();
+  makePack(&sendPackage, TOS_NODE_ID,destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
+     sequenceNumber++;
+ pushPack(sendPackage);
+     call Sender.send(sendPackage,AM_BROADCAST_ADDR);//destination);
+    
 
    }
 
@@ -416,7 +419,7 @@ implementation{
    neighboorDiscovery nd,t;
    uint16_t i=0;
    uint16_t sizeList= call NeighboorList.size();
- dbg(GENERAL_CHANNEL,"About to start finding neighbors\n");
+ //dbg(GENERAL_CHANNEL,"About to start finding neighbors\n");
 
     while(i<sizeList)
     {
