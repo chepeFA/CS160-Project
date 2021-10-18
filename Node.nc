@@ -156,9 +156,9 @@ implementation{
          dbg(GENERAL_CHANNEL, "Radio On\n");
       //   initLSTable();
          //start neighbor discovery and routing timer as soon as radio is on
-     call NeighboorTimer.startPeriodic(10000);
+       call NeighboorTimer.startPeriodic(10000);
 
-    //  floodLSP();
+    //floodLSP();
       //call RoutingTimer.startOneShot(80000);
         
       }else{
@@ -276,7 +276,7 @@ implementation{
                 neighboor = call NeighboorPool.get();
                 neighboor->node = myMsg->src;
                 neighboor->age=0;
-                call NeighboorList.pushback(*neighboor);
+                call NeighboorList1.pushback(neighboor);
                 }
          }
 
