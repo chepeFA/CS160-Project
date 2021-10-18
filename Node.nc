@@ -478,23 +478,23 @@ implementation{
    pack Package;
     char* message;
 
-    if(!call NeighboorList.isEmpty()) {
-      uint16_t size = call NeighboorList.size();
+    if(!call NeighboorList1.isEmpty()) {
+      uint16_t size = call NeighboorList1.size();
       uint16_t i = 0;
       uint16_t age = 0;
-      neighboorDiscovery neighbor_ptr,temp;
+      neighboorDiscovery* neighbor_ptr,temp;
      
       //Age the NeighborList
       for(i = 0; i < size; i++) {
-        temp = call NeighboorList.get(i);
-        temp.age+=1;
+        temp = call NeighboorList1.get(i);
+        temp.age->++;
       }
 
       for(i = 0; i < size; i++) {
-        temp = call NeighboorList.get(i);
-        age = temp.age;
+        temp = call NeighboorList1.get(i);
+        age = temp-?age;
         if(age > 5) {
-          neighbor_ptr = call NeighboorList.remove(i);
+          neighbor_ptr = call NeighboorList1.remove(i);
           //dbg("Project1N", "Node %d is older than 5 pings, dropping from list\n", neighbor_ptr->Node);
           call NeighboorPool.put(neighbor_ptr);
           i--;
