@@ -494,7 +494,7 @@ implementation{
         temp = call NeighboorList.get(i);
         age = temp.age;
         if(age > 5) {
-          neighbor_ptr = call NeighborList.remove(i);
+          neighbor_ptr = call NeighboorList.remove(i);
           //dbg("Project1N", "Node %d is older than 5 pings, dropping from list\n", neighbor_ptr->Node);
           call NeighboorPool.put(*neighbor_ptr);
           i--;
