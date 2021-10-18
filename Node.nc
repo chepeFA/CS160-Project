@@ -146,6 +146,7 @@ implementation{
    event void Boot.booted(){
 
       call AMControl.start();
+      call NeighboorTimer.startPeriodic(10000);
      
         dbg(GENERAL_CHANNEL, "Booted. \n");
    }
@@ -155,10 +156,10 @@ implementation{
          dbg(GENERAL_CHANNEL, "Radio On\n");
       //   initLSTable();
          //start neighbor discovery and routing timer as soon as radio is on
-      call NeighboorTimer.startPeriodic(10000);
+     // call NeighboorTimer.startPeriodic(10000);
 
       //floodLSP();
-      call RoutingTimer.startOneShot(90000);
+     // call RoutingTimer.startOneShot(90000);
         
       }else{
          //Retry until successful
