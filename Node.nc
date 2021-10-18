@@ -479,7 +479,7 @@ implementation{
   if(age>5)
   {
     neighbor_ptr = call NeighboorList1.remove(i);
-    call NeigboorPool.put(neighbor_ptr);
+    call NeighboorPool.put(neighbor_ptr);
     i--;
     sizeList--;
   }
