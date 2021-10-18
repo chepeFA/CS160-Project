@@ -265,7 +265,7 @@ implementation{
                 neighboor_ptr = call NeighboorList1.get(i);
                 if(neighboor_ptr->node==myMsg->src)
                 {
-                nd->age=0;
+                neighboor_ptr->age=0;
                 foundNeighbor=TRUE;
                 }
                 i++;
@@ -960,7 +960,7 @@ implementation{
     uint8_t zzz=0;
     pack myPack;
     neighboorDiscovery nd;
-    neighboorDiscovery* nd;
+    neighboorDiscovery* ndd;
     uint16_t a;
     uint8_t *neighbors;
 
