@@ -464,6 +464,28 @@ implementation{
   uint16_t sizeList= call NeighboorList.size();
   neighboorDiscovery* neighbor_ptr;
   neighboorDiscovery* temp;
+  while(i<sizeList)
+  {
+  temp = call NeighboorList1.get(i);
+  temp->age++;
+  i++;
+  }
+
+  i=0;
+  while(i<sizeList)
+  {
+  temp = call NeighboorList1.get(i);
+  age = temp->age;
+  if(age>5)
+  {
+    neighbor_ptr = call NeighboorList1.remove(i);
+    call NeigboorPool.put(neighbor_ptr);
+    i--;
+    sizeList--;
+  }
+
+  i++;
+  }
    }
 
 
