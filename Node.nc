@@ -486,7 +486,7 @@ implementation{
      
       //Age the NeighborList
       for(i = 0; i < size; i++) {
-        temp = call NeighborList.get(i);
+        temp = call NeighboorList.get(i);
         temp.age+=1;
       }
 
