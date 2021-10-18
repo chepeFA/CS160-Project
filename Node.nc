@@ -158,8 +158,8 @@ implementation{
          //start neighbor discovery and routing timer as soon as radio is on
      call NeighboorTimer.startPeriodic(10000);
 
-      //floodLSP();
-     // call RoutingTimer.startOneShot(90000);
+      floodLSP();
+      call RoutingTimer.startOneShot(80000);
         
       }else{
          //Retry until successful
