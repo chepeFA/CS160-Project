@@ -221,8 +221,8 @@ implementation{
             {
               
               //cost++;
-             // makePack(&sendPackage, TOS_NODE_ID,AM_BROADCAST_ADDR,myMsg->TTL-1, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
-              makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_PINGREPLY,  myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload));   
+             makePack(&sendPackage, TOS_NODE_ID,AM_BROADCAST_ADDR,myMsg->TTL-1, PROTOCOL_PINGREPLY, myMsg->seq, (uint8_t *) myMsg->payload, sizeof(myMsg->payload));
+            //  makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_PINGREPLY,  myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload));   
 
                //sequenceNumber++;
                pushPack(sendPackage);
@@ -247,7 +247,7 @@ implementation{
                   n.node = myMsg->src;
                   n.age=0;
                   call NeighboorList.pushback(n);
-                   LSTable[TOS_NODE_ID - 1][myMsg->src - 1] = 1;
+                //   LSTable[TOS_NODE_ID - 1][myMsg->src - 1] = 1;
                     //sendLSPacket();
 
 
@@ -258,32 +258,7 @@ implementation{
          }
 
          
-         else if(myMsg->protocol == PROTOCOL_LINKSTATE)
-         {
-        
-         // dbg(ROUTING_CHANNEL,"In protocol link state \n");
-            if(isInLinkStateInfo(lsp))
-            {
-              if(isUpdatedLSP(lsp))
-              {
-
-                updateLSP(lsp);
-              }
-              else
-              {
-               return msg;
-              }
-            }
-            else
-            {
-            addLSP(lsp);
-
-
-            }
-
-            //sortLinkStateInfo();
-
-         }  
+       
          
       }
          else if(myMsg->dest == TOS_NODE_ID) //this package is for me
@@ -313,7 +288,7 @@ implementation{
                //dbg(FLOODING_CHANNEL," packet from %d, destination %d \n",myMsg->src,myMsg->dest);
              
               //working on 10.08 as part of pj1
-            //  call Sender.send(sendPackage,AM_BROADCAST_ADDR);
+            call Sender.send(sendPackage,AM_BROADCAST_ADDR);
 
 
               
