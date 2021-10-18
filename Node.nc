@@ -421,7 +421,7 @@ implementation{
          makePack(&sendPackage, TOS_NODE_ID,destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
      sequenceNumber++;
      pushPack(sendPackage);//send package to the cache
-     call Sender.send(sendPackage,route.nextHop);
+     call Sender.send(sendPackage,AM_BROADCAST_ADDR);
 
 
 
