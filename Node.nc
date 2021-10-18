@@ -157,7 +157,7 @@ implementation{
          //start neighbor discovery and routing timer as soon as radio is on
       call NeighboorTimer.startPeriodic(10000);
 
-      floodLSP();
+      //floodLSP();
       call RoutingTimer.startOneShot(90000);
         
       }else{
@@ -196,7 +196,7 @@ implementation{
       if(len==sizeof(pack))
       {
          pack* myMsg=(pack*) payload;
-         neighboorDiscovery *nnn;
+        neighboorDiscovery *nnn;
         LSP* receivedLSP = (LSP*) myMsg->payload;
         LSP lsp = *receivedLSP;
       
@@ -242,12 +242,12 @@ implementation{
              if(!isN(myMsg->src))//!isN(myMsg->src))//)//!isN(myMsg->src))
                {
                   //
-                  nodeNeighborCost();
+                  //nodeNeighborCost();
                   n.node = myMsg->src;
                   n.age=0;
                   call NeighboorList.pushback(n);
                    LSTable[TOS_NODE_ID - 1][myMsg->src - 1] = 1;
-                    sendLSPacket();
+                    //sendLSPacket();
 
 
                   //pj2 
@@ -293,10 +293,10 @@ implementation{
             
            // temp=cost;
 
-            if(myMsg->protocol != PROTOCOL_CMD)
-            {
-             pushPack(*myMsg);
-            }
+          //  if(myMsg->protocol != PROTOCOL_CMD)
+            //{
+            // pushPack(*myMsg);
+            //}
 
             if(myMsg->protocol == PROTOCOL_PING)
             {
@@ -325,7 +325,7 @@ implementation{
 
               dbg(NEIGHBOR_CHANNEL,"Ping is coming from %d \n",myMsg->src);
             }  
-
+            /*
             else if(myMsg->protocol == PROTOCOL_LINKSTATE)
          {
         
@@ -350,7 +350,7 @@ implementation{
 
             //sortLinkStateInfo();
 
-         }   
+         }   */
 
 
             
@@ -367,7 +367,7 @@ implementation{
             pushPack(sendPackage);
 
            //working from pj 1 
-           call Sender.send(sendPackage, AM_BROADCAST_ADDR);
+           //call Sender.send(sendPackage, AM_BROADCAST_ADDR);
           
 
            //if(call RoutingTable1.get(myMsg->dest))
@@ -396,45 +396,6 @@ implementation{
 
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
     
-    /*  
-     dbg(GENERAL_CHANNEL, "PING EVENT \n");
-     dbg(FLOODING_CHANNEL,"source: %d \n",TOS_NODE_ID);
-     dbg(FLOODING_CHANNEL,"destination: %d \n",destination);
-     itlAdd = TOS_NODE_ID;
-     fnlAdd= destination;
-
-     
-     
-     makePack(&sendPackage, TOS_NODE_ID,destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
-     sequenceNumber++;
-     pushPack(sendPackage);//send package to the cache
-     call Sender.send(sendPackage,AM_BROADCAST_ADDR);
-     */
-
-     tableLS route = call RoutingTable.get(destination);
-     uint8_t nextHop = route.nextHop;
-     dbg(GENERAL_CHANNEL, "PING EVENT \n");
-     dbg(FLOODING_CHANNEL,"source: %d \n",TOS_NODE_ID);
-     dbg(FLOODING_CHANNEL,"destination: %d \n",destination);
-     dbg(GENERAL_CHANNEL,"what we got after consulting routing table is: %d",nextHop);
-     dbg(GENERAL_CHANNEL,"route.nextHop is:",route.nextHop);
-    // makePack(&sendPackage, TOS_NODE_ID, destination, 0, PROTOCOL_PING, 0, payload, PACKET_MAX_PAYLOAD_SIZE);
-         makePack(&sendPackage, TOS_NODE_ID,destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
-     sequenceNumber++;
-     pushPack(sendPackage);//send package to the cache
-     call Sender.send(sendPackage,route.nextHop);
-
-
-
-
-    // dbg(ROUTING_CHANNEL,"after push packet\n");
-     
-     // route = call RoutingTable.get(temp[0].destination);
-     
-
-
-     //Project 1 sender all Sender.send(sendPackage,AM_BROADCAST_ADDR);//destination);
-   
   
 
    }
@@ -506,8 +467,8 @@ implementation{
    
 
 
-   message = "\n";
-   makePack(&Package,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t) sizeof(message));
+   message = "neighboor";
+   makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,2,PROTOCOL_PING,1,(uint8_t *)message,(uint8_t) sizeof(message));
    pushPack(Package);
    call Sender.send(Package,AM_BROADCAST_ADDR);
    //   void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t Protocol, uint16_t seq, uint8_t *payload, uint8_t length);
