@@ -260,12 +260,12 @@ implementation{
 
                 }
                 */
-                while(i<sizeList)
+               while(i<sizeList)
                 {
-                neighboor_ptr = call NeighboorList.get(i);
-                if(neighboor_ptr->node==myMsg->src)
+                nd = call NeighboorList.get(i);
+                if(nd.node==myMsg->src)
                 {
-                neighboor_ptr->age=0;
+                nd.age=0;
                 foundNeighbor=TRUE;
                 }
                 i++;
@@ -276,7 +276,7 @@ implementation{
                 neighboor = call NeighboorPool.get();
                 neighboor->node = myMsg->src;
                 neighboor->age=0;
-                call NeighboorList1.pushback(neighboor);
+                call NeighboorList.pushback(*neighboor);
                 }
          }
 
