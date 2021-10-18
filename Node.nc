@@ -273,10 +273,10 @@ implementation{
 
                 if(!foundNeighbor)
                 {
-                n = call NeighboorPool.get();
-                n.node = myMsg->src;
-                n.age=0;
-                call NeighboorList.pushback(n);
+                neighboor = call NeighboorPool.get();
+                neighboor->node = myMsg->src;
+                neighboor->age=0;
+                call NeighboorList.pushback(&neighboor);
                 }
          }
 
@@ -478,7 +478,7 @@ implementation{
    pack Package;
     char* message;
 
-    if(!call NeighborList.isEmpty()) {
+    if(!call NeighboorList.isEmpty()) {
       uint16_t size = call NeighborList.size();
       uint16_t i = 0;
       uint16_t age = 0;
@@ -487,16 +487,16 @@ implementation{
       //Age the NeighborList
       for(i = 0; i < size; i++) {
         temp = call NeighborList.get(i);
-        temp.Age+=1;
+        temp.age+=1;
       }
 
       for(i = 0; i < size; i++) {
         temp = call NeighboorList.get(i);
-        age = temp.Age;
+        age = temp.age;
         if(age > 5) {
           neighbor_ptr = call NeighborList.remove(i);
           //dbg("Project1N", "Node %d is older than 5 pings, dropping from list\n", neighbor_ptr->Node);
-          call NeighborPool.put(neighbor_ptr);
+          call NeighboorPool.put(neighbor_ptr);
           i--;
           size--;
         }
