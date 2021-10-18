@@ -439,7 +439,7 @@ implementation{
    neighboorDiscovery nd,t;
     uint16_t i=0;
     uint16_t sizeList= call NeighboorList.size();
-    dbg(GENERAL_CHANNEL,"About to start finding neighbors \n";
+    dbg(NEIGHBOR_CHANNEL,"About to start finding neighbors \n";
     while(i<sizeList)
     {
       nd = call NeighboorList.get(i);
