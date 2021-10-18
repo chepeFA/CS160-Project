@@ -482,12 +482,13 @@ implementation{
       uint16_t size = call NeighboorList1.size();
       uint16_t i = 0;
       uint16_t age = 0;
-      neighboorDiscovery* neighbor_ptr,temp;
+      neighboorDiscovery* neighbor_ptr;
+      neighboorDiscovery* temp;
      
       //Age the NeighborList
       for(i = 0; i < size; i++) {
         temp = call NeighboorList1.get(i);
-        temp.age->++;
+        temp->age++;
       }
 
       for(i = 0; i < size; i++) {
