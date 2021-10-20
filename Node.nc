@@ -964,28 +964,34 @@ implementation{
     neighboorDiscovery nd;
     neighboorDiscovery* ndd;
     uint16_t a;
-    uint8_t *neighbors;
+   // uint8_t *neighbors;
 
     //Get a list of current neighbors
-    uint8_t i, numNeighbors = call NeighboorList.size(); 
+    uint8_t i=0, numNeighbors = call NeighboorList.size(); 
     dbg(GENERAL_CHANNEL,"Num of neighbors: \n",numNeighbors);
     //=NeighboorList;// call NeighborDiscovery.getNeighbors();
+
+    while(i<17)
+    {
+        neighboors[i]=0;
+        i++;
+    }
 
    a=0;
    while(a<numNeighbors)
    {
     nd = call NeighboorList.get(a);
     neighboors[a] = nd.node;
-    dbg(NEIGHBOR_CHANNEL,"Neighbor for node: %d,: %d, %d", TOS_NODE_ID, nd.node,neighboors[a]);
+   // dbg(NEIGHBOR_CHANNEL,"Neighbor for node: %d,: %d, %d", TOS_NODE_ID, nd.node,neighboors[a]);
    a++;
    }
-   neighbors = neighboors;
+  // neighbors = neighboors;
 
     //Encapsulate this list into a LSP
     myLSP.numNeighbors = numNeighbors;
     myLSP.id = TOS_NODE_ID;
     for(i = 0; i < numNeighbors; i++) {
-      myLSP.neighbors[i] = neighbors[i];
+      myLSP.neighbors[i] = neighboors[i];
     //  dbg(GENERAL_CHANNEL,"Neighbors: %d", myLSP.neighbors[i]);
       //zzz++;
       //if(zzz>10)
