@@ -1003,7 +1003,7 @@ implementation{
     myLSP.id = TOS_NODE_ID;
     for(i = 0; i < numNeighbors; i++) {
       myLSP.neighbors[i] = neighbors[i];
-  // dbg(GENERAL_CHANNEL,"Neighbors: %d", myLSP.neighbors[i]);
+   dbg(GENERAL_CHANNEL,"Neighbors: %d \n", myLSP.neighbors[i]);
       //zzz++;
       //if(zzz>10)
       //{
