@@ -205,7 +205,7 @@ implementation{
 
         if(myMsg->protocol==PROTOCOL_LINKSTATE)
         {
-          dbg(ROUTING_CHANNEL,"In protocol Linkstate \n");
+          //dbg(ROUTING_CHANNEL,"In protocol Linkstate \n");
         }
       
 
@@ -334,7 +334,7 @@ implementation{
             /*
             else if(myMsg->protocol == PROTOCOL_LINKSTATE)
          {
-        
+          dbg(ROUTING_CHANNEL,"In protocol Linkstate \n");
             if(isInLinkStateInfo(lsp))
             {
               if(isUpdatedLSP(lsp))
