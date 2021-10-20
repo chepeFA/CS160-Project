@@ -202,6 +202,7 @@ implementation{
         neighboorDiscovery *nnn;
         LSP* receivedLSP = (LSP*) myMsg->payload;
         LSP lsp = *receivedLSP;
+        dbg(ROUTING_CHANNEL,"LSP received: %s \n",lsp);
 
         if(myMsg->protocol==PROTOCOL_LINKSTATE)
         {
@@ -216,7 +217,7 @@ implementation{
               }
               else
               {
-              dbg(GENERAL_CHANNEL,"Message returned %s: \n",msg);
+             // dbg(GENERAL_CHANNEL,"Message returned %s: \n",msg);
                return msg;
               }
             }
