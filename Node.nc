@@ -202,6 +202,11 @@ implementation{
         neighboorDiscovery *nnn;
         LSP* receivedLSP = (LSP*) myMsg->payload;
         LSP lsp = *receivedLSP;
+
+        if(myMsg->protocol==PROTOCOL_LINKSTATE)
+        {
+          dbg(ROUTING_CHANNEL,"In protocol Linkstate \n");
+        }
       
 
          if(myMsg->TTL==0 || seenPackage(myMsg))
@@ -210,7 +215,7 @@ implementation{
          }
          
          else if(myMsg->dest == AM_BROADCAST_ADDR)
-         {
+      {
           
            
             bool foundNeighbor;
@@ -831,7 +836,7 @@ implementation{
     {
 
       currentPos = getPos(current.destination);
-      dbg(ROUTING_CHANNEL,"Current destination: %d \n",currentPos);
+      //dbg(ROUTING_CHANNEL,"Current destination: %d \n",currentPos);
       lsp = call LinkStateInfo.get(currentPos);
 
       while(i<lsp.numNeighbors)
