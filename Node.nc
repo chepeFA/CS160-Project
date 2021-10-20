@@ -961,31 +961,31 @@ implementation{
     LSP myLSP;
     uint8_t zzz=0;
     pack myPack;
-    neighboorDiscovery nd;
+    
     neighboorDiscovery* ndd;
     uint16_t a;
    // uint8_t *neighbors;
 
     //Get a list of current neighbors
     uint8_t i=0, numNeighbors = call NeighboorList.size(); 
-    dbg(GENERAL_CHANNEL,"Num of neighbors: \n",numNeighbors);
-    //=NeighboorList;// call NeighborDiscovery.getNeighbors();
+   // dbg(GENERAL_CHANNEL,"Num of neighbors: \n",numNeighbors);
+   
 
-    while(i<17)
-    {
-        neighboors[i]=0;
-        i++;
-    }
+ //   while(i<17)
+   // {
+     //   neighboors[i]=0;
+       // i++;
+    //}
 
    a=0;
    while(a<numNeighbors)
    {
-  // dbg(NEIGHBOR_CHANNEL,"Neighbor: %d, a: %d",TOS_NODE_ID,nd.node);
-    nd = call NeighboorList.get(a);
-  //  dbg(NEIGHBOR_CHANNEL,"Neighbor: %d, a: %d",TOS_NODE_ID,nd.node);
+ 
+    neighboorDiscovery nd = call NeighboorList.get(a);
+ 
     neighboors[a] = nd.node;
-   // dbg(NEIGHBOR_CHANNEL,"Neighbor for node: %d,: %d, %d", TOS_NODE_ID, nd.node,neighboors[a]);
-   a++;
+  
+     a++;
    }
   // neighbors = neighboors;
 
@@ -994,7 +994,7 @@ implementation{
     myLSP.id = TOS_NODE_ID;
     for(i = 0; i < numNeighbors; i++) {
       myLSP.neighbors[i] = neighboors[i];
-    //  dbg(GENERAL_CHANNEL,"Neighbors: %d", myLSP.neighbors[i]);
+    dbg(GENERAL_CHANNEL,"Neighbors: %d", myLSP.neighbors[i]);
       //zzz++;
       //if(zzz>10)
       //{
@@ -1003,7 +1003,7 @@ implementation{
     }
     myLSP.age = 5;
 
-    //dbg(FLOODING_CHANNEL, "Flooding LSP\n", TOS_NODE_ID);
+    dbg(FLOODING_CHANNEL, "Flooding LSP\n", TOS_NODE_ID);
 
     //Encapsulate this LSP into a pack struct
     makePack(&myPack, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_LINKSTATE, 0, &myLSP, PACKET_MAX_PAYLOAD_SIZE);
