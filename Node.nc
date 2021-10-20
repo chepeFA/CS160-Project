@@ -889,6 +889,7 @@ implementation{
   }
 
       void updateRoutingTable() {
+      dbg(ROUTING_CHANNEL,"in updating routing table \n");
     uint8_t i=0, j, size = call Confirmed.size();
     tableLS entry;
     uint32_t *keys;
@@ -1003,7 +1004,7 @@ implementation{
     myLSP.id = TOS_NODE_ID;
     for(i = 0; i < numNeighbors; i++) {
       myLSP.neighbors[i] = neighbors[i];
-   dbg(GENERAL_CHANNEL,"Neighbors: %d \n", myLSP.neighbors[i]);
+  // dbg(GENERAL_CHANNEL,"Neighbors: %d \n", myLSP.neighbors[i]);
       //zzz++;
       //if(zzz>10)
       //{
