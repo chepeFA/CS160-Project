@@ -1030,7 +1030,7 @@ implementation{
 
     //Encapsulate this LSP into a pack struct
     makePack(&myPack, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_LINKSTATE, 0, &myLSP, PACKET_MAX_PAYLOAD_SIZE);
-    dbg(ROUTING_CHANNEL,"my pack : %s",myLSP;
+    dbg(ROUTING_CHANNEL,"my pack : %s",myLSP);
     //Flood this pack on the network
     //dbg(ROUTING_CHANNEL,"Dest: %d \n",myPack.dest); // flood to everybody
     call Sender.send(myPack, myPack.dest);
