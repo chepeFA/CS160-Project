@@ -208,9 +208,10 @@ implementation{
           //dbg(ROUTING_CHANNEL,"In protocol Linkstate \n");
            if(isInLinkStateInfo(lsp))
             {
+            dbg(ROUTING_CHANNEL,"Testing is in Link state info \n");
               if(isUpdatedLSP(lsp))
               {
-
+              dbg(ROUTING_CHANNEL,"Testing is update Link state info \n");
                 updateLSP(lsp);
               }
               else
@@ -220,6 +221,7 @@ implementation{
             }
             else
             {
+            dbg(ROUTING_CHANNEL,"adding to the Link state info \n");
             addLSP(lsp);
 
 
