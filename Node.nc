@@ -972,7 +972,7 @@ implementation{
    {
      dbg(NEIGHBOR_CHANNEL,"List is empty");
    }
- 
+
    // dbg(GENERAL_CHANNEL,"Num of neighbors: \n",numNeighbors);
    
 
@@ -1008,7 +1008,7 @@ implementation{
     }
     myLSP.age = 5;
 
-    dbg(FLOODING_CHANNEL, "Flooding LSP\n", TOS_NODE_ID);
+    //dbg(FLOODING_CHANNEL, "Flooding LSP\n", TOS_NODE_ID);
 
     //Encapsulate this LSP into a pack struct
     makePack(&myPack, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_LINKSTATE, 0, &myLSP, PACKET_MAX_PAYLOAD_SIZE);
