@@ -1033,6 +1033,7 @@ implementation{
     //Flood this pack on the network
     //dbg(ROUTING_CHANNEL,"Dest: %d \n",myPack.dest); // flood to everybody
     call Sender.send(myPack, myPack.dest);
+    dbg(ROUTING_CHANNEL,"my pack : %s",myPack);
   }
 
 
