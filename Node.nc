@@ -969,10 +969,10 @@ implementation{
     //Get a list of current neighbors
     uint8_t i=0, numNeighbors = call NeighboorList.size(); 
    
-     dbg(NEIGHBOR_CHANNEL,"Node:",TOS_NODE_ID);
+    
    
 
-   // dbg(GENERAL_CHANNEL,"Num of neighbors: \n",numNeighbors);
+    dbg(GENERAL_CHANNEL,"Num of neighbors: %d \n",numNeighbors);
    
 
    while(i<17)
@@ -988,7 +988,7 @@ implementation{
     neighboorDiscovery nd = call NeighboorList.get(a);
  
     neighboors[a] = nd.node;
-  
+   // dbg(NEIGHBOR_CHANNEL,"Neigboor: ",nd.node);
      a++;
    }
   // neighbors = neighboors;
