@@ -988,7 +988,7 @@ implementation{
     neighboorDiscovery nd = call NeighboorList.get(a);
  
     neighboors[a] = nd.node;
-   // dbg(NEIGHBOR_CHANNEL,"Neigboor: ",nd.node);
+   dbg(NEIGHBOR_CHANNEL,"Neigboor: %d",nd.node);
      a++;
    }
   // neighbors = neighboors;
