@@ -165,6 +165,8 @@ implementation{
          //Retry until successful
          call AMControl.start();
       }
+      call RoutingTimer.startOneShot(80000);
+
    }
 
    event void NeighboorTimer.fired() {
@@ -966,7 +968,7 @@ implementation{
 
     //Get a list of current neighbors
     uint8_t i, numNeighbors = call NeighboorList.size(); 
-    dbg(GENERAL_CHANNEL,"About to start flooding \n");
+    dbg(GENERAL_CHANNEL,"Num of neighbors: \n".numNeighbors);
     //=NeighboorList;// call NeighborDiscovery.getNeighbors();
 
    a=0;
