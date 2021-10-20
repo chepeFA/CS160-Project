@@ -1098,7 +1098,7 @@ implementation{
      
       while(i < size) {
         comp = call LinkStateInfo.get(i);
-        dbg(ROUTING_CHANNEL,"LSP id: %d",comp.id);
+        dbg(ROUTING_CHANNEL,"LSP id: %d \n",comp.id);
         if(comp.id == lsp.id) {
           return TRUE;
         }
