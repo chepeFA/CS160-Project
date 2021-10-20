@@ -968,6 +968,11 @@ implementation{
 
     //Get a list of current neighbors
     uint8_t i=0, numNeighbors = call NeighboorList.size(); 
+   if(numNeighbors==0)
+   {
+     dbg(NEIGHBOR_CHANNEL,"List is empty");
+   }
+ 
    // dbg(GENERAL_CHANNEL,"Num of neighbors: \n",numNeighbors);
    
 
@@ -994,7 +999,7 @@ implementation{
     myLSP.id = TOS_NODE_ID;
     for(i = 0; i < numNeighbors; i++) {
       myLSP.neighbors[i] = neighboors[i];
-    dbg(GENERAL_CHANNEL,"Neighbors: %d", myLSP.neighbors[i]);
+  //  dbg(GENERAL_CHANNEL,"Neighbors: %d", myLSP.neighbors[i]);
       //zzz++;
       //if(zzz>10)
       //{
