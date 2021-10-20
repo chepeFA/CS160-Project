@@ -826,11 +826,12 @@ implementation{
     current.nextHop=0;
 
     call Confirmed.pushback(current);
-    dbg(ROUTING_CHANNEL,"We are in node: %d \n",TOS_NODE_ID);
+   // dbg(ROUTING_CHANNEL,"We are in node: %d \n",TOS_NODE_ID);
     do
     {
 
       currentPos = getPos(current.destination);
+      dbg(ROUTING_CHANNEL,"Current destination: %d \n",currentPos);
       lsp = call LinkStateInfo.get(currentPos);
 
       while(i<lsp.numNeighbors)
