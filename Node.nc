@@ -382,25 +382,7 @@ implementation{
 
          else //Broadcasting
          {
-         tableLS b;
-         b = call RoutingTable.get(myMsg->src);
-            //cost++;
-           //makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL-1, myMsg->protocol, myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload)); 
-            makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL-1, myMsg->protocol, myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload));
-            //dbg(FLOODING_CHANNEL,"Rebroadcasting again. We are in node:  %d, going to,  Destination: %d \n",TOS_NODE_ID,myMsg->dest);
-            pushPack(sendPackage);
-
-           //working from pj 1 
-           call Sender.send(sendPackage, AM_BROADCAST_ADDR);
-          
-
-           //if(call RoutingTable1.get(myMsg->dest))
-           //{
-             // call Sender.send(sendPackage,call RoutingTable1.get(myMsg->dest));
-           //}
-           //else{
-           //dbg(ROUTING_CHANNEL, "Route not found...\n");
-           //}
+        
          }
              return msg;
 
