@@ -404,12 +404,15 @@ implementation{
 
 
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
+   /*
    tableLS entry = call RoutingTable.get(destination);
     dbg(GENERAL_CHANNEL, "PING EVENT\n");
     
     dbg(ROUTING_CHANNEL,"Next hop: %d \n",entry.nextHop);
           makePack(&sendPackage, TOS_NODE_ID, destination, 0, 0, 0, payload, PACKET_MAX_PAYLOAD_SIZE);
           call Sender.send(sendPackage,entry.nextHop);
+          */
+
    }
 
 
@@ -1027,6 +1030,7 @@ implementation{
     //Encapsulate this LSP into a pack struct
     makePack(&myPack, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_LINKSTATE, 0, &myLSP, PACKET_MAX_PAYLOAD_SIZE);
     //Flood this pack on the network
+    dbg(ROUTING_CHANNEL,"Dest: %d \n",myPack.dest);
     call Sender.send(myPack, myPack.dest);
   }
 
