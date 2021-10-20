@@ -962,13 +962,14 @@ implementation{
 
     void floodLSP() {
 
-    LSP myLSP;
+    //LSP myLSP;
+    tableLS myLSP;
     uint8_t zzz=0;
     pack myPack;
     
     neighboorDiscovery* ndd;
     uint16_t a;
-   // uint8_t *neighbors;
+    uint8_t *neighbors;
 
     //Get a list of current neighbors
     uint8_t i=0, numNeighbors = call NeighboorList.size(); 
@@ -997,7 +998,7 @@ implementation{
    }
   // neighbors = neighboors;
 
-    //Encapsulate this list into a LSP
+    //Encapsulate this list into a LSP, use pointer here
     myLSP.numNeighbors = numNeighbors;
     myLSP.id = TOS_NODE_ID;
     for(i = 0; i < numNeighbors; i++) {
