@@ -972,7 +972,7 @@ implementation{
     
    
 
-    dbg(GENERAL_CHANNEL,"Num of neighbors: %d \n",numNeighbors);
+    //dbg(GENERAL_CHANNEL,"Num of neighbors: %d \n",numNeighbors);
    
 
    while(i<17)
@@ -988,7 +988,7 @@ implementation{
     neighboorDiscovery nd = call NeighboorList.get(a);
  
     neighboors[a] = nd.node;
-   dbg(NEIGHBOR_CHANNEL,"Neigboor: %d \n",nd.node);
+   //dbg(NEIGHBOR_CHANNEL,"Neigboor: %d \n",nd.node);
      a++;
    }
   // neighbors = neighboors;
@@ -998,7 +998,7 @@ implementation{
     myLSP.id = TOS_NODE_ID;
     for(i = 0; i < numNeighbors; i++) {
       myLSP.neighbors[i] = neighboors[i];
-  //  dbg(GENERAL_CHANNEL,"Neighbors: %d", myLSP.neighbors[i]);
+   dbg(GENERAL_CHANNEL,"Neighbors: %d", myLSP.neighbors[i]);
       //zzz++;
       //if(zzz>10)
       //{
