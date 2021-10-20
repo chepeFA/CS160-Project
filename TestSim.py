@@ -179,8 +179,8 @@ def main():
     #s.neighborDMP(8);#list of neighbor for node 4
     #s.runTime(1);
 
-    #s.routeDMP(1);
-    #s.runTime(5);
+    s.routeDMP(1);
+    s.runTime(5);
 
     #s.routeDMP(2);
     #s.runTime(5);
@@ -197,11 +197,11 @@ def main():
     #s.routeDMP(6);
     #s.runTime(5);
 
-    #s.routeDMP(7);
-    #s.runTime(5);
+    s.routeDMP(7);
+    s.runTime(5);
 
-    #s.routeDMP(8);
-    #s.runTime(5);
+    s.routeDMP(8);
+    s.runTime(5);
 
     #s.routeDMP(9);
     #s.runTime(10);
