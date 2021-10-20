@@ -208,7 +208,7 @@ implementation{
           //dbg(ROUTING_CHANNEL,"In protocol Linkstate \n");
            if(isInLinkStateInfo(lsp))
             {
-               dbg(ROUTING_CHANNEL,"Testing is in Link state info \n");
+              // dbg(ROUTING_CHANNEL,"Testing is in Link state info \n");
               if(isUpdatedLSP(lsp))
               {
               dbg(ROUTING_CHANNEL,"Testing is update Link state info \n");
@@ -1098,7 +1098,7 @@ implementation{
      
       while(i < size) {
         comp = call LinkStateInfo.get(i);
-        dbg(ROUTING_CHANNEL,"LSP id: %d \n",comp.id);
+        //dbg(ROUTING_CHANNEL,"LSP id: %d \n",comp.id);
         if(comp.id == lsp.id) {
           return TRUE;
         }
@@ -1111,8 +1111,9 @@ implementation{
     bool isUpdatedLSP(LSP lsp) {
     uint8_t i=0, pos = getPos(lsp.id);
     LSP comp = call LinkStateInfo.get(pos);
-
-    if(lsp.numNeighbors == comp.numNeighbors) {
+    dbg(ROUTING_CHANNEL,"pos: %d \n");
+    dbg(ROUTING_CHANNEL,"comp: %d \n");
+        if(lsp.numNeighbors == comp.numNeighbors) {
       while(i < comp.numNeighbors) {
         if(lsp.neighbors[i] != comp.neighbors[i])
           return TRUE;
