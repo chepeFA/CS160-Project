@@ -399,7 +399,7 @@ implementation{
    tableLS entry = call RoutingTable.get(destination);
     dbg(GENERAL_CHANNEL, "PING EVENT\n");
     
-    dbg(ROUTING_CHANNEL,"Next hop: %d \n",entry.nextHop3);
+    dbg(ROUTING_CHANNEL,"Next hop: %d \n",entry.nextHop);
           makePack(&sendPackage, TOS_NODE_ID, destination, 0, 0, 0, payload, PACKET_MAX_PAYLOAD_SIZE);
           call Sender.send(sendPackage,entry.nextHop);
    }
