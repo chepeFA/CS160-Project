@@ -889,11 +889,11 @@ implementation{
   }
 
       void updateRoutingTable() {
-      dbg(ROUTING_CHANNEL,"in updating routing table \n");
+      
     uint8_t i=0, j, size = call Confirmed.size();
     tableLS entry;
     uint32_t *keys;
-
+    dbg(ROUTING_CHANNEL,"in updating routing table \n");
     while(i < size) {
       entry = call Confirmed.get(i);
       call RoutingTable.insert(entry.destination, entry);
