@@ -397,8 +397,10 @@ implementation{
 
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
     dbg(GENERAL_CHANNEL, "PING EVENT\n");
+    tableLS entry = call RoutingTable.get(destination);
+    dbg(ROUTING_CHANNEL,"Next hop: %d \n",entry.nextHop);
           makePack(&sendPackage, TOS_NODE_ID, destination, 0, 0, 0, payload, PACKET_MAX_PAYLOAD_SIZE);
-          call Sender.send(sendPackage,call RoutingTable.get(destination) );
+          call Sender.send(sendPackage,entry.nextHop);
    }
 
 
