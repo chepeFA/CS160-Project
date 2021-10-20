@@ -962,8 +962,8 @@ implementation{
 
     void floodLSP() {
 
-    //LSP myLSP;
-    tableLS myLSP;
+    LSP myLSP;
+    ///tableLS myLSP;
     uint8_t zzz=0;
     pack myPack;
     
@@ -996,13 +996,13 @@ implementation{
    //dbg(NEIGHBOR_CHANNEL,"Neigboor: %d \n",nd.node);
      a++;
    }
-  // neighbors = neighboors;
+   neighbors = neighboors;
 
     //Encapsulate this list into a LSP, use pointer here
     myLSP.numNeighbors = numNeighbors;
     myLSP.id = TOS_NODE_ID;
     for(i = 0; i < numNeighbors; i++) {
-      myLSP.neighbors[i] = neighboors[i];
+      myLSP.neighbors[i] = neighbors[i];
   // dbg(GENERAL_CHANNEL,"Neighbors: %d", myLSP.neighbors[i]);
       //zzz++;
       //if(zzz>10)
