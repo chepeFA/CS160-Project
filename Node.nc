@@ -971,11 +971,11 @@ implementation{
    // dbg(GENERAL_CHANNEL,"Num of neighbors: \n",numNeighbors);
    
 
- //   while(i<17)
-   // {
-     //   neighboors[i]=0;
-       // i++;
-    //}
+   while(i<17)
+    {
+        neighboors[i]=0;
+        i++;
+    }
 
    a=0;
    while(a<numNeighbors)
