@@ -980,7 +980,9 @@ implementation{
    a=0;
    while(a<numNeighbors)
    {
+   dbg(NEIGHBOR_CHANNEL,"Neighbor: %d, a: %d",TOS_NODE_ID,nd.node);
     nd = call NeighboorList.get(a);
+    dbg(NEIGHBOR_CHANNEL,"Neighbor: %d, a: %d",TOS_NODE_ID,nd.node);
     neighboors[a] = nd.node;
    // dbg(NEIGHBOR_CHANNEL,"Neighbor for node: %d,: %d, %d", TOS_NODE_ID, nd.node,neighboors[a]);
    a++;
