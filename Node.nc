@@ -968,10 +968,9 @@ implementation{
 
     //Get a list of current neighbors
     uint8_t i=0, numNeighbors = call NeighboorList.size(); 
-   if(numNeighbors==0)
-   {
-     dbg(NEIGHBOR_CHANNEL,"List is empty");
-   }
+   
+     dbg(NEIGHBOR_CHANNEL,"Node:",TOS_NODE_ID);
+   
 
    // dbg(GENERAL_CHANNEL,"Num of neighbors: \n",numNeighbors);
    
