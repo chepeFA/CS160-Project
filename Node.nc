@@ -826,7 +826,7 @@ implementation{
     current.nextHop=0;
 
     call Confirmed.pushback(current);
-
+    dbg(ROUTING_CHANNEL,"We are in node: %d \n",TOS_NODE_ID);
     do
     {
 
@@ -889,11 +889,11 @@ implementation{
   }
 
       void updateRoutingTable() {
-      
+
     uint8_t i=0, j, size = call Confirmed.size();
     tableLS entry;
     uint32_t *keys;
-    dbg(ROUTING_CHANNEL,"in updating routing table \n");
+
     while(i < size) {
       entry = call Confirmed.get(i);
       call RoutingTable.insert(entry.destination, entry);
