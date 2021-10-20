@@ -216,6 +216,7 @@ implementation{
               }
               else
               {
+              dbg(GENERAL_CHANNEL,"Message returned %s: \n",msg);
                return msg;
               }
             }
