@@ -968,7 +968,7 @@ implementation{
 
     //Get a list of current neighbors
     uint8_t i, numNeighbors = call NeighboorList.size(); 
-    dbg(GENERAL_CHANNEL,"Num of neighbors: \n".numNeighbors);
+    dbg(GENERAL_CHANNEL,"Num of neighbors: \n",numNeighbors);
     //=NeighboorList;// call NeighborDiscovery.getNeighbors();
 
    a=0;
