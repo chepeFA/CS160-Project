@@ -980,7 +980,7 @@ implementation{
 
     void floodLSP() {
 
-    LSP myLSP[1];
+    LSP myLSP;
     ///tableLS myLSP;
     uint8_t zzz=0;
     pack myPack;
@@ -1011,9 +1011,10 @@ implementation{
    while(a<numNeighbors)
    {
  
-    neighboorDiscovery nd = call NeighboorList.get(a);
+    neighboorDiscovery nd = call NeighboorList.get(a);//get the neighbors for each node
  
     neighboors[a] = nd.node;
+    dbg(ROUTING_CHANNEL,"Neighboors %d \n",neighboors[a]);
     sprintf(tempC, "%d", nd.node);
     strcat(payload, tempC);
     strcat(payload, " ");
@@ -1023,13 +1024,13 @@ implementation{
    neighbors = neighboors;
 
     //Encapsulate this list into a LSP, use pointer here
-    myLSP[0].numNeighbors = numNeighbors;
-    myLSP[0].id = TOS_NODE_ID;
+    myLSP.numNeighbors = numNeighbors;
+    myLSP.id = TOS_NODE_ID;
     for(i = 0; i < numNeighbors; i++) {
-      myLSP[0].neighbors[i] = neighbors[i];
+      myLSP.neighbors[i] = neighbors[i];
   
     }
-    myLSP[0].age = 5;
+    myLSP.age = 5;
 
     //dbg(FLOODING_CHANNEL, "Flooding LSP\n", TOS_NODE_ID);
 
@@ -1049,7 +1050,7 @@ implementation{
   sequenceNumber++;
   pushPack(sendPackage);
  // dbg(ROUTING_CHANNEL,"my payload : %s \n",(uint8_t *)payload);
-  dbg(ROUTING_CHANNEL,"my payload2 : %s \n",payload);
+  dbg(ROUTING_CHANNEL,"my payload : %s \n",payload);
    call Sender.send(sendPackage,AM_BROADCAST_ADDR);
 
   }
