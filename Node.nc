@@ -376,7 +376,15 @@ implementation{
 
          else //Broadcasting
          {
-        
+             makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL, myMsg->protocol, myMsg->seq, 
+                    (uint8_t *)myMsg->payload, sizeof(myMsg->payload));
+              pushPack(sendPackage);
+              if(call RoutingTable1.get(myMsg->dest)){
+                dbg(ROUTING_CHANNEL, "Route found, Sending to next hop %d\n", call RoutingTable1.get(myMsg->dest));
+                call Sender.send(sendPackage, call RoutingTable1.get(myMsg->dest));
+            }else{
+                dbg(ROUTING_CHANNEL, "Route not found...\n");
+            }
          }
              return msg;
 
@@ -403,6 +411,19 @@ implementation{
           makePack(&sendPackage, TOS_NODE_ID, destination, 0, 0, 0, payload, PACKET_MAX_PAYLOAD_SIZE);
           call Sender.send(sendPackage,entry.nextHop);
           */
+
+       dbg(GENERAL_CHANNEL, "PING EVENT \n");
+      makePack(&sendPackage, TOS_NODE_ID, destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
+      sequenceNumber++;
+      pushPack(sendPackage);
+
+      if(call RoutingTable1.get(destination)){
+         dbg(ROUTING_CHANNEL, "Sending to next hop %d\n", call RoutingTable.get(destination));
+         call Sender.send(sendPackage, call RoutingTable1.get(destination));
+      }
+      else{
+         dbg(ROUTING_CHANNEL, "Route to destination not found...\n");
+      }
 
    }
 
