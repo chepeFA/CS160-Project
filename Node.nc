@@ -980,6 +980,7 @@ implementation{
     ///tableLS myLSP;
     uint8_t zzz=0;
     pack myPack;
+    char* message;
     
     neighboorDiscovery* ndd;
     uint16_t a;
@@ -1024,7 +1025,8 @@ implementation{
     //dbg(FLOODING_CHANNEL, "Flooding LSP\n", TOS_NODE_ID);
 
     //Encapsulate this LSP into a pack struct
-    makePack(&myPack, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_LINKSTATE, 0, &myLSP, PACKET_MAX_PAYLOAD_SIZE);
+   // makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_LINKSTATE, 0, &myLSP, PACKET_MAX_PAYLOAD_SIZE);
+    makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_LINKSTATE, 0, (uint8_t *)myLSP, PACKET_MAX_PAYLOAD_SIZE);
     dbg(ROUTING_CHANNEL,"my pack1 : %s \n",&myPack);
     dbg(ROUTING_CHANNEL,"my pack2 : %s \n",myPack);
     dbg(ROUTING_CHANNEL,"my pack3 : %s \n",&myLSP);
