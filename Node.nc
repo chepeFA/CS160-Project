@@ -976,7 +976,7 @@ implementation{
 
     void floodLSP() {
 
-    LSP myLSP;
+    LSP myLSP[1];
     ///tableLS myLSP;
     uint8_t zzz=0;
     pack myPack;
