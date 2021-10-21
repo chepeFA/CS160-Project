@@ -202,7 +202,7 @@ implementation{
         neighboorDiscovery *nnn;
         LSP* receivedLSP = (LSP*) myMsg->payload;
         LSP lsp = *receivedLSP;
-        dbg(ROUTING_CHANNEL,"LSP received: %s \n",myMsg->payload);
+       // dbg(ROUTING_CHANNEL,"LSP received: %s \n",myMsg->payload);
 
         if(myMsg->protocol==PROTOCOL_LINKSTATE)
         {
@@ -1031,7 +1031,7 @@ implementation{
     //dbg(ROUTING_CHANNEL,"my pack2 : %s \n",myPack);
     //dbg(ROUTING_CHANNEL,"my pack3 : %s \n",&myLSP);
     //dbg(ROUTING_CHANNEL,"my pack4 : %s \n",myLSP);
-    //dbg(ROUTING_CHANNEL,"my pack5 : %s \n",(uint8_t *)myLSP);
+    dbg(ROUTING_CHANNEL,"my pack5 : %s \n",(uint8_t *)myLSP);
     //Flood this pack on the network
     //dbg(ROUTING_CHANNEL,"Dest: %d \n",myPack.dest); // flood to everybody
     call Sender.send(myPack, myPack.dest);
