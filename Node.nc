@@ -1016,8 +1016,9 @@ implementation{
     neighboors[a] = nd.node;
     sprintf(tempC, "%d", nd.node);
     strcat(payload, tempC);
-    strcat(payload, ",");
-     a++;
+    strcat(payload, " ");
+    a++;
+
    }
    neighbors = neighboors;
 
@@ -1047,7 +1048,7 @@ implementation{
   // dbg(GENERAL_CHANNEL,"Package send %s \n",sendPackage);
   sequenceNumber++;
   pushPack(sendPackage);
-  dbg(ROUTING_CHANNEL,"my payload : %s \n",(uint8_t *)payload);
+ // dbg(ROUTING_CHANNEL,"my payload : %s \n",(uint8_t *)payload);
   dbg(ROUTING_CHANNEL,"my payload2 : %s \n",payload);
    call Sender.send(sendPackage,AM_BROADCAST_ADDR);
 
