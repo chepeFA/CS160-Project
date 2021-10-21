@@ -105,6 +105,7 @@ implementation{
    void forwarding(pack* Package);
    void printLSTable();
    void printRoutingTable();
+   void printRoutingTable1();
    void localroute();
    void Route_flood();
    void checkdest(tableLS* tempTable);
@@ -415,8 +416,10 @@ implementation{
    }
 
    event void CommandHandler.printRouteTable(){
-  printLinkStateInfo();
-  printRoutingTable();
+  //printLinkStateInfo();
+  printLSTable();
+  printRoutingTable1();
+
   
    }
 
