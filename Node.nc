@@ -202,33 +202,9 @@ implementation{
         neighboorDiscovery *nnn;
         LSP* receivedLSP = (LSP*) myMsg->payload;
         LSP lsp = *receivedLSP;
-       // dbg(ROUTING_CHANNEL,"LSP received: %s \n",myMsg->payload);
+      // dbg(ROUTING_CHANNEL,"LSP received: %s \n",myMsg->payload);
 
-        if(myMsg->protocol==PROTOCOL_LINKSTATE)
-        {
-          //dbg(ROUTING_CHANNEL,"In protocol Linkstate \n");
-           if(isInLinkStateInfo(lsp))
-            {
-              // dbg(ROUTING_CHANNEL,"Testing is in Link state info \n");
-              if(isUpdatedLSP(lsp))
-              {
-              dbg(ROUTING_CHANNEL,"Testing is update Link state info \n");
-                updateLSP(lsp);
-              }
-              else
-              {
-             // dbg(GENERAL_CHANNEL,"Message returned %s: \n",msg);
-               return msg;
-              }
-            }
-            else
-            {
-            dbg(ROUTING_CHANNEL,"adding to the Link state info \n");
-            addLSP(lsp);
-
-
-            }
-        }
+        
       
 
          if(myMsg->TTL==0 || seenPackage(myMsg))
@@ -308,6 +284,32 @@ implementation{
                 call NeighboorList.pushback(*neighboor);
                 }
          }
+
+        else if(myMsg->protocol==PROTOCOL_LINKSTATE)
+        {
+          dbg(ROUTING_CHANNEL,"In protocol Linkstate \n");
+           if(isInLinkStateInfo(lsp))
+            {
+              // dbg(ROUTING_CHANNEL,"Testing is in Link state info \n");
+              if(isUpdatedLSP(lsp))
+              {
+              dbg(ROUTING_CHANNEL,"Testing is update Link state info \n");
+                updateLSP(lsp);
+              }
+              else
+              {
+             // dbg(GENERAL_CHANNEL,"Message returned %s: \n",msg);
+               return msg;
+              }
+            }
+            else
+            {
+            dbg(ROUTING_CHANNEL,"adding to the Link state info \n");
+            addLSP(lsp);
+
+
+            }
+        }
 
          
        
