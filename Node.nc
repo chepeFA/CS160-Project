@@ -1016,8 +1016,8 @@ implementation{
     neighboors[a] = nd.node;
 
     sprintf(tempC, "%d", nd.node);
-    memcpy(payload, tempC,sizeof(tempC));//strcat b4
-    memcpy(payload, " ",sizeof(tempC));//strcat b4
+    memcpy(payload,tempC,2);//strcat b4
+    memcpy(payload, " ",2);//strcat b4
     a++;
 
    }
@@ -1032,7 +1032,7 @@ implementation{
     }
     myLSP.age = 5;
     //strcat(payload, myLSP);
-   dbg(ROUTING_CHANNEL, "Payload: %s \n", myLSP);
+  // dbg(ROUTING_CHANNEL, "Payload: %s \n", myLSP);
 
     //Encapsulate this LSP into a pack struct
    // makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_LINKSTATE, 0, &myLSP, PACKET_MAX_PAYLOAD_SIZE);
