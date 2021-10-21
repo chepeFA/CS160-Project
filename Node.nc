@@ -309,7 +309,7 @@ implementation{
          // dbg(GENERAL_CHANNEL,"In destination TOS_NODE_ID \n");
            // cost++;
             dbg(FLOODING_CHANNEL," packet from %d payload: %s \n",myMsg->src,myMsg->payload);
-            goto a;
+            //goto a;
             
            // temp=cost;
 
@@ -395,7 +395,7 @@ implementation{
 
              dbg(GENERAL_CHANNEL, "Unknown Packet Type %d %s \n", len);
              return msg;
-             a:
+             
 
 }
 
