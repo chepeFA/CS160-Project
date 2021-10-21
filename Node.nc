@@ -418,7 +418,7 @@ implementation{
       pushPack(sendPackage);
 
       if(call RoutingTable1.get(destination)){
-         dbg(ROUTING_CHANNEL, "Sending to next hop %d\n", call RoutingTable.get(destination));
+         dbg(ROUTING_CHANNEL, "Sending to next hop %d\n", call RoutingTable1.get(destination));
          call Sender.send(sendPackage, call RoutingTable1.get(destination));
       }
       else{
@@ -690,7 +690,7 @@ implementation{
         uint16_t size = call RoutingTable1.size(), i, output;
         for(i = 0; i < size; i++){
             output = call RoutingTable1.get((uint32_t) i);
-            dbg(ROUTING_CHANNEL, "Key: %d\t Next Hop: %d\n", i, output);
+            dbg(ROUTING_CHANNEL, "Node: %d\t Next Hop: %d\n", i, output);
         }
 
         dbg(ROUTING_CHANNEL, "\n");
