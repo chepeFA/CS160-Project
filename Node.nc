@@ -985,6 +985,8 @@ implementation{
     uint8_t zzz=0;
     pack myPack;
     char* message;
+    char payload[255];
+    char tempC[127];
     
     neighboorDiscovery* ndd;
     uint16_t a;
@@ -1012,7 +1014,9 @@ implementation{
     neighboorDiscovery nd = call NeighboorList.get(a);
  
     neighboors[a] = nd.node;
-   //dbg(NEIGHBOR_CHANNEL,"Neigboor: %d \n",nd.node);
+    sprintf(tempC, "%d", nd.node);
+    strcat(payload, tempC);
+    strcat(payload, ",");
      a++;
    }
    neighbors = neighboors;
@@ -1030,7 +1034,8 @@ implementation{
 
     //Encapsulate this LSP into a pack struct
    // makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_LINKSTATE, 0, &myLSP, PACKET_MAX_PAYLOAD_SIZE);
-    makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_LINKSTATE, 0, (uint8_t *)myLSP, PACKET_MAX_PAYLOAD_SIZE);
+   // makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_LINKSTATE, 0, (uint8_t *)myLSP, PACKET_MAX_PAYLOAD_SIZE);
+   makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, 50, PROTOCOL_LINKSTATE, sequenceNumber,(uint8_t *) payload, (uint8_t)sizeof(payload));
     //dbg(ROUTING_CHANNEL,"my pack1 : %s \n",&myPack);
     //dbg(ROUTING_CHANNEL,"my pack2 : %s \n",myPack);
     //dbg(ROUTING_CHANNEL,"my pack3 : %s \n",&myLSP);
@@ -1039,7 +1044,11 @@ implementation{
     //Flood this pack on the network
     //dbg(ROUTING_CHANNEL,"Dest: %d \n",myPack.dest); // flood to everybody
    // call Sender.send(myPack, myPack.dest);
-   dbg(GENERAL_CHANNEL,"Package send %s \n",sendPackage);
+  // dbg(GENERAL_CHANNEL,"Package send %s \n",sendPackage);
+  sequenceNumber++;
+  pushPack(sendPackage);
+  dbg(ROUTING_CHANNEL,"my payload : %s \n",(uint8_t *)payload);
+  dbg(ROUTING_CHANNEL,"my payload2 : %s \n",payload);
    call Sender.send(sendPackage,AM_BROADCAST_ADDR);
 
   }
