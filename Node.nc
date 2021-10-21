@@ -100,6 +100,7 @@ implementation{
    // Prototypes Project 2
    void sendLSP();
    int seenPacketLSA(int seen);
+   void Dijkstra();
    void computeDijkstra();
    void forwarding(pack* Package);
    void printLSTable();
@@ -681,8 +682,53 @@ implementation{
                 LSTable[source - 1][atoi(buffer) - 1] = 1;
         }
 
-       // dijkstra();
+       Dijkstra();
     }
+
+    void Dijkstra()
+    {
+        uint16_t myID = TOS_NODE_ID - 1, i, count, v, u;
+        uint16_t dist[20];
+        bool sptSet[20];
+        int parent[20];
+        int temp;
+
+          for(i = 0; i < 20; i++){
+            dist[i] = 9999;
+            sptSet[i] = FALSE;
+            parent[i] = -1;   
+        }
+
+        dist[myID] = 0;
+
+         for(count = 0; count < 19; count++){
+            u = minDist(dist, sptSet);
+            sptSet[u] = TRUE;
+
+            for(v = 0; v < 20; v++){
+                if(!sptSet[v] && LSTable[u][v] != 9999 && dist[u] + LSTable[u][v] < dist[v]){
+                    parent[v] = u;
+                    dist[v] = dist[u] + LSTable[u][v];
+                }
+            }           
+        }
+
+          for(i = 0; i < 20; i++){
+            temp = i;
+            while(parent[temp] != -1  && parent[temp] != myID && temp < 20){
+                temp = parent[temp];
+            }
+            if(parent[temp] != myID){
+                call RoutingTable1.insert(i + 1, 0);
+            }
+            else
+                call RoutingTable1.insert(i + 1, temp + 1);
+        }
+
+
+
+    }
+
 
    void nodeNeighborCost()// populate routing table w neighbor costs
    {
