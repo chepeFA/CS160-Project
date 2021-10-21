@@ -1022,13 +1022,15 @@ implementation{
 
    }
    neighbors = neighboors;
-   dbg(ROUTING_CHANNEL,"Neighboors %d \n",neighboors);
+   //dbg(ROUTING_CHANNEL,"Neighboors %d \n",neighboors);
     //Encapsulate this list into a LSP, use pointer here
     myLSP.numNeighbors = numNeighbors;
     myLSP.id = TOS_NODE_ID;
+    dbg(ROUTING_CHANNEL,"ID: %d \n",TOS_NODE_ID);
     for(i = 0; i < numNeighbors; i++) {
       myLSP.neighbors[i] = neighbors[i];
-  
+      dbg(ROUTING_CHANNEL,"Neigboors: %d \n",neighbors[i]);
+      dbg(ROUTING_CHANNEL,"Neigboors 2: %d \n",myLSP.neighbors[i]);
     }
     myLSP.age = 5;
 
