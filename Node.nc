@@ -283,7 +283,7 @@ implementation{
                 neighboor->age=0;
                 call NeighboorList.pushback(*neighboor);
                 }
-                LStable[TOS_NODE_ID - 1][myMsg->src -1]=1;//cost
+                LSTable[TOS_NODE_ID - 1][myMsg->src -1]=1;//cost
                 floodLSP();
          }
 
