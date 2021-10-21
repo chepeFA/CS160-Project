@@ -414,7 +414,7 @@ implementation{
           makePack(&sendPackage, TOS_NODE_ID, destination, 0, 0, 0, payload, PACKET_MAX_PAYLOAD_SIZE);
           call Sender.send(sendPackage,entry.nextHop);
           */
-          finalDestination=destina
+          finalDestination=destination;
 
        dbg(GENERAL_CHANNEL, "PING EVENT \n");
       makePack(&sendPackage, TOS_NODE_ID, destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
