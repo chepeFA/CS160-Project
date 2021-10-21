@@ -155,7 +155,7 @@ implementation{
    event void AMControl.startDone(error_t err){
       if(err == SUCCESS){
          dbg(GENERAL_CHANNEL, "Radio On\n");
-      //   initLSTable();
+      initLSTable();
          //start neighbor discovery and routing timer as soon as radio is on
        call NeighboorTimer.startPeriodic(10000);
 
@@ -182,10 +182,10 @@ implementation{
 
    event void RoutingTimer.fired()
    {
-  // initLSTable();
+ // initLSTable();
  //floodLSP();
-  computeDijkstra();
-  updateAges();
+  //computeDijkstra();
+  //updateAges();
 
 
    }
@@ -661,6 +661,17 @@ implementation{
     }
   }
 
+  void printRoutingTable1()
+  {
+        uint16_t size = call RoutingTable1.size(), i, output;
+        for(i = 0; i < size; i++){
+            output = call RoutingTable1.get((uint32_t) i);
+            dbg(ROUTING_CHANNEL, "Key: %d\t Next Hop: %d\n", i, output);
+        }
+
+        dbg(ROUTING_CHANNEL, "\n");
+  }
+
     void updateLSTable(uint8_t * payload, uint16_t source){
         uint8_t *temp = payload;
         uint16_t length = strlen((char *)payload);      
@@ -737,6 +748,18 @@ implementation{
                 min = dist[i], minIndex = i;
         }
         return minIndex;
+    }
+
+    void printLSTable()
+    {
+      uint16_t i;                                    
+        uint16_t j;
+        for(i = 0; i < 20; i++){
+            for(j = 0; j < 20; j++){
+                if(LSTable[i][j] == 1)
+                    dbg(ROUTING_CHANNEL, "Neighbors: %d and %d\n", i + 1, j + 1);
+            }
+        }
     }
 
 
