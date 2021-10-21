@@ -1016,8 +1016,8 @@ implementation{
     neighboors[a] = nd.node;
 
     sprintf(tempC, "%d", nd.node);
-    memcpy(payload, tempC);//strcat b4
-    memcpy(payload, " ");//strcat b4
+    memcpy(payload, tempC,sizeof(tempC));//strcat b4
+    memcpy(payload, " ",sizeof(tempC));//strcat b4
     a++;
 
    }
