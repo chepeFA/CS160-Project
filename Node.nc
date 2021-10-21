@@ -283,34 +283,18 @@ implementation{
                 neighboor->age=0;
                 call NeighboorList.pushback(*neighboor);
                 }
-
+                LStable[TOS_NODE_ID - 1][myMsg->src -1]=1;//cost
                 floodLSP();
          }
 
         else if(myMsg->protocol==PROTOCOL_LINKSTATE)
         {
-         // dbg(ROUTING_CHANNEL,"In protocol Linkstate \n");
-           if(isInLinkStateInfo(lsp))
-            {
-              // dbg(ROUTING_CHANNEL,"Testing is in Link state info \n");
-              if(isUpdatedLSP(lsp))
-              {
-              dbg(ROUTING_CHANNEL,"Testing is update Link state info \n");
-                updateLSP(lsp);
-              }
-              else
-              {
-             // dbg(GENERAL_CHANNEL,"Message returned %s: \n",msg);
-               return msg;
-              }
-            }
-            else
-            {
-            dbg(ROUTING_CHANNEL,"adding to the Link state info \n");
-            addLSP(lsp);
+          updateLSTable((uint8_t *)myMsg->payload,myMsg->src);                                  
+          makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL, myMsg->protocol,
+          myMsg->seq, (uint8_t *)myMsg->payload, sizeof(myMsg->payload));
 
-
-            }
+          pushPack(sendPackage);
+          call Sender.send(sendPackage, AM_BROADCAST_ADDR);
         }
 
          
@@ -676,7 +660,29 @@ implementation{
     }
   }
 
-   
+    void updateLSTable(uint8_t * payload, uint16_t source){
+        uint8_t *temp = payload;
+        uint16_t length = strlen((char *)payload);      
+        uint16_t i = 0;
+        char buffer[5];
+        while (i < length){
+            if(*(temp + 1) == ' '){
+                memcpy(buffer, temp, 1);
+                temp += 2;
+                i += 2;
+                buffer[1] = '\0';
+            }else if(*(temp + 2) == ' '){
+               memcpy(buffer, temp, 2);
+                temp += 3;
+                i += 3;
+                buffer[2] = '\0';
+            }
+            
+                LSTable[source - 1][atoi(buffer) - 1] = 1;
+        }
+
+       // dijkstra();
+    }
 
    void nodeNeighborCost()// populate routing table w neighbor costs
    {
