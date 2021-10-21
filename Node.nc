@@ -289,7 +289,7 @@ implementation{
 
         else if(myMsg->protocol==PROTOCOL_LINKSTATE)
         {
-          dbg(ROUTING_CHANNEL,"In protocol Linkstate \n");
+         // dbg(ROUTING_CHANNEL,"In protocol Linkstate \n");
            if(isInLinkStateInfo(lsp))
             {
               // dbg(ROUTING_CHANNEL,"Testing is in Link state info \n");
@@ -1039,6 +1039,7 @@ implementation{
     //Flood this pack on the network
     //dbg(ROUTING_CHANNEL,"Dest: %d \n",myPack.dest); // flood to everybody
    // call Sender.send(myPack, myPack.dest);
+   dbg(GENERAL_CHANNEL,"Package send %s \n",sendPackage);
    call Sender.send(sendPackage,AM_BROADCAST_ADDR);
 
   }
