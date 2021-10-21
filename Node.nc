@@ -1029,12 +1029,10 @@ implementation{
     dbg(ROUTING_CHANNEL,"ID: %d \n",TOS_NODE_ID);
     for(i = 0; i < numNeighbors; i++) {
       myLSP.neighbors[i] = neighbors[i];
-      dbg(ROUTING_CHANNEL,"Neigboors: %d \n",neighbors[i]);
-      dbg(ROUTING_CHANNEL,"Neigboors 2: %d \n",myLSP.neighbors[i]);
     }
     myLSP.age = 5;
-
-    //dbg(FLOODING_CHANNEL, "Flooding LSP\n", TOS_NODE_ID);
+    strcat(payload, myLSP);
+   dbg(ROUTING_CHANNEL, "Payload: %s \n", myLSP);
 
     //Encapsulate this LSP into a pack struct
    // makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_LINKSTATE, 0, &myLSP, PACKET_MAX_PAYLOAD_SIZE);
@@ -1052,7 +1050,7 @@ implementation{
   sequenceNumber++;
   pushPack(sendPackage);
  // dbg(ROUTING_CHANNEL,"my payload : %s \n",(uint8_t *)payload);
-  dbg(ROUTING_CHANNEL,"my payload : %s \n",payload);
+ // dbg(ROUTING_CHANNEL,"my payload : %s \n",payload);
    call Sender.send(sendPackage,AM_BROADCAST_ADDR);
 
   }
