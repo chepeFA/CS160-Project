@@ -1016,8 +1016,8 @@ implementation{
     neighboors[a] = nd.node;
 
     sprintf(tempC, "%d", nd.node);
-    strcat(payload, tempC);
-    strcat(payload, " ");
+    memcpy(payload, tempC);//strcat b4
+    memcpy(payload, " ");//strcat b4
     a++;
 
    }
@@ -1031,7 +1031,7 @@ implementation{
       myLSP.neighbors[i] = neighbors[i];
     }
     myLSP.age = 5;
-    strcat(payload, myLSP);
+    //strcat(payload, myLSP);
    dbg(ROUTING_CHANNEL, "Payload: %s \n", myLSP);
 
     //Encapsulate this LSP into a pack struct
@@ -1050,7 +1050,7 @@ implementation{
   sequenceNumber++;
   pushPack(sendPackage);
  // dbg(ROUTING_CHANNEL,"my payload : %s \n",(uint8_t *)payload);
- // dbg(ROUTING_CHANNEL,"my payload : %s \n",payload);
+  dbg(ROUTING_CHANNEL,"my payload : %s \n",payload);
    call Sender.send(sendPackage,AM_BROADCAST_ADDR);
 
   }
