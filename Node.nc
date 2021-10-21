@@ -1026,10 +1026,10 @@ implementation{
     //Encapsulate this LSP into a pack struct
     makePack(&myPack, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_LINKSTATE, 0, &myLSP, PACKET_MAX_PAYLOAD_SIZE);
     dbg(ROUTING_CHANNEL,"my pack1 : %s \n",&myPack);
-    dbg(ROUTING_CHANNEL,"my pack2 : %s"\n,myPack);
-    dbg(ROUTING_CHANNEL,"my pack3 : %s"\n,&myLSP);
-    dbg(ROUTING_CHANNEL,"my pack4 : %s"\n,myLSP);
-    dbg(ROUTING_CHANNEL,"my pack5 : %s"\n,(uint8_t *)myLSP);
+    dbg(ROUTING_CHANNEL,"my pack2 : %s \n",myPack);
+    dbg(ROUTING_CHANNEL,"my pack3 : %s \n",&myLSP);
+    dbg(ROUTING_CHANNEL,"my pack4 : %s \n",myLSP);
+    dbg(ROUTING_CHANNEL,"my pack5 : %s \n",(uint8_t *)myLSP);
     //Flood this pack on the network
     //dbg(ROUTING_CHANNEL,"Dest: %d \n",myPack.dest); // flood to everybody
     call Sender.send(myPack, myPack.dest);
