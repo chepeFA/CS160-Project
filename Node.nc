@@ -1038,7 +1038,8 @@ implementation{
     //dbg(ROUTING_CHANNEL,"my pack5 : %s \n",(uint8_t *)myLSP);
     //Flood this pack on the network
     //dbg(ROUTING_CHANNEL,"Dest: %d \n",myPack.dest); // flood to everybody
-    call Sender.send(myPack, myPack.dest);
+   // call Sender.send(myPack, myPack.dest);
+   call Sender.send(sendPackage,AM_BROADCAST_ADDR);
 
   }
 
