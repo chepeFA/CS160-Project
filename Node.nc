@@ -1014,24 +1014,24 @@ implementation{
    neighbors = neighboors;
 
     //Encapsulate this list into a LSP, use pointer here
-    myLSP.numNeighbors = numNeighbors;
-    myLSP.id = TOS_NODE_ID;
+    myLSP[0].numNeighbors = numNeighbors;
+    myLSP[0].id = TOS_NODE_ID;
     for(i = 0; i < numNeighbors; i++) {
-      myLSP.neighbors[i] = neighbors[i];
+      myLSP[0].neighbors[i] = neighbors[i];
   
     }
-    myLSP.age = 5;
+    myLSP[0].age = 5;
 
     //dbg(FLOODING_CHANNEL, "Flooding LSP\n", TOS_NODE_ID);
 
     //Encapsulate this LSP into a pack struct
    // makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_LINKSTATE, 0, &myLSP, PACKET_MAX_PAYLOAD_SIZE);
     makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, MAX_TTL, PROTOCOL_LINKSTATE, 0, (uint8_t *)myLSP, PACKET_MAX_PAYLOAD_SIZE);
-    dbg(ROUTING_CHANNEL,"my pack1 : %s \n",&myPack);
-    dbg(ROUTING_CHANNEL,"my pack2 : %s \n",myPack);
-    dbg(ROUTING_CHANNEL,"my pack3 : %s \n",&myLSP);
-    dbg(ROUTING_CHANNEL,"my pack4 : %s \n",myLSP);
-    dbg(ROUTING_CHANNEL,"my pack5 : %s \n",(uint8_t *)myLSP);
+    //dbg(ROUTING_CHANNEL,"my pack1 : %s \n",&myPack);
+    //dbg(ROUTING_CHANNEL,"my pack2 : %s \n",myPack);
+    //dbg(ROUTING_CHANNEL,"my pack3 : %s \n",&myLSP);
+    //dbg(ROUTING_CHANNEL,"my pack4 : %s \n",myLSP);
+    //dbg(ROUTING_CHANNEL,"my pack5 : %s \n",(uint8_t *)myLSP);
     //Flood this pack on the network
     //dbg(ROUTING_CHANNEL,"Dest: %d \n",myPack.dest); // flood to everybody
     call Sender.send(myPack, myPack.dest);
