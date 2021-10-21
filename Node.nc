@@ -442,7 +442,7 @@ implementation{
 
    event void CommandHandler.printRouteTable(){
   //printLinkStateInfo();
-  printLSTable();
+  //printLSTable();
   printRoutingTable1();
 
   
