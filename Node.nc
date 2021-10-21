@@ -80,6 +80,7 @@ implementation{
    uint16_t fnlAdd;
    uint16_t cost=0; //number of hops
    uint8_t neighboors[17];
+   uint8_t finalDestination;
   // uint16_t temp;
 
    //Project 2
@@ -307,7 +308,8 @@ implementation{
          {
          // dbg(GENERAL_CHANNEL,"In destination TOS_NODE_ID \n");
            // cost++;
-            dbg(FLOODING_CHANNEL," packet from %d.payload: %s \n",myMsg->src,myMsg->payload);
+            dbg(FLOODING_CHANNEL," packet from %d payload: %s \n",myMsg->src,myMsg->payload);
+            goto a;
             
            // temp=cost;
 
@@ -383,7 +385,7 @@ implementation{
                 dbg(ROUTING_CHANNEL, "Route found, Sending to next hop %d\n", call RoutingTable1.get(myMsg->dest));
                 call Sender.send(sendPackage, call RoutingTable1.get(myMsg->dest));
             }else{
-                dbg(ROUTING_CHANNEL, "Route not found...\n");
+              //  dbg(ROUTING_CHANNEL, "Route not found...\n");
             }
          }
              return msg;
@@ -393,6 +395,7 @@ implementation{
 
              dbg(GENERAL_CHANNEL, "Unknown Packet Type %d %s \n", len);
              return msg;
+             a:
 
 }
 
@@ -411,6 +414,7 @@ implementation{
           makePack(&sendPackage, TOS_NODE_ID, destination, 0, 0, 0, payload, PACKET_MAX_PAYLOAD_SIZE);
           call Sender.send(sendPackage,entry.nextHop);
           */
+          finalDestination=destina
 
        dbg(GENERAL_CHANNEL, "PING EVENT \n");
       makePack(&sendPackage, TOS_NODE_ID, destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
