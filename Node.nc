@@ -1014,7 +1014,7 @@ implementation{
     neighboorDiscovery nd = call NeighboorList.get(a);//get the neighbors for each node
  
     neighboors[a] = nd.node;
-    dbg(ROUTING_CHANNEL,"Neighboors %d \n",neighboors[a]);
+
     sprintf(tempC, "%d", nd.node);
     strcat(payload, tempC);
     strcat(payload, " ");
@@ -1022,7 +1022,7 @@ implementation{
 
    }
    neighbors = neighboors;
-
+   dbg(ROUTING_CHANNEL,"Neighboors %d \n",neighboors);
     //Encapsulate this list into a LSP, use pointer here
     myLSP.numNeighbors = numNeighbors;
     myLSP.id = TOS_NODE_ID;
