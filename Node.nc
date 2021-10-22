@@ -336,7 +336,7 @@ implementation{
               if(call RoutingTable1.get(myMsg->src))
               {
                 dbg(ROUTING_CHANNEL,"Sending packet to next hop: %d \n",call RoutingTable1.get(myMsg->src));
-                call Sender.send(sendPackage,call RoutingTable.get(myMsg->src));
+                call Sender.send(sendPackage,call RoutingTable1.get(myMsg->src));
               }
               else
               dbg(ROUTING_CHANNEL, "Path not found\n");
