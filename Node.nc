@@ -80,7 +80,7 @@ implementation{
    uint16_t fnlAdd;
    uint16_t cost=0; //number of hops
    uint8_t neighboors[17];
-   uint8_t finalDestination;
+   bool finalDestination;
   // uint16_t temp;
 
    //Project 2
@@ -308,15 +308,15 @@ implementation{
          {
          // dbg(GENERAL_CHANNEL,"In destination TOS_NODE_ID \n");
            // cost++;
+           finalDestination =TRUE;
+
+
             dbg(FLOODING_CHANNEL," packet from %d payload: %s \n",myMsg->src,myMsg->payload);
             //goto a;
             
            // temp=cost;
 
-          //  if(myMsg->protocol != PROTOCOL_CMD)
-            //{
-            // pushPack(*myMsg);
-            //}
+        
 
             if(myMsg->protocol == PROTOCOL_PING)
             {
@@ -329,16 +329,22 @@ implementation{
                makePack(&sendPackage,TOS_NODE_ID,myMsg->src,MAX_TTL,PROTOCOL_PINGREPLY,sequenceNumber,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
               sequenceNumber++;
                pushPack(sendPackage);
-               //dbg(FLOODING_CHANNEL," packet from %d, destination %d \n",myMsg->src,myMsg->dest);
+              
              
               //working on 10.08 as part of pj1
-              call Sender.send(sendPackage,AM_BROADCAST_ADDR);
-
+              //call Sender.send(sendPackage,AM_BROADCAST_ADDR);
+              if(call RoutingTable1.get(myMsg->src))
+              {
+                dbg(ROUTING_CHANNEL,"Sending packet to next hop: %d \n",call RoutingTable1.get(myMsg->src));
+                call Sender.send(sendPackage,call RoutingTable.get(myMsg->src));
+              }
+              else
+              dbg(ROUTING_CHANNEL, "Path not found\n");
 
               
            
               
-            }
+          }
 
             else if(myMsg->protocol == PROTOCOL_PINGREPLY)
             {
@@ -346,29 +352,8 @@ implementation{
              // dbg(NEIGHBOR_CHANNEL,"Ping is coming from %d \n",myMsg->src);
             }  
             /*
-            else if(myMsg->protocol == PROTOCOL_LINKSTATE)
-         {
-          dbg(ROUTING_CHANNEL,"In protocol Linkstate \n");
-            if(isInLinkStateInfo(lsp))
-            {
-              if(isUpdatedLSP(lsp))
-              {
-
-                updateLSP(lsp);
-              }
-              else
-              {
-               return msg;
-              }
-            }
-            else
-            {
-            addLSP(lsp);
-
-
-            }
-
-            //sortLinkStateInfo();
+          
+           
 
          }   */
 
@@ -414,7 +399,7 @@ implementation{
           makePack(&sendPackage, TOS_NODE_ID, destination, 0, 0, 0, payload, PACKET_MAX_PAYLOAD_SIZE);
           call Sender.send(sendPackage,entry.nextHop);
           */
-          finalDestination=destination;
+          finalDestination=FALSE;
 
        dbg(GENERAL_CHANNEL, "PING EVENT \n");
       makePack(&sendPackage, TOS_NODE_ID, destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
