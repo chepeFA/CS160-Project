@@ -643,6 +643,7 @@ implementation{
             for(j = 0; j < 20; j++){
                     LSTable[i][j] = 9999;                           // Initialize all link state table values to infinity(20)
             }
+            totalCost[i]=0;
         }
    }
 
@@ -682,7 +683,7 @@ implementation{
         uint16_t size = call RoutingTable1.size(), i, output;
         for(i = 0; i < size; i++){
             output = call RoutingTable1.get((uint32_t) i);
-            dbg(ROUTING_CHANNEL, "Node: %d\t Next Hop: %d\t cost: %d\n", i, output,cost[i]);
+            dbg(ROUTING_CHANNEL, "Node: %d\t Next Hop: %d\t cost: %d\n", i, output,totalCost[i]);
         }
 
         dbg(ROUTING_CHANNEL, "\n");
@@ -752,7 +753,7 @@ implementation{
             else
             {
                 call RoutingTable1.insert(i + 1, temp + 1);
-                totalCost[i]+1=1;
+                totalCost[i]+=1;
                 }
 
         }
