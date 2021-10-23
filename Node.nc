@@ -120,6 +120,8 @@ implementation{
    void updateLSTable(uint8_t * payload, uint16_t source);
    uint16_t minDist(uint16_t dist[], bool sptSet[]);
    void initLSTable();
+   void tC(uint16_t []
+   );
 
    bool isInLinkStateInfo(LSP);
    bool isUpdatedLSP(LSP);
@@ -772,6 +774,8 @@ implementation{
         }
         return minIndex;
     }
+
+
 
     void printLSTable()
     {
