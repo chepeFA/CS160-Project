@@ -685,7 +685,7 @@ implementation{
         uint16_t size = call RoutingTable1.size(), i, output;
         for(i = 0; i < size; i++){
             output = call RoutingTable1.get((uint32_t) i);
-            dbg(ROUTING_CHANNEL, "Node: %d\t Next Hop: %d\t cost: %d\n", i, output,totalCost[i]);
+            dbg(ROUTING_CHANNEL, "Node: %d\t Next Hop: %d\t cost: %d\n", i, output,totalCost[i-1]);
         }
 
         dbg(ROUTING_CHANNEL, "\n");
