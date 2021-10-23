@@ -145,7 +145,7 @@ def main():
     s.runTime(20);
     #floding
     s.ping(1, 7, "Hello world");
-    s.runTime(5);
+    s.runTime(20);
     #testing neighboor discovery
     #s.neighborDMP(1);
     #s.runTime(5);
@@ -180,7 +180,7 @@ def main():
     #s.runTime(1);
 
     s.routeDMP(1);
-    s.runTime(5);
+    s.runTime(20);
 
     #s.routeDMP(2);
     #s.runTime(5);
@@ -198,10 +198,10 @@ def main():
     #s.runTime(5);
 
     s.routeDMP(7);
-    s.runTime(5);
+    s.runTime(20);
 
     s.routeDMP(8);
-    s.runTime(5);
+    s.runTime(20);
 
     #s.routeDMP(9);
     #s.runTime(10);
