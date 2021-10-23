@@ -708,7 +708,7 @@ implementation{
             }
             
                 LSTable[source - 1][atoi(buffer) - 1] = 1;
-                totalCost[source-1][atoi(buffer) - 1] = 1;
+               // totalCost[source-1][atoi(buffer) - 1] = 1;
         }
 
        Dijkstra();
