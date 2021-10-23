@@ -79,6 +79,7 @@ implementation{
    uint16_t itlAdd;
    uint16_t fnlAdd;
    uint16_t cost=0; //number of hops
+
    uint8_t neighboors[17];
    bool finalDestination;
   // uint16_t temp;
@@ -87,6 +88,7 @@ implementation{
     tableLS routingTable[255]={0}; //initialize all structs fields to zero.
     uint16_t seqNumberLSA=0;
     uint16_t LSTable[20][20];
+    uint16_t totalCost[20];
    
 
 
@@ -287,6 +289,7 @@ implementation{
                 call NeighboorList.pushback(*neighboor);
                 }
                 LSTable[TOS_NODE_ID - 1][myMsg->src -1]=1;//cost
+
                 floodLSP();
          }
 
@@ -679,7 +682,7 @@ implementation{
         uint16_t size = call RoutingTable1.size(), i, output;
         for(i = 0; i < size; i++){
             output = call RoutingTable1.get((uint32_t) i);
-            dbg(ROUTING_CHANNEL, "Node: %d\t Next Hop: %d\n", i, output);
+            dbg(ROUTING_CHANNEL, "Node: %d\t Next Hop: %d\t cost: %d\n", i, output,cost[i]);
         }
 
         dbg(ROUTING_CHANNEL, "\n");
@@ -704,6 +707,7 @@ implementation{
             }
             
                 LSTable[source - 1][atoi(buffer) - 1] = 1;
+                totalCost[source-1][atoi(buffer) - 1] = 1;
         }
 
        Dijkstra();
@@ -746,7 +750,11 @@ implementation{
                 call RoutingTable1.insert(i + 1, 0);
             }
             else
+            {
                 call RoutingTable1.insert(i + 1, temp + 1);
+                totalCost[i]+1=1;
+                }
+
         }
 
 
