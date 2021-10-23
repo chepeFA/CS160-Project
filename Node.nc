@@ -738,6 +738,7 @@ implementation{
                 if(!sptSet[v] && LSTable[u][v] != 9999 && dist[u] + LSTable[u][v] < dist[v]){
                     parent[v] = u;
                     dist[v] = dist[u] + LSTable[u][v];
+                    totalCost[v]=dist[v];
                 }
             }           
         }
@@ -753,7 +754,7 @@ implementation{
             else
             {
                 call RoutingTable1.insert(i + 1, temp + 1);
-                totalCost[i]+=1;
+                //totalCost[i]+=1;
                 }
 
         }
