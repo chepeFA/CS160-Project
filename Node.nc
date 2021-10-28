@@ -68,6 +68,10 @@ module Node{
    uses interface List<tableLS> as Confirmed;
    uses interface List<tableLS> as Tentative;
    uses interface Hashmap<tableLS> as BackUpRoutingTable;
+
+   //PROJECT 3
+   uses interface Timer<TMilli> as TCPTimer;
+
 }
 
 implementation{
