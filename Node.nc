@@ -138,7 +138,7 @@ implementation{
          //start neighbor discovery and routing timer as soon as radio is on
        call NeighboorTimer.startPeriodic(10000);
 
-    //floodLSP();
+       //floodLSP();
       //call RoutingTimer.startOneShot(80000);
         
       }else{
@@ -211,11 +211,11 @@ implementation{
 
                //sequenceNumber++;
                pushPack(sendPackage);
-             //  dbg(GENERAL_CHANNEL,"Sending to: \n",myMsg->src);
+            
                call Sender.send(sendPackage, myMsg->src);
                 //dbg(FLOODING_CHANNEL," packet from %d, destination %d \n",myMsg->src,myMsg->dest);
              // call Sender.send(sendPackage, AM_BROADCAST_ADDR);
-             //IPModule(myMsg);
+          
             }
 
 
@@ -224,27 +224,9 @@ implementation{
             {
             sizeList =call NeighboorList.size();
            foundNeighbor=FALSE;
-               //dbg(GENERAL_CHANNEL,"Received a package from %d", myMsg->src);
+          
                i=0;
-               //new neighbor
-               /*
-             if(!isN(myMsg->src))//!isN(myMsg->src))//)//!isN(myMsg->src))
-               {
-                  //
-                  //nodeNeighborCost();
-                  n.node = myMsg->src;
-                  n.age=0;
-                  call NeighboorList.pushback(n);
-                //   LSTable[TOS_NODE_ID - 1][myMsg->src - 1] = 1;
-                    //sendLSPacket();
-
-
-                  //pj2 
-                 // nodeNeighborCost();
-
-
-                }
-                */
+             
                while(i<sizeList)
                 {
                 nd = call NeighboorList.get(i);
@@ -264,7 +246,6 @@ implementation{
                 call NeighboorList.pushback(*neighboor);
                 }
                 LSTable[TOS_NODE_ID - 1][myMsg->src -1]=1;//cost
-
                 floodLSP();
          }
 
@@ -284,15 +265,14 @@ implementation{
       }
          else if(myMsg->dest == TOS_NODE_ID) //this package is for me
          {
-         // dbg(GENERAL_CHANNEL,"In destination TOS_NODE_ID \n");
-           // cost++;
+  
            finalDestination =TRUE;
 
 
             dbg(FLOODING_CHANNEL," packet from %d payload: %s \n",myMsg->src,myMsg->payload);
             //goto a;
             
-           // temp=cost;
+  
 
         
 
@@ -369,14 +349,7 @@ implementation{
 
 
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
-   /*
-   tableLS entry = call RoutingTable.get(destination);
-    dbg(GENERAL_CHANNEL, "PING EVENT\n");
-    
-    dbg(ROUTING_CHANNEL,"Next hop: %d \n",entry.nextHop);
-          makePack(&sendPackage, TOS_NODE_ID, destination, 0, 0, 0, payload, PACKET_MAX_PAYLOAD_SIZE);
-          call Sender.send(sendPackage,entry.nextHop);
-          */
+
           finalDestination=FALSE;
 
        dbg(GENERAL_CHANNEL, "PING EVENT \n");
@@ -623,22 +596,7 @@ implementation{
    }
 
      
-          void printRoutingTable()
-           {
-    uint8_t i=0, size = call RoutingTable.size();
-    tableLS entry;
-
-    uint32_t *keys = call RoutingTable.getKeys();
-
-    //printf("\n\t\t\t    Routing Table for node %d\n", TOS_NODE_ID);
-    dbg(ROUTING_CHANNEL,"Routing Table for node %d \n Destination:  \t Cost:  \t Next Hop: \n",TOS_NODE_ID);
-    while(i < size) {
-      entry = call RoutingTable.get(keys[i]);
-     // printf("(%d, %d, %d)\", entry.destination, entry.cost, entry.nextHop);
-     printf("%d, \t  \t %d, \t \t %d \t \n",entry.destination,entry.cost,entry.nextHop);
-      i++;
-    }
-  }
+       
 
   void printRoutingTable1()
   {
@@ -752,31 +710,6 @@ implementation{
 
    
 
-
-   void sendLSP() //send advs of lsa packets
-   {
-
-    tableLS potentialRoute[1];
-    uint32_t* key = call RoutingTable.getKeys();
-    
-    uint16_t i=0;
-
-
-    for(i=0;key[i]!=0;i++)
-    {
-      potentialRoute[0]=call RoutingTable.get(key[i]);
-      makePack(&sendPackage,TOS_NODE_ID,AM_BROADCAST_ADDR,0,PROTOCOL_LINKSTATE,sequenceNumber,(uint8_t*)potentialRoute,sizeof(tableLS)*1);
-      call Sender.send(sendPackage,AM_BROADCAST_ADDR);
-      //dbg(ROUTING_CHANNEL,"In sendLSP \n");
-    }
-   }
-
-  
-  
-
-   
-
-
     void sendLSPacket()
     {
       char payload[255];
@@ -797,158 +730,6 @@ implementation{
         pushPack(sendPackage);
         call Sender.send(sendPackage, AM_BROADCAST_ADDR);
     }
-
-
-
-    void computeDijkstra()
-    {
-
-    tableLS current, a,b;
-    LSP lsp;
-    uint8_t currentPos, tentativePos, minTentative, nextHop =0,i=0;
-
-
-    //distance to my self is zero
-    current.destination=TOS_NODE_ID;
-    current.cost = 0;
-    current.nextHop=0;
-
-    call Confirmed.pushback(current);
-   // dbg(ROUTING_CHANNEL,"We are in node: %d \n",TOS_NODE_ID);
-    do
-    {
-
-      currentPos = getPos(current.destination);
-      //dbg(ROUTING_CHANNEL,"Current destination: %d \n",currentPos);
-      lsp = call LinkStateInfo.get(currentPos);
-
-      while(i<lsp.numNeighbors)
-      {
-      a.destination = lsp.neighbors[i];
-      a.cost = current.cost +1;
-
-      if(isNextHop(a.destination))
-      {
-        nextHop = a.destination;
-      }
-      else
-      {
-      nextHop = findNextHopTo(a.destination);
-      }
-
-      if(!inTentative(a.destination) && !inConfirmed(a.destination))
-      {
-        call Tentative.pushback(a);
-      }
-
-      else if(inTentative(a.destination))
-      {
-        tentativePos = posInTentative(a.destination);
-        b = call Tentative.get(tentativePos);
-        if(a.cost<b.cost)
-        {
-          b.cost = a.cost;
-          call Tentative.replace(tentativePos,b);
-        }
-      }
-
-
-
-       i++;
-      }
-
-
-      minTentative = minInTentative();
-      current = call Tentative.get(minTentative);
-      call Tentative.remove(minTentative);
-      call Confirmed.pushback(current);
-
-
-    }while(call Confirmed.size()<call LinkStateInfo.size());
-
-    updateRoutingTable();
-    clearConfirmed();
-
-        
-    }
-
-  void clearConfirmed() {
-    while(!call Confirmed.isEmpty())
-      call Confirmed.popfront();
-  }
-
-      void updateRoutingTable() {
-
-    uint8_t i=0, j, size = call Confirmed.size();
-    tableLS entry;
-    uint32_t *keys;
-
-    while(i < size) {
-      entry = call Confirmed.get(i);
-      call RoutingTable.insert(entry.destination, entry);
-      i++;
-    }
-
-    //Cleanup
-    i=0;
-    keys = call RoutingTable.getKeys();
-    while(i < call RoutingTable.size()) {
-      entry = call RoutingTable.get(keys[i]);
-      if(!inConfirmed(entry.destination)) {
-        call RoutingTable.remove(keys[i]);
-      }
-      i++;
-    }
-
-  }
-
-      uint8_t posInTentative(uint8_t nodeid) {
-    tableLS entry;
-    uint8_t i=0, size = call Tentative.size();
-
-    while(i < size) {
-      entry = call Tentative.get(i);
-      if(entry.destination == nodeid) {
-        return i;
-      }
-      i++;
-    }
-    return 0;
-  }
-
-    uint8_t minInTentative() {
-    uint8_t i=1, size = call Tentative.size();
-    uint8_t minPos = 0;
-    tableLS entry, minEntry = call Tentative.get(0);
-
-    while(i < size) {
-      entry = call Tentative.get(i);
-      if(entry.cost < minEntry.cost) {
-        minEntry = entry;
-        minPos = i;
-      }
-      i++;
-    }
-    return minPos;
-  }
-
-    bool isNextHop(uint8_t id) {
-    uint8_t i=0, pos = getPos(TOS_NODE_ID);
-    LSP lsp = call LinkStateInfo.get(pos);
-
-    while(i < lsp.numNeighbors) {
-      if(lsp.neighbors[i] == id) {
-        return TRUE;
-      }
-      i++;
-    }
-    return FALSE;
-  }
-
-
-  
-
-    
 
     void floodLSP() {
 
@@ -1026,128 +807,6 @@ implementation{
    call Sender.send(sendPackage,AM_BROADCAST_ADDR);
 
   }
-
-
-    
-    //Adds a LSP to LinkStateInfo
-  error_t addLSP(LSP lsp) { 
-
-    uint16_t size = call LinkStateInfo.size();
-    uint16_t maxSize = call LinkStateInfo.maxSize();
-
-    if(isInLinkStateInfo(lsp)) {
-      return EALREADY;
-    }
-
-    if(size == maxSize) {
-      call LinkStateInfo.popfront();
-      call LinkStateInfo.pushback(lsp);
-      return SUCCESS;
-    }
-    else {
-      call LinkStateInfo.pushback(lsp);
-      return SUCCESS;
-    }
-
-    return FAIL;
-  }
-
-    bool inTentative(uint8_t nodeid) {
-    tableLS entry;
-    uint8_t i=0, size = call Tentative.size();
-
-    while(i < size) {
-      entry = call Tentative.get(i);
-      if(entry.destination == nodeid) {
-        return TRUE;
-      }
-      i++;
-    }
-    return FALSE;
-  }
-
-
-    bool inConfirmed(uint8_t nodeid) {
-    tableLS entry;
-    uint8_t i=0, size = call Confirmed.size();
-
-    while(i < size) {
-      entry = call Confirmed.get(i);
-      if(entry.destination == nodeid) {
-        return TRUE;
-      }
-      i++;
-    }
-    return FALSE;
-  }
-
-
-    bool isInLinkStateInfo(LSP lsp) {
-    uint16_t size = call LinkStateInfo.size();
-    uint8_t i=0;
-    LSP comp;
-
-    if(!call LinkStateInfo.isEmpty()) {
-     
-      while(i < size) {
-        comp = call LinkStateInfo.get(i);
-        //dbg(ROUTING_CHANNEL,"LSP id: %d \n",comp.id);
-        if(comp.id == lsp.id) {
-          return TRUE;
-        }
-        i++;
-      }
-    }
-    return FALSE;
-  }
-
-    bool isUpdatedLSP(LSP lsp) {
-    uint8_t i=0, pos = getPos(lsp.id);
-    LSP comp = call LinkStateInfo.get(pos);
-    dbg(ROUTING_CHANNEL,"pos: %d \n");
-    dbg(ROUTING_CHANNEL,"comp: %d \n");
-        if(lsp.numNeighbors == comp.numNeighbors) {
-      while(i < comp.numNeighbors) {
-        if(lsp.neighbors[i] != comp.neighbors[i])
-          return TRUE;
-
-          i++;
-      }
-      return FALSE;
-    }
-    return TRUE;
-  }
-
-
-  
-
-
-   
-
-
-   
-
-    //Prints contents of LinkStateInfo
-  void printLinkStateInfo() {
-    uint8_t size = call LinkStateInfo.size();
-    uint8_t i=0, j=0;
-    LSP lsp;
-
-    dbg(FLOODING_CHANNEL, "Node %d Link State Info(%d entries):\n", TOS_NODE_ID, size);
-
-    while(i < size) {
-      lsp = call LinkStateInfo.get(i);
-      printf("\t\t\t\tNode %2d sent [ ", lsp.id);
-      while(j < lsp.numNeighbors) {
-        printf("%2d ", lsp.neighbors[j]);
-        j++;
-      }
-      printf("]\n");
-      i++;
-    }
-  }
-
-  
 
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length){
       Package->src = src;
