@@ -19,6 +19,7 @@ implementation {
     components new AMReceiverC(AM_PACK) as GeneralReceive;
     components new TimerMilliC() as NeighboorTimer;
     components new TimerMilliC() as RoutingTimer;
+    components new TimerMilliC() as TCPTimer;
     components RandomC as Random;
 
 
