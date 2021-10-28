@@ -27,6 +27,7 @@ implementation {
     Node.RandomTimer -> Random;
     Node.NeighboorTimer -> NeighboorTimer;
     Node.RoutingTimer -> RoutingTimer;
+    Node.TCPTimer -> RoutingTimer;
 
     Node.Receive -> GeneralReceive;
 
