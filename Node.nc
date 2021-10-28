@@ -102,45 +102,18 @@ implementation{
 
    // Prototypes Project 2
    void sendLSP();
-   int seenPacketLSA(int seen);
    void Dijkstra();
-   void computeDijkstra();
    void forwarding(pack* Package);
    void printLSTable();
    void printRoutingTable();
    void printRoutingTable1();
-   void localroute();
-   void Route_flood();
-   void checkdest(tableLS* tempTable);
-   bool checkMin(tableLS* tempTable);
-   void insertTable(tableLS* tempTable);
-   void nodeNeighborCost();
-   void IPModule(pack* LSPacket);
    void sendLSPacket();
    void updateLSTable(uint8_t * payload, uint16_t source);
    uint16_t minDist(uint16_t dist[], bool sptSet[]);
    void initLSTable();
-   void tC(uint16_t []
-   );
-
-   bool isInLinkStateInfo(LSP);
-   bool isUpdatedLSP(LSP);
-   void updateLSP(LSP);
-   void sortLinkStateInfo();
-   error_t addLSP(LSP);
    void floodLSP();
    uint8_t getPos(uint8_t id);
-   void updateLSP(LSP lsp);
-   void updateAgesNodes();
-   uint8_t posInTentative(uint8_t nodeid);
-   bool isNextHop(uint8_t id);
    uint8_t findNextHopTo(uint8_t dest);
-   bool inTentative(uint8_t);
-   bool inConfirmed(uint8_t);
-   void updateRoutingTable();
-   void clearConfirmed();
-   uint8_t minInTentative();
-   void updateAges();
    void printLinkStateInfo();
 
 
@@ -649,19 +622,6 @@ implementation{
         }
    }
 
-   int seenPacketLSA(int id)
-   {
-    if(!call PacketCache.contains(id)) //is not in the cache
-    {
-      return 0;
-    }
-    else //it is in the cache
-    {
-       return 1;
-    }
-   
-   }
-
      
           void printRoutingTable()
            {
@@ -790,29 +750,7 @@ implementation{
     }
 
 
-   void nodeNeighborCost()// populate routing table w neighbor costs
-   {
-      neighboorDiscovery nodeTemp;
-      uint16_t neighborListSize = call NeighboorList.size();
-      uint16_t i=0;
-      while(i<neighborListSize)
-      {
-
-        nodeTemp=  call NeighboorList.get(i);
-        if(nodeTemp.node !=0 && ! call RoutingTable.contains(nodeTemp.node))
-        {
-           // 
-            routingTable[i].destination = nodeTemp.node;
-            routingTable[i].nextHop = TOS_NODE_ID;
-            routingTable[i].cost = 1;
-            call RoutingTable.insert(routingTable[i].destination,routingTable[i]);
-
-        }
-
-        i++;
-      }
-      sendLSP();
-   }
+   
 
 
    void sendLSP() //send advs of lsa packets
@@ -833,88 +771,10 @@ implementation{
     }
    }
 
-   void IPModule(pack* LSPacket)
-   {
-   tableLS route;
-   bool exists = call RoutingTable.contains(LSPacket->dest);
-      if(exists)
-      {
-        route = call RoutingTable.get(LSPacket->dest);
-        if(route.cost!=1)
-        {
-          dbg(ROUTING_CHANNEL,"Routing Packet: source: %d, destination: %d, sequence: %d, Next Hop: %d, cost:%d \n",LSPacket->src,LSPacket->dest,LSPacket->seq,route.nextHop,route.cost);
+  
+  
 
-
-          makePack(&sendPackage,LSPacket->src,LSPacket->dest,3,LSPacket->protocol,LSPacket->seq,(uint8_t*)LSPacket->payload,sizeof(LSPacket->payload));
-          call Sender.send(sendPackage,route.nextHop);
-
-        }
-        else
-        {
-        dbg(ROUTING_CHANNEL,"sending to other route");
-         makePack(&sendPackage,LSPacket->src,LSPacket->dest,3,LSPacket->protocol,LSPacket->seq,(uint8_t*)LSPacket->payload,sizeof(LSPacket->payload));
-          call Sender.send(sendPackage,LSPacket->dest);
-
-        }
-      }
-      else
-      {
-      route = call RoutingTable.get(LSPacket->dest);
-      if(route.cost==1)
-      {
-         dbg(ROUTING_CHANNEL,"Routing Packet: source: %d, destination: %d, sequence: %d, Next Hop: %d, cost:%d \n",LSPacket->src,LSPacket->dest,LSPacket->seq,route.nextHop,route.cost);
-
-
-          makePack(&sendPackage,LSPacket->src,LSPacket->dest,3,PROTOCOL_PING,LSPacket->seq,(uint8_t*)LSPacket->payload,sizeof(LSPacket->payload));
-          call Sender.send(sendPackage,route.nextHop);
-      }
-      }
-   }
-
-   void checkdest(tableLS* tempTable)
-   {
-      uint16_t i=0,j=0;
-      if(checkMin(tempTable))
-      {
-        if(!call RoutingTable.contains(tempTable[i].destination) && tempTable[i].destination!= TOS_NODE_ID)
-        {
-          insertTable(tempTable);
-        }
-      }
-   }
-
-   bool checkMin(tableLS* tempTable)
-   {
-      tableLS route;
-      route = call RoutingTable.get(tempTable[0].destination);
-      if(route.cost!=0 && route.cost> tempTable[0].cost)
-      {
-        return TRUE;
-      }
-      if(route.cost==0)
-      {
-          return TRUE;
-      }
-      else
-      {
-      return FALSE;
-      }
-   }
-
-    void insertTable(tableLS* tempTable)
-    {
-      uint16_t i= 0;
-      for(i=0;routingTable[i].destination!=0;i++)
-      {
-
-      }
-      routingTable[i].destination = tempTable[0].destination;
-      routingTable[i].nextHop = tempTable[0].nextHop;
-      routingTable[i].cost = tempTable[0].cost+1;
-      call RoutingTable.insert(tempTable[0].destination,routingTable[i]);
-      sendLSP();
-
-    }
+   
 
 
     void sendLSPacket()
@@ -1259,67 +1119,13 @@ implementation{
   }
 
 
-    uint8_t getPos(uint8_t id) {
-    uint8_t pos=0, size = call LinkStateInfo.size();
-    LSP lsp;
-
-    while(pos < size) {
-      lsp = call LinkStateInfo.get(pos);
-      if(id == lsp.id) {
-        return pos;
-      }
-      pos++;
-    }
-    return 0;
-  }
-
-    void updateLSP(LSP lsp) {
-    uint8_t pos = getPos(lsp.id);
-
-    call LinkStateInfo.replace(pos, lsp);
-  }
-
-    uint8_t findNextHopTo(uint8_t dest) {
-    uint8_t k=0, j=0, size = call Confirmed.size();
-    uint8_t pos;
-    tableLS entry;
-    LSP lsp;
-    //For each entry in Confirmed
-    while(k < size) {
-      //Search that entrys neigbors for 'dest'
-      entry = call Confirmed.get(k);
-      pos = getPos(entry.destination);
-      lsp = call LinkStateInfo.get(pos);
-
-      while(j < lsp.numNeighbors) {
-        //If found, then return that entrys 'next_hop'
-        if(lsp.neighbors[j] == dest) {
-          return entry.nextHop;
-        }
-        j++;
-      }
-      k++;
-    }
-    return 0;
-  } 
+  
 
 
-    void updateAges() {
-    uint8_t i=0, size = call LinkStateInfo.size();
-    LSP lsp;
+   
 
-    while(i < size) {
-      lsp = call LinkStateInfo.get(i);
-      if(lsp.age <= 1 || lsp.age > 5) {
-        call LinkStateInfo.remove(i);
-      }
-      else {
-        lsp.age--;
-        call LinkStateInfo.replace(i, lsp);
-      }
-      i++;
-    }
-  }
+
+   
 
     //Prints contents of LinkStateInfo
   void printLinkStateInfo() {
