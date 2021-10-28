@@ -600,10 +600,11 @@ implementation{
 
   void printRoutingTable1()
   {
-        uint16_t size = call RoutingTable1.size(), i, output;
-        for(i = 0; i < size; i++){
+        uint16_t size = call RoutingTable1.size(), i=0, output;
+        while(i < size){
             output = call RoutingTable1.get((uint32_t) i);
             dbg(ROUTING_CHANNEL, "Node: %d\t Next Hop: %d\t cost: %d\n", i, output,totalCost[i-1]);
+            i++;
         }
 
         dbg(ROUTING_CHANNEL, "\n");
@@ -662,8 +663,8 @@ implementation{
                 }
             }           
         }
-
-          for(i = 0; i < 20; i++){
+        i=0;
+        while( i < 20){
             temp = i;
             while(parent[temp] != -1  && parent[temp] != myID && temp < 20){
                 temp = parent[temp];
@@ -676,6 +677,7 @@ implementation{
                 call RoutingTable1.insert(i + 1, temp + 1);
                 //totalCost[i]+=1;
                 }
+                i++;
 
         }
 
@@ -685,10 +687,11 @@ implementation{
 
     uint16_t minDist(uint16_t dist[], bool sptSet[])
     {
-      uint16_t min = 9999, minIndex = 18, i;
-        for(i = 0; i < 20; i++){
+      uint16_t min = 9999, minIndex = 18, i=0;
+        while( i < 20){
             if(sptSet[i] == FALSE && dist[i] < min)
                 min = dist[i], minIndex = i;
+                i++;
         }
         return minIndex;
     }
@@ -714,13 +717,14 @@ implementation{
     {
       char payload[255];
         char tempC[127];
-        uint16_t i, size = call NeighboorList.size();          
+        uint16_t i=0, size = call NeighboorList.size();          
         neighboorDiscovery neighbor;      
-        for(i = 0; i < size; i++){
+        while(i < size){
             neighbor = call NeighboorList.get(i);
             sprintf(tempC, "%d", neighbor.node);
             strcat(payload, tempC);
             strcat(payload, ",");
+            i++;
         }
         
         makePack(&sendPackage, TOS_NODE_ID, AM_BROADCAST_ADDR, 50, PROTOCOL_LINKSTATE, sequenceNumber,
