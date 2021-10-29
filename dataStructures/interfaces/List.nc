@@ -25,5 +25,7 @@ interface List<t>{
 	command bool isFull();
 	command uint16_t size();
 	command t get(uint16_t position);
+	command uint16_t maxSize();
+	command void replace(uint8_t position, t input);
 
 }

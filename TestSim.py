@@ -131,23 +131,80 @@ class TestSim:
 
 def main():
     s = TestSim();
-    s.runTime(10);
-    s.loadTopo("long_line.topo");
+    s.runTime(1);#10 b4
+    s.loadTopo("example.topo");
     s.loadNoise("no_noise.txt");
     s.bootAll();
     s.addChannel(s.COMMAND_CHANNEL);
     s.addChannel(s.GENERAL_CHANNEL);
     s.addChannel(s.NEIGHBOR_CHANNEL);
     s.addChannel(s.FLOODING_CHANNEL);
+    s.addChannel(s.ROUTING_CHANNEL);
 
     #s.runTime(20);
     s.runTime(20);
     #floding
-    s.ping(10, 8, "Hello world");
-    s.runTime(5);
+    s.ping(8, 2, "Hello world");
+    s.runTime(20);
     #testing neighboor discovery
-    s.neighborDMP(6);#list of neighbor for node 4
-    s.runTime(5);
+    #s.neighborDMP(1);
+    #s.runTime(5);
+
+    #s.neighborDMP(2);
+    #s.runTime(5);
+
+    #s.neighborDMP(3);
+    #s.runTime(5);
+
+    #s.neighborDMP(4);
+    #s.runTime(5);
+
+    #s.neighborDMP(5);
+    #s.runTime(5);
+
+    #s.neighborDMP(6);
+    #s.runTime(5);
+
+    #s.neighborDMP(7);
+    #s.runTime(5);
+
+    #s.neighborDMP(8);
+    #s.runTime(5);
+
+    #s.neighborDMP(9);
+    #s.runTime(5);
+    #s.neighborDMP(2);#list of neighbor for node 4
+    #s.runTime(1);
+
+    #s.neighborDMP(8);#list of neighbor for node 4
+    #s.runTime(1);
+
+    s.routeDMP(1);
+    s.runTime(20);
+
+    #s.routeDMP(2);
+    #s.runTime(5);
+
+    #s.routeDMP(3);
+    #s.runTime(5);
+
+    #s.routeDMP(4);
+    #s.runTime(5);
+
+    #s.routeDMP(5);
+    #s.runTime(5);
+
+    #s.routeDMP(6);
+    #s.runTime(5);
+
+    s.routeDMP(7);
+    s.runTime(20);
+
+    s.routeDMP(8);
+    s.runTime(20);
+
+    #s.routeDMP(9);
+    #s.runTime(10);
    # s.neighborDMP(3);#list of neighbor for node 1
     #s.ping(1, 3, "Hi");
     #s.runTime(10);
