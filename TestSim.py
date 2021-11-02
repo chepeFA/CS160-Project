@@ -155,7 +155,7 @@ def main():
     s.addChannel(s.FLOODING_CHANNEL);
     s.addChannel(s.ROUTING_CHANNEL);
     s.addChannel(s.TRANSPORT_CHANNEL);
-    
+
     #s.runTime(20);
     s.runTime(20);
     #floding
@@ -194,8 +194,8 @@ def main():
     #s.neighborDMP(8);#list of neighbor for node 4
     #s.runTime(1);
 
-    s.routeDMP(1);
-    s.runTime(20);
+    #s.routeDMP(1);
+    #s.runTime(20);
 
     #s.routeDMP(2);
     #s.runTime(5);
@@ -212,11 +212,11 @@ def main():
     #s.routeDMP(6);
     #s.runTime(5);
 
-    s.routeDMP(7);
-    s.runTime(20);
+    #s.routeDMP(7);
+    #s.runTime(20);
 
-    s.routeDMP(8);
-    s.runTime(20);
+    #s.routeDMP(8);
+    #s.runTime(20);
 
     #s.routeDMP(9);
     #s.runTime(10);
