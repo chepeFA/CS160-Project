@@ -70,5 +70,9 @@ implementation {
    
     components new HashmapC(uint16_t, 64) as RoutingTable1C;
     Node.RoutingTable1 -> RoutingTable1C;
+
+    //project 3
+    components new HashmapC(socket_store_t,10) as socketTable;
+    Node.socketTable->socketTable
    
 }

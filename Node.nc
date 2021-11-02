@@ -72,7 +72,7 @@ module Node{
 
    //PROJECT 3
    uses interface Timer<TMilli> as TCPTimer;
-   uses interface Hashmap<socket_store_t> socketTable;
+   uses interface Hashmap<socket_store_t> as socketTable;
 
 
 }
