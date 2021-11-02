@@ -12,6 +12,7 @@
 #include "includes/CommandMsg.h"
 #include "includes/sendInfo.h"
 #include "includes/channels.h"
+#include "includes/socket.h"
 
 //struct pj1
 typedef nx_struct neighboorDiscovery{ //first two fields are for nd header
@@ -413,7 +414,7 @@ implementation{
 
    socket_addr_t socket; //
    socket_store_t tempSocket;
-   uintq6_t size;
+   uint16_t size;
    socket_t fd; //
 
    socket.addr = TOS_NODE_ID;
@@ -424,7 +425,7 @@ implementation{
    tempSocket.lastRead=0l;
    tempSocket.dest.port=0;
    tempSocket.lastRead=0;
-   
+
 
 
 
