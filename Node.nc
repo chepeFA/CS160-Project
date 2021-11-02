@@ -420,7 +420,7 @@ implementation{
    socket.addr = TOS_NODE_ID;
    socket.port = port;
    tempSocket.TYPE = SERVER;
-   tempSocket.src= socket;
+   tempSocket.srcAddr= socket;
    tempSocket.nextExpected=1;
    tempSocket.lastRead=0;
    tempSocket.dest.port=0;
