@@ -37,7 +37,7 @@ typedef struct socket_store_t{
     socket_port_t src;
     socket_addr_t dest;
 
-    socket_addr_t src;
+    socket_addr_t srcAddr;
     enum My_port TYPE;
     socket_t fd;
 
