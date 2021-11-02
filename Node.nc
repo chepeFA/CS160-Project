@@ -422,7 +422,7 @@ implementation{
    tempSocket.TYPE = SERVER;
    tempSocket.src= socket;
    tempSocket.nextExpected=1;
-   tempSocket.lastRead=0l;
+   tempSocket.lastRead=0;
    tempSocket.dest.port=0;
    tempSocket.lastRead=0;
 
