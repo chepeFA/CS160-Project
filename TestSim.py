@@ -129,6 +129,11 @@ class TestSim:
         print 'Adding Channel', channelName;
         self.t.addChannel(channelName, out);
 
+    def cmdTestServer(self,address,port):
+        self.sendCMD(self.CMD_TEST_SERVER,address,port)
+
+
+
 def main():
     s = TestSim();
     s.runTime(1);#10 b4

@@ -93,6 +93,10 @@ implementation{
     uint16_t seqNumberLSA=0;
     uint16_t LSTable[20][20];
     uint16_t totalCost[20];
+
+
+    //Project 3
+    TCP_Pack TCP_pack;
    
 
 
@@ -175,7 +179,8 @@ implementation{
 
    event void TCPTimer.fired()
    {
-   
+      
+    
    }
 
 
