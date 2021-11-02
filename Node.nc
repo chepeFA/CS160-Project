@@ -72,6 +72,7 @@ module Node{
    //PROJECT 3
    uses interface Timer<TMilli> as TCPTimer;
 
+
 }
 
 implementation{
@@ -408,7 +409,30 @@ implementation{
 
    event void CommandHandler.printDistanceVector(){}
 
-   event void CommandHandler.setTestServer(){}
+   event void CommandHandler.setTestServer(uint16_t port){
+
+   socket_addr_t socket; //
+   socket_store_t tempSocket;
+   uintq6_t size;
+   socket_t fd; //
+
+   socket.addr = TOS_NODE_ID;
+   socket.port = port;
+   tempSocket.TYPE = SERVER;
+   tempSocket.src= socket;
+   tempSocket.nextExpected=1;
+   tempSocket.lastRead=0l;
+   tempSocket.dest.port=0;
+   tempSocket.lastRead=0;
+   
+
+
+
+
+
+
+
+   }
 
    event void CommandHandler.setTestClient(){}
 
