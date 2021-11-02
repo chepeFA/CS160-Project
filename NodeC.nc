@@ -73,6 +73,6 @@ implementation {
 
     //project 3
     components new HashmapC(socket_store_t,10) as socketTable;
-    Node.socketTable->socketTable
+    Node.socketTable->socketTable;
    
 }
