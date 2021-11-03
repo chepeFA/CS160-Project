@@ -942,7 +942,7 @@ implementation{
       tempp.addr = addr->addr;
       tempServer.port = server->port;
       tempServer.addr = server->addr;
-      temp.src = tempp;
+      temp.srcAddr = tempp;
       temp.dest=tempServer;
       temp.state=NONE;
 
