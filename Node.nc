@@ -455,6 +455,7 @@ implementation{
    socket_addr_t socket_address;
    socket_addr_t socket_server;
    socket_store_t tempSocket;
+   socket_t fdd = getSocket();
 
 
    }
