@@ -881,7 +881,7 @@ implementation{
 
 
   //PROJECT 3 FUNCTIONS --------------------------
-  socket getSocket()
+  socket_t getSocket()
   {
   socket fd;
   socket_store_t socket;
