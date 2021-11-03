@@ -195,7 +195,7 @@ implementation{
       pack sentPacket;
       TCP_Pack tcpPack;
 
-      
+
     
    }
 
@@ -359,6 +359,7 @@ implementation{
          {
              makePack(&sendPackage, myMsg->src, myMsg->dest, myMsg->TTL, myMsg->protocol, myMsg->seq, 
                     (uint8_t *)myMsg->payload, sizeof(myMsg->payload));
+
               pushPack(sendPackage);
               if(call RoutingTable1.get(myMsg->dest)){
                 dbg(ROUTING_CHANNEL, "Route found, Sending to next hop %d\n", call RoutingTable1.get(myMsg->dest));
@@ -389,6 +390,7 @@ implementation{
           finalDestination=FALSE;
 
        dbg(GENERAL_CHANNEL, "PING EVENT \n");
+       dbg("Forwarding: %d \n",call RoutingTable1.get(destination));
       makePack(&sendPackage, TOS_NODE_ID, destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
       sequenceNumber++;
       pushPack(sendPackage);
@@ -426,29 +428,14 @@ implementation{
 
    event void CommandHandler.setTestServer(uint16_t port){
 
-   socket_t sk;
-   socket_addr_t addr;
-
-   addr.addr = TOS_NODE_ID;
-   addr.port=123;
-   sk.src = addr;
-   sk.state=LISTEN;
-   call socketList.pushback(sk);
+   
 
 
 }
 
 
    event void CommandHandler.setTestClient(){
-   socket_t sk;
-   socket_addr_t addr;
-   addr.addr = TOS_NODE_ID;
-   addr.port = 100;
-   sk.dest.port = 111;
-   sk.dest.addr = 1;
-   sk.src = addr;
-   call socketList.pushback(sk);
-   connect(sk);
+   
 
    }
 
