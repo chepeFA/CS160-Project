@@ -167,9 +167,12 @@ def main():
     s.ping(1, 8, "Hello world");
     s.runTime(60);
 
-    s.testServer(1,42);
+    s.testServer(1,42); #test server
     s.runTime(60);
 
+
+    s.testClient(4,23,1,42,150);#test client
+    s.runTime(100);
 
     #cmdTestClient(2,8,1,1,20);
     #s.runTime(20);
