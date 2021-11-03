@@ -45,7 +45,7 @@ typedef struct socket_t{// was b4 typedef struct socket_store_t
 
     socket_addr_t src;
     enum My_port TYPE;
-    socket_t fd;
+    //socket_t fd;
 
     // This is the sender portion.
     uint8_t sendBuff[SOCKET_BUFFER_SIZE];
