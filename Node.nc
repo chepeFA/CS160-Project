@@ -895,10 +895,9 @@ implementation{
   socket.fd=fd;
   call socketTable.insert(fd,socket);
 
-  
   else
   {
-  dbg(TRANSPORT_CHANNEL, "No Socket:\n");
+  //dbg(TRANSPORT_CHANNEL, "No Socket:\n");
   fd=NULL;
   }
 
