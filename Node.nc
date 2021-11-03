@@ -453,7 +453,7 @@ implementation{
    }
 
    event void CommandHandler.setTestClient(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer){
-
+   error_t t;
    socket_addr_t socket_address;
    socket_addr_t socket_server;
    socket_store_t tempSocket;
@@ -462,7 +462,7 @@ implementation{
    socket_address.port = srcPort;
    socket_server.addr = dest;
    socket_server.port = destPort;
-   error_t t =  bindClient(fdd,&socket_address,&socket_server);
+    t =  bindClient(fdd,&socket_address,&socket_server);
   if(t==SUCCESS)
   {
       dbg(TRANSPORT_CHANNEL,"Client: Binding to port %d \n",srcPort);
