@@ -925,7 +925,7 @@ implementation{
       {
 
         sk = call socketList.get(i);
-        if(sk.dest.port==srcPort && sk.src.port = destPort)
+        if(sk.dest.port==srcPort && sk.src.port == destPort)
         {
           return sk;
         }
