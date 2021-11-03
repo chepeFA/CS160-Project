@@ -886,7 +886,7 @@ implementation{
   {
       socket_t sk;
       uint16_t i =0;
-      uint16_t size = socketList.size();
+      uint16_t size = call socketList.size();
       while(i<size)
       {
         sk = call socketList.get(i);
