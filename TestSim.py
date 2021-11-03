@@ -164,8 +164,11 @@ def main():
     #s.runTime(20);
     s.runTime(20);
     #floding
-    s.ping(2, 8, "Hello world");
-    s.runTime(20);
+    s.ping(1, 8, "Hello world");
+    s.runTime(60);
+
+    s.testServer(1,42);
+    s.runTime(60);
 
 
     #cmdTestClient(2,8,1,1,20);
