@@ -165,8 +165,8 @@ def main():
     s.runTime(20);
 
 
-    cmdTestClient(2,8,1,1,20);
-    s.runTime(20);
+    #cmdTestClient(2,8,1,1,20);
+    #s.runTime(20);
     #testing neighboor discovery
     #s.neighborDMP(1);
     #s.runTime(5);
