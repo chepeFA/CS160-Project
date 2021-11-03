@@ -100,7 +100,7 @@ implementation{
 
     //Project 3
     TCP_Pack TCP_pack;
-    socket fdw;
+    socket_t fdw;
    
 
 
@@ -130,7 +130,7 @@ implementation{
 
 
    //prototypes Project 3
-   socket getSocket();
+   socket_t getSocket();
 
 
 
@@ -890,7 +890,7 @@ implementation{
   if(call socketTable.size()<=10)
   {
       fd = fdw+1;
-      dbg(TRANSPORT_CHANNEL,"fd value %d \n",fd);
+      //dbg(TRANSPORT_CHANNEL,"fd value %d \n",fd);
   }
   socket.fd=fd;
   call socketTable.insert(fd,socket);
