@@ -874,51 +874,6 @@ implementation{
   }
 
 
-   error_t bindClient(socket_t fd, socket_addr_t *addr,socket_addr_t *server)
-   {
-
-    socket_store_t temp;
-    socket_addr_t tempp;
-    socket_addr_t tempServer;
-    error_t e;
-    bool s = FALSE;
-    uint16_t size = call socketTable.size();
-    uint8_t i=1;
-    if(call socketTable.size()==0)//hash table is empty
-    {
-        return e =FAIL;
-    }
-
-    while(i<=size)
-    {
-    temp = call socketTable.get(i);
-    call socketTable.remove(i);
-    if(temp.fd ==fd && !s)
-    {
-      s=TRUE;
-      tempp.port = addr->port;
-      tempp.addr = addr->addr;
-      tempServer.port = server->port;
-      tempServer.addr = server->addr;
-      temp.srcAddr = tempp;
-      temp.dest=tempServer;
-      temp.state=NONE;
-
-
-    }
-    call socketTable.insert(i,temp);
-
-    i++;
-    }
-    if(s){
-    return e =SUCCESS;
-    }
-    else{
-    return e = FAIL;
-    }
-
-
-   }
 
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length){
       Package->src = src;
