@@ -891,10 +891,10 @@ implementation{
   {
       fd = fdw+1;
       //dbg(TRANSPORT_CHANNEL,"fd value %d \n",fd);
-  }
-  socket.fd=fd;
+      socket.fd=fd;
   call socketTable.insert(fd,socket);
-
+  }
+  
   else
   {
   //dbg(TRANSPORT_CHANNEL, "No Socket:\n");
