@@ -134,6 +134,7 @@ implementation{
    socket_t getSocket();
    error_t bindClient(socket_t fd, socket_addr_t *addr,socket_addr_t *server);
    socket_t getSocket1(uint8_t destPort, uint8_t srcP);
+   void connect(socket_t fd);
 
 
 
