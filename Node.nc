@@ -922,7 +922,7 @@ implementation{
     tcpPack->seq=1;
     tcpPack->flag = SYN_FLAG;
     makePack1(&msg,TOS_NODE_ID,temp.dest.addr,15,4,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
-    sk.state = SYN_SENT;
+    temp.state = SYN_SENT;
     call Sender.send(msg,temp.dest.addr);
 
 
