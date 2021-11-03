@@ -151,7 +151,7 @@ class TestSim:
 def main():
     s = TestSim();
     s.runTime(1);#10 b4
-    s.loadTopo("example.topo");
+    s.loadTopo("long_line.topo");
     s.loadNoise("no_noise.txt");
     s.bootAll();
     s.addChannel(s.COMMAND_CHANNEL);
@@ -167,12 +167,12 @@ def main():
     s.ping(1, 8, "Hello world");
     s.runTime(20);
 
-    s.testServer(1,42); #test server
-    s.runTime(60);
+    #s.testServer(1,42); #test server
+    #s.runTime(60);
 
 
-    s.testClient(4,23,1,42,150);#test client
-    s.runTime(100);
+    #s.testClient(4,23,1,42,150);#test client
+    #s.runTime(100);
 
     #cmdTestClient(2,8,1,1,20);
     #s.runTime(20);
