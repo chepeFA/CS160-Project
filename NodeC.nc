@@ -72,7 +72,7 @@ implementation {
     Node.RoutingTable1 -> RoutingTable1C;
 
     //project 3
-    components new HashmapC(socket_store_t,10) as socketTable;
+    components new HashmapC(socket_t,10) as socketTable;
     Node.socketTable->socketTable;
 
     components new ListC(socket_t,30) as socketList;
