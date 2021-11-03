@@ -129,11 +129,14 @@ class TestSim:
     def routeDMP(self, destination):
         self.sendCMD(self.CMD_ROUTE_DUMP, destination, "routing command");
 
-   # def cmdTestServer(self,sourceAddress,port):
-    #    self.sendCMD(self.CMD_TEST_SERVER,srcAddress,port)
+    def testServer(self,source,port):
+        self.sendCMD(self.CMD_TEST_SERVER,source,"{0}".format(chr(port)));
 
-    #def cmdTestClient(self,sourceAddress,destinationAddress,destinationPort,sourcePort,transfer):
-     #   self.sendCMD(self.CMD_TEST_CLIENT,source,"{0}{1}{2}{3}".format(chr(dest)),chr(destPort),chr(srcPort),chr(transfer))
+    def testClient(self,source,srcPort,destination,destPort,num_bytes_to_transfer):
+        self.sendCMD(self.CMD_TEST_CLIENT,source,"{0}{1}{2}".format(chr(srcPort),chr(destination)),chr(destPort),chr(num_bytes_to_transfer))
+
+    def clientClose(self,client_addr,srcPort,destination,destPort)
+        self.sendCMD(self.CMD_KILL,client_addr,"{0}{1}{2}".format(chr(srcPort),chr(destination),chr(destPort)))
 
 
     def addChannel(self, channelName, out=sys.stdout):
@@ -148,7 +151,7 @@ class TestSim:
 def main():
     s = TestSim();
     s.runTime(1);#10 b4
-    s.loadTopo("example.topo");
+    s.loadTopo("long_line.topo");
     s.loadNoise("no_noise.txt");
     s.bootAll();
     s.addChannel(s.COMMAND_CHANNEL);
