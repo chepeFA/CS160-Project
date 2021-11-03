@@ -421,7 +421,15 @@ implementation{
 
    event void CommandHandler.setTestServer(uint16_t port){
 
-   
+   socket_t sk;
+   socket_addr_t addr;
+
+   addr.addr = TOS_NODE_ID;
+   addr.port=123;
+   sk.src = addr;
+   sk.state=LISTEN;
+   call socketList.pushback(sk);
+
 
 }
 
@@ -871,6 +879,24 @@ implementation{
       i++;
       }
 
+  }
+
+
+  socket_t getServerSocket(uint8_t destPort)
+  {
+      socket_t sk;
+      uint16_t i =0;
+      uint16_t size = socketList.size();
+      while(i<size)
+      {
+        sk = call socketList.get(i);
+        if(sk.src.port == destPort && sk.state ==LISTEN)
+        {
+            return sk;
+        }
+
+      i++;
+      }
   }
 
 
