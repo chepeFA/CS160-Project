@@ -909,7 +909,7 @@ implementation{
   }
 
 
-  connect(socket_t fd)
+  void connect(socket_t fd)
   {
     pack msg;
     TCP_Pack* tcpPack;
