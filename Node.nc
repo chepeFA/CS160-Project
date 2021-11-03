@@ -100,6 +100,7 @@ implementation{
 
     //Project 3
     TCP_Pack TCP_pack;
+    socket fdw;
    
 
 
@@ -126,6 +127,10 @@ implementation{
    uint8_t getPos(uint8_t id);
    uint8_t findNextHopTo(uint8_t dest);
    void printLinkStateInfo();
+
+
+   //prototypes Project 3
+   socket getSocket();
 
 
 
@@ -447,6 +452,9 @@ implementation{
 
    event void CommandHandler.setTestClient(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer){
 
+   socket_addr_t socket_address;
+   socket_addr_t socket_server;
+   socket_store_t tempSocket;
 
 
    }
@@ -869,6 +877,32 @@ implementation{
   dbg(ROUTING_CHANNEL,"my payload : %s \n",payload);
    call Sender.send(sendPackage,AM_BROADCAST_ADDR);
 
+  }
+
+
+  //PROJECT 3 FUNCTIONS --------------------------
+  socket getSocket()
+  {
+  socket fd;
+  socket_store_t socket;
+  socket_store_t tempSocket;
+  uint16_t size;
+  if(call socketTable.size()<=10)
+  {
+      fd = fdw+1;
+      dbg(TRANSPORT_CHANNEL,"fd value %d \n",fd);
+  }
+  socket.fd=fd;
+  call socketTable.insert(fd,socket);
+
+  
+  else
+  {
+  dbg(TRANSPORT_CHANNEL, "No Socket:\n");
+  fd=NULL;
+  }
+
+      return fd;
   }
 
    void makePack(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length){
