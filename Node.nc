@@ -890,14 +890,14 @@ implementation{
   if(call socketTable.size()<=10)
   {
       fd = fdw+1;
-      //dbg(TRANSPORT_CHANNEL,"fd value %d \n",fd);
+      dbg(TRANSPORT_CHANNEL,"fd value %d \n",fd);
       socket.fd=fd;
   call socketTable.insert(fd,socket);
   }
   
   else
   {
-  //dbg(TRANSPORT_CHANNEL, "No Socket:\n");
+  dbg(TRANSPORT_CHANNEL, "No Socket:\n");
   fd=NULL;
   }
 
