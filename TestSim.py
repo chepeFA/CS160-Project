@@ -135,7 +135,7 @@ class TestSim:
     def testClient(self,source,srcPort,destination,destPort,num_bytes_to_transfer):
         self.sendCMD(self.CMD_TEST_CLIENT,source,"{0}{1}{2}".format(chr(srcPort),chr(destination)),chr(destPort),chr(num_bytes_to_transfer));
 
-    def clientClose(self,client_addr,srcPort,destination,destPort)
+    def clientClose(self,client_addr,srcPort,destination,destPort):
         self.sendCMD(self.CMD_KILL,client_addr,"{0}{1}{2}".format(chr(srcPort),chr(destination),chr(destPort)));
 
 
