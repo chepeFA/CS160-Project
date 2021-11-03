@@ -133,7 +133,7 @@ class TestSim:
         self.sendCMD(self.CMD_TEST_SERVER,source,"{0}".format(chr(port)));
 
     def testClient(self,source,srcPort,destination,destPort,num_bytes_to_transfer):
-        self.sendCMD(self.CMD_TEST_CLIENT,source,"{0}{1}{2}".format(chr(srcPort),chr(destination)),chr(destPort),chr(num_bytes_to_transfer));
+        self.sendCMD(self.CMD_TEST_CLIENT,source,"{0}{1}{2}".format(chr(srcPort),chr(destination),chr(destPort),chr(num_bytes_to_transfer));
 
     def clientClose(self,client_addr,srcPort,destination,destPort):
         self.sendCMD(self.CMD_KILL,client_addr,"{0}{1}{2}".format(chr(srcPort),chr(destination),chr(destPort)));
@@ -165,7 +165,7 @@ def main():
     s.runTime(20);
     #floding
     s.ping(1, 8, "Hello world");
-    s.runTime(60);
+    s.runTime(20);
 
     s.testServer(1,42); #test server
     s.runTime(60);
