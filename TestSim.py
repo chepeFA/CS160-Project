@@ -129,11 +129,11 @@ class TestSim:
     def routeDMP(self, destination):
         self.sendCMD(self.CMD_ROUTE_DUMP, destination, "routing command");
 
-    def cmdTestServer(self,sourceAddress,port):
-        self.sendCMD(self.CMD_TEST_SERVER,srcAddress,port)
+   # def cmdTestServer(self,sourceAddress,port):
+    #    self.sendCMD(self.CMD_TEST_SERVER,srcAddress,port)
 
-    def cmdTestClient(self,sourceAddress,destinationAddress,destinationPort,sourcePort,transfer):
-        self.sendCMD(self.CMD_TEST_CLIENT,source,"{0}{1}{2}{3}".format(chr(dest)),chr(destPort),chr(srcPort),chr(transfer))
+    #def cmdTestClient(self,sourceAddress,destinationAddress,destinationPort,sourcePort,transfer):
+     #   self.sendCMD(self.CMD_TEST_CLIENT,source,"{0}{1}{2}{3}".format(chr(dest)),chr(destPort),chr(srcPort),chr(transfer))
 
 
     def addChannel(self, channelName, out=sys.stdout):
