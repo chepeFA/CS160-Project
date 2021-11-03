@@ -73,6 +73,7 @@ module Node{
    //PROJECT 3
    uses interface Timer<TMilli> as TCPTimer;
    uses interface Hashmap<socket_store_t> as socketTable;
+   uses interface List<socket_t> as socketList;
 
 
 }
@@ -132,7 +133,7 @@ implementation{
    //prototypes Project 3
    socket_t getSocket();
    error_t bindClient(socket_t fd, socket_addr_t *addr,socket_addr_t *server);
-   socket_t getSocket1(uint8_t destPort, uint8_t srcP)
+   socket_t getSocket1(uint8_t destPort, uint8_t srcP);
 
 
 
