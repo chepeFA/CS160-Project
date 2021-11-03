@@ -434,8 +434,16 @@ implementation{
 }
 
 
-   event void CommandHandler.setTestClient(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer){
-   
+   event void CommandHandler.setTestClient(){
+   socket_t sk;
+   socket_addr_t addr;
+   addr.addr = TOS_NODE_ID;
+   addr.port = 100;
+   sk.dest.port = 111;
+   sk.dest.addr = 1;
+   sk.src = addr;
+   call socketList.pushback(sk);
+   connect(sk);
 
    }
 
@@ -897,6 +905,15 @@ implementation{
 
       i++;
       }
+  }
+
+
+  connect(socket_t fd)
+  {
+    pack msg;
+    TCP_Pack* tcpPack;
+    socket_t temp =fd;
+    tcpPack = (TCP_Pack*)(msg.payload);
   }
 
 
