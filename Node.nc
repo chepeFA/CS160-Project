@@ -426,12 +426,6 @@ implementation{
 }
 
 
-
-
-
-
-   
-
    event void CommandHandler.setTestClient(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer){
    
 
@@ -859,28 +853,7 @@ implementation{
 
 
   //PROJECT 3 FUNCTIONS --------------------------
-  socket_t getSocket()
-  {
-  socket_t fd;
-  socket_store_t socket;
-  socket_store_t tempSocket;
-  uint16_t size;
-  if(call socketTable.size()<=10)
-  {
-      fd = fdw+1;
-      dbg(TRANSPORT_CHANNEL,"fd value %d \n",fd);
-      socket.fd=fd;
-      call socketTable.insert(fd,socket);
-  }
   
-  else
-  {
-  dbg(TRANSPORT_CHANNEL, "No Socket:\n");
-  fd=NULL;
-  }
-
-      return fd;
-  }
 
   socket_t getSocket1(uint8_t destPort, uint8_t srcPort)
   {
