@@ -883,7 +883,7 @@ implementation{
   //PROJECT 3 FUNCTIONS --------------------------
   socket_t getSocket()
   {
-  socket fd;
+  socket_t fd;
   socket_store_t socket;
   socket_store_t tempSocket;
   uint16_t size;
