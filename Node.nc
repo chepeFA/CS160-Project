@@ -421,28 +421,7 @@ implementation{
 
    event void CommandHandler.setTestServer(uint16_t port){
 
-   socket_addr_t socket; //
-   socket_store_t tempSocket;
-   uint16_t size;
-   socket_t fd; //
-
-   if(call socketTable.size()<=10)
-   {
-   fd = call socketTable.size()+1;
-   //print transport channel
-
-   socket.addr = TOS_NODE_ID;
-   socket.port = port;
-   tempSocket.srcAddr= socket;
-   tempSocket.TYPE = SERVER;
    
-   tempSocket.nextExpected=1;
-   tempSocket.lastRead=0;
-   tempSocket.dest.port=0;
-   tempSocket.lastRead=0;
-
-   //insert into hash table
-   call socketTable.insert(fd,tempSocket);
 
 }
 
@@ -454,20 +433,7 @@ implementation{
    }
 
    event void CommandHandler.setTestClient(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer){
-   error_t t;
-   socket_addr_t socket_address;
-   socket_addr_t socket_server;
-   socket_store_t tempSocket;
-   socket_t fdd = getSocket();
-   socket_address.addr = TOS_NODE_ID;
-   socket_address.port = srcPort;
-   socket_server.addr = dest;
-   socket_server.port = destPort;
-    t =  bindClient(fdd,&socket_address,&socket_server);
-  if(t==SUCCESS)
-  {
-      dbg(TRANSPORT_CHANNEL,"Client: Binding to port %d \n",srcPort);
-  }
+   
 
    }
 
