@@ -462,9 +462,10 @@ implementation{
    socket_address.port = srcPort;
    socket_server.addr = dest;
    socket_server.port = destPort;
+   error_t t =  bindClient(fd,&socket_address,&socket_server);
 
 
-  if(call bindClient(fd,&socket_address,&socket_server)==SUCCESS)
+  if(t==SUCCESS)
   {
       dbg(TRANSPORT_CHANNEL,"Client: Binding to port %d \n",srcPort);
   }
