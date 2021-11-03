@@ -132,7 +132,7 @@ implementation{
    //prototypes Project 3
    socket_t getSocket();
    error_t bindClient(socket_t fd, socket_addr_t *addr,socket_addr_t *server);
-
+   socket_t getSocket1(uint8_t destPort, uint8_t srcP)
 
 
 
@@ -903,7 +903,7 @@ implementation{
       fd = fdw+1;
       dbg(TRANSPORT_CHANNEL,"fd value %d \n",fd);
       socket.fd=fd;
-  call socketTable.insert(fd,socket);
+      call socketTable.insert(fd,socket);
   }
   
   else
@@ -913,6 +913,24 @@ implementation{
   }
 
       return fd;
+  }
+
+  socket_t getSocket1(uint8_t destPort, uint8_t srcP)
+  {
+      socket_t sk;
+      uint16_t i=0;
+      uint16_t size = call socketList.size();
+      while(i<size)
+      {
+
+        sk = call socketList.get(i);
+        if(sk.dest.port==srcPort && sk.src.port = destPort)
+        {
+          return sk;
+        }
+      i++;
+      }
+
   }
 
 
