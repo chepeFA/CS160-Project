@@ -135,6 +135,7 @@ implementation{
    error_t bindClient(socket_t fd, socket_addr_t *addr,socket_addr_t *server);
    socket_t getSocket1(uint8_t destPort, uint8_t srcP);
    void connect(socket_t fd);
+   void makePack1(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length)
 
 
 
@@ -915,8 +916,8 @@ implementation{
     TCP_Pack* tcpPack;
     socket_t temp =fd;
     tcpPack = (TCP_Pack*)(msg.payload);
-    tcpPack -> destPort = sk.dest.port;
-    tcpPack -> srcPort = sk.src.port;
+    tcpPack -> destPort = temp.dest.port;
+    tcpPack -> srcPort = temp.src.port;
     tcpPack->ACK=0;
     tcpPack->seq=1;
     tcpPack->flag = SYN_FLAG;

@@ -9,6 +9,14 @@
 # include "protocol.h"
 #include "channels.h"
 
+#define DATA_FLAG 0
+#define DATA_ACK_FLAG 1
+#define SYN_FLAG 2
+#define SYN_ACK_FLAG 3
+#define ACK_FLAG 4
+#define FIN_FLAG 5
+#define FIN_ACK 6
+
 enum{
 	PACKET_HEADER_LENGTH = 8,
 	PACKET_MAX_PAYLOAD_SIZE = 28 - PACKET_HEADER_LENGTH,
