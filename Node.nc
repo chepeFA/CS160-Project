@@ -456,7 +456,11 @@ implementation{
    socket_addr_t socket_server;
    socket_store_t tempSocket;
    socket_t fdd = getSocket();
-
+   socket_address.addr = TOS_NODE_ID;
+   socket_address.port = srcPort;
+   socket_server.addr = dest;
+   socket_server.port = destPort;
+   
 
    }
 
