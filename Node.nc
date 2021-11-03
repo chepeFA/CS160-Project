@@ -192,6 +192,9 @@ implementation{
 
    event void TCPTimer.fired()
    {
+      pack sentPacket;
+      TCP_Pack tcpPack;
+
       
     
    }
@@ -929,6 +932,8 @@ implementation{
 
 
   }
+
+
 
   void makePack1(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length)
   {
