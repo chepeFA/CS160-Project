@@ -916,7 +916,7 @@ implementation{
       return fd;
   }
 
-  socket_t getSocket1(uint8_t destPort, uint8_t srcP)
+  socket_t getSocket1(uint8_t destPort, uint8_t srcPort)
   {
       socket_t sk;
       uint16_t i=0;

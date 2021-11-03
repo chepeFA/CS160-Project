@@ -58,6 +58,7 @@ typedef struct socket_store_t{
     uint8_t lastRead;
     uint8_t lastRcvd;
     uint8_t nextExpected;
+    uint8_t seq;
 
     uint16_t RTT;
     uint8_t effectiveWindow;
