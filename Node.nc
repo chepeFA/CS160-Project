@@ -449,6 +449,11 @@ implementation{
 
    }
 
+   event void CommandHandler.clientClose(uint16_t dest,uint16_t destPort,uint16_t srcPort)
+   {
+
+   }
+
    event void CommandHandler.setAppServer(){}
 
    event void CommandHandler.setAppClient(){}
