@@ -427,7 +427,17 @@ implementation{
    event void CommandHandler.printDistanceVector(){}
 
    event void CommandHandler.setTestServer(uint16_t port){
+   socket_t skt;
+   socket_addr_t myAddress;
 
+   myAddress.addr = TOS_NODE_ID;
+   myAddress.port = port;
+
+   skt.src = myAddr;
+   skt.CONN=LISTEN;
+   skt.nextExp=0;
+
+   call socketList.pushback(skt);
    
 
 

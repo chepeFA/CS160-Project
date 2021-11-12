@@ -129,11 +129,12 @@ class TestSim:
     def routeDMP(self, destination):
         self.sendCMD(self.CMD_ROUTE_DUMP, destination, "routing command");
 
+
     def testServer(self,source,port):
         self.sendCMD(self.CMD_TEST_SERVER,source,"{0}".format(chr(port)));
 
     def testClient(self,source,srcPort,destination,destPort,num_bytes_to_transfer):
-        self.sendCMD(self.CMD_TEST_CLIENT,source,"{0}{1}{2}".format(chr(srcPort),chr(destination),chr(destPort),chr(num_bytes_to_transfer)));
+        self.sendCMD(self.CMD_TEST_CLIENT,source,"{0}{1}{2}{3}".format(chr(srcPort),chr(destination),chr(destPort),chr(num_bytes_to_transfer)));
 
     def clientClose(self,client_addr,srcPort,destination,destPort):
         self.sendCMD(self.CMD_KILL,client_addr,"{0}{1}{2}".format(chr(srcPort),chr(destination),chr(destPort)));
