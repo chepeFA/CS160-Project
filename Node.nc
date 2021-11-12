@@ -444,7 +444,7 @@ implementation{
 }
 
 
-   event void CommandHandler.setTestClient(){
+   event void CommandHandler.setTestClient(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer){
    
 
    }
