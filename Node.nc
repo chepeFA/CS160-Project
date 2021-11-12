@@ -467,7 +467,11 @@ implementation{
 
    event void CommandHandler.clientClose(uint16_t dest,uint16_t destPort,uint16_t srcPort)
    {
-
+      socket_addr_t skt_addr;
+      socket_addr_t skt_server;
+      socket_store_t tempsocket;
+      socket_t fd;
+      
    }
 
    event void CommandHandler.setAppServer(){}
