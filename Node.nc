@@ -136,6 +136,7 @@ implementation{
    socket_t getSocket1(uint8_t destPort, uint8_t srcP);
    void connect(socket_t fd);
    void makePack1(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length);
+   void finishConnecting(socket_t skt);
 
 
 
@@ -957,6 +958,42 @@ implementation{
     dbg(GENERAL_CHANNEL,"Node %u state is %u \n",temp.src.addr,temp.state);
     dbg(GENERAL_CHANNEL,"Client is trying to connet \n");
     call Sender.send(msg,temp.dest.addr);
+
+
+
+
+  }
+
+  void finishConnecting(socket_t fd)
+  {
+
+    TCP_Pack *tcpPack;
+    pack msg;
+    socket_t skt =fd;
+    tcpPack = (TCP_Pack*)(msg.payload);
+    tcpPack->destPort = skt.dest.port;
+    tcpPack->srcPort = skt.src.port;
+    tcpPack->flag = DATA_FLAG;
+    tcpPack->seq=0;
+    uint16_t i=0;
+
+    do
+    {
+      tcpPack->payload[i]=i;
+      i++;
+
+
+    }while(i<TCP_MAX_PAYLOAD_SIZE && i<=skt.effectiveWindow);
+
+    tcpPack->ACK=i;
+   // makePack1(&flying, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, t, PACKET_MAX_PAYLOAD_SIZE);
+    makePack1(&msg, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, t, PACKET_MAX_PAYLOAD_SIZE);
+    dbg(ROUTING_CHANNEL, "Node %u State is %u \n", skt.src.addr, skt.state);
+
+    dbg(ROUTING_CHANNEL, "SERVER CONNECTED\n");
+
+    call TCPTimer.startOneShot(150000);
+    call Sender.send(msg,call RouringTable1.get(skt.dest.addr));
 
 
 
