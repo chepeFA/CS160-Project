@@ -966,7 +966,7 @@ implementation{
 
   void finishConnecting(socket_t fd)
   {
-
+    uint16_t i=0;
     TCP_Pack *tcpPack;
     pack msg;
     socket_t skt =fd;
@@ -975,7 +975,8 @@ implementation{
     tcpPack->srcPort = skt.src.port;
     tcpPack->flag = DATA_FLAG;
     tcpPack->seq=0;
-    uint16_t i=0;
+    
+
 
     do
     {
@@ -987,13 +988,13 @@ implementation{
 
     tcpPack->ACK=i;
    // makePack1(&flying, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, t, PACKET_MAX_PAYLOAD_SIZE);
-    makePack1(&msg, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, t, PACKET_MAX_PAYLOAD_SIZE);
+    makePack1(&msg, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, tcpPack, 6);
     dbg(ROUTING_CHANNEL, "Node %u State is %u \n", skt.src.addr, skt.state);
 
     dbg(ROUTING_CHANNEL, "SERVER CONNECTED\n");
 
     call TCPTimer.startOneShot(150000);
-    call Sender.send(msg,call RouringTable1.get(skt.dest.addr));
+    call Sender.send(msg,call RoutingTable1.get(skt.dest.addr));
 
 
 
