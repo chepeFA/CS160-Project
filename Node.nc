@@ -137,6 +137,7 @@ implementation{
    void connect(socket_t fd);
    void makePack1(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length);
    void finishConnecting(socket_t skt);
+   socket_t getServerSocket(uint8_t destPort);
 
 
 
