@@ -62,6 +62,7 @@ typedef struct socket_t{// was b4 typedef struct socket_store_t
 
     uint16_t RTT;
     uint8_t effectiveWindow;
+    nx_uint16_t transfer;
 }socket_t;//was b4 socket_store_t
 
 #endif
