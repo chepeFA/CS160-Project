@@ -433,9 +433,9 @@ implementation{
    myAddress.addr = TOS_NODE_ID;
    myAddress.port = port;
 
-   skt.src = myAddr;
-   skt.CONN=LISTEN;
-   skt.nextExp=0;
+   skt.src = myAddress;
+   skt.state=LISTEN;
+   skt.nextExpected=0;
 
    call socketList.pushback(skt);
    
