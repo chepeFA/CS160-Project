@@ -446,6 +446,21 @@ implementation{
 
    event void CommandHandler.setTestClient(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer){
    
+   socket_t skt;
+   socket_addr_t myAddress;
+
+   //uint16_t dest;
+   //uint16_t srcPort;
+   //uint16_t destPort;
+   //uint16_t transfer;
+   //uint16_t i=0;
+   myAddress.addr = TOS_NODE_ID
+   myAddress.port = srcPort;
+   skt.dest.port = destPort;
+   skt.dest.location=dest;
+   sk.transfer=transfer;
+   call socketList.pushback(skt);
+
 
    }
 
