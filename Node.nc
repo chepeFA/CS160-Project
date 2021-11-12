@@ -193,8 +193,8 @@ implementation{
    event void TCPTimer.fired()
    {
       pack sentPacket = flying;
-      TCP_Pack *tcpPack = (TCP_Pack*)(sentPacket.paylaod);
-      socket skt = getSocket(tcpPack->srcPort,tcpPackk->destPort);
+      TCP_Pack *tcpPack = (TCP_Pack*)(sentPacket.payload);
+      socket_t skt = getSocket(tcpPack->srcPort,tcpPackk->destPort);
 
       if(skt.dest.port)
       {
