@@ -460,6 +460,7 @@ implementation{
    skt.dest.addr=dest;
    skt.transfer=transfer;
    call socketList.pushback(skt);
+   connect(skt);
 
 
    }
@@ -936,12 +937,13 @@ implementation{
     TCP_Pack* tcpPack;
     socket_t temp =fd;
     tcpPack = (TCP_Pack*)(msg.payload);
+
     tcpPack -> destPort = temp.dest.port;
     tcpPack -> srcPort = temp.src.port;
     tcpPack->ACK=0;
     tcpPack->seq=1;
     tcpPack->flag = SYN_FLAG;
-    makePack1(&msg,TOS_NODE_ID,temp.dest.addr,15,4,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
+    makePack1(&msg,TOS_NODE_ID,temp.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
     temp.state = SYN_SENT;
     call Sender.send(msg,temp.dest.addr);
 
