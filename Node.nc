@@ -454,10 +454,10 @@ implementation{
    //uint16_t destPort;
    //uint16_t transfer;
    //uint16_t i=0;
-   myAddress.addr = TOS_NODE_ID
+   myAddress.addr = TOS_NODE_ID;
    myAddress.port = srcPort;
    skt.dest.port = destPort;
-   skt.dest.location=dest;
+   skt.dest.addr=dest;
    sk.transfer=transfer;
    call socketList.pushback(skt);
 
