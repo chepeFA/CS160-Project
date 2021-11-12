@@ -102,7 +102,7 @@ implementation{
     //Project 3
     TCP_Pack TCP_pack;
     socket_t fdw;
-   
+    pack flying;
 
 
    // Prototypes Project 1
@@ -192,8 +192,19 @@ implementation{
 
    event void TCPTimer.fired()
    {
-      pack sentPacket;
-      TCP_Pack tcpPack;
+      pack sentPacket = flying;
+      TCP_Pack *tcpPack = (TCP_Pack*)(sentPacket.paylaod);
+      socket skt = getSocket(tcpPack->srcPort,tcpPackk->destPort);
+
+      if(skt.dest.port)
+      {
+            call socketList.pushback(skt);
+
+            makePack1(&sentPacket,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
+            call TCPTimer.startOneShot(150000);
+            call Sender.send(sentPacket,skt.dest.addr);
+      }
+
 
 
     
