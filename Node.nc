@@ -194,7 +194,7 @@ implementation{
    {
       pack sentPacket = flying;
       TCP_Pack *tcpPack = (TCP_Pack*)(sentPacket.payload);
-      socket_t skt = getSocket(tcpPack->srcPort,tcpPackk->destPort);
+      socket_t skt = getSocket1(tcpPack->srcPort,tcpPack->destPort);
 
       if(skt.dest.port)
       {
