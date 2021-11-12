@@ -458,7 +458,7 @@ implementation{
    myAddress.port = srcPort;
    skt.dest.port = destPort;
    skt.dest.addr=dest;
-   sk.transfer=transfer;
+   skt.transfer=transfer;
    call socketList.pushback(skt);
 
 
