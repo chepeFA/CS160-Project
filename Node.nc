@@ -984,7 +984,7 @@ implementation{
       i++;
 
 
-    }while(i<TCP_MAX_PAYLOAD_SIZE && i<=skt.effectiveWindow);
+    }while(i<6 && i<=skt.effectiveWindow);
 
     tcpPack->ACK=i;
    // makePack1(&flying, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, t, PACKET_MAX_PAYLOAD_SIZE);
