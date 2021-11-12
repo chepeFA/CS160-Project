@@ -467,11 +467,11 @@ implementation{
 
    event void CommandHandler.clientClose(uint16_t dest,uint16_t destPort,uint16_t srcPort)
    {
-      socket_addr_t skt_addr;
-      socket_addr_t skt_server;
-      socket_store_t tempsocket;
-      socket_t fd;
-      
+      //socket_addr_t skt_addr;
+      //socket_addr_t skt_server;
+      ///socket_store_t tempsocket;
+      //socket_t fd;
+
    }
 
    event void CommandHandler.setAppServer(){}
@@ -949,6 +949,8 @@ implementation{
     tcpPack->flag = SYN_FLAG;
     makePack1(&msg,TOS_NODE_ID,temp.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
     temp.state = SYN_SENT;
+    dbg(ROUTING_CHANNEL,"Node %u state is %u \n",temp.src.addr,temo.state);
+    dbg(GENERAL_CHANNEL,"Client is trying" \n);
     call Sender.send(msg,temp.dest.addr);
 
 
