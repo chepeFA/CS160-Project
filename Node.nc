@@ -1245,7 +1245,12 @@ implementation{
         }
     }
 
-
+    if(flag==FIN_ACK)
+    {
+      dbg(TRANSPORT_CHANNEL,"Got FIN ACK\n");
+      skt=getSocket1(destPort,srcPort);
+      skt.state=CLOSED;
+    }
 
 
 
