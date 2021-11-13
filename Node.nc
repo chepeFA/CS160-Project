@@ -1223,13 +1223,13 @@ implementation{
 
     if(flag==FIN_FLAG || flag == FIN_ACK )
     {
-        if(falg==FIN_FLAG)
+        if(flag==FIN_FLAG)
         {
           dbg(TRANSPORT_CHANNEL,"RECEIVED FIN REQUEST");
           skt=getSocket1(destPort,srcPort);
           skt.state=CLOSED;
-          skt.det.port=srcPort;
-          skt.dest.addr=tcp_msg->src;
+          skt.dest.port=srcPort;
+          skt.dest.addr=msg->src;
           newTCP = (TCP_Pack*)(p.payload);
           newTCP->destPort = skt.dest.port;
           newTCP->srcPort = skt.src.port;
@@ -1244,7 +1244,7 @@ implementation{
 
         }
     }
-    
+
 
 
 
