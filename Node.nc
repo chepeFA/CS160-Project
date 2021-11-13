@@ -1054,6 +1054,28 @@ implementation{
 
     }
 
+    else if(flag == SYN_ACK_FLAG)
+    {
+    dbg(TRANSPORT_CHANNEL,"SYN ACK Received \n");
+    skt = getSocket1(destPort,srcPort);
+    skt.state=ESTABLISHED;
+    call socketList.pushback(skt);
+    newTCP = (TCP_Pack*)(p.payload);
+    newTCP->destPort = skt.dest.port;
+    newTCP->srcPort = skt.src.port;
+    newTCP->seq=1;
+    newTCP->ACK=seq+1;
+    newTCP ->flag  = ACK_FLAG;
+    dbg(TRANSPORT_CHANNEL,"ACK sent \n");
+    makePack1(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,6);
+    call Sender.send(p,call RoutingTable1.get(skt.dest.addr));
+
+    finishingConnecting(skt);
+
+
+
+    }
+
   }
 
   }
