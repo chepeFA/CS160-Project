@@ -1007,7 +1007,7 @@ implementation{
 
   void TCP_Mechanism(pack *msg)
   {
-
+   uint8_t sktDestAddr = call RoutingTable1(skt.dest.addr);
   TCP_Pack * tcp_msg= (TCP_Pack*)(msg->payload);
   TCP_Pack *newTCP;
   pack p;
@@ -1024,14 +1024,14 @@ implementation{
   seq = tcp_msg->seq;
   ACK = tcp_msg->ACK;
   flag  = tcp_msg->flag;
-  uint8_t sktDestAddr = call RoutingTable1(skt.dest.addr);
+ 
 
   if(flag == SYN_FLAG || flag == SYN_ACK_FLAG || flag == ACK_FLAG)
   {
 
   if(flag == SYN_FLAG)
   {
-    dbg(TRANSPORT_CHANNEL,"SYN Received\N");
+    dbg(TRANSPORT_CHANNEL,"SYN Received  \n");
     skt = getServerSocket(destPort);
     if(skt.src.port && skt.state == LISTEN)
     {
@@ -1042,7 +1042,7 @@ implementation{
 
       newTCP= (TCP_Pack *)(p.payload);
       newTCP->destPort = skt.dest.port;
-      newTCP ->sercPort = skt.src.port;
+      newTCP ->srcPort = skt.src.port;
       newTCP->seq=1;
       newTCP->ACK=seq+1;
       newTCP->flag = SYN_ACK_FLAG;
