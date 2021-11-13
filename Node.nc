@@ -203,7 +203,7 @@ implementation{
       {
             call socketList.pushback(skt);
 
-            makePack1(&sentPacket,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
+            makePack(&sentPacket,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
             call TCPTimer.startOneShot(150000);
             call Sender.send(sentPacket,skt.dest.addr);
       }
@@ -955,7 +955,7 @@ implementation{
     tcpPack->ACK=0;
     tcpPack->seq=1;
     tcpPack->flag = SYN_FLAG;
-    makePack1(&msg,TOS_NODE_ID,temp.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
+    makePack(&msg,TOS_NODE_ID,temp.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
     temp.state = SYN_SENT;
     dbg(GENERAL_CHANNEL,"Node %u state is %u \n",temp.src.addr,temp.state);
     dbg(GENERAL_CHANNEL,"Client is trying to connet \n");
@@ -989,8 +989,8 @@ implementation{
     }while(i<6 && i<=skt.effectiveWindow);
 
     tcpPack->ACK=i;
-   // makePack1(&flying, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, t, PACKET_MAX_PAYLOAD_SIZE);
-    makePack1(&msg, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, tcpPack, 6);
+   makePack(&flying, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, t, PACKET_MAX_PAYLOAD_SIZE);
+    makePack(&msg, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, tcpPack, 6);
     dbg(ROUTING_CHANNEL, "Node %u State is %u \n", skt.src.addr, skt.state);
 
     dbg(ROUTING_CHANNEL, "SERVER CONNECTED\n");
@@ -1048,7 +1048,7 @@ implementation{
       newTCP->seq=1;
       newTCP->ACK=seq+1;
       newTCP->flag = SYN_ACK_FLAG;
-      makePack1(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,6);
+      makePack(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,6);
       dbg(TRANSPORT_CHANNEL,"SYN ACK was sent \n");
       call Sender.send(p,call RoutingTable1.get(skt.dest.addr));
 
@@ -1068,7 +1068,7 @@ implementation{
     newTCP->ACK=seq+1;
     newTCP ->flag  = ACK_FLAG;
     dbg(TRANSPORT_CHANNEL,"ACK sent \n");
-    makePack1(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,6);
+    makePack(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,6);
     call Sender.send(p,call RoutingTable1.get(skt.dest.addr));
 
     finishConnecting(skt);
@@ -1148,7 +1148,7 @@ implementation{
        newTCP ->effectiveWindow = skt.effectiveWindow;
        newTCP->flag= DATA_ACK_FLAG;
        dbg(TRANSPORT_CHANNEL,"Sendind DATA ACK FLAG \n");
-       makePack1(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,6);
+       makePack(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,6);
        call Sender.send(p,call RoutingTable1.get(skt.dest.addr));
 
 
@@ -1187,9 +1187,9 @@ implementation{
             newTCP->srcPort = skt.src.port;
             newTCP->ACK = (i-1)-(tcp_msg->lastAcked);
             newTCP->seq = ACK;
-             makePack1(&p, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, newTCP, PACKET_MAX_PAYLOAD_SIZE);     
+             makePack(&p, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, newTCP, PACKET_MAX_PAYLOAD_SIZE);     
                                         
-            makePack1(&flying, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, newTCP, PACKET_MAX_PAYLOAD_SIZE);
+            makePack(&flying, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, newTCP, PACKET_MAX_PAYLOAD_SIZE);
 
             call TCPTimer.startOneShot(150000);
             call Sender.send(p,call RoutingTable1.get(skt.dest.addr));
@@ -1206,7 +1206,7 @@ implementation{
           newTCP->seq=1;
           newTCP->ACK=seq+1;
           newTCP->flag = FIN_FLAG;
-          makePack1(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,PACKET_MAX_PAYLOAD_SIZE);
+          makePack(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,PACKET_MAX_PAYLOAD_SIZE);
           call Sender.send(p,call RoutingTable1.get(skt.dest.addr));
 
         }
@@ -1238,7 +1238,7 @@ implementation{
           newTCP->flag = FIN_ACK;
           dbg(TRANSPORT_CHANNEL, "CONNECTION CLOSING, DATA RECEIVED: \n");
 
-          makePack1(&p, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, newTCP, PACKET_MAX_PAYLOAD_SIZE);
+          makePack(&p, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, newTCP, PACKET_MAX_PAYLOAD_SIZE);
           call Sender.send(p,call RoutingTable1.get(skt.dest.addr));
 
 
