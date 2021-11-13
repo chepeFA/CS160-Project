@@ -1096,9 +1096,9 @@ implementation{
     if(flag==DATA_FLAG)
     {
       dbg(TRANSPORT_CHANNEL,"Data Received\n");
-      skt = getSocket(destPort,srcPort);
+      skt = getSocket1(destPort,srcPort);
 
-      if(skt.state==ESTABLIISHED)
+      if(skt.state==ESTABLISHED)
       {
        newTCP = (TCP_Pack*)(p.payload);
 
@@ -1124,7 +1124,7 @@ implementation{
         
            while(i<tcp_msg->ACK);
            {
-              skt.revdBuff[i] = tcp_msg->payload[i];
+              skt.rcvdBuff[i] = tcp_msg->payload[i];
               skt.lastRcvd = tcp_msg->payload[i];
               i++;
 
@@ -1141,9 +1141,10 @@ implementation{
        newTCP->srcPort = skt.src.port;
        newTCP->seq = seq;
        newTCP ->ACK = seq+1;
-       newTCP ->lastAck = skt.lastRcvd;
+       newTCP ->lastAcked = skt.lastRcvd;
        newTCP ->effectiveWindow = skt.effectiveWindow;
        newTCP->flag= DATA_ACK_FLAG;
+       dbg(TRANSPORT_CHANNEL,"Sendind DATA ACK FLAG \n");
        makePack1(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,6);
        call Sender.send(p,call RoutingTable1.get(skt.dest.addr));
 
@@ -1151,8 +1152,12 @@ implementation{
 
 
 
-      }
+    
     }
+    }
+
+
+
 
     }
 
