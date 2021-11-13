@@ -1185,7 +1185,7 @@ implementation{
             newTCP->destPort = skt.dest.port;
             newTCP->srcPort = skt.src.port;
             newTCP->ACK = (i-1)-(tcp_msg->lastAcked);
-            newTCP->seq = lastAck;
+            newTCP->seq = ACK;
              makePack1(&p, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, newTCP, PACKET_MAX_PAYLOAD_SIZE);     
                                         
             makePack1(&flying, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, newTCP, PACKET_MAX_PAYLOAD_SIZE);
