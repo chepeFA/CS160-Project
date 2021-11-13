@@ -138,6 +138,7 @@ implementation{
    void makePack1(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length);
    void finishConnecting(socket_t skt);
    socket_t getServerSocket(uint8_t destPort);
+   void TCP_Mechanism(pack *msg);
 
 
 
@@ -997,6 +998,31 @@ implementation{
     call TCPTimer.startOneShot(150000);
     call Sender.send(msg,call RoutingTable1.get(skt.dest.addr));
 
+
+
+
+
+
+  }
+
+  void TCP_Mechanism(pack *msg)
+  {
+
+  TCP_Pack * tcp_message= (TCP_Pack*)(msg->payload);
+  uint8_t srcPort=0;
+  uint8_t seq=0;
+  uint8_t destPort=0;
+  uint8_t ACK;
+  uint8_t flag;
+  socket_t skt;
+  uint16_t i;
+  uint16_t j;
+  srcPort = msg->srcPort;
+  destPort = msg->destPort;
+  seq = msg->seq;
+  ACK = msg->ACK;
+  flag  = msg->flag;
+  
 
 
 
