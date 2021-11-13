@@ -1164,7 +1164,7 @@ implementation{
         skt = getSocket1(destPort,srcPort);
         if(skt.state==ESTABLISHED)
         {
-        if(tcp_msg->window!=0 && tcp_msg->lastACK !=skt.effectiveWindow)
+        if(tcp_msg->window!=0 && tcp_msg->lastAcked !=skt.effectiveWindow)
         {
             dbg(TRANSPORT_CHANNEL, "SENDING NEXT DATA\n");
             newTCP = (TCP_Pack*)(p.payload);
@@ -1203,7 +1203,7 @@ implementation{
           newTCP->destPort = skt.dest.port;
           newTCP->srcPort = skt.src.port;
           newTCP->seq=1;
-          newTCP->ACL=se1+1;
+          newTCP->ACK=seq+1;
           newTCP->flag = FIN_FLAG;
           makePack1(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,PACKET_MAX_PAYLOAD_SIZE);
           call Sender.send(p,call RoutingTable1.get(skt.dest.addr));
@@ -1220,7 +1220,7 @@ implementation{
 
     }
 
-   
+
 
 
 
