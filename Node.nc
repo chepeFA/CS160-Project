@@ -201,11 +201,17 @@ implementation{
 
       if(skt.dest.port)
       {
+                dbg(TRANSPORT_CHANNEL, "PACKET DROPPED, RETRANSMITTING PACKET\n");
             call socketList.pushback(skt);
 
             makePack(&sentPacket,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
-            call TCPTimer.startOneShot(150000);
+            call TCPTimer.startOneShot(140000);
+            if(call RoutingTable1.get(skt.dest.addr))
+            {
             call Sender.send(sentPacket,skt.dest.addr);
+            }
+            else
+            dbg(TRANSPORT_CHANNEL,"Can't find route to server\n");
       }
 
 
