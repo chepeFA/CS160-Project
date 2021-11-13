@@ -989,7 +989,7 @@ implementation{
     }while(i<6 && i<=skt.effectiveWindow);
 
     tcpPack->ACK=i;
-   makePack(&flying, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, t, PACKET_MAX_PAYLOAD_SIZE);
+   makePack(&flying, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0,tcpPack , PACKET_MAX_PAYLOAD_SIZE);
     makePack(&msg, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, tcpPack, 6);
     dbg(ROUTING_CHANNEL, "Node %u State is %u \n", skt.src.addr, skt.state);
 
