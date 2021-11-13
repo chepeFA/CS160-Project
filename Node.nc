@@ -1079,7 +1079,7 @@ implementation{
     else if(flag==ACK_FLAG)
     {
     dbg(TRANSPORT_CHANNEL,"ACK was received. Connection is finalizing\n");
-    skt = getSocket(destPort,srcPort);
+    skt = getSocket1(destPort,srcPort);
     if(skt.src.port && skt.state==SYN_RCVD)
     {
         skt.state=ESTABLISHED;
