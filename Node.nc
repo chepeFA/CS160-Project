@@ -1090,6 +1090,74 @@ implementation{
 
     }
 
+    if(flag==DATA_FLAG || flag==DATA_ACK_FLAG)
+    {
+
+    if(flag==DATA_FLAG)
+    {
+      dbg(TRANSPORT_CHANNEL,"Data Received\n");
+      skt = getSocket(destPort,srcPort);
+
+      if(skt.state==ESTABLIISHED)
+      {
+       newTCP = (TCP_Pack*)(p.payload);
+
+       if(tcp_msg->payload[0]!=0 && seq==skt.nextExpected)
+       {
+        i = skt.lastRcvd + 1;
+        j=0;
+        do
+        {
+          dbg(TRANSPORT_CHANNEL,"Writing to the received buffer %d \n",i);
+          skt.rcvdBuff[i]=tcp_msg->payload[j];
+          skt.lastRcvd = tcp_msg->payload[j];
+          i++;
+          j++;
+
+
+        }while(j<tcp_msg->ACK);
+
+       }
+       else
+       {
+         i =0;
+        
+           while(i<tcp_msg->ACK);
+           {
+              skt.revdBuff[i] = tcp_msg->payload[i];
+              skt.lastRcvd = tcp_msg->payload[i];
+              i++;
+
+              }
+
+       
+       }
+       //buffer size = 64;
+       skt.effectiveWindow = 64 -(skt.lastRcvd +1);
+       skt.nextExpected = seq+1;
+
+       call socketList.pushback(skt);
+       newTCP ->destPort = skt.dest.port;
+       newTCP->srcPort = skt.src.port;
+       newTCP->seq = seq;
+       newTCP ->ACK = seq+1;
+       newTCP ->lastAck = skt.lastRcvd;
+       newTCP ->effectiveWindow = skt.effectiveWindow;
+       newTCP->flag= DATA_ACK_FLAG;
+       makePack1(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,6);
+       call Sender.send(p,call RoutingTable1.get(skt.dest.addr));
+
+
+
+
+
+      }
+    }
+
+    }
+
+
+
   }
 
   }
