@@ -1070,7 +1070,7 @@ implementation{
     makePack1(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,6);
     call Sender.send(p,call RoutingTable1.get(skt.dest.addr));
 
-    finishingConnecting(skt);
+    finishConnecting(skt);
 
 
 
