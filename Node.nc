@@ -1029,7 +1029,8 @@ implementation{
   if(flag == SYN_FLAG || flag == SYN_ACK_FLAG || flag == ACK_FLAG)
   {
 
-  if(flag == SYN_FLAG)
+ 
+     if(flag == SYN_FLAG)
   {
     dbg(TRANSPORT_CHANNEL,"SYN Received  \n");
     skt = getServerSocket(destPort);
@@ -1218,7 +1219,37 @@ implementation{
 
 
 
+  }
+
+    if(flag==FIN_FLAG || flag == FIN_ACK )
+    {
+        if(falg==FIN_FLAG)
+        {
+          dbg(TRANSPORT_CHANNEL,"RECEIVED FIN REQUEST");
+          skt=getSocket1(destPort,srcPort);
+          skt.state=CLOSED;
+          skt.det.port=srcPort;
+          skt.dest.addr=tcp_msg->src;
+          newTCP = (TCP_Pack*)(p.payload);
+          newTCP->destPort = skt.dest.port;
+          newTCP->srcPort = skt.src.port;
+          newTCP->seq=1;
+          newTCP->ACK=seq+1;
+          newTCP->flag = FIN_ACK;
+          dbg(TRANSPORT_CHANNEL, "CONNECTION CLOSING, DATA RECEIVED: \n");
+
+          makePack1(&p, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, newTCP, PACKET_MAX_PAYLOAD_SIZE);
+          call Sender.send(p,call RoutingTable1.get(skt.dest.addr));
+
+
+        }
     }
+    
+
+
+
+
+
 
 
 
