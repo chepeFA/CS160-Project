@@ -1007,7 +1007,7 @@ implementation{
 
   void TCP_Mechanism(pack *msg)
   {
-   uint8_t sktDestAddr = call RoutingTable1(skt.dest.addr);
+ 
   TCP_Pack * tcp_msg= (TCP_Pack*)(msg->payload);
   TCP_Pack *newTCP;
   pack p;
@@ -1033,6 +1033,7 @@ implementation{
   {
     dbg(TRANSPORT_CHANNEL,"SYN Received  \n");
     skt = getServerSocket(destPort);
+    uint8_t sktDestAddr = call RoutingTable1(skt.dest.addr);
     if(skt.src.port && skt.state == LISTEN)
     {
       skt.state=SYN_RCVD;
