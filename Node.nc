@@ -1009,6 +1009,8 @@ implementation{
   {
 
   TCP_Pack * tcp_msg= (TCP_Pack*)(msg->payload);
+  TCP_Pack *newTCP;
+  pack p;
   uint8_t srcPort=0;
   uint8_t seq=0;
   uint8_t destPort=0;
@@ -1022,11 +1024,36 @@ implementation{
   seq = tcp_msg->seq;
   ACK = tcp_msg->ACK;
   flag  = tcp_msg->flag;
+  uint8_t sktDestAddr = call RoutingTable1(skt.dest.addr);
 
   if(flag == SYN_FLAG || flag == SYN_ACK_FLAG || flag == ACK_FLAG)
   {
 
+  if(flag == SYN_FLAG)
+  {
+    dbg(TRANSPORT_CHANNEL,"SYN Received\N");
+    skt = getServerSocket(destPort);
+    if(skt.src.port && skt.state == LISTEN)
+    {
+      skt.state=SYN_RCVD;
+      skt.dest.port = srcPort;
+      skt.dest.addr = msg->src;
+      call socketList.pushback(skt);
 
+      newTCP= (TCP_Pack *)(p.payload);
+      newTCP->destPort = skt.dest.port;
+      newTCP ->sercPort = skt.src.port;
+      newTCP->seq=1;
+      newTCP->ACK=seq+1;
+      newTCP->flag = SYN_ACK_FLAG;
+      makePack1(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,6);
+      dbg(TRANSPORT_CHANNEL,"SYN ACK was sent \n");
+      call Sender.send(p,sktDestAddr);
+
+
+    }
+
+  }
 
   }
 
