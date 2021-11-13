@@ -1008,7 +1008,7 @@ implementation{
   void TCP_Mechanism(pack *msg)
   {
 
-  TCP_Pack * tcp_message= (TCP_Pack*)(msg->payload);
+  TCP_Pack * tcp_msg= (TCP_Pack*)(msg->payload);
   uint8_t srcPort=0;
   uint8_t seq=0;
   uint8_t destPort=0;
@@ -1017,12 +1017,12 @@ implementation{
   socket_t skt;
   uint16_t i;
   uint16_t j;
-  srcPort = msg->srcPort;
-  destPort = msg->destPort;
-  seq = msg->seq;
-  ACK = msg->ACK;
-  flag  = msg->flag;
-  
+  srcPort = tcp_msg->srcPort;
+  destPort = tcp_msg->destPort;
+  seq = tcp_msg->seq;
+  ACK = tcp_msg->ACK;
+  flag  = tcp_msg->flag;
+
 
 
 
