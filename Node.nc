@@ -1023,7 +1023,12 @@ implementation{
   ACK = tcp_msg->ACK;
   flag  = tcp_msg->flag;
 
+  if(flag == SYN_FLAG || flag == SYN_ACK_FLAG || flag == ACK_FLAG)
+  {
 
+
+
+  }
 
 
   }
