@@ -1033,7 +1033,7 @@ implementation{
   {
     dbg(TRANSPORT_CHANNEL,"SYN Received  \n");
     skt = getServerSocket(destPort);
-    //uint8_t sktDestAddr = call RoutingTable1(skt.dest.addr);
+    uint8_t sktDestAddr = call RoutingTable1.get(skt.dest.addr);
     if(skt.src.port && skt.state == LISTEN)
     {
       skt.state=SYN_RCVD;
@@ -1049,7 +1049,7 @@ implementation{
       newTCP->flag = SYN_ACK_FLAG;
       makePack1(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,6);
       dbg(TRANSPORT_CHANNEL,"SYN ACK was sent \n");
-      call Sender.send(p,call RoutingTable1(skt.dest.addr));
+      call Sender.send(p,sktDestAddr);
 
 
     }
