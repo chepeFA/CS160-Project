@@ -476,11 +476,14 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
    socket_t skt;
    socket_addr_t myAddress;
+
    myAddress.addr = TOS_NODE_ID;
    myAddress.port = srcPort;
+
    skt.dest.port = destPort;
    skt.dest.addr=dest;
    skt.transfer=transfer;
+
    call socketList.pushfront(skt);
    connect(skt);
    info(dest,destPort,srcPort,transfer);
@@ -971,9 +974,16 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     tcpPack->flag = SYN_FLAG;
     makePack(&msg,TOS_NODE_ID,temp.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
     temp.state = SYN_SENT;
-    dbg(GENERAL_CHANNEL,"Node %u state is %u \n",temp.src.addr,temp.state);
-    dbg(GENERAL_CHANNEL,"Client is trying to connet \n");
+    #dbg(GENERAL_CHANNEL,"Node %u state is %u \n",temp.src.addr,temp.state);
+    #dbg(GENERAL_CHANNEL,"Client is trying to connet \n");
+    if(call RoutingTable1.get(temp.dest.location))
+    {
+
+
     call Sender.send(msg,temp.dest.addr);
+    }
+    else
+    dbg(ROUTING_CHANNEL, "Route to destination server not found...\n");
 
 
 
