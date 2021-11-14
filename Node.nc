@@ -481,7 +481,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
    skt.dest.port = destPort;
    skt.dest.addr=dest;
    skt.transfer=transfer;
-   call socketList.pushfron(skt);
+   call socketList.pushfront(skt);
    connect(skt);
    info(dest,destPort,srcPort,transfer);
 
