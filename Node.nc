@@ -139,7 +139,7 @@ implementation{
    void finishConnecting(socket_t skt);
    socket_t getServerSocket(uint8_t destPort);
    void TCP_Mechanism(pack *msg);
-   void info();
+   void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer);
 
 
 
@@ -463,7 +463,7 @@ implementation{
 
 
 }
-void info()
+void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 {
    dbg(GENERAL_CHANNEL,"dest:%d\t destPort:%d\t srcPort:%d\t transfer:%d t \n",dest,destPort,srcPort,transfer);
 }
@@ -471,7 +471,7 @@ void info()
 
    event void CommandHandler.setTestClient(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer){
      
-
+   info(dest,destPort,srcPort,transfer);
    socket_t skt;
    socket_addr_t myAddress;
    myAddress.addr = TOS_NODE_ID;
@@ -481,7 +481,7 @@ void info()
    skt.transfer=transfer;
    call socketList.pushback(skt);
    connect(skt);
-   info();
+
 
    }
 
