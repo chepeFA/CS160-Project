@@ -976,7 +976,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     temp.state = SYN_SENT;
   //dbg(GENERAL_CHANNEL,"Node %u state is %u \n",temp.src.addr,temp.state);
     //dbg(GENERAL_CHANNEL,"Client is trying to connet \n");
-    if(call RoutingTable1.get(temp.dest.location))
+    if(call RoutingTable1.get(temp.dest.addr))
     {
 
 
