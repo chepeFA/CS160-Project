@@ -448,7 +448,7 @@ implementation{
    event void CommandHandler.printDistanceVector(){}
 
    event void CommandHandler.setTestServer(uint16_t port){
-   dbg(GENERAL_CHANNEL,"Source: %d \t Destination%d\t \n",TOS_NODE_ID,port);
+
    socket_t skt;
    socket_addr_t myAddress;
 
@@ -460,6 +460,7 @@ implementation{
    skt.nextExpected=0;
 
    call socketList.pushback(skt);
+    dbg(GENERAL_CHANNEL,"Source: %d \t Destination%d\t \n",TOS_NODE_ID,port);
    
 
 
