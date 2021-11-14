@@ -202,7 +202,7 @@ implementation{
 
       if(skt.dest.port)
       {
-            dbg(TRANSPORT_CHANNEL, "PACKET DROPPED, RETRANSMITTING PACKET\n");
+            //dbg(TRANSPORT_CHANNEL, "PACKET DROPPED, RETRANSMITTING PACKET\n");
             call socketList.pushfront(skt);
 
             makePack(&sentPacket,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);

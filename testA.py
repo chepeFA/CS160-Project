@@ -24,6 +24,8 @@ def main():
     s.addChannel(s.COMMAND_CHANNEL);
     s.addChannel(s.GENERAL_CHANNEL);
     s.addChannel(s.TRANSPORT_CHANNEL);
+    s.addChannel(s.FLOODING_CHANNEL);
+    s.addChannel(s.ROUTING_CHANNEL);
 
     #determine the "well known address" and "well know port" of the server
     well_known_mote = 1;
