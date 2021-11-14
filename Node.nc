@@ -473,6 +473,7 @@ implementation{
    skt.dest.port = destPort;
    skt.dest.addr=dest;
    skt.transfer=transfer;
+   dbg(GENERAL_CHANNEL,"dest:%d \t destPort:%d \t srcPort:%d \t transfer:%d \t \n"dest,destPort,srcPort,transfer);
    call socketList.pushback(skt);
    connect(skt);
 
