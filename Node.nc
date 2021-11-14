@@ -448,6 +448,7 @@ implementation{
    event void CommandHandler.printDistanceVector(){}
 
    event void CommandHandler.setTestServer(uint16_t port){
+   dbg(GENERAL_CHANNEL,"Source: %d \t Destination%d\t \n",TOS_NODE_ID,port);
    socket_t skt;
    socket_addr_t myAddress;
 
@@ -471,7 +472,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
    event void CommandHandler.setTestClient(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer){
      
-  
+
    socket_t skt;
    socket_addr_t myAddress;
    myAddress.addr = TOS_NODE_ID;
