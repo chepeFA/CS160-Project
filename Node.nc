@@ -465,7 +465,7 @@ implementation{
 
 
    event void CommandHandler.setTestClient(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer){
-   
+      dbg(GENERAL_CHANNEL,"dest:%d \t destPort:%d \t srcPort:%d \t transfer:%d \t \n"dest,destPort,srcPort,transfer);
    socket_t skt;
    socket_addr_t myAddress;
    myAddress.addr = TOS_NODE_ID;
@@ -473,7 +473,6 @@ implementation{
    skt.dest.port = destPort;
    skt.dest.addr=dest;
    skt.transfer=transfer;
-   dbg(GENERAL_CHANNEL,"dest:%d \t destPort:%d \t srcPort:%d \t transfer:%d \t \n"dest,destPort,srcPort,transfer);
    call socketList.pushback(skt);
    connect(skt);
 
