@@ -204,6 +204,7 @@ implementation{
       TCP_Pack *tcpPack = (TCP_Pack*)(sentPacket.payload);
       socket_t skt = getSocket1(tcpPack->srcPort,tcpPack->destPort);
       dbg(TRANSPORT_CHANNEL,"info in package: tcp srcPort: %d tcp destPort: %d  \n",tcpPack->srcPort,tcpPack->destPort);
+      //dbg();
 
       if(skt.dest.port)
       {
@@ -465,8 +466,9 @@ implementation{
    skt.state=LISTEN;
    skt.nextExpected=0;
 
-   call socketList.pushback(skt);
+    call socketList.pushback(skt);
     dbg(GENERAL_CHANNEL,"Source: %d \t Destination:%d \t \n",TOS_NODE_ID,port);
+    dbg(GENERAL_CHANNEL,"socket info: skt.src: %d \n",skt.src)
    
 
 
