@@ -926,6 +926,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
   socket_t getSocket1(uint8_t destPort, uint8_t srcPort)
   {
+      dbg(GENERAL_CHANNEL,"In getsocket function \n");
       socket_t sk;
       socket_t temp;
       uint16_t i=0;
