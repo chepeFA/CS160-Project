@@ -491,6 +491,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
    skt.dest.port = destPort;
    skt.dest.addr=dest;
    skt.transfer=transfer;
+   dbg(GENERAL_CHANNEL,"dest: %d destPort: %d srcPort: %d transfer: %d \n",dest,destPort,srcPort,transfer);
 
    call socketList.pushback(skt);
    connect(skt);
@@ -988,6 +989,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     makePack(&msg,TOS_NODE_ID,temp.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
     temp.state = SYN_SENT;
     dbg(GENERAL_CHANNEL,"MSG payload: %s",msg.payload);
+
   //dbg(GENERAL_CHANNEL,"Node %u state is %u \n",temp.src.addr,temp.state);
     //dbg(GENERAL_CHANNEL,"Client is trying to connet \n");
     if(call RoutingTable1.get(temp.dest.addr))
