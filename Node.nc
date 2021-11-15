@@ -75,7 +75,7 @@ module Node{
    uses interface Hashmap<socket_t> as socketTable;
    uses interface List<socket_t> as socketList;
    uses interface Queue<pack> as packetQueue;
-   
+
 
 
 }
@@ -198,9 +198,11 @@ implementation{
 
    event void TCPTimer.fired()
    {
+      pack another = call packetQueue.head();
       pack sentPacket = flying;
       pack p;
       TCP_Pack *tcpPack = (TCP_Pack*)(sentPacket.payload);
+      dbg(TRANSPORT_CHANNEL,"info in package: tcp srcPort: %d tcp destPort: %d  \n",tcpPack->srcPort,tcpPack->destPort);
       socket_t skt = getSocket1(tcpPack->srcPort,tcpPack->destPort);
 
       if(skt.dest.port)
@@ -1026,7 +1028,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     tcpPack->ACK=i;
     makePack(&msg, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, tcpPack, 6);
     dbg(ROUTING_CHANNEL, "Node %u State is %u \n", skt.src.addr, skt.state);
-   makePack(&flying, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0,tcpPack , PACKET_MAX_PAYLOAD_SIZE);
+    makePack(&flying, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0,tcpPack , PACKET_MAX_PAYLOAD_SIZE);
     
 
     dbg(ROUTING_CHANNEL, "SERVER CONNECTED\n");
