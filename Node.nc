@@ -931,7 +931,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
       socket_t temp;
       uint16_t i=0;
       uint16_t size = call socketList.size();
-      dbg(GENERAL_CHANNEL,"In getsocket function \n");
+      dbg(GENERAL_CHANNEL,"In getsocket function. destPort: %d \t srcPort: %d \n");
       while(i<size)
       {
 
