@@ -468,7 +468,7 @@ implementation{
 
     call socketList.pushback(skt);
     dbg(GENERAL_CHANNEL,"Source: %d \t Destination:%d \t \n",TOS_NODE_ID,port);
-    dbg(GENERAL_CHANNEL,"socket info: skt.src: %d \n",skt.src);
+    dbg(GENERAL_CHANNEL,"socket info: myAddress.addr: %d, myAddress.port:%d \n",myAddress.addr,myAddress.port);
    
 
 
