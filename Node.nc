@@ -197,6 +197,7 @@ implementation{
    event void TCPTimer.fired()
    {
       pack sentPacket = flying;
+      pack p;
       TCP_Pack *tcpPack = (TCP_Pack*)(sentPacket.payload);
       socket_t skt = getSocket1(tcpPack->srcPort,tcpPack->destPort);
 
@@ -205,7 +206,7 @@ implementation{
             //dbg(TRANSPORT_CHANNEL, "PACKET DROPPED, RETRANSMITTING PACKET\n");
             call socketList.pushback(skt);
 
-            makePack(&sentPacket,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
+            makePack(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
             call TCPTimer.startOneShot(140000);
             if(call RoutingTable1.get(skt.dest.addr))
             {
@@ -933,7 +934,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
       {
 
         sk = call socketList.get(i);
-        if(sk.dest.port==srcPort && sk.src.port == destPort && sk.state!=LISTEN)
+        if(sk.dest.port==srcPort && sk.src.port == destPort)
         { 
           //temp=sk;
           //call socketList.remove(i);
