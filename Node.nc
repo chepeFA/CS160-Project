@@ -926,6 +926,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
   socket_t getSocket1(uint8_t destPort, uint8_t srcPort)
   {
       socket_t sk;
+      socket_t temp;
       uint16_t i=0;
       uint16_t size = call socketList.size();
       while(i<size)
@@ -933,9 +934,10 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
         sk = call socketList.get(i);
         if(sk.dest.port==srcPort && sk.src.port == destPort)
-        {
-          return sk;
+        { 
+          temp=sk;
           call socketList.remove(i);
+          return sk;
         }
       i++;
       }
