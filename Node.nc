@@ -890,7 +890,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     //Encapsulate this list into a LSP, use pointer here
     myLSP.numNeighbors = numNeighbors;
     myLSP.id = TOS_NODE_ID;
-    dbg(ROUTING_CHANNEL,"ID: %d \n",TOS_NODE_ID);
+   // dbg(ROUTING_CHANNEL,"ID: %d \n",TOS_NODE_ID);
     for(i = 0; i < numNeighbors; i++) {
       myLSP.neighbors[i] = neighbors[i];
     }
