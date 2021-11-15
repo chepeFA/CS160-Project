@@ -42,9 +42,9 @@ def main():
     s.ping(1, 8, "Hi");
     s.runTime(5);
 
-    s.runTime(10);#300 b4
+    s.runTime(100);#300 b4
     s.testServer(well_known_mote,well_known_port); #needs two, node i connects to port j
-    s.runTime(5);#100 b4
+    s.runTime(50);#100 b4
 
     s.testClient(4,well_known_mote,well_known_port,15,150);# Client at node 4 binds to port 15 and attemps to send data to node 1 at port 2 
     s.runTime(50);#100 b4
