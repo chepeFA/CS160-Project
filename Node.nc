@@ -202,8 +202,8 @@ implementation{
       pack sentPacket = flying;
       pack p;
       TCP_Pack *tcpPack = (TCP_Pack*)(sentPacket.payload);
-      dbg(TRANSPORT_CHANNEL,"info in package: tcp srcPort: %d tcp destPort: %d  \n",tcpPack->srcPort,tcpPack->destPort);
       socket_t skt = getSocket1(tcpPack->srcPort,tcpPack->destPort);
+      dbg(TRANSPORT_CHANNEL,"info in package: tcp srcPort: %d tcp destPort: %d  \n",tcpPack->srcPort,tcpPack->destPort);
 
       if(skt.dest.port)
       {
