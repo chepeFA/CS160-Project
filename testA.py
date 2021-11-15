@@ -34,10 +34,12 @@ def main():
     other_well_known_port = 99;
 
     # After sending a ping, simulate a little to prevent collision.
-    s.neighborDMP(1);
-    s.runTime(5);
+   # s.neighborDMP(1);
+    #s.runTime(5);
 
-    s.neighborDMP(2);
+    #s.neighborDMP(2);
+    #s.runTime(5);
+    s.ping(1, 8, "Hi");
     s.runTime(5);
 
     s.runTime(300);
