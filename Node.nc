@@ -74,6 +74,8 @@ module Node{
    uses interface Timer<TMilli> as TCPTimer;
    uses interface Hashmap<socket_t> as socketTable;
    uses interface List<socket_t> as socketList;
+   uses interface Queue<pack> as packetQueue;
+   
 
 
 }

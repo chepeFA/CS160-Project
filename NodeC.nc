@@ -77,5 +77,10 @@ implementation {
 
     components new ListC(socket_t,30) as socketList;
     Node.socketList-> socketList;
+
+    components new QueueC(socket_t,30) as SocketQueue;
+    Node.SocketQueue->SocketQueue;
+
+
    
 }
