@@ -204,6 +204,7 @@ implementation{
       if(skt.dest.port)
       {
             //dbg(TRANSPORT_CHANNEL, "PACKET DROPPED, RETRANSMITTING PACKET\n");
+            dbg(GENERAL_CHANNEL,"socket info skt.dest.addr %d\t skt.dest.port %d \t \n",skt.dest.addr,skt.dest.port);
             call socketList.pushback(skt);
 
             makePack(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
