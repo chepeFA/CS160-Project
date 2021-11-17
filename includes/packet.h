@@ -4,6 +4,8 @@
 
 #ifndef PACKET_H
 #define PACKET_H
+#ifndef TCP_PACKET_H
+#define TCP_PACKET_H
 
 
 # include "protocol.h"
@@ -35,9 +37,9 @@ typedef nx_struct pack{
 
 typedef nx_struct TCP_Pack{
 
-	nx_uint16_t destPort;
-	nx_uint16_t srcPort;
-	nx_uint16_t seq;
+	nx_uint8_t destPort;
+	nx_uint8_t srcPort;
+	nx_uint8_t seq;
 	nx_uint16_t lastAcked;
 	nx_uint8_t ACK;
 	nx_uint8_t flag;

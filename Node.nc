@@ -140,7 +140,7 @@ implementation{
    void makePack1(pack *Package, uint16_t src, uint16_t dest, uint16_t TTL, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t length);
    void finishConnecting(socket_t skt);
    socket_t getServerSocket(uint8_t destPort);
-   void TCP_Mechanism(pack *msg);
+   void TCP_Mechanism(pack * msg);
    void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer);
 
 
@@ -204,6 +204,7 @@ implementation{
       TCP_Pack *tcpPack = (TCP_Pack*)(sentPacket.payload);
       socket_t skt = getSocket1(tcpPack->srcPort,tcpPack->destPort);
       dbg(TRANSPORT_CHANNEL,"info in package: tcp srcPort: %d tcp destPort: %d  \n",tcpPack->srcPort,tcpPack->destPort);
+      dbg(TRANSPORT_CHANNEL,"Sent packet payload: %s",sentPacket.payload);
       //dbg();
 
       if(skt.dest.port)
@@ -214,11 +215,11 @@ implementation{
 
             makePack(&sentPacket,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
             call TCPTimer.startOneShot(140000);
-            if(call RoutingTable1.get(skt.dest.addr))
-            {
+            //if(call RoutingTable1.get(skt.dest.addr))
+            //{
             call Sender.send(sentPacket,skt.dest.addr);
-            }
-            else
+            //}
+            //else
             dbg(TRANSPORT_CHANNEL,"Can't find route to server\n");
       }
 
