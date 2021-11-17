@@ -4,8 +4,7 @@
 
 #ifndef PACKET_H
 #define PACKET_H
-#ifndef TCP_PACKET_H
-#define TCP_PACKET_H
+
 
 
 # include "protocol.h"
