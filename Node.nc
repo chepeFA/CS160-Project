@@ -999,8 +999,8 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     tcpPack->flag = SYN_FLAG;
     makePack(&msg,TOS_NODE_ID,temp.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
     temp.state = SYN_SENT;
-    dbg(GENERAL_CHANNEL,"in tcp packet destPort: %d",temp.dest.port );
-    dbg(GENERAL_CHANNEL,"in tcp packet srcport %d", temp.src.port);
+    dbg(GENERAL_CHANNEL,"in tcp packet destPort: %d \n",temp.dest.port );
+    dbg(GENERAL_CHANNEL,"in tcp packet srcport %d \n", temp.src.port);
     dbg(GENERAL_CHANNEL,"MSG payload: %s", msg.payload);
 
   //dbg(GENERAL_CHANNEL,"Node %u state is %u \n",temp.src.addr,temp.state);
