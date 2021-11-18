@@ -993,12 +993,14 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     socket_t temp =fd;
     tcpPack = (TCP_Pack*)(msg.payload);
 
-    tcpPack -> destPort = temp.dest.port;
-    tcpPack -> srcPort = temp.src.port;
+    tcpPack -> destPort = fd.dest.port;
+    tcpPack -> srcPort = fd.src.port;
     tcpPack->ACK=0;
     tcpPack->seq=1;
     tcpPack->flag = SYN_FLAG;
-    makePack(&msg,TOS_NODE_ID,temp.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
+
+
+    makePack(&msg,TOS_NODE_ID,fd.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
     temp.state = SYN_SENT;
     dbg(GENERAL_CHANNEL,"in tcp packet destPort: %d \n",temp.dest.port );
     dbg(GENERAL_CHANNEL,"in tcp packet srcport %d \n", temp.src.port);
@@ -1008,11 +1010,11 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     dbg(GENERAL_CHANNEL,"Temp dest addr %d\n",temp.dest.addr);
 
 
-    if(call RoutingTable1.get(temp.dest.addr))
+    if(call RoutingTable1.get(fd.dest.addr))
     {
 
 
-    call Sender.send(msg,temp.dest.addr);
+    call Sender.send(msg,fd.dest.addr);
     }
     else
     dbg(ROUTING_CHANNEL, "Route to destination server not found...\n");
