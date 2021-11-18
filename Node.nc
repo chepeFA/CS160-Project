@@ -468,6 +468,7 @@ implementation{
    skt.nextExpected=0;
 
     call socketList.pushfront(skt);
+
     dbg(GENERAL_CHANNEL,"Source: %d \t Destination:%d \t \n",TOS_NODE_ID,port);
     dbg(GENERAL_CHANNEL,"socket info: myAddress.addr: %d, myAddress.port:%d \n",myAddress.addr,myAddress.port);
    
@@ -498,7 +499,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
    call socketList.pushfront(skt);
    connect(skt);
-   info(dest,destPort,srcPort,transfer);
+   //info(dest,destPort,srcPort,transfer);
 
    }
 
@@ -1003,7 +1004,9 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     dbg(GENERAL_CHANNEL,"MSG payload: %s", msg.payload);
 
   //dbg(GENERAL_CHANNEL,"Node %u state is %u \n",temp.src.addr,temp.state);
-    //dbg(GENERAL_CHANNEL,"Client is trying to connet \n");
+    dbg(GENERAL_CHANNEL,"Temp dest addr %d\n",temp.dest.addr);
+
+
     if(call RoutingTable1.get(temp.dest.addr))
     {
 
