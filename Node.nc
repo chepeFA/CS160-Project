@@ -377,7 +377,7 @@ implementation{
 
           else if(myMsg->protocol == PROTOCOL_TCP)
           {
-              dbg(TRANSPORT_CHANNEL,"about to call tcp_mechanism \n")
+              dbg(TRANSPORT_CHANNEL,"about to call tcp_mechanism function \n");
               TCP_Mechanism(myMsg);
           }
 
