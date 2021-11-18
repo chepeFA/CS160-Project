@@ -204,7 +204,7 @@ implementation{
       TCP_Pack *tcpPack = (TCP_Pack*)(sentPacket.payload);
       socket_t skt = getSocket1(tcpPack->srcPort,tcpPack->destPort);
       dbg(TRANSPORT_CHANNEL,"info in package: tcp srcPort: %d tcp destPort: %d  \n",tcpPack->srcPort,tcpPack->destPort);
-      dbg(TRANSPORT_CHANNEL,"Sent packet payload: %s",sentPacket.payload);
+      //dbg(TRANSPORT_CHANNEL,"Sent packet payload: %s",sentPacket.payload);
       //dbg();
 
       if(skt.dest.port)
@@ -476,7 +476,7 @@ implementation{
 }
 void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 {
-   dbg(GENERAL_CHANNEL,"dest:%d\t destPort:%d\t srcPort:%d\t transfer:%d t \n",dest,destPort,srcPort,transfer);
+   dbg(GENERAL_CHANNEL,"dest:%d\t destPort:%d\t srcPort:%d\t transfer:%d  \n",dest,destPort,srcPort,transfer);
 }
 
 
@@ -485,6 +485,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
    socket_t skt;
    socket_addr_t myAddress;
+   //uint16_t arguments[4];
 
    myAddress.addr = TOS_NODE_ID;
    myAddress.port = srcPort;
@@ -492,7 +493,8 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
    skt.dest.port = destPort;
    skt.dest.addr=dest;
    skt.transfer=transfer;
-   dbg(GENERAL_CHANNEL,"dest: %d destPort: %d srcPort: %d transfer: %d \n",dest,destPort,srcPort,transfer);
+
+   dbg(GENERAL_CHANNEL,"dest: %d destPort: %d srcPort: %d transfer: %d  \n",dest,destPort,srcPort,transfer);
 
    call socketList.pushback(skt);
    connect(skt);
@@ -945,7 +947,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
       {
 
         sk = call socketList.get(i);
-        if(sk.dest.port==srcPort && sk.src.port == destPort)
+        if(sk.dest.port==srcPort && sk.src.port == destPort && skt.state!=LISTEN)
         { 
           //temp=sk;
           //call socketList.remove(i);
@@ -989,7 +991,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     tcpPack->flag = SYN_FLAG;
     makePack(&msg,TOS_NODE_ID,temp.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
     temp.state = SYN_SENT;
-    dbg(GENERAL_CHANNEL,"MSG payload: %s",msg.payload);
+    dbg(GENERAL_CHANNEL,"MSG payload: %s", msg.payload);
 
   //dbg(GENERAL_CHANNEL,"Node %u state is %u \n",temp.src.addr,temp.state);
     //dbg(GENERAL_CHANNEL,"Client is trying to connet \n");
