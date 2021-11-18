@@ -1082,7 +1082,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
   seq = tcp_msg->seq;
   ACK = tcp_msg->ACK;
   flag  = tcp_msg->flag;
- 
+  dbg(TRANSPORT_CHANNEL,"Info send to the TCP_Mechanism function. dest: %d src: %d seq: %d TTL:%d, protocol: %d payload: %d",msg->dest,msg->src,msg->seq,msg->TTL,msg->protocol,msg->payload); 
 
   if(flag == SYN_FLAG || flag == SYN_ACK_FLAG || flag == ACK_FLAG)
   {
