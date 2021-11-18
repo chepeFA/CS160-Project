@@ -953,14 +953,14 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
           //temp=sk;
           //call socketList.remove(i);
           //return sk;
-          found=true;
+          found=TRUE;
           call socketList.remove(i);
           break;
         }
       i++;
       }
 
-      if(found==true)
+      if(found)
       {
         return sk;
       }
