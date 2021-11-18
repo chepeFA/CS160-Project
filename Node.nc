@@ -234,7 +234,7 @@ implementation{
    {
    tableLS route[1];
    
-     dbg(GENERAL_CHANNEL, "Packet Received\n");
+     //dbg(GENERAL_CHANNEL, "Packet Received\n");
       if(len==sizeof(pack))
       {
          pack* myMsg=(pack*) payload;
@@ -377,6 +377,7 @@ implementation{
 
           else if(myMsg->protocol == PROTOCOL_TCP)
           {
+              dbg(TRANSPORT_CHANNEL,"about to call tcp_mechanism \n")
               TCP_Mechanism(myMsg);
           }
 
