@@ -234,7 +234,7 @@ implementation{
    {
    tableLS route[1];
    
-     // dbg(GENERAL_CHANNEL, "Packet Received\n");
+     dbg(GENERAL_CHANNEL, "Packet Received\n");
       if(len==sizeof(pack))
       {
          pack* myMsg=(pack*) payload;
