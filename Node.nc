@@ -945,8 +945,8 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
       socket_t sk;
       bool found;
       socket_t temp;
-      uint16_t i=0;
-      uint16_t size = call socketList.size();
+      uint32_t i=0;
+      uint32_t size = call socketList.size();
       //dbg(TRANSPORT_CHANNEL,"Size of socketList: %d \n",size);
     //  dbg(GENERAL_CHANNEL,"In getsocket function. destPort: %d \t srcPort: %d \n");
       while(i<size)
@@ -956,8 +956,8 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
         if(sk.dest.port==srcPort && sk.src.port == destPort && sk.state!=LISTEN)
         { 
           //temp=sk;
-          //call socketList.remove(i);
-          //return sk;
+          call socketList.remove(i);
+          return sk;
           //found=TRUE;
           //call socketList.remove(i);
           //break;
