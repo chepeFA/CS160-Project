@@ -1018,8 +1018,8 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
 
     temp.state = SYN_SENT;
-     dbg(TRANSPORT_CHANNEL,"Msg payload:  %s \n",msg.payload);
-     dbg(TRANSPORT_CHANNEL,"tcp payload:  %s \n",tcpPack->payload[0]);
+     dbg(TRANSPORT_CHANNEL,"Msg payload:  %d \n",msg.payload);
+     dbg(TRANSPORT_CHANNEL,"tcp payload:  %d \n",tcpPack->payload[0]);
   //  dbg(GENERAL_CHANNEL,"in tcp packet destPort: %d \n",temp.dest.port );
     //dbg(GENERAL_CHANNEL,"in tcp packet srcport %d \n", temp.src.port);
     //dbg(GENERAL_CHANNEL,"MSG payload: %s", msg.payload);
