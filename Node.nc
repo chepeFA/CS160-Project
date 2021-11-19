@@ -463,14 +463,17 @@ implementation{
    socket_t skt;
    socket_addr_t myAddress;
 
+
    myAddress.addr = TOS_NODE_ID;
    myAddress.port = port;
 
    skt.src = myAddress;
    skt.state=LISTEN;
    skt.nextExpected=0;
+   skt.TYPE = SERVER;
 
     call socketList.pushfront(skt);
+    
     dbg(TRANSPORT_CHANNEL,"setTestServer. socket addr: %d socket port: %d \n",myAddress.addr,myAddress.port);
     dbg(TRANSPORT_CHANNEL,"setTestServer. another one. socket src: %d socket.src.addr:%d socket.src.port: %d \n",skt.src,skt.src.addr,skt.src.port);
 
