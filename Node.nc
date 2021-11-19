@@ -205,7 +205,7 @@ implementation{
       socket_t skt = getSocket1(tcpPack->srcPort,tcpPack->destPort);
         //dbg(TRANSPORT_CHANNEL,"Info send to the TCP_Mechanism function. dest: %d src: %d seq: %d TTL:%d, protocol: %d payload: %d",sentPacket.dest,sentPacket.src,sentPacket.seq,sentPacket.TTL,sentPacket.protocol,sentPacket.payload); 
 
-      dbg(TRANSPORT_CHANNEL,"info in package: tcp srcPort: %d tcp destPort: %d  \n",tcpPack->srcPort,tcpPack->destPort);
+     // dbg(TRANSPORT_CHANNEL,"info in package: tcp srcPort: %d tcp destPort: %d  \n",tcpPack->srcPort,tcpPack->destPort);
       //dbg(TRANSPORT_CHANNEL,"Sent packet payload: %s",sentPacket.payload);
       //dbg();
 
@@ -471,9 +471,11 @@ implementation{
    skt.nextExpected=0;
 
     call socketList.pushfront(skt);
+    dbg(TRANSPORT_CHANNEL,"setTestServer. socket addr: %d socket port: %d \n",myAddress.addr,myAddress.port);
+    dbg(TRANSPORT_CHANNEL,"setTestServer. another one. socket src: %d socket.src.addr:%d socket.src.port: %d \n",skt.src,skt.src.addr,skt.src.port);
 
-    dbg(GENERAL_CHANNEL,"Source: %d \t Destination:%d \t \n",TOS_NODE_ID,port);
-    dbg(GENERAL_CHANNEL,"socket info: myAddress.addr: %d, myAddress.port:%d \n",myAddress.addr,myAddress.port);
+    //dbg(GENERAL_CHANNEL,"Source: %d \t Destination:%d \t \n",TOS_NODE_ID,port);
+    //dbg(GENERAL_CHANNEL,"socket info: myAddress.addr: %d, myAddress.port:%d \n",myAddress.addr,myAddress.port);
    
 
 
@@ -1010,7 +1012,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
   //dbg(GENERAL_CHANNEL,"Node %u state is %u \n",temp.src.addr,temp.state);
     //dbg(GENERAL_CHANNEL,"Temp dest addr %d\n",temp.dest.addr);
-    dbg(TRANSPORT_CHANNEL,"In connect(socket) function.  destPort: %d srcPort: %d seq: %d lastAcked: %d ACK: %d flag:%d advertisedWindow: %d payload: %d\n",tcpPack->destPort,15,tcpPack->seq,tcpPack->lastAcked,tcpPack->ACK,tcpPack->flag,tcpPack->window,tcpPack->payload);
+    dbg(TRANSPORT_CHANNEL,"In connect(socket) function.  destPort: %d srcPort: %d seq: %d lastAcked: %d ACK: %d flag:%d advertisedWindow: %d payload: %d\n",tcpPack->destPort,tcpPack->srcPort,tcpPack->seq,tcpPack->lastAcked,tcpPack->ACK,tcpPack->flag,tcpPack->window,tcpPack->payload);
     dbg(TRANSPORT_CHANNEL,"Destination in sender (temp.dest.addr):  %d another one (temp.dest.port:%d \n)",temp.dest.addr,temp.dest.port);
 
     if(call RoutingTable1.get(fd.dest.addr))
