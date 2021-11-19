@@ -330,7 +330,8 @@ implementation{
            finalDestination =TRUE;
 
 
-            dbg(FLOODING_CHANNEL," packet from %d payload: %s \n",myMsg->src,myMsg->payload);
+            dbg(FLOODING_CHANNEL," Received packet. packet from %d payload: %s \n",myMsg->src,myMsg->payload);
+
             //goto a;
             
   
@@ -379,6 +380,7 @@ implementation{
 
           else if(myMsg->protocol == PROTOCOL_TCP)
           {
+          
               dbg(TRANSPORT_CHANNEL,"about to call tcp_mechanism function \n");
               TCP_Mechanism(myMsg);
           }
@@ -473,7 +475,7 @@ implementation{
    skt.TYPE = SERVER;
 
     call socketList.pushfront(skt);
-    
+
     dbg(TRANSPORT_CHANNEL,"setTestServer. socket addr: %d socket port: %d \n",myAddress.addr,myAddress.port);
     dbg(TRANSPORT_CHANNEL,"setTestServer. another one. socket src: %d socket.src.addr:%d socket.src.port: %d \n",skt.src,skt.src.addr,skt.src.port);
 
@@ -1006,9 +1008,13 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     tcpPack->ACK=0;
     tcpPack->seq=1;
     tcpPack->flag = SYN_FLAG;
+
+
     dbg(TRANSPORT_CHANNEL,"fd.dest.addr: %d \n",fd.dest.addr);
 
     makePack(&msg,TOS_NODE_ID,fd.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
+
+
     temp.state = SYN_SENT;
   //  dbg(GENERAL_CHANNEL,"in tcp packet destPort: %d \n",temp.dest.port );
     //dbg(GENERAL_CHANNEL,"in tcp packet srcport %d \n", temp.src.port);
