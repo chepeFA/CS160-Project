@@ -203,6 +203,8 @@ implementation{
       pack p;
       TCP_Pack *tcpPack = (TCP_Pack*)(sentPacket.payload);
       socket_t skt = getSocket1(tcpPack->srcPort,tcpPack->destPort);
+        dbg(TRANSPORT_CHANNEL,"Info send to the TCP_Mechanism function. dest: %d src: %d seq: %d TTL:%d, protocol: %d payload: %d",msg->dest,msg->src,msg->seq,msg->TTL,msg->protocol,msg->payload); 
+
       dbg(TRANSPORT_CHANNEL,"info in package: tcp srcPort: %d tcp destPort: %d  \n",tcpPack->srcPort,tcpPack->destPort);
       //dbg(TRANSPORT_CHANNEL,"Sent packet payload: %s",sentPacket.payload);
       //dbg();
