@@ -252,6 +252,11 @@ implementation{
          {
           
          }
+         else if(myMsg->protocol==PROTOCOL_TCP)
+         {
+          dbg(TRANSPORT_CHANNEL, "Protocol tcp was called \n");
+
+         }
 
          else if(myMsg->dest == TOS_NODE_ID) //this package is for me
          {
