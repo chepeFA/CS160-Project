@@ -203,7 +203,7 @@ implementation{
       pack p;
       TCP_Pack *tcpPack = (TCP_Pack*)(sentPacket.payload);
       socket_t skt = getSocket1(tcpPack->srcPort,tcpPack->destPort);
-        dbg(TRANSPORT_CHANNEL,"Info send to the TCP_Mechanism function. dest: %d src: %d seq: %d TTL:%d, protocol: %d payload: %d",sentPacket.dest,sentPacket.src,sentPacket.seq,sentPacket.TTL,sentPacket.protocol,sentPacket.payload); 
+        //dbg(TRANSPORT_CHANNEL,"Info send to the TCP_Mechanism function. dest: %d src: %d seq: %d TTL:%d, protocol: %d payload: %d",sentPacket.dest,sentPacket.src,sentPacket.seq,sentPacket.TTL,sentPacket.protocol,sentPacket.payload); 
 
       dbg(TRANSPORT_CHANNEL,"info in package: tcp srcPort: %d tcp destPort: %d  \n",tcpPack->srcPort,tcpPack->destPort);
       //dbg(TRANSPORT_CHANNEL,"Sent packet payload: %s",sentPacket.payload);
@@ -956,7 +956,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
         if(sk.dest.port==srcPort && sk.src.port == destPort && sk.state!=LISTEN)
         { 
           //temp=sk;
-          call socketList.remove(i);
+          call socketList.remove(i);  
           return sk;
           //found=TRUE;
           //call socketList.remove(i);
@@ -1004,13 +1004,13 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
     makePack(&msg,TOS_NODE_ID,fd.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
     temp.state = SYN_SENT;
-    dbg(GENERAL_CHANNEL,"in tcp packet destPort: %d \n",temp.dest.port );
-    dbg(GENERAL_CHANNEL,"in tcp packet srcport %d \n", temp.src.port);
-    dbg(GENERAL_CHANNEL,"MSG payload: %s", msg.payload);
+  //  dbg(GENERAL_CHANNEL,"in tcp packet destPort: %d \n",temp.dest.port );
+    //dbg(GENERAL_CHANNEL,"in tcp packet srcport %d \n", temp.src.port);
+    //dbg(GENERAL_CHANNEL,"MSG payload: %s", msg.payload);
 
   //dbg(GENERAL_CHANNEL,"Node %u state is %u \n",temp.src.addr,temp.state);
-    dbg(GENERAL_CHANNEL,"Temp dest addr %d\n",temp.dest.addr);
-
+    //dbg(GENERAL_CHANNEL,"Temp dest addr %d\n",temp.dest.addr);
+    dbg(TRANSPORT_CHANNEL,"In connect(socket) function.  destPort: %d srcPort: %d seq: %d lastAcked: %d ACK: %d flag:%d advertisedWindow: %d payload: %d\n",tcpPack->destPort,tcpPack->srcPort,tcpPack->seq,tcpPack->lastAcked,tcpPack->ACK,tcpPack->flag,tcpPack->window,tcpPack->payload);
 
     if(call RoutingTable1.get(fd.dest.addr))
     {
@@ -1087,7 +1087,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
   seq = tcp_msg->seq;
   ACK = tcp_msg->ACK;
   flag  = tcp_msg->flag;
-  dbg(TRANSPORT_CHANNEL,"Info send to the TCP_Mechanism function. dest: %d src: %d seq: %d TTL:%d, protocol: %d payload: %d",msg->dest,msg->src,msg->seq,msg->TTL,msg->protocol,msg->payload); 
+ // dbg(TRANSPORT_CHANNEL,"Info send to the TCP_Mechanism function. dest: %d src: %d seq: %d TTL:%d, protocol: %d payload: %d",msg->dest,msg->src,msg->seq,msg->TTL,msg->protocol,msg->payload); 
 
   if(flag == SYN_FLAG || flag == SYN_ACK_FLAG || flag == ACK_FLAG)
   {
