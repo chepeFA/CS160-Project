@@ -1031,7 +1031,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
    // dbg(TRANSPORT_CHANNEL,"In connect(socket) function.  destPort: %d srcPort: %d seq: %d lastAcked: %d ACK: %d flag:%d advertisedWindow: %d payload: %d, protocol:\n",tcpPack->destPort,tcpPack->srcPort,tcpPack->seq,tcpPack->lastAcked,tcpPack->ACK,tcpPack->flag,tcpPack->window,0,msg.protocol);
     dbg(TRANSPORT_CHANNEL,"Destination in sender (temp.dest.addr):  %d another one (temp.dest.port:%d \n)",temp.dest.addr,temp.dest.port);
 
-    dbg(ROUTING_CHANNEL, "Node %u State is %u \n", temp.src.addr, temp.state);
+    dbg(ROUTING_CHANNEL, "Node %u State is %u \n", temp.src.port, temp.state);
 
     dbg(ROUTING_CHANNEL, "CLIENT TRYING \n");
 
