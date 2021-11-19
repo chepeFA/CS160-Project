@@ -326,7 +326,7 @@ implementation{
             uint16_t i,sizeList;
             neighboorDiscovery* neighboor, *neighboor_ptr, *a;
             neighboorDiscovery nd,n;
-           // dbg(GENERAL_CHANNEL,"In destination broadcast \n");
+           dbg(GENERAL_CHANNEL,"In destination broadcast \n");
 
             if(myMsg->protocol == PROTOCOL_PING)
             {
