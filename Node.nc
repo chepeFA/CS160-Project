@@ -1018,8 +1018,8 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
 
     temp.state = SYN_SENT;
-     dbg(TRANSPORT_CHANNEL,"Msg payload:  %s \n",msg.payload);
-     dbg(TRANSPORT_CHANNEL,"tcp payload:  %s \n",tcpPack->payload[0]);
+    // dbg(TRANSPORT_CHANNEL,"Msg payload:  %s \n",msg.payload);
+    // dbg(TRANSPORT_CHANNEL,"tcp payload:  %s \n",tcpPack->payload[0]);
   //  dbg(GENERAL_CHANNEL,"in tcp packet destPort: %d \n",temp.dest.port );
     //dbg(GENERAL_CHANNEL,"in tcp packet srcport %d \n", temp.src.port);
     //dbg(GENERAL_CHANNEL,"MSG payload: %s", msg.payload);
@@ -1030,6 +1030,10 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     dbg(TRANSPORT_CHANNEL, "protocol sent: %d\n",msg.protocol);
    // dbg(TRANSPORT_CHANNEL,"In connect(socket) function.  destPort: %d srcPort: %d seq: %d lastAcked: %d ACK: %d flag:%d advertisedWindow: %d payload: %d, protocol:\n",tcpPack->destPort,tcpPack->srcPort,tcpPack->seq,tcpPack->lastAcked,tcpPack->ACK,tcpPack->flag,tcpPack->window,0,msg.protocol);
     dbg(TRANSPORT_CHANNEL,"Destination in sender (temp.dest.addr):  %d another one (temp.dest.port:%d \n)",temp.dest.addr,temp.dest.port);
+
+    dbg(ROUTING_CHANNEL, "Node %u State is %u \n", temp.src.addr, temp.state);
+
+    dbg(ROUTING_CHANNEL, "CLIENT TRYING \n");
 
     if(call RoutingTable1.get(fd.dest.addr))
     {
