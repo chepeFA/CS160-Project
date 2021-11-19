@@ -252,6 +252,71 @@ implementation{
          {
           
          }
+
+         else if(myMsg->dest == TOS_NODE_ID) //this package is for me
+         {
+  
+           finalDestination =TRUE;
+
+
+            dbg(FLOODING_CHANNEL," Received packet. packet from %d payload: %s \n",myMsg->src,myMsg->payload);
+
+            //goto a;
+            
+  
+
+        
+
+            if(myMsg->protocol == PROTOCOL_PING)
+            {
+
+             // uint32_t nexxxtHop = call RoutingTable.get(myMsg->src);
+           
+               //dbg(NEIGHBOR_CHANNEL," in protocol ping TOS_NODE_ID \n");
+              // dbg(NEIGHBOR_CHANNEL,"sending ping to node: %d",myMsg->src);
+
+               makePack(&sendPackage,TOS_NODE_ID,myMsg->src,MAX_TTL,PROTOCOL_PINGREPLY,sequenceNumber,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
+              sequenceNumber++;
+               pushPack(sendPackage);
+              
+             
+              //working on 10.08 as part of pj1
+              //call Sender.send(sendPackage,AM_BROADCAST_ADDR);
+              if(call RoutingTable1.get(myMsg->src))
+              {
+                dbg(ROUTING_CHANNEL,"Sending packet to next hop: %d \n",call RoutingTable1.get(myMsg->src));
+                call Sender.send(sendPackage,call RoutingTable1.get(myMsg->src));
+              }
+              else
+              dbg(ROUTING_CHANNEL, "Path not found\n");
+
+              
+           
+              
+          }
+
+            else if(myMsg->protocol == PROTOCOL_PINGREPLY)
+            {
+
+             // dbg(NEIGHBOR_CHANNEL,"Ping is coming from %d \n",myMsg->src);
+            }  
+            /*
+          
+           
+
+         }  
+          */
+
+          else if(myMsg->protocol == PROTOCOL_TCP)
+          {
+
+              dbg(TRANSPORT_CHANNEL,"about to call tcp_mechanism function \n");
+              TCP_Mechanism(myMsg);
+          }
+
+
+            
+         }
          
          else if(myMsg->dest == AM_BROADCAST_ADDR)
       {
@@ -324,70 +389,7 @@ implementation{
        
          
       }
-         else if(myMsg->dest == TOS_NODE_ID) //this package is for me
-         {
-  
-           finalDestination =TRUE;
-
-
-            dbg(FLOODING_CHANNEL," Received packet. packet from %d payload: %s \n",myMsg->src,myMsg->payload);
-
-            //goto a;
-            
-  
-
-        
-
-            if(myMsg->protocol == PROTOCOL_PING)
-            {
-
-             // uint32_t nexxxtHop = call RoutingTable.get(myMsg->src);
-           
-               //dbg(NEIGHBOR_CHANNEL," in protocol ping TOS_NODE_ID \n");
-              // dbg(NEIGHBOR_CHANNEL,"sending ping to node: %d",myMsg->src);
-
-               makePack(&sendPackage,TOS_NODE_ID,myMsg->src,MAX_TTL,PROTOCOL_PINGREPLY,sequenceNumber,(uint8_t *)myMsg->payload,sizeof(myMsg->payload));
-              sequenceNumber++;
-               pushPack(sendPackage);
-              
-             
-              //working on 10.08 as part of pj1
-              //call Sender.send(sendPackage,AM_BROADCAST_ADDR);
-              if(call RoutingTable1.get(myMsg->src))
-              {
-                dbg(ROUTING_CHANNEL,"Sending packet to next hop: %d \n",call RoutingTable1.get(myMsg->src));
-                call Sender.send(sendPackage,call RoutingTable1.get(myMsg->src));
-              }
-              else
-              dbg(ROUTING_CHANNEL, "Path not found\n");
-
-              
-           
-              
-          }
-
-            else if(myMsg->protocol == PROTOCOL_PINGREPLY)
-            {
-
-             // dbg(NEIGHBOR_CHANNEL,"Ping is coming from %d \n",myMsg->src);
-            }  
-            /*
-          
-           
-
-         }  
-          */
-
-          else if(myMsg->protocol == PROTOCOL_TCP)
-          {
-
-              dbg(TRANSPORT_CHANNEL,"about to call tcp_mechanism function \n");
-              TCP_Mechanism(myMsg);
-          }
-
-
-            
-         }
+         
 
          else //Broadcasting
          {
@@ -1028,7 +1030,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     if(call RoutingTable1.get(fd.dest.addr))
     {
 
-    dbg(TRANSPORT_CHANNEL,"Sending package to :%d",fd.dest.addr);
+    dbg(TRANSPORT_CHANNEL,"Sending package to :%d \n",fd.dest.addr);
     call Sender.send(msg,fd.dest.addr);
     }
     else
