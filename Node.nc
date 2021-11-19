@@ -501,7 +501,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
    skt.transfer=transfer;
 
    dbg(GENERAL_CHANNEL,"dest: %d destPort: %d srcPort: %d transfer: %d  \n",dest,destPort,srcPort,transfer);
-   dbg(TRANSPORT_CHANNEL,"socket info in client. myaddr.addr:%d myaddr.port:%d skt.dest.port:%d skt.dest.addr :%d skt.transfer:%d",myAddress.addr,myAddress.port,skt.dest.port,skt.dest.addr,skt.transfer);
+   dbg(TRANSPORT_CHANNEL,"socket info in client. myaddr.addr:%d myaddr.port:%d skt.dest.port:%d skt.dest.addr :%d skt.transfer:%d \n",myAddress.addr,myAddress.port,skt.dest.port,skt.dest.addr,skt.transfer);
 
    call socketList.pushfront(skt);
    connect(skt);
