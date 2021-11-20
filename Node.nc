@@ -1019,7 +1019,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
     dbg(TRANSPORT_CHANNEL,"fd.dest.addr: %d \n",fd.dest.addr);
 
-    makePack(&msg,TOS_NODE_ID,fd.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
+    makePack(&msg,TOS_NODE_ID,fd.dest.addr,MAX_TTL,4,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
 
 
     temp.state = SYN_SENT;
