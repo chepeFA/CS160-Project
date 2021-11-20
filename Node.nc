@@ -1016,6 +1016,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     tcpPack->seq=1;
     tcpPack->flag = SYN_FLAG;
     tcpPack->protocol=PROTOCOL_TCP;
+    msg.protocol=4;
 
 
     dbg(TRANSPORT_CHANNEL,"fd.dest.addr: %d \n",fd.dest.addr);
