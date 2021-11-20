@@ -252,7 +252,7 @@ implementation{
          {
           
          }
-         else if(myMsg->protocol==0 || myMsg->protocol==4 || myMsg->protocol==1)
+         else if(myMsg->protocol==4)
          {
          // dbg(TRANSPORT_CHANNEL, "Protocol tcp was called \n");
          TCP_Mechanism(myMsg);
@@ -1022,8 +1022,8 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     dbg(TRANSPORT_CHANNEL,"Msg protocol:%d tcp packet protocol:%d \n",msg.protocol,tcpPack->protocol);
     dbg(TRANSPORT_CHANNEL,"fd.dest.addr: %d \n",fd.dest.addr);
 
-    makePack(&msg,TOS_NODE_ID,fd.dest.addr,MAX_TTL,4,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
-
+    makePack(&msg,TOS_NODE_ID,fd.dest.addr,MAX_TTL,4,0,(uint16_t *)tcpPack,PACKET_MAX_PAYLOAD_SIZE);
+    
 
     temp.state = SYN_SENT;
      call Sender.send(msg,fd.dest.addr);
