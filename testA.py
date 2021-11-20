@@ -38,11 +38,11 @@ def main():
     #s.runTime(5);
 
     #s.neighborDMP(2);
-    s.runTime(1000);
+    s.runTime(50);
     s.ping(1, 8, "Hi");
     s.runTime(50);
 
-    s.runTime(100);#300 b4
+    s.runTime(50);#300 b4
     s.testServer(well_known_mote,well_known_port); #needs two, node i connects to port j
     s.runTime(50);#100 b4
 
