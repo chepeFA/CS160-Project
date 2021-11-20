@@ -252,7 +252,7 @@ implementation{
          {
           
          }
-         else if(myMsg->protocol==PROTOCOL_TCP || myMsg->protocol==4)
+         else if(myMsg->protocol==0 || myMsg->protocol==4 || myMsg->protocol==1)
          {
           dbg(TRANSPORT_CHANNEL, "Protocol tcp was called \n");
 
