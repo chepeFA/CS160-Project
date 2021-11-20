@@ -43,8 +43,10 @@ typedef nx_struct TCP_Pack{
 	nx_uint8_t ACK;
 	nx_uint8_t flag;
 	nx_uint8_t window;
-	nx_uint16_t payload[6];
 	nx_uint8_t effectiveWindow;
+	nx_uint8_t protocol;
+	nx_uint16_t payload[8];
+
 
 }TCP_Pack;
 
