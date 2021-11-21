@@ -254,7 +254,7 @@ implementation{
          }
          else if(myMsg->protocol==4)
          {
-         // dbg(TRANSPORT_CHANNEL, "Protocol tcp was called \n");
+         dbg(TRANSPORT_CHANNEL, "Protocol tcp was called \n");
          TCP_Mechanism(myMsg);
 
          }
