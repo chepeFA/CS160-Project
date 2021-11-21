@@ -1026,7 +1026,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     
 
     temp.state = SYN_SENT;
-     call Sender.send(msg,fd.dest.addr);
+    //call Sender.send(msg,fd.dest.addr);
 
 
     // dbg(TRANSPORT_CHANNEL,"Msg payload:  %s \n",msg.payload);
