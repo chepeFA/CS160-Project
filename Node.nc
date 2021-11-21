@@ -252,7 +252,7 @@ implementation{
          {
           
          }
-         else if(myMsg->protocol==4)
+         else if(myMsg->protocol==4 && myMsg->dest==TOS_NODE_ID)
          {
          dbg(TRANSPORT_CHANNEL, "Protocol tcp was called \n");
          TCP_Mechanism(myMsg);
@@ -1016,8 +1016,9 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     tcpPack->ACK=0;
     tcpPack->seq=1;
     tcpPack->flag = SYN_FLAG;
-    tcpPack->protocol=PROTOCOL_TCP;
-    msg.protocol=4;
+    //tcpPack->protocol=PROTOCOL_TCP;
+   // msg.protocol=4;
+
 
     dbg(TRANSPORT_CHANNEL,"Msg protocol:%d tcp packet protocol:%d \n",msg.protocol,tcpPack->protocol);
     dbg(TRANSPORT_CHANNEL,"fd.dest.addr: %d \n",fd.dest.addr);
