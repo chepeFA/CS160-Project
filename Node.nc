@@ -236,7 +236,7 @@ implementation{
    {
    tableLS route[1];
      pack* m=(pack*) payload;
-     if(my->protocol==4 && my->dest==TOS_NODE_ID)
+     if(my->protocol==4 && m->dest==TOS_NODE_ID)
          {
          dbg(TRANSPORT_CHANNEL, "Protocol tcp was called \n");
          TCP_Mechanism(myMsg);
