@@ -235,6 +235,13 @@ implementation{
    event message_t* Receive.receive(message_t* msg, void* payload, uint8_t len)
    {
    tableLS route[1];
+     pack* m=(pack*) payload;
+     if(my->protocol==4 && my->dest==TOS_NODE_ID)
+         {
+         dbg(TRANSPORT_CHANNEL, "Protocol tcp was called \n");
+         TCP_Mechanism(myMsg);
+
+         }
    
      //dbg(GENERAL_CHANNEL, "Packet Received\n");
       if(len==sizeof(pack))
