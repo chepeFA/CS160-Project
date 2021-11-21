@@ -239,7 +239,7 @@ implementation{
      if(m->protocol==4 && m->dest==TOS_NODE_ID)
          {
          dbg(TRANSPORT_CHANNEL, "Protocol tcp was called \n");
-         TCP_Mechanism(myMsg);
+         TCP_Mechanism(m);
 
          }
    
