@@ -241,10 +241,11 @@ implementation{
       if(len==sizeof(pack))
       {
          pack* myMsg=(pack*) payload;
+         TCP_Pack* t =(pack*)payload;
         neighboorDiscovery *nnn;
         LSP* receivedLSP = (LSP*) myMsg->payload;
         LSP lsp = *receivedLSP;
-      // dbg(GENERAL_CHANNEL,"Protocol received: %u \n",myMsg->protocol);
+       dbg(GENERAL_CHANNEL,"flag: %u \n",t->flag);
 
         
       
