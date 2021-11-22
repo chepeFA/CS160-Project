@@ -244,8 +244,10 @@ implementation{
       if(len==sizeof(pack))
       {
          pack* myMsg=(pack*) payload;
-         //TCP_Pack* t =(pack*)payload;
+         TCP_Pack* t =(TCP_Pack*)(myMsg->payload);
         neighboorDiscovery *nnn;
+
+
         LSP* receivedLSP = (LSP*) myMsg->payload;
         LSP lsp = *receivedLSP;
        //dbg(GENERAL_CHANNEL,"flag: %u and protocol: %u \n",t->flag,myMsg->protocol);
