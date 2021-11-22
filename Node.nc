@@ -480,7 +480,9 @@ implementation{
    skt.nextExpected=0;
    skt.TYPE = SERVER;
 
-    call socketList.pushback(skt);
+  call socketList.pushback(skt);
+
+
 
     dbg(TRANSPORT_CHANNEL,"setTestServer. socket addr: %d socket port: %d \n",myAddress.addr,myAddress.port);
     dbg(TRANSPORT_CHANNEL,"setTestServer. another one. socket src: %d socket.src.addr:%d socket.src.port: %d \n",skt.src,skt.src.addr,skt.src.port);
@@ -516,6 +518,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
    call socketList.pushback(skt);
    connect(skt);
+
    //info(dest,destPort,srcPort,transfer);
 
    }
@@ -967,7 +970,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
       {
 
         sk = call socketList.get(i);
-        if(sk.dest.port==srcPort && sk.src.port == destPort && sk.state!=LISTEN)
+        if(sk.dest.port==srcPort && sk.src.port == destPort)
         { 
           //temp=sk;
           //call socketList.remove(i);  
@@ -1007,18 +1010,19 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     pack msg;
     TCP_Pack* tcpPack;
     socket_t temp =fd;
-    tcpPack = (TCP_Pack*)(msg.payload);
+    tcpPack = (TCP_Pack*)(msg.payload); //tcpPack 
 
-      tcpPack->flag = SYN_FLAG;
+    tcpPack->flag = SYN_FLAG;
 
     tcpPack -> destPort = fd.dest.port;
     tcpPack -> srcPort = fd.src.port;
     tcpPack->ACK=0;
     tcpPack->seq=1;
-    makePack(&msg,TOS_NODE_ID,fd.dest.addr,MAX_TTL,4,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
-  
     tcpPack->protocol=PROTOCOL_TCP;
     msg.protocol=4;
+    makePack(&msg,TOS_NODE_ID,fd.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
+  
+   
 
 
     dbg(TRANSPORT_CHANNEL,"Msg protocol:%d tcp packet protocol:%d \n",msg.protocol,tcpPack->protocol);
