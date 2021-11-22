@@ -204,7 +204,7 @@ implementation{
       TCP_Pack *tcpPack = (TCP_Pack*)(sentPacket.payload);
       socket_t skt = getSocket1(tcpPack->srcPort,tcpPack->destPort);
 
-      dbg(TRANSPORT_CHANNEL,"tcp src port:%u tcp dest port: %u \n",tcpPack->srcPort,tcpPack->destPort);
+      //dbg(TRANSPORT_CHANNEL,"tcp src port:%u tcp dest port: %u \n",tcpPack->srcPort,tcpPack->destPort);
 
         //dbg(TRANSPORT_CHANNEL,"Info send to the TCP_Mechanism function. dest: %d src: %d seq: %d TTL:%d, protocol: %d payload: %d",sentPacket.dest,sentPacket.src,sentPacket.seq,sentPacket.TTL,sentPacket.protocol,sentPacket.payload); 
 
@@ -971,7 +971,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
         if(sk.dest.port==srcPort && sk.src.port == destPort && sk.state!=LISTEN)
         { 
           //temp=sk;
-          call socketList.remove(i);  
+          //call socketList.remove(i);  
           return sk;
           //found=TRUE;
           //call socketList.remove(i);
