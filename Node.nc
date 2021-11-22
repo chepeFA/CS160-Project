@@ -245,7 +245,7 @@ implementation{
         neighboorDiscovery *nnn;
         LSP* receivedLSP = (LSP*) myMsg->payload;
         LSP lsp = *receivedLSP;
-       dbg(GENERAL_CHANNEL,"flag: %u \n",t->flag);
+       dbg(GENERAL_CHANNEL,"flag: %u and protocol: %u \n",t->flag.myMsg->protocol);
 
         
       
