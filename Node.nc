@@ -254,13 +254,7 @@ implementation{
          {
           
          }
-         else if(t->flag!=0)
-         {
-       //  dbg(TRANSPORT_CHANNEL, "Protocol tcp was called \n");
-         TCP_Mechanism(myMsg);
-
-         }
-
+      
          else if(myMsg->dest == TOS_NODE_ID) //this package is for me
          {
   
@@ -1013,11 +1007,14 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     socket_t temp =fd;
     tcpPack = (TCP_Pack*)(msg.payload);
 
+      tcpPack->flag = SYN_FLAG;
+
     tcpPack -> destPort = fd.dest.port;
     tcpPack -> srcPort = fd.src.port;
     tcpPack->ACK=0;
     tcpPack->seq=1;
-    tcpPack->flag = SYN_FLAG;
+     makePack(&msg,TOS_NODE_ID,fd.dest.addr,MAX_TTL,4,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
+  
     //tcpPack->protocol=PROTOCOL_TCP;
    // msg.protocol=4;
 
@@ -1025,7 +1022,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     dbg(TRANSPORT_CHANNEL,"Msg protocol:%d tcp packet protocol:%d \n",msg.protocol,tcpPack->protocol);
     dbg(TRANSPORT_CHANNEL,"fd.dest.addr: %d \n",fd.dest.addr);
 
-    makePack(&msg,TOS_NODE_ID,fd.dest.addr,MAX_TTL,4,0,(uint16_t *)tcpPack,PACKET_MAX_PAYLOAD_SIZE);
+   
     
 
     temp.state = SYN_SENT;
