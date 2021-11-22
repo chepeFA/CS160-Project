@@ -216,16 +216,13 @@ implementation{
       {
             //dbg(TRANSPORT_CHANNEL, "PACKET DROPPED, RETRANSMITTING PACKET\n");
           //  dbg(GENERAL_CHANNEL,"socket info skt.dest.addr %d\t skt.dest.port %d \t \n",skt.dest.addr,skt.dest.port);
-            call socketList.pushfront(skt);
+            call socketList.pushback(skt);
 
             makePack(&sentPacket,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
-          //  call TCPTimer.startOneShot(140000);
-            //if(call RoutingTable1.get(skt.dest.addr))
-            //{
+             call TCPTimer.startOneShot(140000);
+           
             call Sender.send(sentPacket,skt.dest.addr);
-            //}
-            //else
-           // dbg(TRANSPORT_CHANNEL,"Can't find route to server\n");
+          
       }
 
 
@@ -483,7 +480,7 @@ implementation{
    skt.nextExpected=0;
    skt.TYPE = SERVER;
 
-    call socketList.pushfront(skt);
+    call socketList.pushback(skt);
 
     dbg(TRANSPORT_CHANNEL,"setTestServer. socket addr: %d socket port: %d \n",myAddress.addr,myAddress.port);
     dbg(TRANSPORT_CHANNEL,"setTestServer. another one. socket src: %d socket.src.addr:%d socket.src.port: %d \n",skt.src,skt.src.addr,skt.src.port);
@@ -517,7 +514,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
    dbg(GENERAL_CHANNEL,"dest: %d destPort: %d srcPort: %d transfer: %d  \n",dest,destPort,srcPort,transfer);
    dbg(TRANSPORT_CHANNEL,"socket info in client. myaddr.addr:%d myaddr.port:%d skt.dest.port:%d skt.dest.addr :%d skt.transfer:%d \n",myAddress.addr,myAddress.port,skt.dest.port,skt.dest.addr,skt.transfer);
 
-   call socketList.pushfront(skt);
+   call socketList.pushback(skt);
    connect(skt);
    //info(dest,destPort,srcPort,transfer);
 
@@ -1144,7 +1141,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
       skt.state=SYN_RCVD;
       skt.dest.port = srcPort;
       skt.dest.addr = msg->src;
-      call socketList.pushfront(skt);
+      call socketList.pushback(skt);
 
       newTCP= (TCP_Pack *)(p.payload);
       newTCP->destPort = skt.dest.port;
@@ -1164,7 +1161,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     dbg(TRANSPORT_CHANNEL,"SYN ACK Received \n");
     skt = getSocket1(destPort,srcPort);
     skt.state=ESTABLISHED;
-    call socketList.pushfront(skt);
+    call socketList.pushback(skt);
     newTCP = (TCP_Pack*)(p.payload);
     newTCP->destPort = skt.dest.port;
     newTCP->srcPort = skt.src.port;
@@ -1188,7 +1185,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     if(skt.src.port && skt.state==SYN_RCVD)
     {
         skt.state=ESTABLISHED;
-        call socketList.pushfront(skt);
+        call socketList.pushback(skt);
     }
 
 
@@ -1243,7 +1240,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
        skt.effectiveWindow = 64 -(skt.lastRcvd +1);
        skt.nextExpected = seq+1;
 
-       call socketList.pushfront(skt);
+       call socketList.pushback(skt);
        newTCP ->destPort = skt.dest.port;
        newTCP->srcPort = skt.src.port;
        newTCP->seq = seq;
@@ -1285,7 +1282,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
             }
 
-            call socketList.pushfront(skt);
+            call socketList.pushback(skt);
             newTCP->flag = DATA_FLAG;
             newTCP->destPort = skt.dest.port;
             newTCP->srcPort = skt.src.port;
@@ -1303,7 +1300,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
         {
           dbg(TRANSPORT_CHANNEL,"ALL DATA SENT, CLOSING CONNECTION \n");
           skt.state = FIN_FLAG;
-          call socketList.pushfront(skt);
+          call socketList.pushback(skt);
           newTCP=(TCP_Pack*)(p.payload);
           newTCP->destPort = skt.dest.port;
           newTCP->srcPort = skt.src.port;
