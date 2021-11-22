@@ -241,7 +241,7 @@ implementation{
       if(len==sizeof(pack))
       {
          pack* myMsg=(pack*) payload;
-         TCP_Pack* t =(pack*)payload;
+         //TCP_Pack* t =(pack*)payload;
         neighboorDiscovery *nnn;
         LSP* receivedLSP = (LSP*) myMsg->payload;
         LSP lsp = *receivedLSP;
