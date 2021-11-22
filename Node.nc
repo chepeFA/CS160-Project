@@ -256,7 +256,7 @@ implementation{
          }
          else if(t->flag!=0)
          {
-         dbg(TRANSPORT_CHANNEL, "Protocol tcp was called \n");
+       //  dbg(TRANSPORT_CHANNEL, "Protocol tcp was called \n");
          TCP_Mechanism(myMsg);
 
          }
