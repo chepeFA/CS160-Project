@@ -245,7 +245,7 @@ implementation{
         neighboorDiscovery *nnn;
         LSP* receivedLSP = (LSP*) myMsg->payload;
         LSP lsp = *receivedLSP;
-       dbg(GENERAL_CHANNEL,"flag: %u and protocol: %u \n",t->flag,myMsg->protocol);
+       //dbg(GENERAL_CHANNEL,"flag: %u and protocol: %u \n",t->flag,myMsg->protocol);
 
         
       
@@ -254,7 +254,7 @@ implementation{
          {
           
          }
-         else if(myMsg->protocol==4 && myMsg->dest==TOS_NODE_ID)
+         else if(t->flag!=0)
          {
          dbg(TRANSPORT_CHANNEL, "Protocol tcp was called \n");
          TCP_Mechanism(myMsg);
@@ -1029,6 +1029,8 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     
 
     temp.state = SYN_SENT;
+
+
     //call Sender.send(msg,fd.dest.addr);
 
 
