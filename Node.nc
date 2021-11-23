@@ -1020,16 +1020,16 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     tcpPack->ACK=0;
     tcpPack->seq=1;
     tcpPack->protocol=PROTOCOL_TCP;
-    msg.protocol=4;
+    a.protocol=4;
     makePack(&a,TOS_NODE_ID,fd.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
   
    
 
 
-    dbg(TRANSPORT_CHANNEL,"Msg protocol:%d tcp packet protocol:%d \n",msg.protocol,tcpPack->protocol);
+    dbg(TRANSPORT_CHANNEL,"Msg protocol:%d tcp packet protocol:%d \n",a.protocol,tcpPack->protocol);
     dbg(TRANSPORT_CHANNEL,"fd.dest.addr: %d \n",fd.dest.addr);
     temp.state = SYN_SENT;
-    call Sender.send(msg,fd.dest.addr);
+    call Sender.send(a,fd.dest.addr);
 
 
     // dbg(TRANSPORT_CHANNEL,"Msg payload:  %s \n",msg.payload);
