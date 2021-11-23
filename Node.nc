@@ -92,7 +92,7 @@ implementation{
 
    uint8_t neighboors[17];
    bool finalDestination;
-  // uint16_t temp;
+ 
 
    //Project 2
     tableLS routingTable[255]={0}; //initialize all structs fields to zero.
@@ -172,7 +172,7 @@ implementation{
          //Retry until successful
          call AMControl.start();
       }
-      call RoutingTimer.startPeriodic(20000);
+     // call RoutingTimer.startPeriodic(20000);
 
    }
 
