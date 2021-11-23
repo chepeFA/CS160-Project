@@ -1019,14 +1019,14 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     tcpPack -> srcPort = fd.src.port;
     tcpPack->ACK=0;
     tcpPack->seq=1;
-    tcpPack->protocol=PROTOCOL_TCP;
-    a.protocol=4;
+   // tcpPack->protocol=PROTOCOL_TCP;
+    //a.protocol=4;
     makePack(&a,TOS_NODE_ID,fd.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
   
    
 
 
-    dbg(TRANSPORT_CHANNEL,"Msg protocol:%d tcp packet protocol:%d \n",a.protocol,tcpPack->protocol);
+  
     dbg(TRANSPORT_CHANNEL,"fd.dest.addr: %d \n",fd.dest.addr);
     temp.state = SYN_SENT;
     call Sender.send(a,fd.dest.addr);
