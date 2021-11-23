@@ -244,8 +244,9 @@ implementation{
          pack* myMsg=(pack*) payload;
          TCP_Pack* t =(TCP_Pack*)(myMsg->payload);
          dbg(GENERAL_CHANNEL,"destPort: %d srcPort: %d seq: %d lastAcked: %d ACK: %d flag: %d effectiveWindow: %d payload: %d \n",t->destPort,t->srcPort,t->seq,t->lastAcked, t->ACK, t->flag, t->effectiveWindow, t->payload);
+
          //TCP_Pack* t =(TCP_Pack*)(myMsg->payload);
-        neighboorDiscovery *nnn;
+        //neighboorDiscovery *nnn;
 
 
         LSP* receivedLSP = (LSP*) myMsg->payload;
