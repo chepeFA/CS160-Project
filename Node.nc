@@ -256,6 +256,11 @@ implementation{
          {
           
          }
+
+         else if(myMsg->protocol==PROTOCOL_TCP)
+         {
+          dbg(TRANSPORT_CHANNEL,"TCP protocol \n");
+         }
       
          else if(myMsg->dest == TOS_NODE_ID) //this package is for me
          {
@@ -1027,13 +1032,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
     dbg(TRANSPORT_CHANNEL,"Msg protocol:%d tcp packet protocol:%d \n",msg.protocol,tcpPack->protocol);
     dbg(TRANSPORT_CHANNEL,"fd.dest.addr: %d \n",fd.dest.addr);
-
-   
-    
-
     temp.state = SYN_SENT;
-
-
     call Sender.send(msg,fd.dest.addr);
 
 
