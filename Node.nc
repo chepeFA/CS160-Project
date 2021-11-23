@@ -1271,7 +1271,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
             newTCP = (TCP_Pack*)(p.payload);
             i = tcp_msg->lastAcked+1;
             j=0;
-            while(j<tcp_msg->effectivewindow && j<6 && i<=skt.effectiveWindow)
+            while(j<tcp_msg->effectiveWindow && j<6 && i<=skt.effectiveWindow)
             { 
 
               dbg(TRANSPORT_CHANNEL, "Writing to Payload: %d\n", i);
