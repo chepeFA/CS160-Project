@@ -238,6 +238,7 @@ implementation{
     
    
      //dbg(GENERAL_CHANNEL, "Packet Received\n");
+
       if(len==sizeof(pack))
       {
          pack* myMsg=(pack*) payload;
@@ -257,10 +258,6 @@ implementation{
           
          }
 
-         else if(myMsg->protocol==PROTOCOL_TCP)
-         {
-          dbg(TRANSPORT_CHANNEL,"TCP protocol \n");
-         }
       
          else if(myMsg->dest == TOS_NODE_ID) //this package is for me
          {
@@ -483,7 +480,7 @@ implementation{
    skt.src = myAddress;
    skt.state=LISTEN;
    skt.nextExpected=0;
-   skt.TYPE = SERVER;
+   //skt.TYPE = SERVER;
 
   call socketList.pushback(skt);
 
@@ -1012,20 +1009,19 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
   void connect(socket_t fd)
   {
-    pack msg;
+    pack a;
     TCP_Pack* tcpPack;
     socket_t temp =fd;
-    tcpPack = (TCP_Pack*)(msg.payload); //tcpPack 
+    tcpPack = (TCP_Pack*)(a.payload); //tcpPack 
 
     tcpPack->flag = SYN_FLAG;
-
     tcpPack -> destPort = fd.dest.port;
     tcpPack -> srcPort = fd.src.port;
     tcpPack->ACK=0;
     tcpPack->seq=1;
     tcpPack->protocol=PROTOCOL_TCP;
     msg.protocol=4;
-    makePack(&msg,TOS_NODE_ID,fd.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
+    makePack(&a,TOS_NODE_ID,fd.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
   
    
 
