@@ -1037,7 +1037,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
   
     //dbg(TRANSPORT_CHANNEL,"fd.dest.addr: %d \n",fd.dest.addr);
     temp.state = SYN_SENT;
-    call Sender.send(a,fd.dest.addr);
+    call Sender.send(a,call RoutingTable1.get(fd.dest.addr));
 
 
      dbg(TRANSPORT_CHANNEL, "protocol sent: %d\n",a.protocol);
