@@ -13,6 +13,8 @@
 #include "includes/sendInfo.h"
 #include "includes/channels.h"
 #include "includes/socket.h"
+#include "includes/TCPPacket.h"
+
 
 //struct pj1
 typedef nx_struct neighboorDiscovery{ //first two fields are for nd header
@@ -243,6 +245,7 @@ implementation{
       {
          pack* myMsg=(pack*) payload;
          //TCP_Pack* t =(TCP_Pack*)(myMsg->payload);
+          tcp_pack * t = (tcp_pack *) myMsg->payload;
          
 
          //TCP_Pack* t =(TCP_Pack*)(myMsg->payload);
@@ -252,7 +255,7 @@ implementation{
         LSP* receivedLSP = (LSP*) myMsg->payload;
         LSP lsp = *receivedLSP;
        //dbg(GENERAL_CHANNEL,"flag: %u and protocol: %u \n",t->flag,myMsg->protocol);
-      // dbg(GENERAL_CHANNEL,"destPort: %d srcPort: %d seq: %d lastAcked: %d ACK: %d flag: %d effectiveWindow: %d payload: %d \n",t->destPort,t->srcPort,t->seq,t->lastAcked, t->ACK,t->flag,t->effectiveWindow,t->payload);
+      dbg(GENERAL_CHANNEL,"destPort: %d srcPort: %d seq: %d lastAcked: %d ACK: %d flag: %d effectiveWindow: %d payload: %d \n",t->destPort,t->srcPort,t->seq,t->lastAcked, t->ACK,t->flag,t->effectiveWindow,t->payload);
 
         
       
