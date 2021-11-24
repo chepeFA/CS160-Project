@@ -242,7 +242,7 @@ implementation{
       if(len==sizeof(pack))
       {
          pack* myMsg=(pack*) payload;
-         TCP_Pack* t =(TCP_Pack*)(myMsg->payload);
+         //TCP_Pack* t =(TCP_Pack*)(myMsg->payload);
          
 
          //TCP_Pack* t =(TCP_Pack*)(myMsg->payload);
