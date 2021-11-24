@@ -223,7 +223,7 @@ implementation{
             makePack(&sentPacket,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
              call TCPTimer.startOneShot(140000);
            
-            call Sender.send(sentPacket,skt.dest.addr);
+            call Sender.send(sentPacket,call RoutingTable.get(skt.dest.addr));
           
       }
 
@@ -487,7 +487,7 @@ implementation{
    skt.src = myAddress;
    skt.state=LISTEN;
    skt.nextExpected=0;
-   //skt.TYPE = SERVER;
+   skt.TYPE = SERVER;
 
   call socketList.pushback(skt);
 
@@ -521,12 +521,13 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
    skt.dest.port = destPort;
    skt.dest.addr=dest;
    skt.transfer=transfer;
+  call socketList.pushback(skt);
+   connect(skt);
 
    dbg(GENERAL_CHANNEL,"dest: %d destPort: %d srcPort: %d transfer: %d  \n",dest,destPort,srcPort,transfer);
    dbg(TRANSPORT_CHANNEL,"socket info in client. myaddr.addr:%d myaddr.port:%d skt.dest.port:%d skt.dest.addr :%d skt.transfer:%d \n",myAddress.addr,myAddress.port,skt.dest.port,skt.dest.addr,skt.transfer);
 
-   call socketList.pushback(skt);
-   connect(skt);
+ 
 
    //info(dest,destPort,srcPort,transfer);
 
@@ -1017,8 +1018,8 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
   void connect(socket_t fd)
   {
     pack a;
-    TCP_Pack* tcpPack;
     socket_t temp =fd;
+    TCP_Pack* tcpPack;
     tcpPack = (TCP_Pack*)(a.payload); //tcpPack 
 
     tcpPack->flag = SYN_FLAG;
@@ -1034,36 +1035,13 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
 
   
-    dbg(TRANSPORT_CHANNEL,"fd.dest.addr: %d \n",fd.dest.addr);
+    //dbg(TRANSPORT_CHANNEL,"fd.dest.addr: %d \n",fd.dest.addr);
     temp.state = SYN_SENT;
     call Sender.send(a,fd.dest.addr);
 
 
-    // dbg(TRANSPORT_CHANNEL,"Msg payload:  %s \n",msg.payload);
-    // dbg(TRANSPORT_CHANNEL,"tcp payload:  %s \n",tcpPack->payload[0]);
-     //dbg(GENERAL_CHANNEL,"in tcp packet destPort: %d \n",temp.dest.port );
-     //dbg(GENERAL_CHANNEL,"in tcp packet srcport %d \n", temp.src.port);
-     //dbg(GENERAL_CHANNEL,"MSG payload: %s", msg.payload);
-
-     //dbg(GENERAL_CHANNEL,"Node %u state is %u \n",temp.src.addr,temp.state);
-    //dbg(GENERAL_CHANNEL,"Temp dest addr %d\n",temp.dest.addr);
-
      dbg(TRANSPORT_CHANNEL, "protocol sent: %d\n",a.protocol);
-   // dbg(TRANSPORT_CHANNEL,"In connect(socket) function.  destPort: %d srcPort: %d seq: %d lastAcked: %d ACK: %d flag:%d advertisedWindow: %d payload: %d, protocol:\n",tcpPack->destPort,tcpPack->srcPort,tcpPack->seq,tcpPack->lastAcked,tcpPack->ACK,tcpPack->flag,tcpPack->window,0,msg.protocol);
-    dbg(TRANSPORT_CHANNEL,"Destination in sender (temp.dest.addr):  %d another one (temp.dest.port:%d \n)",temp.dest.addr,temp.dest.port);
-
-   // dbg(ROUTING_CHANNEL, "Node %u State is %u \n", temp.src.port, temp.state);
-
-    //dbg(ROUTING_CHANNEL, "CLIENT TRYING \n");
-
-    //if(call RoutingTable1.get(fd.dest.addr))
-    //{
-
-    //dbg(TRANSPORT_CHANNEL,"Sending package to :%d \n",fd.dest.addr);
-    //call Sender.send(msg,fd.dest.addr);
-    //}
-    //else
-    //dbg(ROUTING_CHANNEL, "Route to destination server not found...\n");
+   
 
 
 
