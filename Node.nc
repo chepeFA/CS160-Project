@@ -13,7 +13,7 @@
 #include "includes/sendInfo.h"
 #include "includes/channels.h"
 #include "includes/socket.h"
-#include "includes/TCPPacket.h"
+#include "includes/TCPpacket.h"
 
 
 //struct pj1
