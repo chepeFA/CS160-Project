@@ -39,7 +39,7 @@ def main():
 
     #s.neighborDMP(2);
     s.runTime(50);
-    s.ping(1, 8, "Hi");
+    s.ping(1, 4, "Hi");
     s.runTime(50);
 
     s.runTime(50);#300 b4
