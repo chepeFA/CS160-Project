@@ -1104,6 +1104,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
   socket_t skt;
   uint16_t i;
   uint16_t j;
+
   srcPort = tcp_msg->srcPort;
   destPort = tcp_msg->destPort;
   seq = tcp_msg->seq;
@@ -1133,7 +1134,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
       newTCP->seq=1;
       newTCP->ACK=seq+1;
       newTCP->flag = SYN_ACK_FLAG;
-      makePack(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,6);
+      makePack(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,PACKET_MAX_PAYLOAD_SIZE)PACKET_MAX_PAYLOAD_SIZE;
       dbg(TRANSPORT_CHANNEL,"SYN ACK was sent \n");
       call Sender.send(p,call RoutingTable1.get(skt.dest.addr));
 
@@ -1153,7 +1154,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     newTCP->ACK=seq+1;
     newTCP ->flag  = ACK_FLAG;
     dbg(TRANSPORT_CHANNEL,"ACK sent \n");
-    makePack(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,6);
+    makePack(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,PACKET_MAX_PAYLOAD_SIZE);
     call Sender.send(p,call RoutingTable1.get(skt.dest.addr));
 
     finishConnecting(skt);
@@ -1233,7 +1234,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
        newTCP ->effectiveWindow = skt.effectiveWindow;
        newTCP->flag= DATA_ACK_FLAG;
        dbg(TRANSPORT_CHANNEL,"Sendind DATA ACK FLAG \n");
-       makePack(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,6);
+       makePack(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,PACKET_MAX_PAYLOAD_SIZE);
        call Sender.send(p,call RoutingTable1.get(skt.dest.addr));
 
 
