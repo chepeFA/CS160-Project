@@ -1050,19 +1050,20 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
   void finishConnecting(socket_t fd)
   {
-    uint16_t i=0;
+    
     TCP_Pack *tcpPack;
     pack msg;
     socket_t skt =fd;
+
     tcpPack = (TCP_Pack*)(msg.payload);
     tcpPack->destPort = skt.dest.port;
     tcpPack->srcPort = skt.src.port;
     tcpPack->flag = DATA_FLAG;
     tcpPack->seq=0;
-    
+    uint16_t i=0;
 
 
-     while(i<6 && i<=skt.effectiveWindow)
+     while(i<6 && i<=skt.transfer)
     {
       tcpPack->payload[i]=i;
       i++;
