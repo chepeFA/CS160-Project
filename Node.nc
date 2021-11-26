@@ -1163,6 +1163,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     dbg(TRANSPORT_CHANNEL,"SYN ACK Received \n");
     dbg(TRANSPORT_CHANNEL,"Skt dest port: %d, \n",skt.dest.port);
     skt = getSocket1(destPort,srcPort);
+     dbg(TRANSPORT_CHANNEL,"Skt dest port: %d, \n",skt.dest.port);
     if(skt.dest.port)
     {
     skt.state=ESTABLISHED;
