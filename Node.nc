@@ -1060,6 +1060,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
      while(i<6 && i<=skt.transfer)
     {
+    dbg(TRANSPORT_CHANNEL,"in while function \n");
       tcpPack->payload[i]=i;
       i++;
 
@@ -1084,7 +1085,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     {
 
     call Sender.send(msg,call RoutingTable1.get(skt.dest.addr));
-    call Sender.send(flying,call RoutingTable1.get(skt.dest.addr));
+    //call Sender.send(flying,call RoutingTable1.get(skt.dest.addr));
     }
     else
     {
