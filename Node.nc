@@ -1074,7 +1074,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
    
 
     tcpPack->ACK=i;
-    makePack(&msg, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, tcpPack, 6);
+    makePack(&msg, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, tcpPack, PACKET_MAX_PAYLOAD_SIZE);
     dbg(ROUTING_CHANNEL, "Node %u State is %u \n", skt.src.addr, skt.state);
     makePack(&flying, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0,tcpPack , PACKET_MAX_PAYLOAD_SIZE);
     
