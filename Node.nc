@@ -1150,6 +1150,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
     else if(flag == SYN_ACK_FLAG)
     {
+    dbg(GENERAL_CHANNEL,"In syn ack flag \n");
     dbg(TRANSPORT_CHANNEL,"SYN ACK Received \n");
     skt = getSocket1(destPort,srcPort);
 
