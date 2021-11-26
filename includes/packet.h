@@ -46,7 +46,8 @@ typedef nx_struct TCP_Pack{
 	nx_uint8_t flag;
 	//nx_uint8_t window;
 	nx_uint8_t effectiveWindow;
-	nx_uint16_t payload[PACKET_MAX_PAYLOAD_SIZE];
+	//nx_uint16_t payload[PACKET_MAX_PAYLOAD_SIZE];
+	nx_uint16_t payload[6];
 
 
 }TCP_Pack;
