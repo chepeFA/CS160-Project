@@ -1044,7 +1044,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
   void finishConnecting(socket_t fd)
   {
-     uint16_t i;
+    uint16_t i;
     TCP_Pack *tcpPack;
     pack msg;
     socket_t skt =fd;
@@ -1072,7 +1072,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
     makePack(&msg, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, tcpPack, PACKET_MAX_PAYLOAD_SIZE);
 
-    dbg(ROUTING_CHANNEL, "Node %u State is %u \n", skt.src.addr, skt.state);
+    //dbg(ROUTING_CHANNEL, "Node %u State is %u \n", skt.src.addr, skt.state);
     makePack(&flying, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0,tcpPack , PACKET_MAX_PAYLOAD_SIZE);
     
      
@@ -1081,9 +1081,13 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
 
     if(call RoutingTable1.get(skt.dest.addr) )
+    {
     call Sender.send(msg,call RoutingTable1.get(skt.dest.addr));
+    }
     else
+    {
     dbg(ROUTING_CHANNEL, "Route to destination server not found...\n");
+    }
 
    
 
@@ -1114,7 +1118,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
   seq = tcp_msg->seq;
   ACK = tcp_msg->ACK;
   flag  = tcp_msg->flag;
-  
+
   dbg(TRANSPORT_CHANNEL,"Flag pointer: %d , flag variable:%d \n",tcp_msg->flag,flag);
 
 
