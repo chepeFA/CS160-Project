@@ -38,9 +38,9 @@ def main():
     #s.runTime(5);
 
     #s.neighborDMP(2);
-    s.runTime(50);
-    s.ping(1, 4, "Hi");
-    s.runTime(50);
+    #s.runTime(50);
+    #s.ping(1, 4, "Hi");
+   # s.runTime(50);
 
     s.runTime(50);#300 b4
     s.testServer(well_known_mote,well_known_port); #needs two, node i connects to port j
