@@ -405,7 +405,7 @@ implementation{
 
               pushPack(sendPackage);
               if(call RoutingTable1.get(myMsg->dest)){
-                dbg(ROUTING_CHANNEL, "Route found, Sending to next hop %d\n", call RoutingTable1.get(myMsg->dest));
+                //dbg(ROUTING_CHANNEL, "Route found, Sending to next hop %d\n", call RoutingTable1.get(myMsg->dest));
                 call Sender.send(sendPackage, call RoutingTable1.get(myMsg->dest));
             }else{
               //  dbg(ROUTING_CHANNEL, "Route not found...\n");
@@ -1060,7 +1060,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
      while(i<12 && i<=skt.transfer)
     {
-      dbg(TRANSPORT_CHANNEL,"in while function \n");
+      //dbg(TRANSPORT_CHANNEL,"in while function \n");
       tcpPack->payload[i]=i;
       i++;
 
