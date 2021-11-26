@@ -1137,7 +1137,11 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
       newTCP->flag = SYN_ACK_FLAG;
       makePack(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,PACKET_MAX_PAYLOAD_SIZE);
       dbg(TRANSPORT_CHANNEL,"SYN ACK was sent \n");
+      if(call RoutingTable1.get(skt.dest.addr))
       call Sender.send(p,call RoutingTable1.get(skt.dest.addr));
+      else
+        dbg(TRANSPORT_CHANNEL, "Can't find route to client...\n");     
+
 
 
     }
@@ -1146,7 +1150,9 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     {
     dbg(TRANSPORT_CHANNEL,"SYN ACK Received \n");
     skt = getSocket1(destPort,srcPort);
+
     skt.state=ESTABLISHED;
+
     call socketList.pushback(skt);
     newTCP = (TCP_Pack*)(p.payload);
     newTCP->destPort = skt.dest.port;
