@@ -1081,18 +1081,14 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
     call TCPTimer.startOneShot(140000);
 
-    dbg(ROUTING_CHANNEL, "After calliong tcp timer in finishConnectiong function\n");
+   // dbg(ROUTING_CHANNEL, "After calliong tcp timer in finishConnectiong function\n");
 
-    if(call RoutingTable1.get(skt.dest.addr))
-    {
+  
 
     call Sender.send(msg,call RoutingTable1.get(skt.dest.addr));
-    call Sender.send(flying,call RoutingTable1.get(skt.dest.addr));
-    }
-    else
-    {
-    dbg(GENERAL_CHANNEL, "Route to destination server not found...\n");
-    }
+   
+    
+    
 
 
    
