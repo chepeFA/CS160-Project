@@ -1161,8 +1161,10 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     {
     dbg(GENERAL_CHANNEL,"In syn ack flag \n");
     dbg(TRANSPORT_CHANNEL,"SYN ACK Received \n");
+    dbg(TRANSPORT_CHANNEL,"Skt dest port: %d, \n",skt.dest.port);
     skt = getSocket1(destPort,srcPort);
-
+    if(skt.dest.port)
+    {
     skt.state=ESTABLISHED;
 
     call socketList.pushback(skt);
@@ -1174,11 +1176,12 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     newTCP ->flag  = ACK_FLAG;
     dbg(TRANSPORT_CHANNEL,"ACK sent \n");
     makePack(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,PACKET_MAX_PAYLOAD_SIZE);
-    finishConnecting(skt);
+    
     call Sender.send(p,call RoutingTable1.get(skt.dest.addr));
+    finishConnecting(skt);
     
 
-
+    }
 
     }
 
