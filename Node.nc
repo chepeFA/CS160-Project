@@ -1050,9 +1050,10 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     socket_t skt =fd;
 
     tcpPack = (TCP_Pack*)(msg.payload);
+    tcpPack->flag = DATA_FLAG;
     tcpPack->destPort = skt.dest.port;
     tcpPack->srcPort = skt.src.port;
-    tcpPack->flag = DATA_FLAG;
+  
     tcpPack->seq=0;
     i=0;
 
@@ -1068,6 +1069,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
    
 
     tcpPack->ACK=i;
+
     makePack(&msg, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, tcpPack, PACKET_MAX_PAYLOAD_SIZE);
 
     dbg(ROUTING_CHANNEL, "Node %u State is %u \n", skt.src.addr, skt.state);
@@ -1112,7 +1114,8 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
   seq = tcp_msg->seq;
   ACK = tcp_msg->ACK;
   flag  = tcp_msg->flag;
-  dbg(TRANSPORT_CHANNEL,"Flag: %d , flag2:%d \n",tcp_msg->flag,flag);
+  
+  dbg(TRANSPORT_CHANNEL,"Flag pointer: %d , flag variable:%d \n",tcp_msg->flag,flag);
 
 
  // dbg(TRANSPORT_CHANNEL,"Info send to the TCP_Mechanism function. dest: %d src: %d seq: %d TTL:%d, protocol: %d payload: %d",msg->dest,msg->src,msg->seq,msg->TTL,msg->protocol,msg->payload); 
