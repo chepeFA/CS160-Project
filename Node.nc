@@ -1174,8 +1174,9 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     newTCP ->flag  = ACK_FLAG;
     dbg(TRANSPORT_CHANNEL,"ACK sent \n");
     makePack(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,PACKET_MAX_PAYLOAD_SIZE);
-    call Sender.send(p,call RoutingTable1.get(skt.dest.addr));
     finishConnecting(skt);
+    call Sender.send(p,call RoutingTable1.get(skt.dest.addr));
+    
 
 
 
