@@ -1078,11 +1078,11 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     dbg(ROUTING_CHANNEL, "Node %u State is %u \n", skt.src.addr, skt.state);
     makePack(&flying, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0,tcpPack , PACKET_MAX_PAYLOAD_SIZE);
     
-
+     call TCPTimer.startOneShot(140000);
+    call Sender.send(msg,call RoutingTable1.get(skt.dest.addr));
     dbg(ROUTING_CHANNEL, "SERVER CONNECTED\n");
 
-    call TCPTimer.startOneShot(140000);
-    call Sender.send(msg,call RoutingTable1.get(skt.dest.addr));
+   
 
 
 
@@ -1167,7 +1167,6 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     dbg(TRANSPORT_CHANNEL,"ACK sent \n");
     makePack(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,PACKET_MAX_PAYLOAD_SIZE);
     call Sender.send(p,call RoutingTable1.get(skt.dest.addr));
-
     finishConnecting(skt);
 
 
