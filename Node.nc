@@ -1060,7 +1060,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     tcpPack->srcPort = skt.src.port;
     tcpPack->flag = DATA_FLAG;
     tcpPack->seq=0;
-   i=0;
+    i=0;
 
 
      while(i<6 && i<=skt.transfer)
@@ -1078,9 +1078,14 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     dbg(ROUTING_CHANNEL, "Node %u State is %u \n", skt.src.addr, skt.state);
     makePack(&flying, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0,tcpPack , PACKET_MAX_PAYLOAD_SIZE);
     
-     call TCPTimer.startOneShot(140000);
-    call Sender.send(msg,call RoutingTable1.get(skt.dest.addr));
+     
     dbg(ROUTING_CHANNEL, "SERVER CONNECTED\n");
+    call TCPTimer.startOneShot(140000);
+
+    if(call RoutingTable1.get(skt.dest.addr) )
+    call Sender.send(msg,call RoutingTable1.get(skt.dest.addr));
+    else
+                dbg(ROUTING_CHANNEL, "Route to destination server not found...\n");
 
    
 
