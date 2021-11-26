@@ -1111,6 +1111,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
   seq = tcp_msg->seq;
   ACK = tcp_msg->ACK;
   flag  = tcp_msg->flag;
+  dbg(TRANSPORT_CHANNEL,"Flag: %d \n",tcp_msg->flag);
  // dbg(TRANSPORT_CHANNEL,"Info send to the TCP_Mechanism function. dest: %d src: %d seq: %d TTL:%d, protocol: %d payload: %d",msg->dest,msg->src,msg->seq,msg->TTL,msg->protocol,msg->payload); 
 
   if(flag == SYN_FLAG || flag == SYN_ACK_FLAG || flag == ACK_FLAG)
@@ -1137,10 +1138,8 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
       newTCP->flag = SYN_ACK_FLAG;
       makePack(&p,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,newTCP,PACKET_MAX_PAYLOAD_SIZE);
       dbg(TRANSPORT_CHANNEL,"SYN ACK was sent \n");
-      if(call RoutingTable1.get(skt.dest.addr))
       call Sender.send(p,call RoutingTable1.get(skt.dest.addr));
-      else
-        dbg(TRANSPORT_CHANNEL, "Can't find route to client...\n");     
+       
 
 
 
