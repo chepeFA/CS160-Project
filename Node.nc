@@ -1058,9 +1058,9 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     i=0;
 
 
-     while(i<6 && i<=skt.transfer)
+     while(i<TCP_MAX_PAYLOAD_SIZE && i<=skt.transfer)
     {
-    dbg(TRANSPORT_CHANNEL,"in while function \n");
+      dbg(TRANSPORT_CHANNEL,"in while function \n");
       tcpPack->payload[i]=i;
       i++;
 
