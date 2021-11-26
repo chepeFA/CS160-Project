@@ -206,13 +206,7 @@ implementation{
       TCP_Pack *tcpPack = (TCP_Pack*)(sentPacket.payload);
       socket_t skt = getSocket1(tcpPack->srcPort,tcpPack->destPort);
 
-      //dbg(TRANSPORT_CHANNEL,"tcp src port:%u tcp dest port: %u \n",tcpPack->srcPort,tcpPack->destPort);
-
-        //dbg(TRANSPORT_CHANNEL,"Info send to the TCP_Mechanism function. dest: %d src: %d seq: %d TTL:%d, protocol: %d payload: %d",sentPacket.dest,sentPacket.src,sentPacket.seq,sentPacket.TTL,sentPacket.protocol,sentPacket.payload); 
-
-     // dbg(TRANSPORT_CHANNEL,"info in package: tcp srcPort: %d tcp destPort: %d  \n",tcpPack->srcPort,tcpPack->destPort);
-      //dbg(TRANSPORT_CHANNEL,"Sent packet payload: %s",sentPacket.payload);
-      //dbg();
+     
 
       if(skt.dest.port)
       {
@@ -221,7 +215,7 @@ implementation{
             call socketList.pushback(skt);
 
             makePack(&sentPacket,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
-             call TCPTimer.startOneShot(140000);
+            ///call TCPTimer.startOneShot(140000);
            
             call Sender.send(sentPacket,call RoutingTable1.get(skt.dest.addr));
           
@@ -1075,17 +1069,19 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
     tcpPack->ACK=i;
     makePack(&msg, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, tcpPack, PACKET_MAX_PAYLOAD_SIZE);
+
     dbg(ROUTING_CHANNEL, "Node %u State is %u \n", skt.src.addr, skt.state);
     makePack(&flying, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0,tcpPack , PACKET_MAX_PAYLOAD_SIZE);
     
      
     dbg(ROUTING_CHANNEL, "SERVER CONNECTED\n");
-  //  call TCPTimer.startOneShot(140000);
+    call TCPTimer.startOneShot(140000);
+
 
     if(call RoutingTable1.get(skt.dest.addr) )
     call Sender.send(msg,call RoutingTable1.get(skt.dest.addr));
     else
-                dbg(ROUTING_CHANNEL, "Route to destination server not found...\n");
+    dbg(ROUTING_CHANNEL, "Route to destination server not found...\n");
 
    
 
