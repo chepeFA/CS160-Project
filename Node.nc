@@ -1082,6 +1082,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
     if(call RoutingTable1.get(skt.dest.addr))
     {
+    dbg(GENERAL_CHANNEL, "Inside if\n");
     call Sender.send(msg,call RoutingTable1.get(skt.dest.addr));
     }
     else
