@@ -1340,14 +1340,17 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
 
         }
-    }
 
-    if(flag==FIN_ACK)
+         if(flag==FIN_ACK)
     {
       dbg(TRANSPORT_CHANNEL,"Got FIN ACK\n");
       skt=getSocket1(destPort,srcPort);
       skt.state=CLOSED;
     }
+
+    }
+
+   
 
 
 
@@ -1359,10 +1362,10 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
   
 
-  }
+   }
 
 
-  }
+  
 
 
 
