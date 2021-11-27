@@ -1361,7 +1361,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
           newTCP->srcPort = skt.src.port;
           newTCP->seq=1;
           newTCP->ACK=seq+1;
-          newTCP->flag = FIN_ACK;
+          newTCP->flag =  ACK_FIN_FLAG;
           dbg(TRANSPORT_CHANNEL, "CONNECTION CLOSING, DATA RECEIVED: \n");
 
           makePack(&p, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, newTCP, PACKET_MAX_PAYLOAD_SIZE);
