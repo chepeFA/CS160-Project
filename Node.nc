@@ -1221,12 +1221,14 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
       dbg(TRANSPORT_CHANNEL,"Data Received\n");
       skt = getSocket1(destPort,srcPort);
 
-      if(skt.state==ESTABLISHED)
+      if(skt.src.port && skt.state==ESTABLISHED)
       {
        newTCP = (TCP_Pack*)(p.payload);
+       dbg(GENERAL_CHANNEL,"outter if \n");
 
        if(tcp_msg->payload[0]!=0 && seq==skt.nextExpected)
-       {
+       {  
+        dbg(GENERAL_CHANNEL,"inside if \n");
         i = skt.lastRcvd + 1;
         j=0;
         while(j<tcp_msg->ACK)
@@ -1243,6 +1245,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
        }
        else
        {
+       dbg(GENERAL_CHANNEL,"else  \n");
          i =0;
         
            while(i<tcp_msg->ACK);
