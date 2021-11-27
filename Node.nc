@@ -1277,6 +1277,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
     
     }
+
     }
 
     else if(flag==DATA_ACK_FLAG)
@@ -1387,7 +1388,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
   
 
-   }
+   
 
 
   }
