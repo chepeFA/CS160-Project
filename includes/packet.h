@@ -10,13 +10,14 @@
 # include "protocol.h"
 #include "channels.h"
 
-#define DATA_FLAG 0
-#define DATA_ACK_FLAG 1
-#define SYN_FLAG 2
-#define SYN_ACK_FLAG 3
-#define ACK_FLAG 4
-#define FIN_FLAG 5
-#define FIN_ACK 6
+
+#define DATA_FLAG      0
+#define SYN_FLAG       1
+#define SYN_ACK_FLAG   2
+#define ACK_FLAG       3
+#define FIN_FLAG       4
+#define ACK_FIN_FLAG   5
+#define DATA_ACK_FLAG  6
 
 #define TCP_MAX_PAYLOAD_SIZE 6
 
