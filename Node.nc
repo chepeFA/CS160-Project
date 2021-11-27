@@ -1051,6 +1051,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
     tcpPack = (TCP_Pack*)(msg.payload);
     tcpPack->flag = DATA_FLAG;
+
     tcpPack->destPort = skt.dest.port;
     tcpPack->srcPort = skt.src.port;
   
@@ -1088,7 +1089,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     call Sender.send(msg,call RoutingTable1.get(skt.dest.addr));
    
     dbg(GENERAL_CHANNEL,"Message was sent from %d to %d\n",TOS_NODE_ID, call RoutingTable1.get(skt.dest.addr));
-    
+    dbg(TRANSPORT_CHANNEL,"flag:%d \n",msg.payload[5]);
 
 
    
@@ -1192,6 +1193,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     {
     dbg(TRANSPORT_CHANNEL,"ACK was received. Connection is finalizing\n");
     skt = getSocket1(destPort,srcPort);
+
     if(skt.src.port && skt.state==SYN_RCVD)
     {
         skt.state=ESTABLISHED;
@@ -1272,6 +1274,8 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
     else if(flag==DATA_ACK_FLAG)
     {
+
+
       dbg(TRANSPORT_CHANNEL,"DATA ACT was received. LAST ACKED: %d \n",tcp_msg->lastAcked);
         skt = getSocket1(destPort,srcPort);
         if(skt.state==ESTABLISHED)
