@@ -1220,7 +1220,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     {
       dbg(TRANSPORT_CHANNEL,"Data Received\n");
       skt = getSocket1(destPort,srcPort);
-
+      dbg(TRANSPORT_CHANNEL,"before evaluate outer if\n");
       if(skt.src.port && skt.state==ESTABLISHED)
       {
        newTCP = (TCP_Pack*)(p.payload);
