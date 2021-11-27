@@ -1259,7 +1259,9 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
        
        }
+
        //buffer size = 64;
+       dbg(GENERAL_CHANNEL,"effectiveWindow \n");
        skt.effectiveWindow = 64 -(skt.lastRcvd +1);
        skt.nextExpected = seq+1;
 
