@@ -1250,6 +1250,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
         
            while(i<tcp_msg->ACK);
            {
+               dbg(TRANSPORT_CHANNEL, "Writing to Receive Buffer: %d\n", i);
               skt.rcvdBuff[i] = tcp_msg->payload[i];
               skt.lastRcvd = tcp_msg->payload[i];
               i++;
