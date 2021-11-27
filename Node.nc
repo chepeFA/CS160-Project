@@ -975,10 +975,10 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
       {
 
         sk = call socketList.get(i);
-        if(sk.dest.port==srcPort && sk.src.port == destPort)
+        if(sk.dest.port==srcPort && sk.src.port == destPort && skt.state!=LISTEN)
         { 
           //temp=sk;
-          //call socketList.remove(i);  
+          call socketList.remove(i);  
           return sk;
           //found=TRUE;
           //call socketList.remove(i);
@@ -1289,7 +1289,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
       dbg(TRANSPORT_CHANNEL,"DATA ACT was received. LAST ACKED: %d \n",tcp_msg->lastAcked);
         skt = getSocket1(destPort,srcPort);
-        if(skt.state==ESTABLISHED)
+        if(skt.dest.port && skt.state==ESTABLISHED)
         {
         if(tcp_msg->effectiveWindow!=0 && tcp_msg->lastAcked !=skt.effectiveWindow)
         {
@@ -1324,7 +1324,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
         else
         {
           dbg(TRANSPORT_CHANNEL,"ALL DATA SENT, CLOSING CONNECTION \n");
-          skt.state = FIN_FLAG;
+          skt.state = FIN_WAIT1;
           call socketList.pushback(skt);
           newTCP=(TCP_Pack*)(p.payload);
           newTCP->destPort = skt.dest.port;
@@ -1370,7 +1370,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
         }
 
-         if(flag==FIN_ACK)
+         if(flag==ACK_FIN_FLAG)
     {
       dbg(TRANSPORT_CHANNEL,"Got FIN ACK\n");
       skt=getSocket1(destPort,srcPort);
