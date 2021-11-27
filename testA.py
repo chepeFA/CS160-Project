@@ -13,7 +13,7 @@ def main():
     #s.loadTopo("long_line.topo");
 
     # Add a noise model to all of the motes.
-    s.loadNoise("some_noise.txt");
+    s.loadNoise("no_noise.txt");
     #s.loadNoise("some_noise.txt");
     #s.loadNoise("meyer-heavy.txt");
 

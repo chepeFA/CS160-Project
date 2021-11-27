@@ -289,13 +289,13 @@ implementation{
              
               //working on 10.08 as part of pj1
               //call Sender.send(sendPackage,AM_BROADCAST_ADDR);
-              if(call RoutingTable1.get(myMsg->src))
-              {
+              //if(call RoutingTable1.get(myMsg->src))
+              //{
                 dbg(ROUTING_CHANNEL,"Sending packet to next hop: %d \n",call RoutingTable1.get(myMsg->src));
                 call Sender.send(sendPackage,call RoutingTable1.get(myMsg->src));
-              }
-              else
-              dbg(ROUTING_CHANNEL, "Path not found\n");
+              //}
+              //else
+              //dbg(ROUTING_CHANNEL, "Path not found\n");
 
               
            
@@ -1078,6 +1078,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     //dbg(ROUTING_CHANNEL, "Node %u State is %u \n", skt.src.addr, skt.state);
     makePack(&flying, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0,tcpPack , PACKET_MAX_PAYLOAD_SIZE);
     
+    call packetQueue.enqueue(msg);
      
     dbg(ROUTING_CHANNEL, "SERVER CONNECTED\n");
 
@@ -1336,6 +1337,9 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
              makePack(&p, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, newTCP, PACKET_MAX_PAYLOAD_SIZE);     
                                         
             makePack(&flying, TOS_NODE_ID, skt.dest.addr, MAX_TTL, PROTOCOL_TCP, 0, newTCP, PACKET_MAX_PAYLOAD_SIZE);
+
+           // call packetQueue.dequeue();
+
 
             call TCPTimer.startOneShot(150000);
             call Sender.send(p,call RoutingTable1.get(skt.dest.addr));
