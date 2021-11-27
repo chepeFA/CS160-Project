@@ -1057,7 +1057,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     tcpPack->seq=0;
     i=0;
 
-
+    dbg(GENERAL_CHANNEL,"Transfer: %d\n",skt.transfer);
      while(i<6 && i<=skt.transfer)
     {
       //dbg(TRANSPORT_CHANNEL,"in while function \n");
