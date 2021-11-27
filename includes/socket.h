@@ -63,13 +63,13 @@ typedef struct socket_t{// was b4 typedef struct socket_store_t
     //socket_t fd;
 
     // This is the sender portion.
-    uint8_t sendBuff[SOCKET_BUFFER_SIZE];
+    uint8_t sendBuff[64];//SOCKET_BUFFER_SIZE];
     uint8_t lastWritten;
     uint8_t lastAck;
     uint8_t lastSent;
 
     // This is the receiver portion
-    uint8_t rcvdBuff[SOCKET_BUFFER_SIZE];
+    uint8_t rcvdBuff[64];//SOCKET_BUFFER_SIZE];
     uint8_t lastRead;
     uint8_t lastRcvd;
     uint8_t nextExpected;
