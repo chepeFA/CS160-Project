@@ -1208,7 +1208,9 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
 
     }
-    dbg(GENERAL_CHANNEL,"Assesing flag data I :%d\n",flag);
+
+
+  //  dbg(GENERAL_CHANNEL,"Assesing flag data I :%d\n",flag);
     if(flag==DATA_FLAG || flag==DATA_ACK_FLAG)
     {
 
