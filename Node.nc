@@ -1089,8 +1089,8 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
     call Sender.send(msg,call RoutingTable1.get(skt.dest.addr));
    
-    dbg(GENERAL_CHANNEL,"Message was sent from %d to %d\n",TOS_NODE_ID, call RoutingTable1.get(skt.dest.addr));
-    dbg(TRANSPORT_CHANNEL,"flag:%d \n",tcpPack->flag);
+    //dbg(GENERAL_CHANNEL,"Message was sent from %d to %d\n",TOS_NODE_ID, call RoutingTable1.get(skt.dest.addr));
+    //dbg(TRANSPORT_CHANNEL,"flag:%d \n",tcpPack->flag);
 
 
    
@@ -1159,7 +1159,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
 
     }
-    }
+  }
 
     else if(flag == SYN_ACK_FLAG)
     {
@@ -1202,6 +1202,9 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
         call socketList.pushback(skt);
     }
 
+
+
+    }
 
 
     }
