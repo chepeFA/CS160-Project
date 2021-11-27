@@ -1,11 +1,16 @@
 #ifndef __SOCKET_H__
 #define __SOCKET_H__
 
-#define CLOSED 0
-#define LISTEN 1
-#define ESTABLISHED 2
-#define SYN_SENT 3
-#define SYN_RCVD 4
+#define CLOSED      0
+#define SYN_SENT    1
+#define SYN_RCVD    2
+#define ESTABLISHED 3
+#define FIN_WAIT1   4
+#define FIN_WAIT2   5
+#define TIME_WAIT   6
+#define CLOSE_WAIT  7
+#define LAST_ACK    8
+#define LISTEN      9
 
 enum{
     MAX_NUM_OF_SOCKETS = 10,
