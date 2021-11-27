@@ -1205,12 +1205,12 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
 
     }
-
+    dbg(GENERAL_CHANNEL,"Assesing flag data I \n");
     if(flag==DATA_FLAG || flag==DATA_ACK_FLAG)
     {
 
 
-
+    dbg(GENERAL_CHANNEL,"Assesing flag data II \n");
     if(flag==DATA_FLAG)
     {
       dbg(TRANSPORT_CHANNEL,"Data Received\n");
