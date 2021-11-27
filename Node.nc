@@ -405,7 +405,7 @@ implementation{
 
               pushPack(sendPackage);
               if(call RoutingTable1.get(myMsg->dest)){
-                //dbg(ROUTING_CHANNEL, "Route found, Sending to next hop %d\n", call RoutingTable1.get(myMsg->dest));
+                dbg(ROUTING_CHANNEL, "Route found, Sending to next hop %d\n", call RoutingTable1.get(myMsg->dest));
                 call Sender.send(sendPackage, call RoutingTable1.get(myMsg->dest));
             }else{
               //  dbg(ROUTING_CHANNEL, "Route not found...\n");
