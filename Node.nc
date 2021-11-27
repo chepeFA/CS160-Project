@@ -1311,13 +1311,13 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
         skt = getSocket1(destPort,srcPort);
         if(skt.dest.port && skt.state==ESTABLISHED)
         {
-        if(tcp_msg->effectiveWindow!=0 && tcp_msg->lastAcked !=skt.effectiveWindow)
+        if(tcp_msg->effectiveWindow!=0 && tcp_msg->lastAcked !=skt.transfer)
         {
             dbg(TRANSPORT_CHANNEL, "SENDING NEXT DATA\n");
             newTCP = (TCP_Pack*)(p.payload);
             i = tcp_msg->lastAcked+1;
             j=0;
-            while(j<tcp_msg->effectiveWindow && j<6 && i<=skt.effectiveWindow)
+            while(j<tcp_msg->effectiveWindow && j<6 && i<=skt.transfer)
             { 
 
               dbg(TRANSPORT_CHANNEL, "Writing to Payload: %d\n", i);
