@@ -1196,6 +1196,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
     if(skt.src.port && skt.state==SYN_RCVD)
     {
+      dbg(TRANSPORT_CHANNEL,"here \n");
         skt.state=ESTABLISHED;
         call socketList.pushback(skt);
     }
