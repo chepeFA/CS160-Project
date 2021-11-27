@@ -1266,7 +1266,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
               }
 
-       
+       dbg(GENERAL_CHANNEL,"outside while loop \n");
        }
 
        //buffer size = 64;
