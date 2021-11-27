@@ -975,7 +975,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
       {
 
         sk = call socketList.get(i);
-        if(sk.dest.port==srcPort && sk.src.port == destPort && skt.state!=LISTEN)
+        if(sk.dest.port==srcPort && sk.src.port == destPort && sk.state!=LISTEN)
         { 
           //temp=sk;
           call socketList.remove(i);  
