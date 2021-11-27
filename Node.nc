@@ -1221,7 +1221,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     {
       dbg(TRANSPORT_CHANNEL,"Data was Received\n");
       skt = getSocket1(destPort,srcPort);
-      dbg(TRANSPORT_CHANNEL,"skt.src.port %d skt.state:%d\n",skt.src.port,skt.state);
+      //dbg(TRANSPORT_CHANNEL,"skt.src.port %d skt.state:%d\n",skt.src.port,skt.state);
 
       if(skt.src.port && skt.state==ESTABLISHED)
       {
@@ -1229,11 +1229,11 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
        newTCP = (TCP_Pack*)(p.payload);
 
-       dbg(GENERAL_CHANNEL,"outter if \n");
+       //dbg(GENERAL_CHANNEL,"outter if \n");
 
        if(tcp_msg->payload[0]!=0 && seq==skt.nextExpected)
        {  
-        dbg(GENERAL_CHANNEL,"inside if \n");
+       // dbg(GENERAL_CHANNEL,"inside if \n");
         i = skt.lastRcvd + 1;
         j=0;
 
@@ -1275,7 +1275,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
        //buffer size = 64;
 
 
-       dbg(GENERAL_CHANNEL,"effectiveWindow \n");
+      // dbg(GENERAL_CHANNEL,"effectiveWindow \n");
 
        skt.effectiveWindow = 64 -(skt.lastRcvd +1);
        skt.nextExpected = seq+1;
@@ -1369,7 +1369,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     {
         if(flag==FIN_FLAG)
         {
-          dbg(TRANSPORT_CHANNEL,"RECEIVED FIN REQUEST");
+          dbg(TRANSPORT_CHANNEL,"RECEIVED FIN REQUEST\n");
           skt=getSocket1(destPort,srcPort);
           skt.state=CLOSED;
           skt.dest.port=srcPort;
