@@ -212,7 +212,7 @@ implementation{
       {
             //dbg(TRANSPORT_CHANNEL, "PACKET DROPPED, RETRANSMITTING PACKET\n");
           //  dbg(GENERAL_CHANNEL,"socket info skt.dest.addr %d\t skt.dest.port %d \t \n",skt.dest.addr,skt.dest.port);
-            call socketList.pushback(skt);
+            call socketList.pushfront(skt);
 
             makePack(&sentPacket,TOS_NODE_ID,skt.dest.addr,MAX_TTL,PROTOCOL_TCP,0,tcpPack,PACKET_MAX_PAYLOAD_SIZE);
             call TCPTimer.startOneShot(140000);
@@ -484,7 +484,7 @@ implementation{
    skt.nextExpected=0;
    skt.TYPE = SERVER;
 
-  call socketList.pushback(skt);
+  call socketList.pushfront(skt);
 
 
 
@@ -516,7 +516,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
    skt.dest.port = destPort;
    skt.dest.addr=dest;
    skt.transfer=transfer;
-   call socketList.pushback(skt);
+   call socketList.pushfront(skt);
    connect(skt);
 
    dbg(GENERAL_CHANNEL,"dest: %d destPort: %d srcPort: %d transfer: %d  \n",dest,destPort,srcPort,transfer);
@@ -1143,7 +1143,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
       skt.dest.port = srcPort;
       skt.dest.addr = msg->src;
 
-      call socketList.pushback(skt);
+      call socketList.pushfront(skt);
 
       newTCP= (TCP_Pack *)(p.payload);
       newTCP->destPort = skt.dest.port;
@@ -1172,7 +1172,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     {
     skt.state=ESTABLISHED;
 
-    call socketList.pushback(skt);
+    call socketList.pushfront(skt);
     newTCP = (TCP_Pack*)(p.payload);
     newTCP->destPort = skt.dest.port;
     newTCP->srcPort = skt.src.port;
@@ -1199,7 +1199,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
     {
       //dbg(TRANSPORT_CHANNEL,"here \n");
         skt.state=ESTABLISHED;
-        call socketList.pushback(skt);
+        call socketList.pushfront(skt);
     }
 
 
@@ -1263,7 +1263,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
        skt.effectiveWindow = 64 -(skt.lastRcvd +1);
        skt.nextExpected = seq+1;
 
-       call socketList.pushback(skt);
+       call socketList.pushfront(skt);
        newTCP ->destPort = skt.dest.port;
        newTCP->srcPort = skt.src.port;
        newTCP->seq = seq;
@@ -1308,7 +1308,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
             }
 
-            call socketList.pushback(skt);
+            call socketList.pushfront(skt);
             newTCP->flag = DATA_FLAG;
             newTCP->destPort = skt.dest.port;
             newTCP->srcPort = skt.src.port;
@@ -1326,7 +1326,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
         {
           dbg(TRANSPORT_CHANNEL,"ALL DATA SENT, CLOSING CONNECTION \n");
           skt.state = FIN_WAIT1;
-          call socketList.pushback(skt);
+          call socketList.pushfront(skt);
           newTCP=(TCP_Pack*)(p.payload);
           newTCP->destPort = skt.dest.port;
           newTCP->srcPort = skt.src.port;
