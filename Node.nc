@@ -1256,13 +1256,13 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
        
 
          i =0;
-        dbg(GENERAL_CHANNEL,"does it break here? tcp_msg->ACK:%d\n",tcp_msg->ACK);
+       // dbg(GENERAL_CHANNEL,"does it break here? tcp_msg->ACK:%d\n",tcp_msg->ACK);
 
          i =0;
 
          while(i<(tcp_msg->ACK))
            {
-              dbg(GENERAL_CHANNEL,"inside while loop \n");
+             // dbg(GENERAL_CHANNEL,"inside while loop \n");
               dbg(TRANSPORT_CHANNEL, "Writing to Receive Buffer: %d\n", i);
               skt.rcvdBuff[i] = tcp_msg->payload[i];
               skt.lastRcvd = tcp_msg->payload[i];
