@@ -1241,7 +1241,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
         while(j<tcp_msg->ACK)
         {
-          dbg(TRANSPORT_CHANNEL,"Writing to the received buffer %d \n",i);
+          dbg(TRANSPORT_CHANNEL,"Received buffer %d \n",i);
           skt.rcvdBuff[i]=tcp_msg->payload[j];
           skt.lastRcvd = tcp_msg->payload[j];
           i++;
