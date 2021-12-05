@@ -8,7 +8,7 @@ def main():
     s.runTime(1);
 
     # Load the the layout of the network.
-    s.loadTopo("pizza.topo");#tuna-melt.topo b4
+    s.loadTopo("tuna-melt.topo");#tuna-melt.topo b4
     #s.loadTopo("pizza.topo");
     #s.loadTopo("long_line.topo");
 
