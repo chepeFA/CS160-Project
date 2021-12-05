@@ -8,12 +8,12 @@ def main():
     s.runTime(1);
 
     # Load the the layout of the network.
-    s.loadTopo("tuna-melt.topo");#tuna-melt.topo b4
+    s.loadTopo("circle.topo");#tuna-melt.topo b4
     #s.loadTopo("pizza.topo");
     #s.loadTopo("long_line.topo");
 
     # Add a noise model to all of the motes.
-    s.loadNoise("meyer-heavy.txt");
+    s.loadNoise("no_noise.txt");
     #s.loadNoise("some_noise.txt");
     #s.loadNoise("meyer-heavy.txt");
 
@@ -44,11 +44,11 @@ def main():
 
     s.runTime(250);#300 b4
     s.testServer(well_known_mote,well_known_port); #needs two, node i connects to port j
-    s.runTime(5);#100 b4
+    s.runTime(60);#100 b4
 
     s.testClient(4,well_known_mote,well_known_port,15,150);# Client at node 4 binds to port 15 and attemps to send data to node 1 at port 2 
     s.runTime(1);   
-    s.runTime(50);#100 b4
+    s.runTime(400);#100 b4
     #s.runTime(1000);
     #s.testServer(1,41);
     #s.runTime(10)
