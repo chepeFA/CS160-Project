@@ -14,6 +14,8 @@
 #include "includes/channels.h"
 #include "includes/socket.h"
 
+#define APP_BUFFER_SIZE 40
+
 
 
 //struct pj1
