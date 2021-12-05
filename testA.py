@@ -13,7 +13,7 @@ def main():
     #s.loadTopo("long_line.topo");
 
     # Add a noise model to all of the motes.
-    s.loadNoise("no_noise.txt");
+    s.loadNoise("some_noise.txt");
     #s.loadNoise("some_noise.txt");
     #s.loadNoise("meyer-heavy.txt");
 
@@ -42,12 +42,12 @@ def main():
     #s.ping(1, 4, "Hi");
    # s.runTime(50);
 
-    s.runTime(10);#300 b4
+    s.runTime(250);#300 b4
     s.testServer(well_known_mote,well_known_port); #needs two, node i connects to port j
     s.runTime(5);#100 b4
 
     s.testClient(4,well_known_mote,well_known_port,15,150);# Client at node 4 binds to port 15 and attemps to send data to node 1 at port 2 
-    #s.runTime(1);   
+    s.runTime(1);   
     s.runTime(50);#100 b4
     #s.runTime(1000);
     #s.testServer(1,41);
