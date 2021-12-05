@@ -8,12 +8,12 @@ def main():
     s.runTime(1);
 
     # Load the the layout of the network.
-    s.loadTopo("circle.topo");#tuna-melt.topo b4
+    s.loadTopo("house(1).topo");#tuna-melt.topo b4
     #s.loadTopo("pizza.topo");
     #s.loadTopo("long_line.topo");
 
     # Add a noise model to all of the motes.
-    s.loadNoise("meyer-heavy.txt");
+    s.loadNoise("no_noise.txt");
     #s.loadNoise("some_noise.txt");
     #s.loadNoise("meyer-heavy.txt");
 
