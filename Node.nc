@@ -460,6 +460,7 @@ implementation{
       if(payload[0]==104)
       {
         dbg(TRANSPORT_CHANNEL, "%s", payload );
+        call setAppClient(destination,payload);
       }
 
    }
@@ -568,6 +569,14 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
    socket_t skt = getSocket1(tcpPack->srcPort,tcpPack->destPort);
    cmd = payload[0];
 
+   socket_address = TOS_NODE_ID;
+   socket_address.port = srcPort;
+   skt_server.addr =1;
+   skt_server.port=41;
+
+   tempSkt = connect(skt);
+   tempSkt.state=SYN_SENT;
+   dbg(GENERAL_CHANNEL,"here \n");
 
 
 
