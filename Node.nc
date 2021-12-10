@@ -433,7 +433,7 @@ implementation{
 
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
 
-          finalDestination=FALSE;
+         // finalDestination=FALSE;
           socket_t skt;
           pack p;
           uint8_t srcPort,destPort,flag,ACK,seq,awnd, whiteSpace=0,end=0,i=0,j=0;
@@ -455,6 +455,8 @@ implementation{
       }
 
       */
+
+
       if(payload[0]==104)
       {
         dbg(TRANSPORT_CHANNEL, "%s", payload );
