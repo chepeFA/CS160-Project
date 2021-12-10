@@ -434,7 +434,12 @@ implementation{
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload){
 
           finalDestination=FALSE;
+          socket_t skt;
+          pack p;
+          uint8_t srcPort,destPort,flag,ACK,seq,awnd, whiteSpace=0,end=0,i=0,j=0;
 
+
+          /*
        dbg(GENERAL_CHANNEL, "PING EVENT \n");
        dbg("Forwarding: %d \n",call RoutingTable1.get(destination));
       makePack(&sendPackage, TOS_NODE_ID, destination, MAX_TTL, PROTOCOL_PING, sequenceNumber, payload, PACKET_MAX_PAYLOAD_SIZE);
@@ -447,6 +452,12 @@ implementation{
       }
       else{
          dbg(ROUTING_CHANNEL, "Route to destination not found...\n");
+      }
+
+      */
+      if(payload[0]==104)
+      {
+        dbg(TRANSPORT_CHANNEL, "%s", payload );
       }
 
    }
@@ -548,10 +559,14 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
    pack p = flying;
    TCP_Pack *tcpPack = (TCP_Pack*)(p.payload);
-   uint8_t cmd;
+   uint8_t cmd, whiteSpaces=0,i=0,j=0,w=0;
+   uint8_t u[20]={0};
    socket_addr_t socket_address, skt_server;
    socket_t tempSkt;
    socket_t skt = getSocket1(tcpPack->srcPort,tcpPack->destPort);
+   cmd = payload[0];
+
+
 
 
 

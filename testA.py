@@ -29,7 +29,7 @@ def main():
 
     #determine the "well known address" and "well know port" of the server
     well_known_mote = 1;
-    well_known_port=42;
+    well_known_port=41;
     other_well_known_mote=7;
     other_well_known_port = 99;
 
@@ -46,9 +46,13 @@ def main():
     s.testServer(well_known_mote,well_known_port); #needs two, node i connects to port j
     s.runTime(60);#100 b4
 
-    s.testClient(4,well_known_mote,well_known_port,15,50);# Client at node 4 binds to port 15 and attemps to send data to node 1 at port 2 
-    s.runTime(1);   
-    s.runTime(400);#100 b4
+
+    s.ping(1,5,"hello jose \r\n");
+    s.runTime(15);
+
+    #s.testClient(4,well_known_mote,well_known_port,15,50);# Client at node 4 binds to port 15 and attemps to send data to node 1 at port 2 
+    #s.runTime(1);   
+    #s.runTime(400);#100 b4
     #s.runTime(1000);
     #s.testServer(1,41);
     #s.runTime(10)
