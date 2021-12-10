@@ -541,7 +541,18 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
    event void CommandHandler.setAppServer(){}
 
-   event void CommandHandler.setAppClient(){}
+   event void CommandHandler.setAppClient(uint16_t srcPort, uint8_t *payload ){
+
+   pacl p = flying;
+   TCP_Pack *tcpPack = (TCP_Pack*)(sentPacket.payload);
+   uint8_t cmd;
+   socket_addr_t socket_address, skt_server;
+   socket_t tempSkt;
+   sockt_t skt = getSocket1(tcpPack->srcPort,tcpPack->destPort);
+
+
+
+   }
 
    //PROJECT 1 functions---------------------------------------------------
 

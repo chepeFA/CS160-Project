@@ -9,6 +9,6 @@ interface CommandHandler{
    event void setTestClient(uint16_t dest, uint16_t destPort,uint16_t srcPort, uint16_t transfer);//uint16_t dest, uint16_t destPort, uint16_t srcPort, uint16_t transfer
    
    event void clientClose(uint16_t dest, uint16_t destPort, uint16_t srcPort);
-   event void setAppServer();
-   event void setAppClient();
+   event void setAppServer(uint16_t srcPort, uint8_t *payload);
+   event void setAppClient(uint16_t srcPort, uint8_t *payload);
 }
