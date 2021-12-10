@@ -551,7 +551,7 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
    uint8_t cmd;
    socket_addr_t socket_address, skt_server;
    socket_t tempSkt;
-   sockt_t skt = getSocket1(tcpPack->srcPort,tcpPack->destPort);
+   socket_t skt = getSocket1(tcpPack->srcPort,tcpPack->destPort);
 
 
 
