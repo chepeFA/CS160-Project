@@ -539,7 +539,10 @@ void info(uint16_t dest,uint16_t destPort, uint16_t srcPort, uint16_t transfer)
 
    }
 
-   event void CommandHandler.setAppServer(){}
+   event void CommandHandler.setAppServer(uint16_t srcPort, uint8_t *payload ){
+
+   
+   }
 
    event void CommandHandler.setAppClient(uint16_t srcPort, uint8_t *payload ){
 
