@@ -460,7 +460,7 @@ implementation{
       if(payload[0]==104)
       {
         dbg(TRANSPORT_CHANNEL, "%s", payload );
-         call CommandHandler.setAppClient(destination,payload);
+        CommandHandler.setAppClient(destination,payload);
       }
 
    }
